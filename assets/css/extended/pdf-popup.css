@@ -1,0 +1,29 @@
+.pdf-popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.pdf-popup .close-button {
+    color: var(--tertiary);
+    position: absolute;
+    top: 3rem;
+    right: 1.5rem;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.1s;
+}
+
+.pdf-popup .close-button:hover,
+.pdf-popup .close-button:focus {
+    color: var(--primary);
+    text-decoration: none;
+    cursor: pointer;
+}
