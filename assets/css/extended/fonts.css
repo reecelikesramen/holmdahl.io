@@ -1,0 +1,12 @@
+body {
+    font-family: "Source Serif 4", sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.post-content pre,
+code {
+    font-family: "Reddit Mono", monospace;
+    max-height: 40rem;
+}

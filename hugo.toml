@@ -1,0 +1,76 @@
+baseURL = 'https://holmdahl.io'
+languageCode = 'en-us'
+title = 'holmdahl.io'
+theme = 'hugo-PaperMod'
+
+[params]
+customCSS = ["css/extended/fonts.css", "css/extended/pdf-popup.css"]
+mainSections = ["posts", "projects"]
+
+[menus]
+main = [
+    { name = "Home", url = "/", weight = 1 },
+    { name = "About", url = "/about", weight = 2 },
+    { name = "Employers", url = "/employers", weight = 3 },
+    { name = "Posts", url = "/posts", weight = 4 },
+    { name = "Projects", url = "/projects", weight = 5 },
+]
+
+[params.profileMode]
+enabled = true
+title = "Reece Holmdahl"
+subtitle = "Software Engineer & Mathematician"
+imageUrl = "profile/profile.jpeg"
+imageWidth = 200
+imageHeight = 200
+imageTitle = "Reece at Grand Prismatic Spring, Yellowstone"
+buttons = [
+    { name = "About Me", url = "/about" },
+    { name = "For Employers", url = "/employers" },
+    { name = "Contact Me", url = "/contact" },
+    { name = "Resume", url = "/pdf/resume.pdf" },
+]
+
+[params.socialIcons]
+github = { name = "github", url = "https://github.com/reecelikesramen/" }
+linkedin = { name = "linkedin", url = "https://www.linkedin.com/in/reeceholmdahl/" }
+instagram = { name = "instagram", url = "https://www.instagram.com/reece.holmdahl/" }
+
+[params.env]
+# production = true
+description = "Reece Holmdahl's personal website"
+keywords = ["Software Engineer", "Mathematician", "Blog", "Portfolio"]
+author = "Reece Holmdahl"
+images = ["profile/profile.jpeg"]
+DateFormat = "January 2, 2006"
+defaultTheme = "auto"
+disableThemeToggle = false
+ShowReadingTime = true
+ShowShareButtons = true
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+ShowCodeCopyButtons = false
+ShowWordCount = true
+ShowRssButtonInSectionTermList = false
+UseHugoToc = true
+disableSpecial1stPost = false
+disableScrollToTop = false
+comments = false
+hidemeta = false
+hideSummary = false
+showtoc = false
+tocopen = false
+
+[params.assets]
+# disableHLJS = true
+# disableFingerprinting = true
+favicon = "profile/profile.jpeg"
+favicon16x16 = "profile/profile.jpeg"
+favicon32x32 = "profile/profile.jpeg"
+apple_touch_icon = "profile/profile.jpeg"
+safari_pinned_tab = "profile/profile.jpeg"
+
+[params.label]
+text = "holmdahl.io"
+# icon = "profile/profile.jpeg"
+# iconHeight = 10
