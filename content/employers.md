@@ -1,9 +1,16 @@
+
 ---
 title: "My Credentials and Expertise"
 layout: "page"
 url: "/employers"
 summary: "Information and resources for employers potentially interested in hiring me"
 ---
+
+## Summary
+
+```
+AI summarizes this page with input for "looking for relevant information"
+```
 
 ## Outline
 
@@ -23,45 +30,48 @@ summary: "Information and resources for employers potentially interested in hiri
   - [AI Tools](#ai-tools)
   - [SDLC](#sdlc)
 
-## Education
+---
+# Education
 
-### Degrees and Institutions
+## Degrees and Institutions
 
-- University of Minnesota Twin Cities
-  - College: College of Science and Engineering[^multi-i]
-  - Dates: September 2022 - May 2024
-- University of Minnesota Duluth
-  - Degree: Bachelor of Science in Computer Science, Mathematics Minor
-  - GPA: 3.07
-  - College: Swenson College of Science and Engineering
-  - Dates: January 2021 - May 2024
-- Normandale Community College
-  - Dates: September 2020 - December 2020
-- Inver Hills Community College
-  - Degree: Associate of Arts
-  - GPA: 3.06
-  - Dates: September 2019 - May 2021
-- Eagan High School
-  - Degree: High School Diploma
-  - GPA: 3.16
-  - Dates: September 2017 - June 2021
+University of Minnesota Twin Cities
+:   College: College of Science and Engineering[^multi-i]  
+    Dates: September 2022 - May 2024  
+	Tentative GPA: 3.39
 
-### Education Summary
+University of Minnesota Duluth
+:   Degree: Bachelor of Science in Computer Science, Mathematics Minor  
+	College: Swenson College of Science and Engineering  
+	Dates: January 2021 - May 2024  
+	Tentative GPA: 3.14
 
-#### High School (2017-2021)
+Inver Hills Community College
+:   Degree: Associate of Arts  
+    Dates: September 2019 - May 2021  
+    GPA: 3.06
 
+Normandale Community College
+:   Dates: September 2020 - December 2020
+
+Eagan High School
+:   Degree: High School Diploma  
+    Dates: September 2017 - June 2021  
+    GPA: 3.16
+
+---
+## Education Summary
+
+### High School (2017 - 2021)
 I attended Eagan High School in Eagan, Minnesota, graduating with a **3.16 GPA**. I took 5 honors classes, AP Computer Science (Java), and Mobile Apps Development. After my sophomore year, I completed all my coursework at local colleges through the Minnesota Post-secondary Enrollment Options (PSEO) program.
 
-#### Post-Secondary Enrollment Options (2019-2021)
-
+### Post-Secondary Enrollment Options (2019 - 2021)
 While in high school, I attended Inver Hills Community College, Normandale Community College, and University of Minnesota Duluth through the PSEO program. I earned 70 college credits with a **3.06 GPA**, completing my _Associate of Arts_ degree before graduating high school.
 
-#### Undergraduate (2021-2024)
-
+### Undergraduate (2021 - 2024)
 I continued my undergraduate studies at the University of Minnesota Duluth and Twin Cities campuses, I am graduating this May with a Bachelor of Science in _Computer Science_ and a minor in _Mathematics_. <!--graduating with a Bachelor of Science in *Computer Science* and a minor in *Mathematics*. I maintained a **3.07 GPA** throughout my studies. -->
 
-#### Graduate (2025+)
-
+### Graduate (2025+)
 I plan to continue my education in Computer Science and Mathematics by pursuing a master's degree program beginning in 2025. While I have not yet definitively selected an institution or finalized my degree plan, my goal is to orient my studies around topics such as:
 
 - Machine learning and artificial intelligence
@@ -72,9 +82,10 @@ I plan to continue my education in Computer Science and Mathematics by pursuing 
 
 In particular, I am intrigued by the intersection of computer science, mathematics, and robotics, and I hope to explore this interdisciplinary space more deeply during my graduate studies.
 
-### Relevant Coursework
+---
+## Relevant Coursework
 
-I have sorted my coursework by relevance and division descending, with the most relevant and upper-divison courses listed first. The footnotes link to the course number, the syllabus, (if available) the institution where I took the course, and the semester and year I took the course.
+I have sorted my coursework by relevance and division descending, with the most relevant and upper-division courses listed first. The footnotes link to the course number, the syllabus, (if available) the institution where I took the course, and the semester and year I took the course.
 
 - Computer Security[^csci4271], Database Management Systems[^csci4707], Computer Networks[^csci4211]
 
@@ -102,34 +113,73 @@ I have sorted my coursework by relevance and division descending, with the most 
 
 - Calculus-based Physics (I[^phys2013] and II[^phys2015])
 
-## Career History
+---
+# Career History
 
-### Relevant Job Experience
+## Relevant Job Experience
 
-#### Other World Computing
+### Other World Computing
+Positions Held
+:   Jr. Software Engineer  
+    Software Engineer I
 
-Dates: April 2022 - June 2023  
-Department: Backend Services  
-Positions Held:
-- Software Engineer Intern via Maverick Software Consulting (April 2022 - July 2022)
-- Software Engineer I (July 2022 - June 2023)
+Dates
+:   April 2022 - June 2023
 
-#### University of Minnesota Duluth Gamification and Transportation Lab
+Department
+:   Backend Services
 
-Dates: September 2021 - January 2022  
-Position: Paid Research Assistant
+#### Jr. Software Engineer (April 2022 - July 2022)
+As a Jr. Software Engineer, *(Interning via Maverick Software Consulting)* I worked closely with a small team of software engineers on internal projects to support the finance and operations of the company. While interning I:
+- Followed an Agile software development methodology.
+- Quickly learned department frameworks and technologies, including:
+    - C# and .NET Core for services,
+    - React and Blazor for user interfaces,
+    - Entity Framework and MS SQL Server for persistence,
+    - Git and Bitbucket for version control,
+    - Jenkins and Octopus for CI/CD pipeline,
+    - Docker and Portainer for containerization,
+    - and Elasticsearch and Kibana for monitoring.
+- Participated in code reviews and pair programming sessions to improve coding practices.
+- Worked remotely during business hours, attending daily standups, weekly lunch & learns, and biweekly sprint retrospectives and sprint planning.
+- Praised for communication skills and ability to understand complex technical requirements.
 
+#### Software Engineer I (July 2022 - June 2023)
+I took a position as a Software Engineer I after completing several projects as an intern. My performance and communication ability was recognized by the staff engineer, principle engineer, and department manager, and I was offered a full-time position. In this role, I:
+- Completed several complex long-term projects with stakeholders from different departments. See [Professional Projects](#professional-projects).
+- Refined my skills in estimating time to complete stories and epics.
+- Solely responsible for migrating two applications from a legacy ERP solution to Microsoft D365, and jointly responsible with two other coworkers for migrating a different much older and complex application.
+- Worked after-hours several times to deploy and monitor applications to production that disrupt user-end services.
+- Learned and used standards for quick application bootstrapping: efficiently implementing UI, persistence, auth, logging, and containerizing.
+- Assisted the staff engineer in training an intern in their core role responsibilities, including Agile development basics, progress tracking, VCS basics, code testing, and deployment and containerization.
+- Attended monthly progress meetings on epics with upper management.
+
+---
+### University of Minnesota Duluth Gamification and Transportation Lab
+
+Position
+:   Paid Research Assistant  
+
+Dates
+:   September 2021 - January 2022  
+
+#### Job Description
 As a member of a faculty-led research group, I contributed to the development of a mobile game and supporting backend server system. The goal of this research was to test the hypothesis that gamification can intrinsically motivate drivers to adopt safer and more eco-friendly behaviors behind the wheel. Key contributions included:
 - Collaborated with a team of undergrad and graduate researchers to ideate ways to gamify the score of a statistical method that calculates a driver's combined safety and eco-friendliness.
 - Developed backend services using Node.js and Auth0, including setting up an Apache Cassandra database to manage user accounts, game data, and vehicle telemetry used for the statistical models.
 - Configured and maintained a physical server on campus to host the backend services.
 - Used Git for version control of both the backend server and mobile game. This supported collaborative development throughout the project and continued development after I left the research team.
 
-#### Caribou Coffee
+---
+### Caribou Coffee
 
-Dates: September 2023 - June 2024  
-Position: Manager On Duty  
+Position
+:   Manager On Duty
 
+Dates
+:   September 2023 - June 2024  
+
+#### Job Description
 Following a period of significant business transformations in my former software engineering role, the demands of my work began to conflict with the increasing workload of my university courses. I made the difficult decision to resign and took a management position at a busy coffee shop to make ends meet while wrapping up my undergraduate program.
 
 I was responsible for overseeing daily operations and managing a small team of 2-3 baristas per shift. Key contributions included:
@@ -140,24 +190,47 @@ I was responsible for overseeing daily operations and managing a small team of 2
 - Translated high-level business goals and seasonal product quotas from management down to my team on the floor.
 - Maintaining a welcoming, service-oriented demeanor all while multitasking in a fast-paced, high-stress environment.
 
-### Professional Projects
+---
+## Professional Projects
 
-### Certifications
+- salesforce polling service
+- analysis, documentation, framework update, and refactor of work order automation application
+- new internal rma
+- internal apps legacy erp to d365 migration
 
-### Seminars and Events
+---
+## Certifications
 
-## Technical Expertise
+---
+## Seminars and Events
 
-### Programming Languages
+---
+# Technical Expertise
 
-### Frameworks
+## Programming Languages
 
-### Technologies
+---
+## Frameworks
 
-### AI Tools
+---
+## Technologies
 
-### SDLC
+---
+## AI Tools
 
+---
+## SDLC Experience
+
+- iterative waterfall (mobile apps development class)
+- iterative waterfall (computer graphics)
+- scrum (software engineering class)
+- agile, stories, epics, sprints
+
+<!-- line divider included here automatically-->
+
+<!--
+TODO: add descriptions for courses without syllabi
+-->
 [^multi-i]: [Multi-Institution Enrollment](https://onestop.umn.edu/registration/register-classes/register-multiple-umn-campuses) allows students to register for courses at another host campus while enrolled in another.
 [^csci4271]: CSCI 4271W, [Syllabus](/pdf/csci4271w-syllabus.pdf), University of Minnesota Twin Cities, Spring 2024.
 [^csci4707]: CSCI 4707, [Syllabus](/pdf/csci4707-syllabus.pdf), University of Minnesota Twin Cities, Fall 2022.
