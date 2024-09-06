@@ -36,27 +36,27 @@ AI summarizes this page with input for "looking for relevant information"
 ## Degrees and Institutions
 
 University of Minnesota Twin Cities
-:   College: College of Science and Engineering[^multi-i]  
-    Dates: September 2022 - May 2024  
+:   College: College of Science and Engineering[^multi-i]
+    Dates: September 2022 - May 2024
 	Tentative GPA: 3.39
 
 University of Minnesota Duluth
-:   Degree: Bachelor of Science in Computer Science, Mathematics Minor  
-	College: Swenson College of Science and Engineering  
-	Dates: January 2021 - May 2024  
+:   Degree: Bachelor of Science in Computer Science, Mathematics Minor
+	College: Swenson College of Science and Engineering
+	Dates: January 2021 - May 2024
 	Tentative GPA: 3.14
 
 Inver Hills Community College
-:   Degree: Associate of Arts  
-    Dates: September 2019 - May 2021  
+:   Degree: Associate of Arts
+    Dates: September 2019 - May 2021
     GPA: 3.06
 
 Normandale Community College
 :   Dates: September 2020 - December 2020
 
 Eagan High School
-:   Degree: High School Diploma  
-    Dates: September 2017 - June 2021  
+:   Degree: High School Diploma
+    Dates: September 2017 - June 2021
     GPA: 3.16
 
 ---
@@ -120,7 +120,7 @@ I have sorted my coursework by relevance and division descending, with the most 
 
 ### Other World Computing
 Positions Held
-:   Jr. Software Engineer  
+:   Jr. Software Engineer
     Software Engineer I
 
 Dates
@@ -158,10 +158,10 @@ I took a position as a Software Engineer I after completing several projects as 
 ### University of Minnesota Duluth Gamification and Transportation Lab
 
 Position
-:   Paid Research Assistant  
+:   Paid Research Assistant
 
 Dates
-:   September 2021 - January 2022  
+:   September 2021 - January 2022
 
 #### Job Description
 As a member of a faculty-led research group, I contributed to the development of a mobile game and supporting backend server system. The goal of this research was to test the hypothesis that gamification can intrinsically motivate drivers to adopt safer and more eco-friendly behaviors behind the wheel. Key contributions included:
@@ -177,7 +177,7 @@ Position
 :   Manager On Duty
 
 Dates
-:   September 2023 - June 2024  
+:   September 2023 - June 2024
 
 #### Job Description
 Following a period of significant business transformations in my former software engineering role, the demands of my work began to conflict with the increasing workload of my university courses. I made the difficult decision to resign and took a management position at a busy coffee shop to make ends meet while wrapping up my undergraduate program.
@@ -250,8 +250,8 @@ TODO: add descriptions for courses without syllabi
 [^math1134]: MATH 1134, No syllabus currently available, Inver Hills Community College, Spring 2020.
 [^math3298]: MATH 3298, No syllabus currently available, University of Minnesota Duluth, Spring 2022.
 [^math3280]: MATH 3280, No syllabus currently available, University of Minnesota Duluth, Spring 2021.
-[^math4242]: MATH 4242, [Syllabus](/pdf/math4242-syllabus.pdf), University of Minnesota Twin Cities, Spring 2023.
-[^stat3021]: STAT 3021, [Syllabus](/pdf/stat3021-syllabus.pdf), University of Minnesota Twin Cities, Spring 2024.
+<!--[^math4242]: MATH 4242, [Syllabus](/pdf/math4242-syllabus.pdf), University of Minnesota Twin Cities, Spring 2023.-->
+<!--[^stat3021]: STAT 3021, [Syllabus](/pdf/stat3021-syllabus.pdf), University of Minnesota Twin Cities, Spring 2024.-->
 [^cs4212]: CS 4212, No syllabus currently available, University of Minnesota Duluth, Spring 2022.
 [^eng1111]: ENG 1111, No syllabus currently available, Inver Hills Community College, Fall 2020.
 [^writ3150]: WRIT 3150, [Syllabus](/pdf/writ3150-syllabus.pdf), University of Minnesota Duluth, Spring 2022.
