@@ -1,4 +1,4 @@
-baseURL = 'https://holmdahl.io'
+baseURL = 'https://reece.holmdahl.io'
 languageCode = 'en-us'
 title = 'holmdahl.io'
 theme = 'hugo-PaperMod'
@@ -19,7 +19,7 @@ main = [
 [params.profileMode]
 enabled = true
 title = "Reece Holmdahl"
-subtitle = "Software Engineer & Mathematician"
+subtitle = "Software Engineer | CS & Math Graduate from UMN"
 imageUrl = "profile/profile.jpeg"
 imageWidth = 200
 imageHeight = 200
@@ -37,9 +37,18 @@ linkedin = { name = "linkedin", url = "https://www.linkedin.com/in/reeceholmdahl
 instagram = { name = "instagram", url = "https://www.instagram.com/reece.holmdahl/" }
 
 [params.env]
-# production = true
+production = false
+underConstruction = true
 description = "Reece Holmdahl's personal website"
-keywords = ["Software Engineer", "Mathematician", "Blog", "Portfolio"]
+keywords = [
+    "Software Engineer",
+    "Computer Science",
+    "Open to work",
+    "Resume",
+    "Mathematician",
+    "Blog",
+    "Portfolio",
+]
 author = "Reece Holmdahl"
 images = ["profile/profile.jpeg"]
 DateFormat = "January 2, 2006"

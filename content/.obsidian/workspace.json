@@ -69,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "69e6c1d1ce3c8e1d",
@@ -147,11 +148,3 @@
     }
   },
   "active": "c64aaa87879003d3",
-  "lastOpenFiles": [
-    "employers",
-    "pdf/csci4271w-syllabus.pdf.md",
-    "employers.md",
-    "pdf",
-    "Degrees.md"
-  ]
-}
