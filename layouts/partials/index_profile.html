@@ -34,11 +34,6 @@
         <span>{{ .subtitle | markdownify }}</span>
         {{- partial "social_icons.html" -}}
 
-        {{- if site.Params.env.underConstruction }}
-        <div class="under_construction">
-            <p>This site is under construction.</p>
-        </div>
-        {{- else }}
         {{- with .buttons }}
         <div class="buttons">
             {{- range . }}
@@ -58,6 +53,10 @@
             {{- end }}
         </div>
         {{- end }}
+        {{- if site.Params.env.underConstruction }}
+        <div class="under_construction">
+            <p>This site is under construction.</p>
+        </div>
         {{- end }}
     </div>
     {{- end}}
