@@ -25,16 +25,16 @@ imageWidth = 200
 imageHeight = 200
 imageTitle = "Reece at Grand Prismatic Spring, Yellowstone"
 buttons = [
-    { name = "About Me", url = "/about" },
-    { name = "For Employers", url = "/employers" },
-    { name = "Contact Me", url = "/contact" },
+    #{ name = "About Me", url = "/about" },
+    #{ name = "For Employers", url = "/employers" },
+    #{ name = "Contact Me", url = "/contact" },
     { name = "Resume", url = "/pdf/resume.pdf" },
 ]
 
 [params.socialIcons]
 github = { name = "github", url = "https://github.com/reecelikesramen/" }
 linkedin = { name = "linkedin", url = "https://www.linkedin.com/in/reeceholmdahl/" }
-instagram = { name = "instagram", url = "https://www.instagram.com/reece.holmdahl/" }
+#instagram = { name = "instagram", url = "https://www.instagram.com/reece.holmdahl/" }
 
 [params.env]
 production = false
