@@ -46,7 +46,7 @@ proxy.on("proxyRes", (proxyRes, req, res) => {
 
 const server = http.createServer((req, res) => {
   // Proxy to Vite for anything in /assets
-  if (req.url?.startsWith("/assets/js") || req.url?.startsWith("/node_modules")) {
+  if (req.url?.startsWith("/assets/js") || req.url?.startsWith("/node_modules") || req.url?.startsWith("/@vite")) {
     proxy.web(req, res, { target: "http://localhost:5173" })
   }
   // Proxy to Hugo for everything else
