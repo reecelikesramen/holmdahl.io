@@ -5,7 +5,8 @@
     href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
     rel="stylesheet"
 />
-{{- $options := dict "targetPath" "js/bundle.js" -}} {{- $jsBundle :=
-resources.Get "js/index.js" | js.Build $options -}} {{- $jsBundle = $jsBundle |
-resources.Minify -}}
-<script src="{{ $jsBundle.Permalink }}"></script>
+{{ if hugo.IsServer }}
+<script type="module" src="http://localhost:5173/assets/js/index.js"></script>
+{{ else }}
+<script type="module" src="{{ hugo.WorkingDir }}/assets/js/index.js"></script>
+{{ end }}

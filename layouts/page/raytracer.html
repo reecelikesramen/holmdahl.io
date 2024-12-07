@@ -1,0 +1,22 @@
+{{- define "main" }}
+
+<article class="post-single">
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="post-title entry-hint-parent">
+      {{ .Title }}
+    </h1>
+	</header>
+	<div class="post-description">
+		{{ .Description }}
+	</div>
+</article>
+<canvas id="canvas" style="border: 1px solid black;"></canvas>
+
+{{ if hugo.IsServer }}
+<script type="module" src="http://localhost:5173/assets/js/raytracer/index.js"></script>
+{{ else }}
+<script type="module" src="{{ hugo.WorkingDir }}/assets/js/raytracer/index.js"></script>
+{{ end }}
+
+{{- end }}

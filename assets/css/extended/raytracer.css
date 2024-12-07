@@ -1,0 +1,9 @@
+#canvas {
+  width: 60vh;
+  height: 60vh;
+  max-width: 60vw;
+  max-height: 60vw;
+  display: block;
+  margin: 0 auto;
+  image-rendering: pixelated;
+}

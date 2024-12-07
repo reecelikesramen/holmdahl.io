@@ -5,7 +5,7 @@ theme = 'hugo-PaperMod'
 
 [params]
 customCSS = ["css/extended/fonts.css", "css/extended/pdf-popup.css"]
-mainSections = ["posts", "projects"]
+mainSections = ["posts"]
 
 [menus]
 main = [
@@ -37,7 +37,7 @@ linkedin = { name = "linkedin", url = "https://www.linkedin.com/in/reeceholmdahl
 #instagram = { name = "instagram", url = "https://www.instagram.com/reece.holmdahl/" }
 
 [params.env]
-production = false
+production = true
 underConstruction = true
 description = "Reece Holmdahl's personal website"
 keywords = [

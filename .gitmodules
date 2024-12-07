@@ -1,6 +1,6 @@
-[submodule "hugo-PaperMod"]
-	path = hugo-PaperMod
-	url = https://github.com/adityatelange/hugo-PaperMod.git
 [submodule "themes/hugo-PaperMod"]
 	path = themes/hugo-PaperMod
 	url = https://github.com/adityatelange/hugo-PaperMod.git
+[submodule "rust-raytracer"]
+	path = rust-raytracer
+	url = git@github.com:reecelikesramen/rust-raytracer.git
