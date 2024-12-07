@@ -1,7 +1,9 @@
 import httpProxy from "http-proxy"
 import http from "http"
 
-const proxy = httpProxy.createProxyServer({})
+const proxy = httpProxy.createProxyServer({
+  ws: true
+})
 
 // Add headers to all responses
 proxy.on("proxyRes", (proxyRes, req, res) => {
@@ -53,6 +55,12 @@ const server = http.createServer((req, res) => {
   else {
     proxy.web(req, res, { target: "http://localhost:1313" })
   }
+})
+
+// Handle WebSocket connections
+server.on('upgrade', (req, socket, head) => {
+  // Forward WebSocket connections to Vite
+  proxy.ws(req, socket, head, { target: 'http://localhost:5173' })
 })
 
 console.log("Development proxy server running on :3000")
