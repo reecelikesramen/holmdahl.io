@@ -26,20 +26,28 @@ const jsonLinter = linter((view) => {
       })
     }
 
-		// Then try to extract the problematic token/text
-		match = e.message.match(/Unexpected token '(.+?)'|..."(.+?)" is not valid JSON/)
-		if (match) {
-			const problemText = match[1] || match[2]
-			const pos = text.indexOf(problemText)
-			if (pos !== -1) {
-				diagnostics.push({
-					from: pos,
-					to: pos + problemText.length,
-					severity: "error",
-					message: `Unexpected token '${problemText}'`
-				})
-			}
-		}
+    // Then try to extract the problematic token/text
+    match = e.message.match(/Unexpected token '(.+?)'|..."(.+?)" is not valid JSON/)
+    if (match) {
+      // Try the longer match first (match[2])
+      let problemText = match[2]
+      let pos = problemText ? text.indexOf(problemText) : -1
+      
+      // Fall back to single token match if needed
+      if (pos === -1 && match[1]) {
+        problemText = match[1]
+        pos = text.indexOf(problemText)
+      }
+
+      if (pos !== -1) {
+        diagnostics.push({
+          from: pos,
+          to: pos + problemText.length,
+          severity: "error",
+          message: `Unexpected token '${problemText}'`
+        })
+      }
+    }
   }
   return diagnostics
 })
