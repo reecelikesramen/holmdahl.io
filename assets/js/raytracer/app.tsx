@@ -1,36 +1,36 @@
 import { render } from "preact"
 import { useState } from "preact/hooks"
 import CodeMirror from "@uiw/react-codemirror"
-import { json } from "@codemirror/lang-json"
+import { json5, json5ParseLinter } from "codemirror-json5"
 import { linter, Diagnostic } from "@codemirror/lint"
-import JSON5 from 'json5'
+import * as JSON5 from "json5"
 
-const jsonLinter = linter((view) => {
-  const diagnostics: Diagnostic[] = []
-  const text = view.state.doc.toString()
+// const jsonLinter = linter((view) => {
+//   const diagnostics: Diagnostic[] = []
+//   const text = view.state.doc.toString()
   
-  try {
-    JSON5.parse(text)
-  } catch (e) {
-    if (e.lineNumber && e.columnNumber) {
-      // Convert line/column to absolute position
-      const pos = view.state.doc.line(e.lineNumber).from + e.columnNumber - 1
+//   try {
+//     JSON5.parse(text)
+//   } catch (e) {
+//     if (e.lineNumber && e.columnNumber) {
+//       // Convert line/column to absolute position
+//       const pos = view.state.doc.line(e.lineNumber).from + e.columnNumber - 1
       
-      // Try to determine the token length for better highlighting
-      const lineContent = view.state.doc.line(e.lineNumber).text
-      const tokenMatch = lineContent.slice(e.columnNumber - 1).match(/^[^\s,\[\]{}:]+/)
-      const tokenLength = tokenMatch ? tokenMatch[0].length : 1
+//       // Try to determine the token length for better highlighting
+//       const lineContent = view.state.doc.line(e.lineNumber).text
+//       const tokenMatch = lineContent.slice(e.columnNumber - 1).match(/^[^\s,\[\]{}:]+/)
+//       const tokenLength = tokenMatch ? tokenMatch[0].length : 1
 
-      diagnostics.push({
-        from: pos,
-        to: pos + tokenLength,
-        severity: "error",
-        message: `${e.message} (line ${e.lineNumber}, column ${e.columnNumber})`
-      })
-    }
-  }
-  return diagnostics
-})
+//       diagnostics.push({
+//         from: pos,
+//         to: pos + tokenLength,
+//         severity: "error",
+//         message: `${e.message} (line ${e.lineNumber}, column ${e.columnNumber})`
+//       })
+//     }
+//   }
+//   return diagnostics
+// })
 
 function JsonEditor() {
   const [value, setValue] = useState('{\n  "hello": "world"\n}')
@@ -41,7 +41,7 @@ function JsonEditor() {
       <CodeMirror
         value={value}
         height="400px"
-        extensions={[json(), jsonLinter]}
+        extensions={[json5(), linter(json5ParseLinter())]}
         onChange={(val) => setValue(val)}
         theme="dark"
       />
