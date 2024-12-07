@@ -1,5 +1,5 @@
 import { render } from "preact"
-import { useState } from "preact/hooks"
+import { useState, useEffect } from "preact/hooks"
 import CodeMirror from "@uiw/react-codemirror"
 import { json5, json5ParseLinter } from "codemirror-json5"
 import { linter, Diagnostic } from "@codemirror/lint"
@@ -34,6 +34,16 @@ import * as JSON5 from "json5"
 
 function JsonEditor() {
   const [value, setValue] = useState('{\n  "hello": "world"\n}')
+  const [theme, setTheme] = useState(localStorage.getItem('theme') === 'dark' ? 'dark' : 'light')
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setTheme(localStorage.getItem('theme') === 'dark' ? 'dark' : 'light')
+    }
+    
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
 
   return (
     <div style={{ maxWidth: "800px", margin: "20px auto" }}>
@@ -43,7 +53,7 @@ function JsonEditor() {
         height="400px"
         extensions={[json5(), linter(json5ParseLinter())]}
         onChange={(val) => setValue(val)}
-        theme="dark"
+        theme={theme}
       />
        <pre style={{ marginTop: "20px" }}>
          {(() => {
