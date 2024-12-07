@@ -11,11 +11,11 @@ const jsonLinter = linter((view) => {
   try {
     JSON.parse(text)
   } catch (e) {
-		// Look for Invalid JSON errors
-		console.log(e.message);
+    // Look for Invalid JSON errors
+    console.log(e.message);
 
-    // Get the line number from the error message
-    const match = e.message.match(/at position (\d+)/)
+    // First try to get position from error message
+    let match = e.message.match(/at position (\d+)/)
     if (match) {
       const pos = parseInt(match[1])
       diagnostics.push({
@@ -24,6 +24,21 @@ const jsonLinter = linter((view) => {
         severity: "error",
         message: e.message
       })
+    } else {
+      // Try to extract the problematic token/text
+      match = e.message.match(/Unexpected token '(.+?)'|..."(.+?)" is not valid JSON/)
+      if (match) {
+        const problemText = match[1] || match[2]
+        const pos = text.indexOf(problemText)
+        if (pos !== -1) {
+          diagnostics.push({
+            from: pos,
+            to: pos + problemText.length,
+            severity: "error",
+            message: `Unexpected token '${problemText}'`
+          })
+        }
+      }
     }
   }
   return diagnostics
