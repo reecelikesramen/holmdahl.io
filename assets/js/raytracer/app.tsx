@@ -37,12 +37,39 @@ function JsonEditor() {
   const [theme, setTheme] = useState(localStorage.getItem('pref-theme') === 'dark' ? 'dark' : 'light')
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      setTheme(localStorage.getItem('theme') === 'dark' ? 'dark' : 'light')
+    // Initial theme check
+    const checkTheme = () => {
+      const isDark = localStorage.getItem('pref-theme') === 'dark'
+      setTheme(isDark ? 'dark' : 'light')
+    }
+
+    // Watch for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          checkTheme()
+        }
+      })
+    })
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+
+    // Check theme on storage changes
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'pref-theme') {
+        checkTheme()
+      }
     }
     
     window.addEventListener('storage', handleStorageChange)
-    return () => window.removeEventListener('storage', handleStorageChange)
+    
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('storage', handleStorageChange)
+    }
   }, [])
 
   return (
