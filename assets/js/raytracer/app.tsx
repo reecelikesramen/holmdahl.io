@@ -3,51 +3,30 @@ import { useState } from "preact/hooks"
 import CodeMirror from "@uiw/react-codemirror"
 import { json } from "@codemirror/lang-json"
 import { linter, Diagnostic } from "@codemirror/lint"
+import { parse as parseJson } from "@humanwhocodes/parse-json"
 
 const jsonLinter = linter((view) => {
   const diagnostics: Diagnostic[] = []
   const text = view.state.doc.toString()
   
   try {
-    JSON.parse(text)
+    parseJson(text)
   } catch (e) {
-    // Look for Invalid JSON errors
-    console.log(e.message);
+    if (e.line && e.column) {
+      // Convert line/column to absolute position
+      const pos = view.state.doc.line(e.line).from + e.column - 1
+      
+      // Try to determine the token length for better highlighting
+      const lineContent = view.state.doc.line(e.line).text
+      const tokenMatch = lineContent.slice(e.column - 1).match(/^[^\s,\[\]{}:]+/)
+      const tokenLength = tokenMatch ? tokenMatch[0].length : 1
 
-    // First try to get position from error message
-    let match = e.message.match(/at position (\d+)/)
-    if (match) {
-      const pos = parseInt(match[1])
       diagnostics.push({
         from: pos,
-        to: pos + 1,
+        to: pos + tokenLength,
         severity: "error",
         message: e.message
       })
-    }
-
-    // Then try to extract the problematic token/text
-    match = e.message.match(/Unexpected token '(.+?)', ..."(.+?)" is not valid JSON/s)
-    if (match) {
-      // Try the longer match first (match[2])
-			console.log(match)
-      let problemText = match[2]
-      let pos = problemText ? text.indexOf(problemText) : -1
-      
-      // Fall back to single token match if needed
-      if (pos === -1 && match[1]) {
-        problemText = match[1]
-        pos = text.indexOf(problemText)
-      }
-
-      if (pos !== -1) {
-        diagnostics.push({
-          from: pos,
-          to: pos + problemText.length,
-          severity: "error",
-          message: `Unexpected token '${problemText}'`
-        })
-      }
     }
   }
   return diagnostics
