@@ -1,7 +1,7 @@
 import { render } from "preact"
 import { useState } from "preact/hooks"
 import CodeMirror from "@uiw/react-codemirror"
-import { json } from "@codemirror/lang-json"
+import { json5 } from "@codemirror/lang-json5"
 import { linter, Diagnostic } from "@codemirror/lint"
 import JSON5 from 'json5'
 
@@ -41,7 +41,7 @@ function JsonEditor() {
       <CodeMirror
         value={value}
         height="400px"
-        extensions={[json(), jsonLinter]}
+        extensions={[json5(), jsonLinter]}
         onChange={(val) => setValue(val)}
         theme="dark"
       />
