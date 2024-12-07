@@ -34,7 +34,7 @@ import * as JSON5 from "json5"
 
 function JsonEditor() {
   const [value, setValue] = useState('{\n  "hello": "world"\n}')
-  const [theme, setTheme] = useState(localStorage.getItem('theme') === 'dark' ? 'dark' : 'light')
+  const [theme, setTheme] = useState(localStorage.getItem('pref-theme') === 'dark' ? 'dark' : 'light')
 
   useEffect(() => {
     const handleStorageChange = () => {
