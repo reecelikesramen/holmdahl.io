@@ -11,6 +11,9 @@ const jsonLinter = linter((view) => {
   try {
     JSON.parse(text)
   } catch (e) {
+		// Look for Invalid JSON errors
+		console.log(e.message);
+
     // Get the line number from the error message
     const match = e.message.match(/at position (\d+)/)
     if (match) {
@@ -39,8 +42,7 @@ function JsonEditor() {
         onChange={(val) => setValue(val)}
         theme="dark"
       />
-			 {/* Hide output for now */}
-       {/* <pre style={{ marginTop: "20px" }}>
+       <pre style={{ marginTop: "20px" }}>
          {(() => {
            try {
              return JSON.stringify(JSON.parse(value), null, 2)
@@ -48,7 +50,7 @@ function JsonEditor() {
              return `Invalid JSON: ${e.message}`
            }
          })()}
-       </pre> */}
+       </pre>
      </div>
    )
  }
