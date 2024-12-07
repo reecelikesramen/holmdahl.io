@@ -27,9 +27,10 @@ const jsonLinter = linter((view) => {
     }
 
     // Then try to extract the problematic token/text
-    match = e.message.match(/Unexpected token '(.+?)'|..."(.+?)" is not valid JSON/)
+    match = e.message.match(/Unexpected token '(.+)', ..."(.+)" is not valid JSON/)
     if (match) {
       // Try the longer match first (match[2])
+			console.log(match)
       let problemText = match[2]
       let pos = problemText ? text.indexOf(problemText) : -1
       
