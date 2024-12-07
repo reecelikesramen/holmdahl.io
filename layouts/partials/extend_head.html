@@ -5,8 +5,4 @@
     href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
     rel="stylesheet"
 />
-{{ if hugo.IsServer }}
-<script type="module" src="http://localhost:5173/assets/js/index.js"></script>
-{{ else }}
-<script type="module" src="{{ hugo.WorkingDir }}/assets/js/index.js"></script>
-{{ end }}
+<script type="module" src="{{ if hugo.IsServer }}http://localhost:3000{{ end }}/assets/js/index.js"></script>

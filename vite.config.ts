@@ -20,4 +20,5 @@ export default defineConfig({
       input: globSync("public/**/*.html"),
     },
   },
+  base: "https://reece.holmdahl.io",
 })

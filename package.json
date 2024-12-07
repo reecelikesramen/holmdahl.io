@@ -3,17 +3,24 @@
   "name": "holmdahl.io",
   "type": "module",
   "scripts": {
-    "dev": "concurrently 'vite' 'hugo server'",
-    "build": "hugo --baseURL '/' && vite build && shx cp ./serve.json ./dist/serve.json",
+    "dev": "concurrently 'vite' 'hugo server' 'node ./dev-server.js'",
+    "build": "hugo --baseURL '/' && vite build --base '/' && shx cp ./serve.json ./dist/serve.json",
+    "build:prod": "hugo && vite build",
     "clean": "rm -rf public && rm -rf dist",
     "serve": "serve dist"
   },
   "devDependencies": {
+    "@preact/preset-vite": "^2.9.2",
+    "@types/http-proxy": "^1.17.15",
+    "@types/node": "^22.10.1",
     "concurrently": "^9.1.0",
     "glob": "^11.0.0",
+    "http": "^0.0.1-security",
+    "http-proxy": "^1.18.1",
     "hugo-bin": "^0.136.3",
     "serve": "^14.2.4",
     "shx": "^0.3.4",
+    "typescript": "^5.7.2",
     "vite": "^5.4.11",
     "vite-plugin-top-level-await": "^1.4.4",
     "vite-plugin-wasm": "^3.3.0"
