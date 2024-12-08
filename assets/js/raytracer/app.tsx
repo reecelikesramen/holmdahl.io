@@ -1,5 +1,5 @@
 import { render } from "preact"
-import { useState, useEffect, useRef } from "preact/hooks"
+import { useState, useEffect, useRef, useCallback } from "preact/hooks"
 import CodeMirror from "@uiw/react-codemirror"
 import { json5, json5ParseLinter } from "codemirror-json5"
 import { linter } from "@codemirror/lint"
@@ -7,7 +7,7 @@ import * as JSON5 from "json5"
 import defaultScene from "./scenes/cornell_room_quad.json?raw"
 import init, { RayTracer, initThreadPool } from "./pkg/raytracer_wasm.js"
 
-function Raytracer({ sceneJson }) {
+function Raytracer({ sceneJson, wasmModule }) {
   const [raytracer, setRaytracer] = useState(null)
   const renderFrameId = useRef(null)
   const width = 600
@@ -23,9 +23,6 @@ function Raytracer({ sceneJson }) {
     }
 
     const setupRaytracer = async () => {
-      await init()
-      await initThreadPool(navigator.hardwareConcurrency)
-
       const scene_args = {
         width,
         height,
@@ -177,6 +174,24 @@ function JsonEditor({ value, onChange }) {
 
 function App() {
   const [sceneCode, setSceneCode] = useState(defaultScene)
+  const [wasmModule, setWasmModule] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const initWasm = async () => {
+      try {
+        await init()
+        await initThreadPool(navigator.hardwareConcurrency)
+        setWasmModule(true)
+      } catch (error) {
+        console.error("Failed to initialize WASM:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    
+    initWasm()
+  }, [])
 
   const handleSceneChange = (val) => {
     try {
@@ -187,6 +202,10 @@ function App() {
     }
   }
 
+  if (isLoading) {
+    return <div>Loading WebAssembly modules...</div>
+  }
+
   return (
     <div>
       <JsonEditor 
@@ -195,6 +214,7 @@ function App() {
       />
       <Raytracer 
         sceneJson={sceneCode}
+        wasmModule={wasmModule}
       />
     </div>
   )
