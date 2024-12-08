@@ -159,8 +159,8 @@ function JsonEditor({ value, onChange }) {
   }, [])
 
   return (
-    <div style={{ maxWidth: "500px", margin: "20px auto" }}>
-      <h2>Scene Editor</h2>
+    <div>
+      <h2 style={{ marginTop: 0 }}>Scene Editor</h2>
       <CodeMirror
         value={value}
         height="400px"
@@ -206,16 +206,55 @@ function App() {
     return <div>Loading WebAssembly modules...</div>
   }
 
+  const [isDragging, setIsDragging] = useState(false);
+  
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  const handleMouseMove = useCallback((e) => {
+    if (!isDragging) return;
+    
+    const container = document.querySelector('.raytracer-container');
+    if (!container) return;
+    
+    const containerRect = container.getBoundingClientRect();
+    const editorContainer = container.querySelector('.editor-container');
+    if (!editorContainer) return;
+    
+    const newWidth = e.clientX - containerRect.left;
+    if (newWidth >= 400 && (containerRect.width - newWidth) >= 400) {
+      editorContainer.style.width = `${newWidth}px`;
+      editorContainer.style.flex = 'none';
+    }
+  }, [isDragging]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+    document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', handleMouseUp);
+  }, [handleMouseMove]);
+
   return (
-    <div>
-      <JsonEditor 
-        value={sceneCode} 
-        onChange={handleSceneChange}
+    <div className="raytracer-container">
+      <div className="editor-container">
+        <JsonEditor 
+          value={sceneCode} 
+          onChange={handleSceneChange}
+        />
+      </div>
+      <div 
+        className={`resize-handle ${isDragging ? 'dragging' : ''}`}
+        onMouseDown={handleMouseDown}
       />
-      <Raytracer 
-        sceneJson={sceneCode}
-        wasmModule={wasmModule}
-      />
+      <div className="canvas-container">
+        <Raytracer 
+          sceneJson={sceneCode}
+          wasmModule={wasmModule}
+        />
+      </div>
     </div>
   )
 }

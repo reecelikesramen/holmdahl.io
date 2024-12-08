@@ -1,9 +1,43 @@
+.raytracer-container {
+  display: flex;
+  width: 95vw;
+  margin: 20px auto;
+  position: relative;
+  gap: 4px;
+}
+
+.editor-container {
+  min-width: 400px;
+  flex: 1;
+}
+
+.canvas-container {
+  min-width: 400px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #canvas {
-  width: 60vh;
-  height: 60vh;
-  max-width: 60vw;
-  max-height: 60vw;
+  width: 600px;
+  max-width: 100%;
+  aspect-ratio: 1/1;
   display: block;
-  margin: 0 auto;
   image-rendering: pixelated;
+}
+
+.resize-handle {
+  width: 8px;
+  background-color: var(--border);
+  cursor: col-resize;
+  transition: background-color 0.2s;
+}
+
+.resize-handle:hover {
+  background-color: var(--primary);
+}
+
+.resize-handle.dragging {
+  background-color: var(--primary);
 }
