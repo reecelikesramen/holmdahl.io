@@ -4,6 +4,9 @@ import CodeMirror from "@uiw/react-codemirror"
 import { json5, json5ParseLinter } from "codemirror-json5"
 import { linter, Diagnostic } from "@codemirror/lint"
 import * as JSON5 from "json5"
+import defaultScene from "./scenes/cornell_room_quad.json?raw"
+import init, { RayTracer, initThreadPool } from "./pkg/raytracer_wasm.js"
+import { threads } from "wasm-feature-detect"
 
 // const jsonLinter = linter((view) => {
 //   const diagnostics: Diagnostic[] = []
@@ -32,8 +35,8 @@ import * as JSON5 from "json5"
 //   return diagnostics
 // })
 
-function JsonEditor() {
-  const [value, setValue] = useState('{\n  "hello": "world"\n}')
+function RaytracerApp() {
+  const [sceneCode, setSceneCode] = useState(defaultScene)
   const [theme, setTheme] = useState(localStorage.getItem('pref-theme') === 'dark' ? 'dark' : 'light')
 
   useEffect(() => {
@@ -59,16 +62,23 @@ function JsonEditor() {
     <div style={{ maxWidth: "800px", margin: "20px auto" }}>
       <h2>JSON Editor</h2>
       <CodeMirror
-        value={value}
+        value={sceneCode}
         height="400px"
         extensions={[json5(), linter(json5ParseLinter())]}
-        onChange={(val) => setValue(val)}
+        onChange={(val) => {
+					try {
+						let json = JSON5.parse(val)
+						setSceneCode(JSON5.stringify(json, null, 2))
+					} catch (e) {
+						console.error(e)
+					}
+				}}
         theme={theme}
       />
        <pre style={{ marginTop: "20px" }}>
          {(() => {
            try {
-             return JSON.stringify(JSON5.parse(value), null, 2)
+             return JSON.stringify(JSON5.parse(sceneCode), null, 2)
            } catch (e) {
              return `Invalid JSON: ${e.message}`
            }
@@ -78,4 +88,4 @@ function JsonEditor() {
    )
  }
 
- render(<JsonEditor />, document.getElementById("editor")!)
+ render(<RaytracerApp />, document.getElementById("app")!)
