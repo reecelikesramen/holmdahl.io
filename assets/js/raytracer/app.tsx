@@ -80,7 +80,7 @@ function Raytracer({ sceneJson, wasmModule }) {
   }, [sceneJson])
 
   const runChunkedProcessingWithRAF = (raytracer) => {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       const TARGET_MS_MIN = 1000 / 8.5
       const TARGET_MS_MAX = 1000 / 7.5
       const TARGET_MS_MID = (TARGET_MS_MIN + TARGET_MS_MAX) / 2
@@ -159,7 +159,7 @@ function JsonEditor({ value, onChange }) {
   }, [])
 
   return (
-    <div style={{ maxWidth: "800px", margin: "20px auto" }}>
+    <div style={{ maxWidth: "500px", margin: "20px auto" }}>
       <h2>Scene Editor</h2>
       <CodeMirror
         value={value}
@@ -196,9 +196,9 @@ function App() {
   const handleSceneChange = (val) => {
     try {
       let json = JSON5.parse(val)
-      setSceneCode(JSON5.stringify(json, null, 2))
+      setSceneCode(JSON.stringify(json, null, 2))
     } catch (e) {
-      console.error(e)
+      console.log("error parsing JSON, ignoring")
     }
   }
 
