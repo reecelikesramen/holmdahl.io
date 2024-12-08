@@ -222,12 +222,18 @@ function App() {
     
     const containerRect = container.getBoundingClientRect();
     const editorContainer = container.querySelector('.editor-container');
-    if (!editorContainer) return;
+    const canvasContainer = container.querySelector('.canvas-container');
+    if (!editorContainer || !canvasContainer) return;
     
     const newWidth = e.clientX - containerRect.left;
-    if (newWidth >= 400 && (containerRect.width - newWidth) >= 400) {
-      editorContainer.style.width = `${newWidth}px`;
-      editorContainer.style.flex = 'none';
+    const totalWidth = containerRect.width;
+    
+    if (newWidth >= 400 && (totalWidth - newWidth) >= 400) {
+      const editorPercent = (newWidth / totalWidth) * 100;
+      const canvasPercent = 100 - editorPercent;
+      
+      editorContainer.style.width = `${editorPercent}%`;
+      canvasContainer.style.width = `${canvasPercent}%`;
     }
   }, [isDragging]);
 

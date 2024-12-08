@@ -1,22 +1,37 @@
+.raytracer-page {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+.raytracer-page .post-single {
+  max-width: var(--main-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
 .raytracer-container {
   display: flex;
-  width: 95vw;
-  margin: 20px auto;
+  width: 100%;
+  margin: 20px 0;
   position: relative;
   gap: 4px;
+  overflow: hidden;
 }
 
 .editor-container {
+  width: 50%;
   min-width: 400px;
-  flex: 1;
+  padding: 0 1rem;
 }
 
 .canvas-container {
+  width: 50%;
   min-width: 400px;
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 1rem;
 }
 
 #canvas {
