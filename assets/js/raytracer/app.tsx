@@ -8,33 +8,6 @@ import defaultScene from "./scenes/cornell_room_quad.json?raw"
 import init, { RayTracer, initThreadPool } from "./pkg/raytracer_wasm.js"
 import { threads } from "wasm-feature-detect"
 
-// const jsonLinter = linter((view) => {
-//   const diagnostics: Diagnostic[] = []
-//   const text = view.state.doc.toString()
-  
-//   try {
-//     JSON5.parse(text)
-//   } catch (e) {
-//     if (e.lineNumber && e.columnNumber) {
-//       // Convert line/column to absolute position
-//       const pos = view.state.doc.line(e.lineNumber).from + e.columnNumber - 1
-      
-//       // Try to determine the token length for better highlighting
-//       const lineContent = view.state.doc.line(e.lineNumber).text
-//       const tokenMatch = lineContent.slice(e.columnNumber - 1).match(/^[^\s,\[\]{}:]+/)
-//       const tokenLength = tokenMatch ? tokenMatch[0].length : 1
-
-//       diagnostics.push({
-//         from: pos,
-//         to: pos + tokenLength,
-//         severity: "error",
-//         message: `${e.message} (line ${e.lineNumber}, column ${e.columnNumber})`
-//       })
-//     }
-//   }
-//   return diagnostics
-// })
-
 function RaytracerApp() {
   const [sceneCode, setSceneCode] = useState(defaultScene)
   const [theme, setTheme] = useState(localStorage.getItem('pref-theme') === 'dark' ? 'dark' : 'light')
