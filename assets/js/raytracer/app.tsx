@@ -245,7 +245,7 @@ function App() {
                   itemSize={35}
                 >
                   {({ index, style }) => (
-                    <div className="asset-item" style={style}>
+                    <div className="scene-item" style={style}>
                       Scene {index + 1}
                     </div>
                   )}
@@ -257,12 +257,12 @@ function App() {
         <Pane minSize={450}>
           <div className="editor-pane">
             <div className="pane-title">
-              Scene Editor
               {!showScenes && (
-                <button onClick={() => setShowScenes(true)}>
+                <button onClick={() => setShowScenes(true)} style={{ left: '8px', right: 'auto' }}>
                   ◪
                 </button>
               )}
+              Scene Editor
             </div>
             <div className="editor-container">
               <JsonEditor 
