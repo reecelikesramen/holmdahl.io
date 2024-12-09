@@ -1,17 +1,17 @@
 {{- define "main" }}
 
+<article class="post-single">
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="post-title entry-hint-parent">
+      {{ .Title }}
+    </h1>
+  </header>
+  <div class="post-description">
+    {{ .Description }}
+  </div>
+</article>
 <div class="raytracer-page">
-  <article class="post-single">
-    <header class="post-header">
-      {{ partial "breadcrumbs.html" . }}
-      <h1 class="post-title entry-hint-parent">
-        {{ .Title }}
-      </h1>
-    </header>
-    <div class="post-description">
-      {{ .Description }}
-    </div>
-  </article>
 
   <div id="app"></div>
 </div>

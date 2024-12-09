@@ -4,7 +4,7 @@ title = 'holmdahl.io'
 theme = 'hugo-PaperMod'
 
 [params]
-customCSS = ["css/extended/fonts.css", "css/extended/pdf-popup.css"]
+customCSS = ["css/extended/fonts.css", "css/extended/pdf-popup.css", "css/extended/raytracer.css"]
 mainSections = ["posts"]
 
 [menus]
@@ -83,3 +83,12 @@ safari_pinned_tab = "profile/profile.jpeg"
 text = "holmdahl.io"
 # icon = "profile/profile.jpeg"
 # iconHeight = 10
+
+[outputs]
+home = ["HTML", "RSS", "JSON"] # Add JSON to outputs
+
+[outputFormats]
+[outputFormats.JSON]
+mediaType = "application/json"
+baseName = "raytracer/index"
+isPlainText = true
