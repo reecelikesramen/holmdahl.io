@@ -60,24 +60,36 @@ export function AssetList({ onClose }: AssetListProps) {
 
   const checkDownloadedAssets = async () => {
     const db = await openDB()
-    const modelTx = db.transaction(['models'], 'readonly')
-    const textureTx = db.transaction(['textures'], 'readonly')
-    
-    const modelStore = modelTx.objectStore('models')
-    const textureStore = textureTx.objectStore('textures')
-
     const downloaded = new Set<string>()
 
-    for (const model of models) {
-      const result = await modelStore.get(model.path)
-      if (result) downloaded.add(model.path)
-    }
+    // Check models
+    const modelChecks = models.map(model => new Promise<void>((resolve) => {
+      const tx = db.transaction(['models'], 'readonly')
+      const store = tx.objectStore('models')
+      const request = store.get(model.path)
+      
+      request.onsuccess = () => {
+        if (request.result) downloaded.add(model.path)
+        resolve()
+      }
+      request.onerror = () => resolve()
+    }))
 
-    for (const texture of textures) {
-      const result = await textureStore.get(texture.path)
-      if (result) downloaded.add(texture.path)
-    }
+    // Check textures
+    const textureChecks = textures.map(texture => new Promise<void>((resolve) => {
+      const tx = db.transaction(['textures'], 'readonly')
+      const store = tx.objectStore('textures')
+      const request = store.get(texture.path)
+      
+      request.onsuccess = () => {
+        if (request.result) downloaded.add(texture.path)
+        resolve()
+      }
+      request.onerror = () => resolve()
+    }))
 
+    // Wait for all checks to complete
+    await Promise.all([...modelChecks, ...textureChecks])
     setDownloadedAssets(downloaded)
   }
 
