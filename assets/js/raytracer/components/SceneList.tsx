@@ -37,7 +37,9 @@ export function SceneList({ onSceneSelect, onClose }: SceneListProps) {
 
   const loadScene = async (scene: Scene) => {
     const db = await openDB()
-    const storedScene = await db.get('scenes', scene.path)
+    const transaction = db.transaction(['scenes'], 'readonly')
+    const store = transaction.objectStore('scenes')
+    const storedScene = await store.get(scene.path)
 
     if (storedScene && storedScene.hash === scene.hash) {
       onSceneSelect(storedScene.content)
@@ -45,7 +47,9 @@ export function SceneList({ onSceneSelect, onClose }: SceneListProps) {
       const response = await fetch(scene.path)
       const content = await response.text()
       
-      await db.put('scenes', {
+      const writeTransaction = db.transaction(['scenes'], 'readwrite')
+      const writeStore = writeTransaction.objectStore('scenes')
+      await writeStore.put({
         path: scene.path,
         hash: scene.hash,
         content
