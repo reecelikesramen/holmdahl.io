@@ -1,6 +1,7 @@
 import { render } from "preact"
 import { useState, useEffect, useRef } from "preact/hooks"
 import SplitPane, { Pane } from 'split-pane-react'
+import { FixedSizeList } from 'react-window'
 import 'split-pane-react/esm/themes/default.css'
 import CodeMirror from "@uiw/react-codemirror"
 import { vscodeDark, vscodeLight } from '@uiw/codemirror-theme-vscode'
@@ -259,7 +260,18 @@ function App() {
                 <button onClick={() => setShowAssets(false)}>✕</button>
               </div>
               <div className="assets-container">
-                {/* Assets content will go here */}
+                <FixedSizeList
+                  height={565} // Container height minus title bar
+                  width="100%"
+                  itemCount={100}
+                  itemSize={35}
+                >
+                  {({ index, style }) => (
+                    <div className="asset-item" style={style}>
+                      Asset Item {index + 1}
+                    </div>
+                  )}
+                </FixedSizeList>
               </div>
             </div>
           </Pane>
