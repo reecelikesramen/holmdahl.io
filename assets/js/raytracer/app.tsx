@@ -149,15 +149,9 @@ function JsonEditor({ value, onChange }) {
       setTheme(isDark ? 'dark' : 'light')
     }
 
-    const observer = new MutationObserver(checkTheme)
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ['class']
-    })
+    document.getElementById("theme-toggle").addEventListener("click", checkTheme)
     
     checkTheme()
-    
-    return () => observer.disconnect()
   }, [])
 
   return (
