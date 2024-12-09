@@ -144,3 +144,41 @@
 .scene-item:active {
   background-color: var(--border);
 }
+
+.list-container {
+  height: calc(100% - 40px);  /* Subtract title bar height */
+  overflow: hidden;
+}
+
+.assets-container {
+  height: 100%;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.asset-section {
+  margin-bottom: 20px;
+}
+
+.asset-section h3 {
+  margin: 0 0 10px 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.asset-item {
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.asset-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.asset-icon {
+  opacity: 0.6;
+  font-family: monospace;
+}
