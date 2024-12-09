@@ -245,7 +245,11 @@ function App() {
                   itemSize={35}
                 >
                   {({ index, style }) => (
-                    <div className="scene-item" style={style}>
+                    <div 
+                      className="scene-item" 
+                      style={style}
+                      onClick={() => console.log(`Selected scene ${index + 1}`)}
+                    >
                       Scene {index + 1}
                     </div>
                   )}
