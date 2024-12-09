@@ -1,3 +1,8 @@
+/* Global font settings */
+.raytracer-page, .pane-title, .asset-item, .scene-item {
+  font-family: 'Reddit Sans', sans-serif;
+}
+
 .raytracer-page {
   width: 100vw;
   position: relative;
@@ -135,6 +140,7 @@
   border-bottom: 1px solid var(--border);
   cursor: pointer;
   transition: background-color 0.2s;
+  font-size: 12px;
 }
 
 .scene-item:hover {
@@ -172,6 +178,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 12px;
 }
 
 .asset-item:hover {
