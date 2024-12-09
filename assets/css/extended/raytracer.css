@@ -10,10 +10,17 @@
   padding: 0 1rem;
 }
 
+.raytracer-page #app {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+
 .raytracer-container {
   display: flex;
   width: 100%;
-  margin: 20px 0;
+  max-width: 1400px;
+  margin: 20px auto;
   position: relative;
   gap: 4px;
   overflow: hidden;
@@ -35,8 +42,8 @@
 }
 
 #canvas {
-  width: 600px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 600px;
   aspect-ratio: 1/1;
   display: block;
   image-rendering: pixelated;
