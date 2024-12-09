@@ -121,7 +121,9 @@ function App() {
                 Assets
                 <button onClick={() => setShowAssets(false)}>✕</button>
               </div>
-              <AssetList onClose={() => setShowAssets(false)} />
+              <div className="list-container">
+                <AssetList onClose={() => setShowAssets(false)} />
+              </div>
             </div>
           </Pane>
         )}

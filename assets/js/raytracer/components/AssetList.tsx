@@ -126,12 +126,7 @@ export function AssetList({ onClose }: AssetListProps) {
   if (error) return <div>Error: {error}</div>
 
   return (
-    <div className="editor-pane">
-      <div className="pane-title">
-        Assets
-        <button onClick={onClose}>✕</button>
-      </div>
-      <div className="assets-container">
+    <div className="assets-container">
         <div className="asset-section">
           <h3>Models</h3>
           {models.map(model => (
