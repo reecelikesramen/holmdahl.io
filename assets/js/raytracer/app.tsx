@@ -26,7 +26,7 @@ function Raytracer({ sceneJson, wasmModule }) {
       const scene_args = {
         width,
         height,
-        rays_per_pixel: 25,
+        rays_per_pixel: 16,
       }
 
       try {
@@ -40,7 +40,7 @@ function Raytracer({ sceneJson, wasmModule }) {
         // run quarter resolution
         let date_start = performance.now()
         rt.set_dimensions(Math.floor(120), Math.floor((120 * height) / width))
-        rt.sqrt_rays_per_pixel = 20
+        rt.sqrt_rays_per_pixel = 12
         await runChunkedProcessingWithRAF(rt)
         console.log("Quarter raytrace in", (performance.now() - date_start).toFixed(2), "ms!")
 
@@ -55,7 +55,7 @@ function Raytracer({ sceneJson, wasmModule }) {
 
         // progressively run full resolution
         let scans = 0
-        while (scans < 5 && !stop) {
+        while (scans < 1 && !stop) {
           await runChunkedProcessingWithRAF(rt)
           scans++
 
@@ -247,7 +247,7 @@ function App() {
     <div className="raytracer-container">
       <div className="editor-container">
         <JsonEditor 
-          value={sceneCode} 
+          value={defaultScene} 
           onChange={handleSceneChange}
         />
       </div>
