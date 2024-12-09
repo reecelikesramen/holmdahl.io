@@ -84,8 +84,12 @@ function Raytracer({ sceneJson, wasmModule }) {
 
   const runChunkedProcessingWithRAF = (raytracer) => {
     return new Promise<void>((resolve) => {
-      const TARGET_MS_MIN = 1000 / 8.5
-      const TARGET_MS_MAX = 1000 / 7.5
+			// performant values:
+      // const TARGET_MS_MIN = 1000 / 8.5
+      // const TARGET_MS_MAX = 1000 / 7.5
+			// responsive values:
+      const TARGET_MS_MIN = 1000 / 32
+      const TARGET_MS_MAX = 1000 / 28
       const TARGET_MS_MID = (TARGET_MS_MIN + TARGET_MS_MAX) / 2
       let pixels_per_chunk = 40 // start amount
 
