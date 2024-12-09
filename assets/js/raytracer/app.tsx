@@ -162,7 +162,6 @@ function JsonEditor({ value, onChange }) {
 
   return (
     <div>
-      <h2 style={{ marginTop: 0 }}>Scene Editor</h2>
       <CodeMirror
         value={value}
         height="400px"
@@ -225,7 +224,7 @@ function App() {
             />
           </div>
         </Pane>
-        <Pane minSize={300}>
+        <Pane minSize={350}>
           <div className="canvas-container">
             <Raytracer 
               sceneJson={sceneCode}
