@@ -127,32 +127,31 @@ export function AssetList({ onClose }: AssetListProps) {
 
   return (
     <div className="assets-container">
-        <div className="asset-section">
-          <h3>Models</h3>
-          {models.map(model => (
-            <div 
-              key={model.path}
-              className="asset-item"
-              onClick={() => downloadAsset(model, 'models')}
-            >
-              <span className="asset-icon">[{getAssetIcon(model.path)}]</span>
-              {model.name}
-            </div>
-          ))}
-        </div>
-        <div className="asset-section">
-          <h3>Textures</h3>
-          {textures.map(texture => (
-            <div 
-              key={texture.path}
-              className="asset-item"
-              onClick={() => downloadAsset(texture, 'textures')}
-            >
-              <span className="asset-icon">[{getAssetIcon(texture.path)}]</span>
-              {texture.name}
-            </div>
-          ))}
-        </div>
+      <div className="asset-section">
+        <h3>Models</h3>
+        {models.map(model => (
+          <div 
+            key={model.path}
+            className="asset-item"
+            onClick={() => downloadAsset(model, 'models')}
+          >
+            <span className="asset-icon">[{getAssetIcon(model.path)}]</span>
+            {model.name}
+          </div>
+        ))}
+      </div>
+      <div className="asset-section">
+        <h3>Textures</h3>
+        {textures.map(texture => (
+          <div 
+            key={texture.path}
+            className="asset-item"
+            onClick={() => downloadAsset(texture, 'textures')}
+          >
+            <span className="asset-icon">[{getAssetIcon(texture.path)}]</span>
+            {texture.name}
+          </div>
+        ))}
       </div>
     </div>
   )
