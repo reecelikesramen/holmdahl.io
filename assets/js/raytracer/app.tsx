@@ -237,7 +237,7 @@ function App() {
                 Scenes
                 <button onClick={() => setShowScenes(false)}>✕</button>
               </div>
-              <div className="assets-container">
+              <div className="scenes-container">
                 <FixedSizeList
                   height={565}
                   width="100%"
