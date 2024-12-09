@@ -29,7 +29,9 @@
 }
 
 .pane-title {
-  padding: 6px 12px;
+  padding: 8px 12px;
+  height: 35px;
+  box-sizing: border-box;
   background: var(--entry);
   border-bottom: 1px solid var(--border);
   font-size: 13px;
@@ -75,7 +77,7 @@
 }
 
 .canvas-pane {
-  border-right: none;
+  border-right: 1px solid var(--border);
 }
 
 .editor-container {

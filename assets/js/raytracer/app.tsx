@@ -237,9 +237,11 @@ function App() {
           <div className="canvas-pane">
             <div className="pane-title">
               Preview
-              <button onClick={() => setShowAssets(!showAssets)}>
-                {showAssets ? '◩' : '◪'}
-              </button>
+              {!showAssets && (
+                <button onClick={() => setShowAssets(true)}>
+                  ◪
+                </button>
+              )}
             </div>
             <div className="canvas-container">
               <Raytracer 
