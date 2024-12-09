@@ -23,7 +23,7 @@ export function SceneList({ onSceneSelect, onClose }: SceneListProps) {
 
   const loadScenes = async () => {
     try {
-      const response = await fetch('/raytracer/scenes/index.json')
+      const response = await fetch('/raytracer/index.json')
       if (!response.ok) throw new Error('Failed to fetch scenes index')
       const data = await response.json()
       setScenes(data.scenes)
