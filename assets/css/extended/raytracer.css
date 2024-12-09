@@ -29,7 +29,15 @@
 
 .editor-container {
   height: 100%;
-  padding: 0 1rem;
+  padding: 0;
+}
+
+.editor-container > div {
+  height: 100%;
+}
+
+.editor-container .cm-editor {
+  height: 100%;
 }
 
 .canvas-container {

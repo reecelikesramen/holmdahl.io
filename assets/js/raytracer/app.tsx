@@ -164,7 +164,7 @@ function JsonEditor({ value, onChange }) {
     <div>
       <CodeMirror
         value={value}
-        height="400px"
+        height="100%"
         extensions={[json5(), linter(json5ParseLinter())]}
         onChange={onChange}
         theme={theme}
