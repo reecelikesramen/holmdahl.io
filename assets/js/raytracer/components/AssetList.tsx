@@ -20,6 +20,12 @@ export function AssetList({ onClose }: AssetListProps) {
     loadAssets()
   }, [])
 
+  useEffect(() => {
+    if (models.length > 0 || textures.length > 0) {
+      checkDownloadedAssets()
+    }
+  }, [models, textures])
+
   const openDB = async () => {
     return new Promise<IDBDatabase>((resolve, reject) => {
       const request = indexedDB.open('raytracer-assets', 1)
@@ -46,7 +52,6 @@ export function AssetList({ onClose }: AssetListProps) {
       const data = await response.json()
       setModels(data.models)
       setTextures(data.textures)
-      await checkDownloadedAssets() // Check after setting the assets
     } catch (err) {
       setError(err.message)
       console.error('Error loading assets:', err)
