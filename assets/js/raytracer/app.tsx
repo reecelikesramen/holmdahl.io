@@ -156,15 +156,13 @@ function JsonEditor({ value, onChange }) {
   }, [])
 
   return (
-    <div>
-      <CodeMirror
-        value={value}
-        height="100%"
-        extensions={[json5(), linter(json5ParseLinter())]}
-        onChange={onChange}
-        theme={theme === 'dark' ? vscodeDark : vscodeLight}
-      />
-    </div>
+		<CodeMirror
+			value={value}
+			height="100%"
+			extensions={[json5(), linter(json5ParseLinter())]}
+			onChange={onChange}
+			theme={theme === 'dark' ? vscodeDark : vscodeLight}
+		/>
   )
 }
 

@@ -40,6 +40,11 @@
   height: 100%;
 }
 
+.cm-content {
+  font-family: 'Reddit Mono', monospace; /* Replace 'Fira Code' with your preferred font */
+  font-size: 14px; /* Adjust font size */
+}
+
 .canvas-container {
   height: 100%;
   display: flex;
