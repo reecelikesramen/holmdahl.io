@@ -34,12 +34,10 @@
 
 .editor-container > div {
   height: 100%;
-  overflow: hidden;
 }
 
 .editor-container .cm-editor {
   height: 100%;
-  overflow-y: auto;
 }
 
 .canvas-container {
