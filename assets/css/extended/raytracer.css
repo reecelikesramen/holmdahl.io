@@ -35,6 +35,25 @@
   font-size: 13px;
   font-weight: 500;
   color: var(--primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pane-title button {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  padding: 2px 6px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.pane-title button:hover {
+  background: var(--border);
+  border-radius: 3px;
 }
 
 /* Style for the split pane divider */

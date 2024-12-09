@@ -204,7 +204,16 @@ function App() {
     return <div>Loading WebAssembly modules...</div>
   }
 
-  const [sizes, setSizes] = useState(['50%', '50%']);
+  const [sizes, setSizes] = useState(['50%', '50%', 0]);
+  const [showAssets, setShowAssets] = useState(false);
+
+  useEffect(() => {
+    setSizes(prev => [
+      showAssets ? '40%' : '50%',
+      showAssets ? '40%' : '50%',
+      showAssets ? '20%' : 0
+    ]);
+  }, [showAssets]);
 
   return (
     <div className="raytracer-container">
@@ -226,7 +235,12 @@ function App() {
         </Pane>
         <Pane minSize={350}>
           <div className="canvas-pane">
-            <div className="pane-title">Preview</div>
+            <div className="pane-title">
+              Preview
+              <button onClick={() => setShowAssets(!showAssets)}>
+                {showAssets ? '◩' : '◪'}
+              </button>
+            </div>
             <div className="canvas-container">
               <Raytracer 
                 sceneJson={sceneCode}
@@ -235,6 +249,19 @@ function App() {
             </div>
           </div>
         </Pane>
+        {showAssets && (
+          <Pane minSize={100} maxSize="20%">
+            <div className="editor-pane">
+              <div className="pane-title">
+                Assets
+                <button onClick={() => setShowAssets(false)}>✕</button>
+              </div>
+              <div className="assets-container">
+                {/* Assets content will go here */}
+              </div>
+            </div>
+          </Pane>
+        )}
       </SplitPane>
     </div>
   )
