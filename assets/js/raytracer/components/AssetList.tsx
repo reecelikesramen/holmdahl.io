@@ -18,7 +18,6 @@ export function AssetList({ onClose }: AssetListProps) {
 
   useEffect(() => {
     loadAssets()
-    checkDownloadedAssets()
   }, [])
 
   const openDB = async () => {
@@ -47,6 +46,7 @@ export function AssetList({ onClose }: AssetListProps) {
       const data = await response.json()
       setModels(data.models)
       setTextures(data.textures)
+      await checkDownloadedAssets() // Check after setting the assets
     } catch (err) {
       setError(err.message)
       console.error('Error loading assets:', err)
