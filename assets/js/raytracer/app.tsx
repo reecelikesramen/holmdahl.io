@@ -1,7 +1,6 @@
 import { render } from "preact"
 import { useState, useEffect } from "preact/hooks"
 import SplitPane, { Pane } from 'split-pane-react'
-import { FixedSizeList } from 'react-window'
 import 'split-pane-react/esm/themes/default.css'
 import * as JSON5 from "json5"
 import defaultScene from "./scenes/cornell_room_quad.json?raw"
@@ -71,30 +70,10 @@ function App() {
       >
         {showScenes && (
           <Pane minSize={100} maxSize="20%">
-            <div className="editor-pane">
-              <div className="pane-title">
-                Scenes
-                <button onClick={() => setShowScenes(false)}>✕</button>
-              </div>
-              <div className="scenes-container">
-                <FixedSizeList
-                  height={565}
-                  width="100%"
-                  itemCount={100}
-                  itemSize={35}
-                >
-                  {({ index, style }) => (
-                    <div 
-                      className="scene-item" 
-                      style={style}
-                      onClick={() => console.log(`Selected scene ${index + 1}`)}
-                    >
-                      Scene {index + 1}
-                    </div>
-                  )}
-                </FixedSizeList>
-              </div>
-            </div>
+            <SceneList 
+              onSceneSelect={handleSceneChange}
+              onClose={() => setShowScenes(false)}
+            />
           </Pane>
         )}
         <Pane minSize={450}>

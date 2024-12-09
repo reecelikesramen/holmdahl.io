@@ -1,0 +1,15 @@
+{
+  "scenes": [
+    {{ $files := readDir "static/raytracer/scenes" }}
+    {{ $last := sub (len $files) 1 }}
+    {{ range $index, $file := $files }}
+      {{ if ne $file.Name "index.json" }}
+      {
+        "name": "{{ $file.Name }}",
+        "path": "/raytracer/scenes/{{ $file.Name }}",
+        "hash": "{{ sha256 (readFile (printf "static/raytracer/scenes/%s" $file.Name)) }}"
+      }{{ if ne $index $last }},{{ end }}
+      {{ end }}
+    {{ end }}
+  ]
+}
