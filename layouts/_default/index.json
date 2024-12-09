@@ -1,8 +1,10 @@
+{{ $sceneFiles := readDir "static/raytracer/scenes" }}
+{{ $modelFiles := readDir "static/raytracer/models" }}
+{{ $textureFiles := readDir "static/raytracer/textures" }}
 {
   "scenes": [
-    {{ $files := readDir "static/raytracer/scenes" }}
-    {{ $last := sub (len $files) 1 }}
-    {{ range $index, $file := $files }}
+    {{ $last := sub (len $sceneFiles) 1 }}
+    {{ range $index, $file := $sceneFiles }}
       {{ if ne $file.Name "index.json" }}
       {
         "name": "{{ $file.Name }}",
@@ -10,6 +12,24 @@
         "hash": "{{ sha256 (readFile (printf "static/raytracer/scenes/%s" $file.Name)) }}"
       }{{ if ne $index $last }},{{ end }}
       {{ end }}
+    {{ end }}
+  ],
+  "models": [
+    {{ $last := sub (len $modelFiles) 1 }}
+    {{ range $index, $file := $modelFiles }}
+    {
+      "name": "{{ $file.Name }}",
+      "path": "/raytracer/models/{{ $file.Name }}"
+    }{{ if ne $index $last }},{{ end }}
+    {{ end }}
+  ],
+  "textures": [
+    {{ $last := sub (len $textureFiles) 1 }}
+    {{ range $index, $file := $textureFiles }}
+    {
+      "name": "{{ $file.Name }}",
+      "path": "/raytracer/textures/{{ $file.Name }}"
+    }{{ if ne $index $last }},{{ end }}
     {{ end }}
   ]
 }
