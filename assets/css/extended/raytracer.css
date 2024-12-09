@@ -20,24 +20,20 @@
 }
 
 .raytracer-container {
-  display: flex;
   width: 100%;
   max-width: 1400px;
   margin: 20px auto;
   position: relative;
-  gap: 4px;
-  overflow: hidden;
+  height: 600px;
 }
 
 .editor-container {
-  width: 50%;
-  min-width: 400px;
+  height: 100%;
   padding: 0 1rem;
 }
 
 .canvas-container {
-  width: 50%;
-  min-width: 400px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,19 +46,4 @@
   aspect-ratio: 1/1;
   display: block;
   image-rendering: pixelated;
-}
-
-.resize-handle {
-  width: 8px;
-  background-color: var(--border);
-  cursor: col-resize;
-  transition: background-color 0.2s;
-}
-
-.resize-handle:hover {
-  background-color: var(--primary);
-}
-
-.resize-handle.dragging {
-  background-color: var(--primary);
 }

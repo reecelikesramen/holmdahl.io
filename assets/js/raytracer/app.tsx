@@ -1,5 +1,7 @@
 import { render } from "preact"
-import { useState, useEffect, useRef, useCallback } from "preact/hooks"
+import { useState, useEffect, useRef } from "preact/hooks"
+import SplitPane, { Pane } from 'split-pane-react'
+import 'split-pane-react/esm/themes/default.css'
 import CodeMirror from "@uiw/react-codemirror"
 import { json5, json5ParseLinter } from "codemirror-json5"
 import { linter } from "@codemirror/lint"
@@ -206,61 +208,32 @@ function App() {
     return <div>Loading WebAssembly modules...</div>
   }
 
-  const [isDragging, setIsDragging] = useState(false);
-  
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-  };
-
-  const handleMouseMove = useCallback((e) => {
-    if (!isDragging) return;
-    
-    const container = document.querySelector('.raytracer-container');
-    if (!container) return;
-    
-    const containerRect = container.getBoundingClientRect();
-    const editorContainer = container.querySelector('.editor-container');
-    const canvasContainer = container.querySelector('.canvas-container');
-    if (!editorContainer || !canvasContainer) return;
-    
-    const newWidth = e.clientX - containerRect.left;
-    const totalWidth = containerRect.width;
-    
-    if (newWidth >= 400 && (totalWidth - newWidth) >= 400) {
-      const editorPercent = (newWidth / totalWidth) * 100;
-      const canvasPercent = 100 - editorPercent;
-      
-      editorContainer.style.width = `${editorPercent}%`;
-      canvasContainer.style.width = `${canvasPercent}%`;
-    }
-  }, [isDragging]);
-
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
-  }, [handleMouseMove]);
+  const [sizes, setSizes] = useState(['50%', '50%']);
 
   return (
     <div className="raytracer-container">
-      <div className="editor-container">
-        <JsonEditor 
-          value={defaultScene} 
-          onChange={handleSceneChange}
-        />
-      </div>
-      <div 
-        className={`resize-handle ${isDragging ? 'dragging' : ''}`}
-        onMouseDown={handleMouseDown}
-      />
-      <div className="canvas-container">
-        <Raytracer 
-          sceneJson={sceneCode}
-          wasmModule={wasmModule}
-        />
-      </div>
+      <SplitPane
+        split="vertical"
+        sizes={sizes}
+        onChange={setSizes}
+      >
+        <Pane minSize={450}>
+          <div className="editor-container">
+            <JsonEditor 
+              value={defaultScene} 
+              onChange={handleSceneChange}
+            />
+          </div>
+        </Pane>
+        <Pane minSize={300}>
+          <div className="canvas-container">
+            <Raytracer 
+              sceneJson={sceneCode}
+              wasmModule={wasmModule}
+            />
+          </div>
+        </Pane>
+      </SplitPane>
     </div>
   )
 }
