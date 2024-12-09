@@ -1,12 +1,14 @@
+import * as JSON5 from "json5"
 import { render } from "preact"
-import { useState, useEffect } from "preact/hooks"
+import { useEffect, useState } from "preact/hooks"
+import { FixedSizeList } from 'react-window'
 import SplitPane, { Pane } from 'split-pane-react'
 import 'split-pane-react/esm/themes/default.css'
-import * as JSON5 from "json5"
-import defaultScene from "./scenes/cornell_room_quad.json?raw"
-import init, { initThreadPool } from "./pkg/raytracer_wasm.js"
-import { Raytracer } from "./components/Raytracer"
 import { JsonEditor } from "./components/JsonEditor"
+import { Raytracer } from "./components/Raytracer"
+import { SceneList } from "./components/SceneList"
+import init, { initThreadPool } from "./pkg/raytracer_wasm.js"
+import defaultScene from "./scenes/cornell_room_quad.json?raw"
 
 
 function App() {
@@ -88,7 +90,7 @@ function App() {
             </div>
             <div className="editor-container">
               <JsonEditor 
-                value={defaultScene} 
+                value={sceneCode} 
                 onChange={handleSceneChange}
               />
             </div>
