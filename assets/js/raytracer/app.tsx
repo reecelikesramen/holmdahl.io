@@ -1,10 +1,10 @@
 import * as JSON5 from "json5"
 import { render } from "preact"
 import { useEffect, useState } from "preact/hooks"
-import { FixedSizeList } from 'react-window'
 import SplitPane, { Pane } from 'split-pane-react'
 import 'split-pane-react/esm/themes/default.css'
 import { JsonEditor } from "./components/JsonEditor"
+import { AssetList } from "./components/AssetList"
 import { Raytracer } from "./components/Raytracer"
 import { SceneList } from "./components/SceneList"
 import init, { initThreadPool } from "./pkg/raytracer_wasm.js"
@@ -121,20 +121,7 @@ function App() {
                 Assets
                 <button onClick={() => setShowAssets(false)}>✕</button>
               </div>
-              <div className="assets-container">
-                <FixedSizeList
-                  height={565} // Container height minus title bar
-                  width="100%"
-                  itemCount={100}
-                  itemSize={35}
-                >
-                  {({ index, style }) => (
-                    <div className="asset-item" style={style}>
-                      Asset Item {index + 1}
-                    </div>
-                  )}
-                </FixedSizeList>
-              </div>
+              <AssetList onClose={() => setShowAssets(false)} />
             </div>
           </Pane>
         )}
