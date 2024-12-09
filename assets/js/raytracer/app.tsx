@@ -205,16 +205,23 @@ function App() {
     return <div>Loading WebAssembly modules...</div>
   }
 
-  const [sizes, setSizes] = useState(['50%', '50%', 0]);
+  const [sizes, setSizes] = useState(['50%', '50%', 0, 0]);
   const [showAssets, setShowAssets] = useState(false);
+  const [showScenes, setShowScenes] = useState(false);
 
   useEffect(() => {
-    setSizes(prev => [
-      showAssets ? '40%' : '50%',
-      showAssets ? '40%' : '50%',
-      showAssets ? '20%' : 0
-    ]);
-  }, [showAssets]);
+    setSizes(prev => {
+      const baseSize = (showScenes && showAssets) ? '30%' : 
+                      (showScenes || showAssets) ? '40%' : '50%';
+      
+      return [
+        showScenes ? '20%' : 0,
+        baseSize,
+        baseSize,
+        showAssets ? '20%' : 0
+      ];
+    });
+  }, [showAssets, showScenes]);
 
   return (
     <div className="raytracer-container">
@@ -223,9 +230,40 @@ function App() {
         sizes={sizes}
         onChange={setSizes}
       >
+        {showScenes && (
+          <Pane minSize={100} maxSize="20%">
+            <div className="editor-pane">
+              <div className="pane-title">
+                Scenes
+                <button onClick={() => setShowScenes(false)}>✕</button>
+              </div>
+              <div className="assets-container">
+                <FixedSizeList
+                  height={565}
+                  width="100%"
+                  itemCount={100}
+                  itemSize={35}
+                >
+                  {({ index, style }) => (
+                    <div className="asset-item" style={style}>
+                      Scene {index + 1}
+                    </div>
+                  )}
+                </FixedSizeList>
+              </div>
+            </div>
+          </Pane>
+        )}
         <Pane minSize={450}>
           <div className="editor-pane">
-            <div className="pane-title">Scene Editor</div>
+            <div className="pane-title">
+              Scene Editor
+              {!showScenes && (
+                <button onClick={() => setShowScenes(true)}>
+                  ◪
+                </button>
+              )}
+            </div>
             <div className="editor-container">
               <JsonEditor 
                 value={defaultScene} 
