@@ -23,7 +23,7 @@ export function AssetList({ onClose }: AssetListProps) {
 
   const openDB = async () => {
     return new Promise<IDBDatabase>((resolve, reject) => {
-      const request = indexedDB.open('raytracer', 1)
+      const request = indexedDB.open('raytracer-assets', 1)
 
       request.onerror = () => reject(request.error)
       request.onsuccess = () => resolve(request.result)
