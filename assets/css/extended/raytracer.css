@@ -25,6 +25,38 @@
   margin: 20px auto;
   position: relative;
   height: 600px;
+  border: 1px solid var(--border);
+}
+
+.pane-title {
+  padding: 6px 12px;
+  background: var(--entry);
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+/* Style for the split pane divider */
+.split-pane-divider {
+  background-color: var(--border) !important;
+  width: 1px !important;
+  border: none !important;
+}
+
+.split-pane-divider:hover {
+  width: 3px !important;
+  background-color: var(--primary) !important;
+}
+
+/* Add borders to panes */
+.editor-pane, .canvas-pane {
+  height: 100%;
+  border-right: 1px solid var(--border);
+}
+
+.canvas-pane {
+  border-right: none;
 }
 
 .editor-container {

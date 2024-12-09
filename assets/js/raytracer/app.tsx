@@ -210,19 +210,25 @@ function App() {
         onChange={setSizes}
       >
         <Pane minSize={450}>
-          <div className="editor-container">
-            <JsonEditor 
-              value={defaultScene} 
-              onChange={handleSceneChange}
-            />
+          <div className="editor-pane">
+            <div className="pane-title">Scene Editor</div>
+            <div className="editor-container">
+              <JsonEditor 
+                value={defaultScene} 
+                onChange={handleSceneChange}
+              />
+            </div>
           </div>
         </Pane>
         <Pane minSize={350}>
-          <div className="canvas-container">
-            <Raytracer 
-              sceneJson={sceneCode}
-              wasmModule={wasmModule}
-            />
+          <div className="canvas-pane">
+            <div className="pane-title">Preview</div>
+            <div className="canvas-container">
+              <Raytracer 
+                sceneJson={sceneCode}
+                wasmModule={wasmModule}
+              />
+            </div>
           </div>
         </Pane>
       </SplitPane>
