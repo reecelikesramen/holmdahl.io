@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "preact/hooks"
 import SplitPane, { Pane } from 'split-pane-react'
 import 'split-pane-react/esm/themes/default.css'
 import CodeMirror from "@uiw/react-codemirror"
+import { vscodeDark, vscodeLight } from '@uiw/codemirror-theme-vscode'
 import { json5, json5ParseLinter } from "codemirror-json5"
 import { linter } from "@codemirror/lint"
 import * as JSON5 from "json5"
@@ -161,7 +162,7 @@ function JsonEditor({ value, onChange }) {
         height="100%"
         extensions={[json5(), linter(json5ParseLinter())]}
         onChange={onChange}
-        theme={theme}
+        theme={theme === 'dark' ? vscodeDark : vscodeLight}
       />
     </div>
   )
