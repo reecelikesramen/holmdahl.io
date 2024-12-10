@@ -141,7 +141,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
 
     setupRaytracer();
     return cleanup;
-  }, [sceneJson, dimensions]); // Only depend on sceneJson and dimensions
+  }, [sceneJson, dimensions, raysPerPixel]); // Reinitialize when rays per pixel changes
 
   const runChunkedProcessingWithRAF = (raytracer) => {
     return new Promise<void>((resolve) => {
