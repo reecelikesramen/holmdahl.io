@@ -57,16 +57,16 @@ function App() {
         if (!response.ok) throw new Error('Failed to fetch scenes index')
         const data = await response.json()
         
-        const defaultScene = data.scenes.find(s => s.path === '/raytracer/scenes/cornell_room_quad.json')
+        const defaultScene = data.scenes.find(s => s.name === 'cornell_room_quad.json')
         if (!defaultScene) throw new Error('Default scene not found in index')
         
         const sceneResponse = await fetch(defaultScene.path)
         if (!sceneResponse.ok) throw new Error('Failed to fetch default scene')
         const content = await sceneResponse.text()
         
-        await saveScene(defaultScene.path, content)
+        await saveScene(defaultScene.filename, content)
         handleSceneChange(content)
-        setCurrentFilename(defaultScene.path)
+        setCurrentFilename(defaultScene.filename)
         setOriginalContent(content)
         setIsRemoteFile(true)
       } catch (error) {

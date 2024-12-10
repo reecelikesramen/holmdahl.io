@@ -44,7 +44,7 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
       
       // Process built-in scenes
       const builtInScenes = data.scenes.map(scene => {
-        const filename = scene.path.split('/').pop() || scene.path
+        const filename = scene.filename
         const savedScene = savedSceneMap.get(filename)
         
         return {
@@ -119,7 +119,7 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
         >
           {({ index, style }) => (
             <div 
-              className={`scene-item ${scenes[index].path === currentFile ? 'active' : ''}`}
+              className={`scene-item ${scenes[index].filename === currentFile ? 'active' : ''}`}
               style={style}
               onClick={() => loadScene(scenes[index])}
             >
