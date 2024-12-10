@@ -47,6 +47,11 @@ function App() {
     }
   }
 
+	// Format the default scene
+	useEffect(() => {
+		handleSceneChange(defaultScene)
+	}, [])
+
   const handleSave = useCallback(async () => {
     if (!currentFilename) {
       const filename = prompt("Enter filename for scene:", "new_scene.json")
