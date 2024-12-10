@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "preact/hooks"
 import { FixedSizeList } from 'react-window'
 import { db } from "../utils/db"
-import { loadScene, sceneIndex } from "../utils/sceneStorage"
+import { isSceneModified, loadScene, sceneIndex } from "../utils/sceneStorage"
 import Bowser from "bowser"
 
 interface Scene {
