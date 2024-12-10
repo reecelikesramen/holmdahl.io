@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "preact/hooks"
+import { useState, useEffect, useCallback, useRef } from "preact/hooks"
 import { FixedSizeList } from 'react-window'
 import { db } from "../utils/db"
 import { loadScene, sceneIndex } from "../utils/sceneStorage"
@@ -17,6 +17,7 @@ interface SceneListProps {
 }
 
 export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
   const [scenes, setScenes] = useState<Scene[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -110,11 +111,10 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
       const isMac = browser.getOS().name === 'macOS'
       const modifierKey = isMac ? e.metaKey : e.ctrlKey
 
-      if (modifierKey && (e.key === 'Delete' || e.key === 'Backspace')) {
-        console.log('Key pressed:', e.key)
-        console.log('Modifier key:', modifierKey)
-        console.log('Active element:', document.activeElement)
-        console.log('Selected scene:', selectedScene)
+      // Check if the active element is within our container
+      const isContainerFocused = containerRef.current?.contains(document.activeElement)
+      
+      if (modifierKey && (e.key === 'Delete' || e.key === 'Backspace') && isContainerFocused) {
         e.preventDefault()
         handleDelete(selectedScene)
       }
@@ -133,7 +133,7 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
         Scenes
         <button onClick={onClose}>✕</button>
       </div>
-      <div className="scenes-container">
+      <div className="scenes-container" ref={containerRef} tabIndex={0}>
         <FixedSizeList
           height={565}
           width="100%"
