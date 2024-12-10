@@ -19,6 +19,7 @@ function App() {
   const [currentFilename, setCurrentFilename] = useState<string | null>(null)
   const [isModified, setIsModified] = useState(false)
   const [originalContent, setOriginalContent] = useState(defaultScene)
+  const [isRemoteFile, setIsRemoteFile] = useState(true) // Track if file is from remote
 
   useEffect(() => {
     const initWasm = async () => {
@@ -52,35 +53,57 @@ function App() {
 		handleSceneChange(defaultScene)
 	}, [])
 
-  const handleSave = useCallback(async () => {
-    let filename = currentFilename
-    if (!filename) {
-      filename = prompt("Enter filename for scene:", "new_scene.json")
-      if (!filename) return
-      setCurrentFilename(filename)
-    }
+  const handleSaveAs = useCallback(async () => {
+    const filename = prompt("Enter filename for scene:", "new_scene.json")
+    if (!filename) return
     
     try {
       await saveScene(filename, sceneCode)
+      setCurrentFilename(filename)
+      setOriginalContent(sceneCode)
+      setIsModified(false)
+      setIsRemoteFile(false)
+    } catch (error) {
+      console.error("Failed to save scene:", error)
+      alert("Failed to save scene")
+    }
+  }, [sceneCode])
+
+  const handleSave = useCallback(async () => {
+    // If no current file or it's a remote file, do Save As
+    if (!currentFilename || isRemoteFile) {
+      handleSaveAs()
+      return
+    }
+    
+    try {
+      await saveScene(currentFilename, sceneCode)
       setOriginalContent(sceneCode)
       setIsModified(false)
     } catch (error) {
       console.error("Failed to save scene:", error)
       alert("Failed to save scene")
     }
-  }, [currentFilename, sceneCode])
+  }, [currentFilename, sceneCode, isRemoteFile, handleSaveAs])
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 's') {
-        e.preventDefault()
-        handleSave()
+      if ((e.metaKey || e.ctrlKey)) {
+        if (e.shiftKey && e.key === 'S') {
+          // CMD+SHIFT+S
+          e.preventDefault()
+          handleSaveAs()
+        } else if (e.key === 's') {
+          // CMD+S
+          e.preventDefault()
+          handleSave()
+        }
       }
     }
     
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [handleSave])
+  }, [handleSave, handleSaveAs])
 
   if (isLoading) {
     return <div>Loading WebAssembly modules...</div>
@@ -115,7 +138,11 @@ function App() {
         {showScenes && (
           <Pane minSize={100} maxSize="20%">
             <SceneList 
-              onSceneSelect={handleSceneChange}
+              onSceneSelect={(content, isRemote) => {
+                handleSceneChange(content);
+                setIsRemoteFile(isRemote);
+                setCurrentFilename(null);
+              }}
               onClose={() => setShowScenes(false)}
             />
           </Pane>
