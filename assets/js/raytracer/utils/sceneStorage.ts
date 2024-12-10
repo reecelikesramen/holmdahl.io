@@ -46,6 +46,14 @@ export async function loadScene(filename: string): Promise<{ content: string; is
     throw new Error("Scene index not initialized")
   }
 
+  // First check if there's an unsaved version in memory
+  const memoryContent = modifiedScenes.get(filename);
+  if (memoryContent) {
+    // If it's in memory, we need to determine if it was remote or not
+    const dbScene = await db.scenes.get(filename);
+    return { content: memoryContent, isRemote: !!dbScene?.path };
+  }
+
   // Find if it's a built-in scene
   const indexEntry = sceneIndex.scenes.find((s) => s.name === filename)
   const dbScene = await db.scenes.get(filename)
@@ -83,12 +91,6 @@ export function clearModifiedContent(filename: string) {
   modifiedScenes.delete(filename);
 }
 
-export async function isSceneModified(filename: string): Promise<boolean> {
-  const modifiedContent = modifiedScenes.get(filename);
-  if (!modifiedContent) return false;
-
-  const dbScene = await db.scenes.get(filename);
-  if (!dbScene) return true;
-
-  return dbScene.content !== modifiedContent;
+export function isSceneModified(filename: string): boolean {
+  return modifiedScenes.has(filename);
 }
