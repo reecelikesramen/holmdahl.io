@@ -11,10 +11,14 @@ export async function saveScene(filename: string, content: string): Promise<void
   await db.scenes.where('path').equals(filename).delete();
 
   // Save the new version
+  // Check if this is a built-in scene path
+  const isBuiltIn = filename.startsWith('/raytracer/scenes/');
+  
   await db.scenes.put({
     path: filename,
     content,
     hash,
+    isBuiltIn
   })
 
   // Dispatch event to notify scene list to refresh

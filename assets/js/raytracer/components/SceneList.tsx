@@ -92,7 +92,8 @@ export function SceneList({ onSceneSelect, onClose }: SceneListProps) {
         await db.scenes.put({
           path: scene.path,
           hash: scene.hash,
-          content
+          content,
+          isBuiltIn: true
         });
 
         onSceneSelect(content, true);

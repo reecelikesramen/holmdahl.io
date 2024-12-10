@@ -57,7 +57,7 @@ function App() {
         const content = await response.text()
         
         // Save to IndexedDB
-        await saveScene('/raytracer/scenes/cornell_room_quad.json', content)
+        await saveScene('/raytracer/scenes/cornell_room_quad.json', content, true)
         
         // Update editor
         handleSceneChange(content)
@@ -76,9 +76,17 @@ function App() {
     const filename = prompt("Enter filename for scene:", "new_scene.json")
     if (!filename) return
     
+    // Ensure filename has .json extension
+    const finalFilename = filename.endsWith('.json') ? filename : `${filename}.json`
+    
     try {
-      await saveScene(filename, sceneCode)
-      setCurrentFilename(filename)
+      // Prepend user scenes directory if not already specified
+      const fullPath = finalFilename.includes('/') ? 
+        finalFilename : 
+        `/raytracer/scenes/user/${finalFilename}`
+        
+      await saveScene(fullPath, sceneCode)
+      setCurrentFilename(finalFilename)
       setOriginalContent(sceneCode)
       setIsModified(false)
       setIsRemoteFile(false)

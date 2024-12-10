@@ -4,6 +4,7 @@ interface Scene {
   path: string;
   content: string;
   hash: string;
+  isBuiltIn: boolean;
 }
 
 interface Asset {
