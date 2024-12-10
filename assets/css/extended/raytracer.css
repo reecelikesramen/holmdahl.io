@@ -171,7 +171,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    background: var(--entry);  /* Add background to ensure controls are visible */
+    background: var(--entry);
     border-top: 1px solid var(--border);  /* Add separation from canvas */
 }
 
