@@ -4,7 +4,14 @@ import { vscodeDark, vscodeLight } from '@uiw/codemirror-theme-vscode'
 import { json5, json5ParseLinter } from "codemirror-json5"
 import { linter } from "@codemirror/lint"
 
-export function JsonEditor({ value, onChange }) {
+interface JsonEditorProps {
+  value: string
+  onChange: (value: string) => void
+  onSave?: () => void
+  isModified?: boolean
+}
+
+export function JsonEditor({ value, onChange, onSave, isModified }: JsonEditorProps) {
   const [theme, setTheme] = useState(localStorage.getItem('pref-theme') === 'dark' ? 'dark' : 'light')
 
   useEffect(() => {

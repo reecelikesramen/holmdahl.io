@@ -1,6 +1,7 @@
 import * as JSON5 from "json5"
 import { render } from "preact"
-import { useEffect, useState } from "preact/hooks"
+import { useEffect, useState, useCallback } from "preact/hooks"
+import { saveScene, loadScene, isSceneModified } from "./utils/sceneStorage"
 import SplitPane, { Pane } from 'split-pane-react'
 import 'split-pane-react/esm/themes/default.css'
 import { JsonEditor } from "./components/JsonEditor"
@@ -15,6 +16,9 @@ function App() {
   const [sceneCode, setSceneCode] = useState(defaultScene)
   const [wasmModule, setWasmModule] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [currentFilename, setCurrentFilename] = useState<string | null>(null)
+  const [isModified, setIsModified] = useState(false)
+  const [originalContent, setOriginalContent] = useState(defaultScene)
 
   useEffect(() => {
     const initWasm = async () => {
@@ -32,14 +36,45 @@ function App() {
     initWasm()
   }, [])
 
-  const handleSceneChange = (val) => {
+  const handleSceneChange = (val: string) => {
     try {
       let json = JSON5.parse(val)
-      setSceneCode(JSON.stringify(json, null, 2))
+      const formatted = JSON.stringify(json, null, 2)
+      setSceneCode(formatted)
+      setIsModified(formatted !== originalContent)
     } catch (e) {
       console.log("error parsing JSON, ignoring")
     }
   }
+
+  const handleSave = useCallback(async () => {
+    if (!currentFilename) {
+      const filename = prompt("Enter filename for scene:", "new_scene.json")
+      if (!filename) return
+      setCurrentFilename(filename)
+    }
+    
+    try {
+      await saveScene(currentFilename!, sceneCode)
+      setOriginalContent(sceneCode)
+      setIsModified(false)
+    } catch (error) {
+      console.error("Failed to save scene:", error)
+      alert("Failed to save scene")
+    }
+  }, [currentFilename, sceneCode])
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+        e.preventDefault()
+        handleSave()
+      }
+    }
+    
+    window.addEventListener('keydown', handleKeyPress)
+    return () => window.removeEventListener('keydown', handleKeyPress)
+  }, [handleSave])
 
   if (isLoading) {
     return <div>Loading WebAssembly modules...</div>
@@ -92,6 +127,8 @@ function App() {
               <JsonEditor 
                 value={sceneCode} 
                 onChange={handleSceneChange}
+                onSave={handleSave}
+                isModified={isModified}
               />
             </div>
           </div>
