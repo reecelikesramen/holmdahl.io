@@ -7,7 +7,7 @@ export async function saveScene(filename: string, content: string): Promise<void
       .join(""));
 
   await db.scenes.put({
-    path: filename,
+    path: `/raytracer/scenes/${filename}`,
     content,
     hash,
   });

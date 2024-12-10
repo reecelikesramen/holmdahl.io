@@ -24,10 +24,21 @@ export function SceneList({ onSceneSelect, onClose }: SceneListProps) {
 
   const loadScenes = async () => {
     try {
+      // Load built-in scenes
       const response = await fetch('/raytracer/index.json')
       if (!response.ok) throw new Error('Failed to fetch scenes index')
       const data = await response.json()
-      setScenes(data.scenes)
+      
+      // Load user-saved scenes from IndexedDB
+      const savedScenes = await db.scenes.toArray()
+      const userScenes = savedScenes.map(scene => ({
+        name: scene.path.split('/').pop() || '',
+        path: scene.path,
+        hash: scene.hash
+      }))
+      
+      // Combine and set all scenes
+      setScenes([...data.scenes, ...userScenes])
     } catch (err) {
       setError(err.message)
       console.error('Error loading scenes:', err)
