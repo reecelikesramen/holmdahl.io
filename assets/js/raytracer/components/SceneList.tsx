@@ -131,24 +131,14 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
         timestamp: Date.now()
       };
 
-      await db.scenes.where('filename').equals(scene.filename).delete()
+      // Get remaining scenes before deletion
+      const remainingScenes = await db.scenes
+        .filter(s => s.filename !== scene.filename)
+        .toArray()
       
-      console.log("Checking scene deletion condition:", {
-        deletingScene: scene.filename,
-        currentFile,
-        matches: scene.filename === currentFile
-      });
-      
-      // If this was the current scene, clear it or load another one
+      // If this is the current scene, handle selection first
       if (scene.filename === currentFile) {
         console.log("Deleting current scene:", scene.filename);
-        // Get remaining scenes (excluding the one we just deleted)
-        const remainingScenes = await db.scenes
-          .filter(s => s.filename !== scene.filename)
-          .toArray()
-        
-        console.log("Remaining scenes:", remainingScenes);
-        
         if (remainingScenes.length > 0) {
           // Load the first available scene
           const nextScene = remainingScenes[0]
@@ -161,6 +151,9 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
           onSceneSelect("", "", false)
         }
       }
+
+      // Now perform the actual deletion
+      await db.scenes.where('filename').equals(scene.filename).delete()
 
       setRefreshTrigger(prev => prev + 1)
       // Dispatch event to notify other components
