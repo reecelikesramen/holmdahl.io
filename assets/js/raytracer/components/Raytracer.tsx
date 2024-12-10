@@ -4,8 +4,8 @@ import { RayTracer } from "../pkg/raytracer_wasm.js"
 export function Raytracer({ sceneJson, wasmModule }) {
   const [raytracer, setRaytracer] = useState(null)
   const renderFrameId = useRef(null)
-  const width = 600
-  const height = 600
+  const width = 1200
+  const height = 1200
 
   useEffect(() => {
     let stop = false
