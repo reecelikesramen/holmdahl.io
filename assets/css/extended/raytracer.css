@@ -137,25 +137,20 @@
 .canvas-container {
     flex: 1;
     min-height: 0;
-    overflow: hidden;
-    padding: 1rem;
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 #canvas {
-    flex: 1;
-    min-height: 0;
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: calc(100% - 50px);
+    width: 100%;  /* This affects display size, not resolution */
+    height: 100%; /* This affects display size, not resolution */
     object-fit: contain;
     display: block;
     image-rendering: pixelated;
-    margin: auto;
 }
 
 .raytracer-preview {
@@ -163,8 +158,6 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
-    /* Add justify-content to ensure proper spacing */
-    justify-content: space-between;
 }
 
 .raytracer-controls {
