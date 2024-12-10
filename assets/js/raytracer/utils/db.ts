@@ -20,9 +20,9 @@ export class RaytracerDB extends Dexie {
     super('raytracer');
     
     this.version(1).stores({
-      scenes: 'path, hash',
-      models: 'path',
-      textures: 'path'
+      scenes: '++id, path, hash',
+      models: '++id, path',
+      textures: '++id, path'
     });
   }
 }
