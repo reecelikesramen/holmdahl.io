@@ -39,25 +39,24 @@ export function Raytracer({ sceneJson, wasmModule }) {
   useEffect(() => {
     let stop = false;
     const cleanup = () => {
-      console.log(`[Raytracer ${DEBUG_ID}] Cleanup called for render effect`);
+      stop = true;
       if (renderFrameId.current) {
-        console.log(
-          `[Raytracer ${DEBUG_ID}] Canceling animation frame ${renderFrameId.current}`,
-        );
         cancelAnimationFrame(renderFrameId.current);
         renderFrameId.current = null;
       }
-
-      // Clear canvas ownership
+      
       const canvas = document.getElementById("canvas");
       if (canvas) {
-        console.log(
-          `[Raytracer ${DEBUG_ID}] Clearing canvas ownership from ${canvas.dataset.raytracerId}`,
-        );
+        // Clear the canvas before reinitializing
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        canvas.width = dimensions.width;
+        canvas.height = dimensions.height;
         delete canvas.dataset.raytracerId;
       }
 
-      // Clear raytracer reference
       if (raytracer) {
         console.log(`[Raytracer ${DEBUG_ID}] Cleaning up raytracer instance`);
         setRaytracer(null);
@@ -136,7 +135,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
 
     setupRaytracer();
     return cleanup;
-  }, [sceneJson, previewQuality, aspectRatio]);
+  }, [sceneJson, dimensions]); // Only depend on sceneJson and dimensions
 
   const runChunkedProcessingWithRAF = (raytracer) => {
     return new Promise<void>((resolve) => {
@@ -200,7 +199,11 @@ export function Raytracer({ sceneJson, wasmModule }) {
 
   return (
     <div className="raytracer-preview">
-      <canvas id="canvas" />
+      <canvas 
+        id="canvas" 
+        width={dimensions.width}
+        height={dimensions.height}
+      />
       <RaytracerControls
         previewQuality={previewQuality}
         fullRenderQuality={fullRenderQuality}
