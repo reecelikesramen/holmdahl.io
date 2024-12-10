@@ -169,13 +169,26 @@
     align-items: center;
 }
 
+.raytracer-controls {
+    flex-shrink: 0;
+    height: auto; /* Allow for wrapping */
+    min-height: 40px;
+    padding: 5px;
+    display: flex;
+    gap: 5px; /* Reduce gap */
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Allow controls to wrap */
+}
+
 .raytracer-controls select {
     padding: 4px 8px;
     border: 1px solid var(--border);
     border-radius: 4px;
     background: var(--entry);
     color: var(--primary);
-    min-width: 100px;
+    min-width: 80px; /* Reduce minimum width */
+    font-size: 12px; /* Slightly smaller font */
 }
 .assets-container,
 .scenes-container {
