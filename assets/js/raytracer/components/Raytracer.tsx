@@ -44,18 +44,21 @@ export function Raytracer({ sceneJson, wasmModule }) {
         cancelAnimationFrame(renderFrameId.current);
         renderFrameId.current = null;
       }
+      
+      // Remove the old canvas completely
+      const oldCanvas = document.getElementById("canvas");
+      if (oldCanvas) {
+        oldCanvas.remove();
+      }
 
-      const canvas = document.getElementById("canvas");
-      if (canvas) {
-        // Clear the canvas before reinitializing
-        const ctx = canvas.getContext("2d");
-        if (ctx) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-        canvas.width = dimensions.width;
-        canvas.height = dimensions.height;
-        canvas.getContext("webgl2");
-        delete canvas.dataset.raytracerId;
+      // Create a new canvas
+      const container = document.querySelector(".raytracer-preview");
+      if (container) {
+        const newCanvas = document.createElement("canvas");
+        newCanvas.id = "canvas";
+        newCanvas.width = dimensions.width;
+        newCanvas.height = dimensions.height;
+        container.insertBefore(newCanvas, container.firstChild);
       }
 
       if (raytracer) {
