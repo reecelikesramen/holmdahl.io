@@ -6,9 +6,9 @@ import { PreviewQuality, RenderQuality, AspectRatio, calculateDimensions } from 
 export function Raytracer({ sceneJson, wasmModule }) {
   const [raytracer, setRaytracer] = useState(null)
   const renderFrameId = useRef(null)
-  const [previewQuality, setPreviewQuality] = useState<PreviewQuality>('sd')
+  const [previewQuality, setPreviewQuality] = useState<PreviewQuality>('low')
   const [fullRenderQuality, setFullRenderQuality] = useState<RenderQuality>('1k')
-  const [aspectRatio, setAspectRatio] = useState<AspectRatio>('16:9')
+  const [aspectRatio, setAspectRatio] = useState<AspectRatio>('1:1')
   
   const dimensions = useMemo(() => 
     calculateDimensions(previewQuality, aspectRatio),
@@ -51,22 +51,8 @@ export function Raytracer({ sceneJson, wasmModule }) {
         // start periodic rendering
         startRenderToCanvas(rt)
 
-        // Calculate quarter resolution dimensions, ensuring at least 1x1
-        const quarterWidth = Math.max(1, Math.floor(width / 4))
-        const quarterHeight = Math.max(1, Math.floor(height / 4))
-      
-        // run quarter resolution
-        let date_start = performance.now()
-        rt.set_dimensions(quarterWidth, quarterHeight)
-        rt.sqrt_rays_per_pixel = 20
-        await runChunkedProcessingWithRAF(rt)
-        console.log("Quarter raytrace in", (performance.now() - date_start).toFixed(2), "ms!", 
-          { quarterWidth, quarterHeight })
-
-        if (stop) return
-
         // parallel processing using rayon
-        rt.set_dimensions(dimensions.width, dimensions.height)
+        rt.set_dimensions(width, height)  // Ensure dimensions are set correctly
         rt.sqrt_rays_per_pixel = Math.floor(Math.sqrt(scene_args.rays_per_pixel))
         console.log("Starting raytrace...")
         date_start = performance.now()
