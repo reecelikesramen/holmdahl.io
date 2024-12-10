@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "preact/hooks"
 import { FixedSizeList } from 'react-window'
 import { db } from "../utils/db"
 import { loadScene, sceneIndex } from "../utils/sceneStorage"
+import Bowser from "bowser"
 
 interface Scene {
   filename: string
@@ -110,6 +111,7 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
       const modifierKey = isMac ? e.metaKey : e.ctrlKey
 
       if (modifierKey && e.key === 'Delete' && document.activeElement?.closest('.scenes-container')) {
+        console.log('Delete key pressed')
         e.preventDefault()
         handleDelete(selectedScene)
       }
