@@ -49,7 +49,7 @@ function App() {
         setModifiedContent(currentFilename, formatted)
       }
     } catch (e) {
-      console.log("error parsing JSON, ignoring")
+      // console.log("error parsing JSON, ignoring")
     }
   }
 
