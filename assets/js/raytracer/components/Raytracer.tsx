@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useMemo } from "preact/hooks";
 import { RayTracer } from "../pkg/raytracer_wasm.js";
 import { RaytracerControls } from "./RaytracerControls";
 
-const DEBUG_ID = Math.random().toString(36).substr(2, 9);
 import {
   PreviewQuality,
   RenderQuality,
@@ -12,20 +11,7 @@ import {
 } from "../types/raytracer";
 
 export function Raytracer({ sceneJson, wasmModule }) {
-  console.log(`[Raytracer ${DEBUG_ID}] Component instantiated`);
   const [raytracer, setRaytracer] = useState(null);
-
-  useEffect(() => {
-    console.log(`[Raytracer ${DEBUG_ID}] Component mounted`);
-    return () => {
-      console.log(`[Raytracer ${DEBUG_ID}] Component unmounting`);
-      if (raytracer) {
-        console.log(
-          `[Raytracer ${DEBUG_ID}] Cleaning up existing raytracer instance`,
-        );
-      }
-    };
-  }, []);
   const renderFrameId = useRef(null);
   const [previewQuality, setPreviewQuality] =
     useState<PreviewQuality>("medium");
@@ -71,20 +57,13 @@ export function Raytracer({ sceneJson, wasmModule }) {
     };
 
     const setupRaytracer = async () => {
-      const instanceId = Math.random().toString(36).substr(2, 9);
       cleanup(); // Ensure previous instance is cleaned up
-
-      console.log(
-        `[Raytracer ${DEBUG_ID}] Setting up new raytracer instance ${instanceId}`,
-      );
 
       const canvas = document.getElementById("canvas");
       if (!canvas) {
-        console.error(`[Raytracer ${DEBUG_ID}] Canvas element not found!`);
+        console.error("Canvas element not found!");
         return;
       }
-
-      canvas.dataset.raytracerId = instanceId;
 
       const width = Math.floor(dimensions.width);
       const height = Math.floor(dimensions.height);
@@ -106,10 +85,9 @@ export function Raytracer({ sceneJson, wasmModule }) {
 
       try {
         const rt = await RayTracer.init("canvas", sceneJson, scene_args);
-        rt.instanceId = instanceId;
         setRaytracer(rt);
 
-        startRenderToCanvas(rt, instanceId);
+        startRenderToCanvas(rt);
 
         rt.set_dimensions(width, height);
         let date_start = performance.now();
@@ -119,12 +97,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
           await runChunkedProcessingWithRAF(rt);
           scans++;
 
-          if (stop) {
-            console.log(
-              `[Raytracer ${DEBUG_ID}] Stopping after ${scans} scans`,
-            );
-            break;
-          }
+          if (stop) break;
 
           rt.rescan();
         }
@@ -132,7 +105,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
         if (!stop) {
           rt.render_to_canvas();
           console.log(
-            `[Raytracer ${DEBUG_ID}] Completed render in ${(performance.now() - date_start).toFixed(2)}ms`,
+            `Completed render in ${(performance.now() - date_start).toFixed(2)}ms`,
           );
         }
       } catch (e) {
@@ -186,7 +159,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
     });
   };
 
-  const startRenderToCanvas = (raytracer, instanceId) => {
+  const startRenderToCanvas = (raytracer) => {
     const PERIOD = 1000 / 30;
     let last_frame_time = 0;
 
