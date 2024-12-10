@@ -123,20 +123,21 @@
 
 .canvas-container {
   flex: 1;
-  min-height: 0; /* Important for nested flex containers */
-  /* overflow: hidden; */
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 1rem;
+  overflow: hidden;
 }
 
 #canvas {
-  height: 100%;
-  max-width: 600px;
+  max-height: 100%;
+  max-width: 100%;
   aspect-ratio: 1/1;
   display: block;
   image-rendering: pixelated;
+  object-fit: contain;
 }
 .assets-container, .scenes-container {
   overflow-x: hidden !important;
