@@ -20,8 +20,8 @@ export class RaytracerDB extends Dexie {
   constructor() {
     super("raytracer")
 
-    this.version(1).stores({
-      scenes: "++id, path, hash",
+    this.version(2).stores({
+      scenes: "filename, path, hash",
       models: "++id, path",
       textures: "++id, path",
     })
