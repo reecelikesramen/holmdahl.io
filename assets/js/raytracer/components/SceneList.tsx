@@ -9,7 +9,7 @@ interface Scene {
 }
 
 interface SceneListProps {
-  onSceneSelect: (sceneJson: string, isRemote: boolean) => void
+  onSceneSelect: (sceneJson: string, path: string, isRemote: boolean) => void
   onClose: () => void
   currentFile?: string | null
 }
@@ -83,7 +83,7 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
       
       if (storedScene && storedScene.hash === scene.hash) {
         // Use cached version if hash matches
-        onSceneSelect(storedScene.content, false);
+        onSceneSelect(storedScene.content, scene.path, false);
       } else {
         // Download and cache if not found or hash mismatch
         const response = await fetch(scene.path);
@@ -96,13 +96,13 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
           isBuiltIn: true
         });
 
-        onSceneSelect(content, true);
+        onSceneSelect(content, scene.path, true);
       }
     } else {
       // For user-created scenes, just load from IndexedDB
       const storedScene = await db.scenes.where('path').equals(scene.path).first();
       if (storedScene) {
-        onSceneSelect(storedScene.content);
+        onSceneSelect(storedScene.content, scene.path, false);
       }
     }
   }

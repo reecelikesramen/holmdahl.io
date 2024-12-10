@@ -91,7 +91,7 @@ function App() {
         `/raytracer/scenes/user/${finalFilename}`
         
       await saveScene(fullPath, sceneCode)
-      setCurrentFilename(finalFilename)
+      setCurrentFilename(fullPath)
       setOriginalContent(sceneCode)
       setIsModified(false)
       setIsRemoteFile(false)
@@ -102,8 +102,8 @@ function App() {
   }, [sceneCode])
 
   const handleSave = useCallback(async () => {
-    // If no current file or it's a remote file, do Save As
-    if (!currentFilename || isRemoteFile) {
+    // If no current file or it's a built-in file, do Save As
+    if (!currentFilename || currentFilename.startsWith('/raytracer/scenes/')) {
       handleSaveAs()
       return
     }
@@ -170,11 +170,12 @@ function App() {
         {showScenes && (
           <Pane minSize={100} maxSize="20%">
             <SceneList 
-              onSceneSelect={(content, isRemote) => {
+              onSceneSelect={(content, path, isRemote) => {
                 handleSceneChange(content)
                 setIsRemoteFile(isRemote)
                 setOriginalContent(content)
                 setIsModified(false)
+                setCurrentFilename(path)
               }}
               onClose={() => setShowScenes(false)}
               currentFile={currentFilename}
