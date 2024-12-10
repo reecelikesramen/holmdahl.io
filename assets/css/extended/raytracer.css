@@ -151,14 +151,26 @@
     height: 100%;
     width: 100%;
     box-sizing: border-box;
+    overflow: hidden; /* Prevent overflow */
 }
 
 #canvas {
-    flex: 1;
+    max-height: calc(100% - 50px); /* Reserve space for controls */
     width: 100%;
-    height: auto;
     object-fit: contain;
     image-rendering: pixelated;
+}
+
+.raytracer-controls {
+    height: auto;
+    min-height: 40px;
+    padding: 5px;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background: var(--entry);
 }
 
 .raytracer-controls {
