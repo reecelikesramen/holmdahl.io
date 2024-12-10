@@ -131,14 +131,25 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
         timestamp: Date.now()
       };
 
+      console.log("Starting deletion process for scene:", {
+        deletingScene: scene.filename,
+        currentFile,
+        isCurrentScene: scene.filename === currentFile
+      });
+
       // Get remaining scenes before deletion
       const remainingScenes = await db.scenes
         .filter(s => s.filename !== scene.filename)
         .toArray()
       
+      console.log("Remaining scenes:", {
+        count: remainingScenes.length,
+        filenames: remainingScenes.map(s => s.filename)
+      });
+      
       // If this is the current scene, handle selection first
       if (scene.filename === currentFile) {
-        console.log("Deleting current scene:", scene.filename);
+        console.log("Scene being deleted is current scene");
         if (remainingScenes.length > 0) {
           // Load the first available scene
           const nextScene = remainingScenes[0]

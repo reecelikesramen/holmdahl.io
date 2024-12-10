@@ -201,7 +201,8 @@ function App() {
                 console.log("Scene select called with:", { 
                   contentLength: content?.length || 0,
                   path,
-                  isRemote
+                  isRemote,
+                  previousFile: currentFilename
                 });
                 setSceneCode(content)
                 setIsRemoteFile(isRemote)
