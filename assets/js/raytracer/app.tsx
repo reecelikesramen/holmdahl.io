@@ -1,4 +1,5 @@
 import * as JSON5 from "json5"
+import Bowser from "bowser"
 import { render } from "preact"
 import { useEffect, useState, useCallback } from "preact/hooks"
 import { saveScene, loadScene, isSceneModified, initSceneIndex } from "./utils/sceneStorage"
@@ -112,7 +113,8 @@ function App() {
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      const browser = Bowser.getParser(window.navigator.userAgent);
+      const isMac = browser.getOS().name === 'macOS';
       const modifierKey = isMac ? e.metaKey : e.ctrlKey;
       
       if (modifierKey) {
