@@ -1,6 +1,7 @@
 import { useState, useEffect } from "preact/hooks"
 import { FixedSizeList } from 'react-window'
 import { db } from "../utils/db"
+import { loadScene, sceneIndex } from "../utils/sceneStorage"
 
 interface Scene {
   filename: string
@@ -33,18 +34,13 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
 
   const loadScenes = async () => {
     try {
-      // Load built-in scenes from index.json
-      const response = await fetch('/raytracer/index.json')
-      if (!response.ok) throw new Error('Failed to fetch scenes index')
-      const data = await response.json()
-      
       // Load all scenes from IndexedDB
       const savedScenes = await db.scenes.toArray()
       const savedSceneMap = new Map(savedScenes.map(scene => [scene.filename, scene]))
       
       // Process built-in scenes
-      const builtInScenes = data.scenes.map(scene => {
-        const filename = scene.filename
+      const builtInScenes = sceneIndex.scenes.map(scene => {
+        const filename = scene.name
         const savedScene = savedSceneMap.get(filename)
         
         return {
@@ -71,7 +67,7 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
     }
   }
 
-  const loadScene = async (scene: Scene) => {
+  const selectScene = async (scene: Scene) => {
     try {
       const { content, isRemote } = await loadScene(scene.filename)
       onSceneSelect(content, scene.filename, isRemote)
@@ -101,9 +97,9 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
             <div 
               className={`scene-item ${scenes[index].filename === currentFile ? 'active' : ''}`}
               style={style}
-              onClick={() => loadScene(scenes[index])}
+              onClick={() => selectScene(scenes[index])}
             >
-              {scenes[index].name}
+              {scenes[index].filename}
             </div>
           )}
         </FixedSizeList>
