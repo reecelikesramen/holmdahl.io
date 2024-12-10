@@ -39,12 +39,12 @@ export function Raytracer({ sceneJson, wasmModule }) {
   useEffect(() => {
     let stop = false;
     const cleanup = () => {
-      stop = true;
+      // stop = true;
       if (renderFrameId.current) {
         cancelAnimationFrame(renderFrameId.current);
         renderFrameId.current = null;
       }
-      
+
       // Remove the old canvas completely
       const oldCanvas = document.getElementById("canvas");
       if (oldCanvas) {
