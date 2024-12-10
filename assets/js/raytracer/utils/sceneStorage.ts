@@ -84,7 +84,11 @@ export async function loadScene(filename: string): Promise<{ content: string; is
 const modifiedScenes = new Map<string, string>();
 
 export function setModifiedContent(filename: string, content: string) {
-  modifiedScenes.set(filename, content);
+  // Only set if content actually changed
+  const currentContent = modifiedScenes.get(filename);
+  if (content !== currentContent) {
+    modifiedScenes.set(filename, content);
+  }
 }
 
 export function clearModifiedContent(filename: string) {

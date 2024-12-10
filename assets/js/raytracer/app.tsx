@@ -56,10 +56,11 @@ function App() {
       try {
         await initSceneIndex()
         const { content, isRemote } = await loadScene('cornell_room_quad.json')
-        handleSceneChange(content)
+        setSceneCode(content)
         setCurrentFilename('cornell_room_quad.json')
         setOriginalContent(content)
         setIsRemoteFile(isRemote)
+        setIsModified(false)
       } catch (error) {
         console.error("Failed to load initial scene:", error)
       }
@@ -168,10 +169,10 @@ function App() {
           <Pane minSize={100} maxSize="20%">
             <SceneList 
               onSceneSelect={(content, path, isRemote) => {
-                handleSceneChange(content)
+                setSceneCode(content)
                 setIsRemoteFile(isRemote)
                 setOriginalContent(content)
-                setIsModified(false)
+                setIsModified(isSceneModified(path))
                 setCurrentFilename(path)
               }}
               onClose={() => setShowScenes(false)}
