@@ -133,10 +133,12 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
 
       await db.scenes.where('filename').equals(scene.filename).delete()
       
-      // If this was the current scene, load another one
+      // If this was the current scene, clear it or load another one
       if (scene.filename === currentFile) {
-        // Get remaining scenes
-        const remainingScenes = await db.scenes.toArray()
+        // Get remaining scenes (excluding the one we just deleted)
+        const remainingScenes = await db.scenes
+          .filter(s => s.filename !== scene.filename)
+          .toArray()
         
         if (remainingScenes.length > 0) {
           // Load the first available scene
