@@ -19,7 +19,9 @@ export function Raytracer({ sceneJson, wasmModule }) {
     return () => {
       console.log(`[Raytracer ${DEBUG_ID}] Component unmounting`);
       if (raytracer) {
-        console.log(`[Raytracer ${DEBUG_ID}] Cleaning up existing raytracer instance`);
+        console.log(
+          `[Raytracer ${DEBUG_ID}] Cleaning up existing raytracer instance`,
+        );
       }
     };
   }, []);
@@ -27,7 +29,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
   const [previewQuality, setPreviewQuality] = useState<PreviewQuality>("low");
   const [fullRenderQuality, setFullRenderQuality] =
     useState<RenderQuality>("1k");
-  const [aspectRatio, setAspectRatio] = useState<AspectRatio>("1:1");
+  const [aspectRatio, setAspectRatio] = useState<AspectRatio>("3:2");
 
   const dimensions = useMemo(
     () => calculateDimensions(previewQuality, aspectRatio),
@@ -38,17 +40,20 @@ export function Raytracer({ sceneJson, wasmModule }) {
     let stop = false;
     const cleanup = () => {
       console.log(`[Raytracer ${DEBUG_ID}] Cleanup called for render effect`);
-      stop = true;
       if (renderFrameId.current) {
-        console.log(`[Raytracer ${DEBUG_ID}] Canceling animation frame ${renderFrameId.current}`);
+        console.log(
+          `[Raytracer ${DEBUG_ID}] Canceling animation frame ${renderFrameId.current}`,
+        );
         cancelAnimationFrame(renderFrameId.current);
         renderFrameId.current = null;
       }
-      
+
       // Clear canvas ownership
       const canvas = document.getElementById("canvas");
       if (canvas) {
-        console.log(`[Raytracer ${DEBUG_ID}] Clearing canvas ownership from ${canvas.dataset.raytracerId}`);
+        console.log(
+          `[Raytracer ${DEBUG_ID}] Clearing canvas ownership from ${canvas.dataset.raytracerId}`,
+        );
         delete canvas.dataset.raytracerId;
       }
 
@@ -63,7 +68,9 @@ export function Raytracer({ sceneJson, wasmModule }) {
       const instanceId = Math.random().toString(36).substr(2, 9);
       cleanup(); // Ensure previous instance is cleaned up
 
-      console.log(`[Raytracer ${DEBUG_ID}] Setting up new raytracer instance ${instanceId}`);
+      console.log(
+        `[Raytracer ${DEBUG_ID}] Setting up new raytracer instance ${instanceId}`,
+      );
 
       const canvas = document.getElementById("canvas");
       if (!canvas) {
@@ -72,12 +79,16 @@ export function Raytracer({ sceneJson, wasmModule }) {
       }
 
       canvas.dataset.raytracerId = instanceId;
-      
+
       const width = Math.floor(dimensions.width);
       const height = Math.floor(dimensions.height);
 
       if (!width || !height || width < 1 || height < 1) {
-        console.error("Invalid dimensions:", { width, height, rawDimensions: dimensions });
+        console.error("Invalid dimensions:", {
+          width,
+          height,
+          rawDimensions: dimensions,
+        });
         return;
       }
 
@@ -103,7 +114,9 @@ export function Raytracer({ sceneJson, wasmModule }) {
           scans++;
 
           if (stop) {
-            console.log(`[Raytracer ${DEBUG_ID}] Stopping after ${scans} scans`);
+            console.log(
+              `[Raytracer ${DEBUG_ID}] Stopping after ${scans} scans`,
+            );
             break;
           }
 
@@ -112,7 +125,9 @@ export function Raytracer({ sceneJson, wasmModule }) {
 
         if (!stop) {
           rt.render_to_canvas();
-          console.log(`[Raytracer ${DEBUG_ID}] Completed render in ${(performance.now() - date_start).toFixed(2)}ms`);
+          console.log(
+            `[Raytracer ${DEBUG_ID}] Completed render in ${(performance.now() - date_start).toFixed(2)}ms`,
+          );
         }
       } catch (e) {
         console.error("Error rendering scene:", e);
@@ -141,11 +156,23 @@ export function Raytracer({ sceneJson, wasmModule }) {
         let elapsed = performance.now() - start_time;
 
         if (elapsed < TARGET_MS_MIN) {
-          pixels_per_chunk = Math.ceil(pixels_per_chunk * (1 + 0.5 * ((TARGET_MS_MIN - elapsed) / TARGET_MS_MIN)));
+          pixels_per_chunk = Math.ceil(
+            pixels_per_chunk *
+              (1 + 0.5 * ((TARGET_MS_MIN - elapsed) / TARGET_MS_MIN)),
+          );
         } else if (elapsed > TARGET_MS_MAX) {
-          pixels_per_chunk = Math.max(1, Math.floor(pixels_per_chunk * (1 - 0.5 * ((elapsed - TARGET_MS_MAX) / TARGET_MS_MAX))));
+          pixels_per_chunk = Math.max(
+            1,
+            Math.floor(
+              pixels_per_chunk *
+                (1 - 0.5 * ((elapsed - TARGET_MS_MAX) / TARGET_MS_MAX)),
+            ),
+          );
         } else {
-          pixels_per_chunk = Math.round(pixels_per_chunk * (1 + 0.1 * ((TARGET_MS_MID - elapsed) / TARGET_MS_MID)));
+          pixels_per_chunk = Math.round(
+            pixels_per_chunk *
+              (1 + 0.1 * ((TARGET_MS_MID - elapsed) / TARGET_MS_MID)),
+          );
         }
       };
 
