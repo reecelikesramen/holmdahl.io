@@ -2,6 +2,7 @@ export type PreviewQuality = 'low' | 'medium' | 'sd' | 'hd' | '1k'
 export type RenderQuality = 'sd' | 'hd' | '1k' | '4k' | '8k'
 export type AspectRatio = '1:1' | '3:2' | '4:3' | '16:9' | '21:9' | '2:3' | '3:4' | '9:16' | '9:21'
 export type RaysPerPixel = 1 | 4 | 9 | 16 | 25 | 49 | 100
+export type RaysPerPixel = 1 | 4 | 9 | 16 | 25 | 49 | 100
 
 export interface Dimensions {
   width: number

@@ -4,9 +4,11 @@ interface RaytracerControlsProps {
   previewQuality: PreviewQuality;
   fullRenderQuality: RenderQuality;
   aspectRatio: AspectRatio;
+  raysPerPixel: RaysPerPixel;
   onPreviewQualityChange: (quality: PreviewQuality) => void;
   onFullRenderQualityChange: (quality: RenderQuality) => void;
   onAspectRatioChange: (ratio: AspectRatio) => void;
+  onRaysPerPixelChange: (rays: RaysPerPixel) => void;
 }
 
 export function RaytracerControls({
@@ -60,6 +62,21 @@ export function RaytracerControls({
         <option value="3:4">3:4</option>
         <option value="9:16">9:16</option>
         <option value="9:21">9:21</option>
+      </select>
+
+      <select
+        value={raysPerPixel}
+        onChange={(e) =>
+          onRaysPerPixelChange(Number(e.currentTarget.value) as RaysPerPixel)
+        }
+      >
+        <option value="1">1 ray/pixel</option>
+        <option value="4">4 rays/pixel</option>
+        <option value="9">9 rays/pixel</option>
+        <option value="16">16 rays/pixel</option>
+        <option value="25">25 rays/pixel</option>
+        <option value="49">49 rays/pixel</option>
+        <option value="100">100 rays/pixel</option>
       </select>
     </div>
   );
