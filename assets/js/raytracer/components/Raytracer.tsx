@@ -22,9 +22,21 @@ export function Raytracer({ sceneJson, wasmModule }) {
     }
 
     const setupRaytracer = async () => {
+      // Ensure dimensions are valid integers
+      const width = Math.floor(dimensions.width)
+      const height = Math.floor(dimensions.height)
+
+      // Guard against invalid dimensions
+      if (!width || !height || width < 1 || height < 1) {
+        console.error("Invalid dimensions:", { width, height, rawDimensions: dimensions })
+        return
+      }
+
+      console.log("Setting up raytracer with dimensions:", { width, height })
+
       const scene_args = {
-        width: dimensions.width,
-        height: dimensions.height,
+        width,
+        height,
         rays_per_pixel: 25,
       }
 
@@ -36,15 +48,17 @@ export function Raytracer({ sceneJson, wasmModule }) {
         // start periodic rendering
         startRenderToCanvas(rt)
 
+        // Calculate quarter resolution dimensions, ensuring at least 1x1
+        const quarterWidth = Math.max(1, Math.floor(width / 4))
+        const quarterHeight = Math.max(1, Math.floor(height / 4))
+      
         // run quarter resolution
         let date_start = performance.now()
-        rt.set_dimensions(
-          Math.floor(dimensions.width / 4),
-          Math.floor(dimensions.height / 4)
-        )
+        rt.set_dimensions(quarterWidth, quarterHeight)
         rt.sqrt_rays_per_pixel = 20
         await runChunkedProcessingWithRAF(rt)
-        console.log("Quarter raytrace in", (performance.now() - date_start).toFixed(2), "ms!")
+        console.log("Quarter raytrace in", (performance.now() - date_start).toFixed(2), "ms!", 
+          { quarterWidth, quarterHeight })
 
         if (stop) return
 
