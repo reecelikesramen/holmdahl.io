@@ -1,7 +1,7 @@
 import * as JSON5 from "json5"
 import { render } from "preact"
 import { useEffect, useState, useCallback } from "preact/hooks"
-import { saveScene, loadScene, isSceneModified } from "./utils/sceneStorage"
+import { saveScene, loadScene, isSceneModified, initSceneIndex } from "./utils/sceneStorage"
 import SplitPane, { Pane } from 'split-pane-react'
 import 'split-pane-react/esm/themes/default.css'
 import { JsonEditor } from "./components/JsonEditor"
@@ -10,6 +10,7 @@ import { Raytracer } from "./components/Raytracer"
 import { SceneList } from "./components/SceneList"
 import init, { initThreadPool } from "./pkg/raytracer_wasm.js"
 import defaultScene from "./scenes/cornell_room_quad.json?raw"
+import { db } from "./utils/db"
 
 
 function App() {
@@ -112,12 +113,12 @@ function App() {
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey)) {
-        if (e.shiftKey && e.key === 'S') {
-          // CMD+SHIFT+S
+        if (e.shiftKey && (e.key === 'S' || e.key === 's')) {
+          // CMD/CTRL +SHIFT+S
           e.preventDefault()
           handleSaveAs()
         } else if (e.key === 's') {
-          // CMD+S
+          // CMD/CTRL +S
           e.preventDefault()
           handleSave()
         }
@@ -181,7 +182,7 @@ function App() {
                   ◪
                 </button>
               )}
-              Scene Editor {currentFilename ? `-- ${currentFilename}` : ''}
+              Scene Editor {currentFilename ? `— ${currentFilename}` : ''}
               {isModified && !isRemoteFile && <span className="modified-indicator">●</span>}
             </div>
             <div className="editor-container">
