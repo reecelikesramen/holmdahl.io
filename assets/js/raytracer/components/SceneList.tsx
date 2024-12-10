@@ -25,7 +25,7 @@ interface SceneListProps {
   currentFile?: string | null
 }
 
-export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProps) {
+export function SceneList({ onSceneSelect, onClose, currentFile, onSceneDelete }: SceneListProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [scenes, setScenes] = useState<Scene[]>([])
   const [loading, setLoading] = useState(true)
