@@ -59,8 +59,8 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
       const userScenes = savedScenes
         .filter(scene => !data.scenes.some(s => s.path === scene.path))
         .map(scene => ({
-          name: scene.path.split('/').pop() || '',
-          path: scene.path,
+          name: scene.path,
+          path: scene.path, // Keep full path for fetching from server
           hash: scene.hash
         }))
       
@@ -83,7 +83,9 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
       
       if (storedScene && storedScene.hash === scene.hash) {
         // Use cached version if hash matches
-        onSceneSelect(storedScene.content, scene.path, false);
+        // Extract just the filename for display
+        const filename = scene.path.split('/').pop() || scene.path;
+        onSceneSelect(storedScene.content, filename, false);
       } else {
         // Download and cache if not found or hash mismatch
         const response = await fetch(scene.path);
@@ -96,7 +98,9 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
           isBuiltIn: true
         });
 
-        onSceneSelect(content, scene.path, true);
+        // Extract just the filename for display
+        const filename = scene.path.split('/').pop() || scene.path;
+        onSceneSelect(content, filename, true);
       }
     } else {
       // For user-created scenes, just load from IndexedDB

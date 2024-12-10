@@ -85,13 +85,18 @@ function App() {
     const finalFilename = filename.endsWith('.json') ? filename : `${filename}.json`
     
     try {
-      // Prepend user scenes directory if not already specified
-      const fullPath = finalFilename.includes('/') ? 
-        finalFilename : 
-        `/raytracer/scenes/user/${finalFilename}`
+      // Check if filename already exists as a built-in scene
+      const response = await fetch('/raytracer/index.json')
+      const data = await response.json()
+      const isBuiltInName = data.scenes.some(s => s.path.endsWith(`/${finalFilename}`))
+      
+      if (isBuiltInName) {
+        alert("Cannot use the same filename as a built-in scene")
+        return
+      }
         
-      await saveScene(fullPath, sceneCode)
-      setCurrentFilename(fullPath)
+      await saveScene(finalFilename, sceneCode, false)
+      setCurrentFilename(finalFilename)
       setOriginalContent(sceneCode)
       setIsModified(false)
       setIsRemoteFile(false)
@@ -102,8 +107,8 @@ function App() {
   }, [sceneCode])
 
   const handleSave = useCallback(async () => {
-    // If no current file or it's a built-in file, do Save As
-    if (!currentFilename || currentFilename.startsWith('/raytracer/scenes/')) {
+    // For built-in files, always do Save As
+    if (!currentFilename || isRemoteFile) {
       handleSaveAs()
       return
     }

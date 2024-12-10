@@ -1,6 +1,6 @@
 import { db } from "./db"
 
-export async function saveScene(filename: string, content: string): Promise<void> {
+export async function saveScene(filename: string, content: string, isBuiltIn: boolean = false): Promise<void> {
   const hash = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(content)).then((buf) =>
     Array.from(new Uint8Array(buf))
       .map((b) => b.toString(16).padStart(2, "0"))
@@ -11,9 +11,6 @@ export async function saveScene(filename: string, content: string): Promise<void
   await db.scenes.where('path').equals(filename).delete();
 
   // Save the new version
-  // Check if this is a built-in scene path
-  const isBuiltIn = filename.startsWith('/raytracer/scenes/');
-  
   await db.scenes.put({
     path: filename,
     content,
