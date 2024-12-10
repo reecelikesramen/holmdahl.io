@@ -47,11 +47,11 @@ export async function loadScene(filename: string): Promise<{ content: string; is
   }
 
   // First check if there's an unsaved version in memory
-  const memoryContent = modifiedScenes.get(filename);
+  const memoryContent = modifiedScenes.get(filename)
   if (memoryContent) {
     // If it's in memory, we need to determine if it was remote or not
-    const dbScene = await db.scenes.get(filename);
-    return { content: memoryContent, isRemote: !!dbScene?.path };
+    const dbScene = await db.scenes.get(filename)
+    return { content: memoryContent, isRemote: !!dbScene?.path }
   }
 
   // Find if it's a built-in scene
@@ -81,20 +81,21 @@ export async function loadScene(filename: string): Promise<{ content: string; is
 }
 
 // Map to store modified but unsaved content
-const modifiedScenes = new Map<string, string>();
+const modifiedScenes = new Map<string, string>()
 
 export function setModifiedContent(filename: string, content: string) {
   // Only set if content actually changed
-  const currentContent = modifiedScenes.get(filename);
+  console.log(modifiedScenes)
+  const currentContent = modifiedScenes.get(filename)
   if (content !== currentContent) {
-    modifiedScenes.set(filename, content);
+    modifiedScenes.set(filename, content)
   }
 }
 
 export function clearModifiedContent(filename: string) {
-  modifiedScenes.delete(filename);
+  modifiedScenes.delete(filename)
 }
 
 export function isSceneModified(filename: string): boolean {
-  return modifiedScenes.has(filename);
+  return modifiedScenes.has(filename)
 }
