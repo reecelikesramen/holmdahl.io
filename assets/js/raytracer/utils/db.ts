@@ -1,31 +1,31 @@
-import Dexie, { type Table } from 'dexie';
+import Dexie, { type Table } from "dexie"
 
 interface Scene {
-  path: string;
-  content: string;
-  hash: string;
-  isBuiltIn: boolean;
+  filename: string
+  path?: string
+  content: string
+  hash: string
 }
 
 interface Asset {
-  path: string;
-  content: Blob;
+  path: string
+  content: Blob
 }
 
 export class RaytracerDB extends Dexie {
-  scenes!: Table<Scene>;
-  models!: Table<Asset>;
-  textures!: Table<Asset>;
+  scenes!: Table<Scene>
+  models!: Table<Asset>
+  textures!: Table<Asset>
 
   constructor() {
-    super('raytracer');
-    
+    super("raytracer")
+
     this.version(1).stores({
-      scenes: '++id, path, hash',
-      models: '++id, path',
-      textures: '++id, path'
-    });
+      scenes: "++id, path, hash",
+      models: "++id, path",
+      textures: "++id, path",
+    })
   }
 }
 
-export const db = new RaytracerDB();
+export const db = new RaytracerDB()
