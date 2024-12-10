@@ -36,48 +36,22 @@ export function SceneList({ onSceneSelect, onClose }: SceneListProps) {
   }
 
   const loadScene = async (scene: Scene) => {
-    const db = await openDB()
-    const transaction = db.transaction(['scenes'], 'readonly')
-    const store = transaction.objectStore('scenes')
-    const request = store.get(scene.path)
-    
-    const storedScene = await new Promise((resolve, reject) => {
-      request.onsuccess = () => resolve(request.result)
-      request.onerror = () => reject(request.error)
-    })
+    const storedScene = await db.scenes.get(scene.path);
 
     if (storedScene && storedScene.hash === scene.hash) {
-      onSceneSelect(storedScene.content)
+      onSceneSelect(storedScene.content);
     } else {
-      const response = await fetch(scene.path)
-      const content = await response.text()
+      const response = await fetch(scene.path);
+      const content = await response.text();
       
-      const writeTransaction = db.transaction(['scenes'], 'readwrite')
-      const writeStore = writeTransaction.objectStore('scenes')
-      await writeStore.put({
+      await db.scenes.put({
         path: scene.path,
         hash: scene.hash,
         content
-      })
+      });
 
-      onSceneSelect(content)
+      onSceneSelect(content);
     }
-  }
-
-  const openDB = async () => {
-    return new Promise<IDBDatabase>((resolve, reject) => {
-      const request = indexedDB.open('raytracer-scenes', 1)
-
-      request.onerror = () => reject(request.error)
-      request.onsuccess = () => resolve(request.result)
-
-      request.onupgradeneeded = (event) => {
-        const db = (event.target as IDBOpenDBRequest).result
-        if (!db.objectStoreNames.contains('scenes')) {
-          db.createObjectStore('scenes', { keyPath: 'path' })
-        }
-      }
-    })
   }
 
   if (loading) return <div>Loading scenes...</div>

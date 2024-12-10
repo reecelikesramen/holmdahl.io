@@ -26,24 +26,6 @@ export function AssetList({ onClose }: AssetListProps) {
     }
   }, [models, textures])
 
-  const openDB = async () => {
-    return new Promise<IDBDatabase>((resolve, reject) => {
-      const request = indexedDB.open('raytracer-assets', 1)
-
-      request.onerror = () => reject(request.error)
-      request.onsuccess = () => resolve(request.result)
-
-      request.onupgradeneeded = (event) => {
-        const db = (event.target as IDBOpenDBRequest).result
-        if (!db.objectStoreNames.contains('models')) {
-          db.createObjectStore('models', { keyPath: 'path' })
-        }
-        if (!db.objectStoreNames.contains('textures')) {
-          db.createObjectStore('textures', { keyPath: 'path' })
-        }
-      }
-    })
-  }
 
   const loadAssets = async () => {
     try {
@@ -59,38 +41,22 @@ export function AssetList({ onClose }: AssetListProps) {
   }
 
   const checkDownloadedAssets = async () => {
-    const db = await openDB()
-    const downloaded = new Set<string>()
+    const downloaded = new Set<string>();
 
     // Check models
-    const modelChecks = models.map(model => new Promise<void>((resolve) => {
-      const tx = db.transaction(['models'], 'readonly')
-      const store = tx.objectStore('models')
-      const request = store.get(model.path)
-      
-      request.onsuccess = () => {
-        if (request.result) downloaded.add(model.path)
-        resolve()
-      }
-      request.onerror = () => resolve()
-    }))
+    const modelChecks = models.map(async model => {
+      const result = await db.models.get(model.path);
+      if (result) downloaded.add(model.path);
+    });
 
-    // Check textures
-    const textureChecks = textures.map(texture => new Promise<void>((resolve) => {
-      const tx = db.transaction(['textures'], 'readonly')
-      const store = tx.objectStore('textures')
-      const request = store.get(texture.path)
-      
-      request.onsuccess = () => {
-        if (request.result) downloaded.add(texture.path)
-        resolve()
-      }
-      request.onerror = () => resolve()
-    }))
+    // Check textures  
+    const textureChecks = textures.map(async texture => {
+      const result = await db.textures.get(texture.path);
+      if (result) downloaded.add(texture.path);
+    });
 
-    // Wait for all checks to complete
-    await Promise.all([...modelChecks, ...textureChecks])
-    setDownloadedAssets(downloaded)
+    await Promise.all([...modelChecks, ...textureChecks]);
+    setDownloadedAssets(downloaded);
   }
 
   const downloadAsset = async (asset: Asset, type: 'models' | 'textures') => {
@@ -102,20 +68,16 @@ export function AssetList({ onClose }: AssetListProps) {
     setDownloading(prev => new Set(prev).add(asset.path))
 
     try {
-      const response = await fetch(asset.path)
-      const content = await response.blob()
+      const response = await fetch(asset.path);
+      const content = await response.blob();
       
-      const db = await openDB()
-      const tx = db.transaction([type], 'readwrite')
-      const store = tx.objectStore(type)
-      
-      await store.put({
+      await db[type].put({
         path: asset.path,
         content
-      })
+      });
 
-      setDownloadedAssets(prev => new Set(prev).add(asset.path))
-      await copyToClipboard(asset.name)
+      setDownloadedAssets(prev => new Set(prev).add(asset.path));
+      await copyToClipboard(asset.name);
     } catch (err) {
       console.error(`Error downloading ${asset.path}:`, err)
     } finally {
