@@ -52,23 +52,12 @@ function App() {
   useEffect(() => {
     const loadInitialScene = async () => {
       try {
-        // Simulate clicking the default scene in SceneList
-        const response = await fetch('/raytracer/index.json')
-        if (!response.ok) throw new Error('Failed to fetch scenes index')
-        const data = await response.json()
-        
-        const defaultScene = data.scenes.find(s => s.name === 'cornell_room_quad.json')
-        if (!defaultScene) throw new Error('Default scene not found in index')
-        
-        const sceneResponse = await fetch(defaultScene.path)
-        if (!sceneResponse.ok) throw new Error('Failed to fetch default scene')
-        const content = await sceneResponse.text()
-        
-        await saveScene(defaultScene.filename, content)
+        await initSceneIndex()
+        const { content, isRemote } = await loadScene('cornell_room_quad.json')
         handleSceneChange(content)
-        setCurrentFilename(defaultScene.filename)
+        setCurrentFilename('cornell_room_quad.json')
         setOriginalContent(content)
-        setIsRemoteFile(true)
+        setIsRemoteFile(isRemote)
       } catch (error) {
         console.error("Failed to load initial scene:", error)
       }

@@ -72,32 +72,12 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
   }
 
   const loadScene = async (scene: Scene) => {
-    // Try to get from IndexedDB first
-    const storedScene = await db.scenes.where('filename').equals(scene.filename).first();
-    
-    if (scene.path) {  // Built-in scene
-      if (storedScene && storedScene.hash === scene.hash) {
-        // Use cached version if hash matches
-        onSceneSelect(storedScene.content, scene.filename, false);
-      } else {
-        // Download and cache if not found or hash mismatch
-        const response = await fetch(scene.path);
-        const content = await response.text();
-        
-        await db.scenes.put({
-          filename: scene.filename,
-          path: scene.path,
-          hash: scene.hash,
-          content
-        });
-
-        onSceneSelect(content, scene.filename, true);
-      }
-    } else {
-      // For user-created scenes, just load from IndexedDB
-      if (storedScene) {
-        onSceneSelect(storedScene.content, scene.filename, false);
-      }
+    try {
+      const { content, isRemote } = await loadScene(scene.filename)
+      onSceneSelect(content, scene.filename, isRemote)
+    } catch (error) {
+      console.error('Failed to load scene:', error)
+      setError(error.message)
     }
   }
 
