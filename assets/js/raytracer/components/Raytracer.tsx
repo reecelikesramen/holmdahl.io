@@ -46,10 +46,11 @@ export function Raytracer({ sceneJson, wasmModule }) {
     };
 
     const setupRaytracer = async () => {
+      const instanceId = Math.random().toString(36).substr(2, 9);
       // Wait for any previous instance to clean up
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      console.log(`[Raytracer ${DEBUG_ID}] Setting up new raytracer instance`, {
+      console.log(`[Raytracer ${DEBUG_ID}] Setting up new raytracer instance ${instanceId}`, {
         sceneJson: sceneJson?.substring(0, 50) + "...",
         previewQuality,
         aspectRatio
@@ -61,12 +62,12 @@ export function Raytracer({ sceneJson, wasmModule }) {
         return;
       }
 
-      if (canvas.dataset.raytracerId && canvas.dataset.raytracerId !== DEBUG_ID) {
+      if (canvas.dataset.raytracerId && canvas.dataset.raytracerId !== instanceId) {
         console.error(`[Raytracer ${DEBUG_ID}] Canvas already in use by raytracer ${canvas.dataset.raytracerId}`);
         return;
       }
 
-      canvas.dataset.raytracerId = DEBUG_ID;
+      canvas.dataset.raytracerId = instanceId;
       // Ensure dimensions are valid integers
       const width = Math.floor(dimensions.width);
       const height = Math.floor(dimensions.height);
@@ -90,13 +91,14 @@ export function Raytracer({ sceneJson, wasmModule }) {
       };
 
       try {
-        console.log(`[Raytracer ${DEBUG_ID}] Initializing WebAssembly raytracer`);
+        console.log(`[Raytracer ${DEBUG_ID}] Initializing WebAssembly raytracer ${instanceId}`);
         const rt = await RayTracer.init("canvas", sceneJson, scene_args);
+        rt.instanceId = instanceId; // Store the ID on the raytracer instance
         setRaytracer(rt);
-        console.log(`[Raytracer ${DEBUG_ID}] Initialized raytracer`);
+        console.log(`[Raytracer ${DEBUG_ID}] Initialized raytracer ${instanceId}`);
 
         // start periodic rendering
-        startRenderToCanvas(rt);
+        startRenderToCanvas(rt, instanceId);
 
         // parallel processing using rayon
         rt.set_dimensions(width, height); // Ensure dimensions are set correctly
@@ -139,6 +141,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
   }, [sceneJson, previewQuality, aspectRatio]);
 
   const runChunkedProcessingWithRAF = (raytracer) => {
+    const instanceId = raytracer.instanceId;
     return new Promise<void>((resolve) => {
       const TARGET_MS_MIN = 1000 / 32;
       const TARGET_MS_MAX = 1000 / 28;
@@ -147,9 +150,12 @@ export function Raytracer({ sceneJson, wasmModule }) {
 
       const processNextChunk = async (start_time) => {
         if (raytracer.complete) {
+          console.log(`[Raytracer ${DEBUG_ID}] Instance ${instanceId} chunk processing complete`);
           raytracer.render_to_canvas();
           return resolve();
         }
+
+        console.log(`[Raytracer ${DEBUG_ID}] Instance ${instanceId} processing chunk with RAF ID: ${renderFrameId.current}`);
 
         renderFrameId.current = requestAnimationFrame(processNextChunk);
 
@@ -178,11 +184,12 @@ export function Raytracer({ sceneJson, wasmModule }) {
     });
   };
 
-  const startRenderToCanvas = (raytracer) => {
+  const startRenderToCanvas = (raytracer, instanceId) => {
     const PERIOD = 1000 / 30;
     let last_frame_time = 0;
 
     function animate(current_time) {
+      console.log(`[Raytracer ${DEBUG_ID}] Instance ${instanceId} render frame requested, RAF ID: ${renderFrameId.current}`);
       renderFrameId.current = requestAnimationFrame(animate);
 
       if (current_time - last_frame_time < PERIOD) {
