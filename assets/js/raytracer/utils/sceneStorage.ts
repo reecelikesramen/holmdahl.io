@@ -7,8 +7,12 @@ export async function saveScene(filename: string, content: string): Promise<void
       .join("")
   )
 
+  // Delete any existing scene with the same path
+  await db.scenes.where('path').equals(filename).delete();
+
+  // Save the new version
   await db.scenes.put({
-    path: `${filename}`,
+    path: filename,
     content,
     hash,
   })
