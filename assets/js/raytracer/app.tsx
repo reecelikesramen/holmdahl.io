@@ -85,17 +85,14 @@ function App() {
     const finalFilename = filename.endsWith('.json') ? filename : `${filename}.json`
     
     try {
-      // Check if filename already exists as a built-in scene
-      const response = await fetch('/raytracer/index.json')
-      const data = await response.json()
-      const isBuiltInName = data.scenes.some(s => s.path.endsWith(`/${finalFilename}`))
-      
-      if (isBuiltInName) {
+      // Check if filename already exists in DB
+      const existingScene = await db.scenes.where('filename').equals(finalFilename).first()
+      if (existingScene?.path) {
         alert("Cannot use the same filename as a built-in scene")
         return
       }
         
-      await saveScene(finalFilename, sceneCode, false)
+      await saveScene(finalFilename, sceneCode)
       setCurrentFilename(finalFilename)
       setOriginalContent(sceneCode)
       setIsModified(false)

@@ -3,8 +3,8 @@ import { FixedSizeList } from 'react-window'
 import { db } from "../utils/db"
 
 interface Scene {
-  name: string
-  path: string
+  filename: string
+  path?: string  // Only present for built-in scenes
   hash: string
 }
 
@@ -40,31 +40,29 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
       
       // Load all scenes from IndexedDB
       const savedScenes = await db.scenes.toArray()
-      const savedSceneMap = new Map(savedScenes.map(scene => [scene.path, scene]))
+      const savedSceneMap = new Map(savedScenes.map(scene => [scene.filename, scene]))
       
-      // Combine scenes, preferring IndexedDB versions for built-in scenes
-      const combinedScenes = data.scenes.map(scene => {
-        const savedScene = savedSceneMap.get(scene.path)
-        if (savedScene) {
-          return {
-            name: scene.name,
-            path: scene.path,
-            hash: savedScene.hash
-          }
+      // Process built-in scenes
+      const builtInScenes = data.scenes.map(scene => {
+        const filename = scene.path.split('/').pop() || scene.path
+        const savedScene = savedSceneMap.get(filename)
+        
+        return {
+          filename,
+          path: scene.path,  // Keep server path for built-in scenes
+          hash: savedScene?.hash || scene.hash
         }
-        return scene
       })
       
-      // Add user-created scenes (those not in index.json)
+      // Add user-created scenes (those without paths)
       const userScenes = savedScenes
-        .filter(scene => !data.scenes.some(s => s.path === scene.path))
+        .filter(scene => !scene.path)  // Only include scenes without paths (user-created)
         .map(scene => ({
-          name: scene.path,
-          path: scene.path, // Keep full path for fetching from server
+          filename: scene.filename,
           hash: scene.hash
         }))
       
-      setScenes([...combinedScenes, ...userScenes])
+      setScenes([...builtInScenes, ...userScenes])
     } catch (err) {
       setError(err.message)
       console.error('Error loading scenes:', err)
@@ -74,39 +72,31 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
   }
 
   const loadScene = async (scene: Scene) => {
-    // For built-in scenes, check if path starts with /raytracer/scenes/
-    const isBuiltIn = scene.path.startsWith('/raytracer/scenes/');
+    // Try to get from IndexedDB first
+    const storedScene = await db.scenes.where('filename').equals(scene.filename).first();
     
-    if (isBuiltIn) {
-      // Try to get from IndexedDB first
-      const storedScene = await db.scenes.where('path').equals(scene.path).first();
-      
+    if (scene.path) {  // Built-in scene
       if (storedScene && storedScene.hash === scene.hash) {
         // Use cached version if hash matches
-        // Extract just the filename for display
-        const filename = scene.path.split('/').pop() || scene.path;
-        onSceneSelect(storedScene.content, filename, false);
+        onSceneSelect(storedScene.content, scene.filename, false);
       } else {
         // Download and cache if not found or hash mismatch
         const response = await fetch(scene.path);
         const content = await response.text();
         
         await db.scenes.put({
+          filename: scene.filename,
           path: scene.path,
           hash: scene.hash,
-          content,
-          isBuiltIn: true
+          content
         });
 
-        // Extract just the filename for display
-        const filename = scene.path.split('/').pop() || scene.path;
-        onSceneSelect(content, filename, true);
+        onSceneSelect(content, scene.filename, true);
       }
     } else {
       // For user-created scenes, just load from IndexedDB
-      const storedScene = await db.scenes.where('path').equals(scene.path).first();
       if (storedScene) {
-        onSceneSelect(storedScene.content, scene.path, false);
+        onSceneSelect(storedScene.content, scene.filename, false);
       }
     }
   }

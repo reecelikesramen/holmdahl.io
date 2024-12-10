@@ -1,21 +1,21 @@
 import { db } from "./db"
 
-export async function saveScene(filename: string, content: string, isBuiltIn: boolean = false): Promise<void> {
+export async function saveScene(filename: string, content: string, path?: string): Promise<void> {
   const hash = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(content)).then((buf) =>
     Array.from(new Uint8Array(buf))
       .map((b) => b.toString(16).padStart(2, "0"))
       .join("")
   )
 
-  // Delete any existing scene with the same path
-  await db.scenes.where("path").equals(filename).delete()
+  // Delete any existing scene with the same filename
+  await db.scenes.where("filename").equals(filename).delete()
 
   // Save the new version
   await db.scenes.put({
-    path: filename,
+    filename,
+    path,  // path is only set for built-in scenes
     content,
-    hash,
-    isBuiltIn,
+    hash
   })
 
   // Dispatch event to notify scene list to refresh
