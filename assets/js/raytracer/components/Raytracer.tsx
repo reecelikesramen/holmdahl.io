@@ -23,8 +23,8 @@ export function Raytracer({ sceneJson, wasmModule }) {
 
     const setupRaytracer = async () => {
       const scene_args = {
-        width,
-        height,
+        width: dimensions.width,
+        height: dimensions.height,
         rays_per_pixel: 25,
       }
 
@@ -38,7 +38,10 @@ export function Raytracer({ sceneJson, wasmModule }) {
 
         // run quarter resolution
         let date_start = performance.now()
-        rt.set_dimensions(Math.floor(100), Math.floor((100 * height) / width))
+        rt.set_dimensions(
+          Math.floor(dimensions.width / 4),
+          Math.floor(dimensions.height / 4)
+        )
         rt.sqrt_rays_per_pixel = 20
         await runChunkedProcessingWithRAF(rt)
         console.log("Quarter raytrace in", (performance.now() - date_start).toFixed(2), "ms!")
@@ -46,7 +49,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
         if (stop) return
 
         // parallel processing using rayon
-        rt.set_dimensions(width, height)
+        rt.set_dimensions(dimensions.width, dimensions.height)
         rt.sqrt_rays_per_pixel = Math.floor(Math.sqrt(scene_args.rays_per_pixel))
         console.log("Starting raytrace...")
         date_start = performance.now()
@@ -77,7 +80,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
 
     setupRaytracer()
     return cleanup
-  }, [sceneJson])
+  }, [sceneJson, dimensions])
 
   const runChunkedProcessingWithRAF = (raytracer) => {
     return new Promise<void>((resolve) => {
