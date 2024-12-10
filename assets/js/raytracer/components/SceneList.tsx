@@ -1,5 +1,6 @@
 import { useState, useEffect } from "preact/hooks"
 import { FixedSizeList } from 'react-window'
+import { db } from "../utils/db"
 
 interface Scene {
   name: string
