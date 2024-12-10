@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "preact/hooks"
+import { useState, useEffect, useRef, useMemo } from "preact/hooks"
 import { RayTracer } from "../pkg/raytracer_wasm.js"
 import { RaytracerControls } from "./RaytracerControls"
 import { PreviewQuality, RenderQuality, AspectRatio, calculateDimensions } from "../types/raytracer"
@@ -10,7 +10,10 @@ export function Raytracer({ sceneJson, wasmModule }) {
   const [fullRenderQuality, setFullRenderQuality] = useState<RenderQuality>('1k')
   const [aspectRatio, setAspectRatio] = useState<AspectRatio>('16:9')
   
-  const dimensions = calculateDimensions(previewQuality, aspectRatio)
+  const dimensions = useMemo(() => 
+    calculateDimensions(previewQuality, aspectRatio),
+    [previewQuality, aspectRatio]
+  )
 
   useEffect(() => {
     let stop = false
@@ -94,7 +97,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
 
     setupRaytracer()
     return cleanup
-  }, [sceneJson, dimensions])
+  }, [sceneJson, previewQuality, aspectRatio])
 
   const runChunkedProcessingWithRAF = (raytracer) => {
     return new Promise<void>((resolve) => {
