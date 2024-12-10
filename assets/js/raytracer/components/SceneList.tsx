@@ -48,21 +48,35 @@ export function SceneList({ onSceneSelect, onClose }: SceneListProps) {
   }
 
   const loadScene = async (scene: Scene) => {
-    const storedScene = await db.scenes.get(scene.path);
-
-    if (storedScene && storedScene.hash === scene.hash) {
-      onSceneSelect(storedScene.content);
-    } else {
-      const response = await fetch(scene.path);
-      const content = await response.text();
+    // For built-in scenes, check if path starts with /raytracer/scenes/
+    const isBuiltIn = scene.path.startsWith('/raytracer/scenes/');
+    
+    if (isBuiltIn) {
+      // Try to get from IndexedDB first
+      const storedScene = await db.scenes.where('path').equals(scene.path).first();
       
-      await db.scenes.put({
-        path: scene.path,
-        hash: scene.hash,
-        content
-      });
+      if (storedScene && storedScene.hash === scene.hash) {
+        // Use cached version if hash matches
+        onSceneSelect(storedScene.content);
+      } else {
+        // Download and cache if not found or hash mismatch
+        const response = await fetch(scene.path);
+        const content = await response.text();
+        
+        await db.scenes.put({
+          path: scene.path,
+          hash: scene.hash,
+          content
+        });
 
-      onSceneSelect(content);
+        onSceneSelect(content);
+      }
+    } else {
+      // For user-created scenes, just load from IndexedDB
+      const storedScene = await db.scenes.where('path').equals(scene.path).first();
+      if (storedScene) {
+        onSceneSelect(storedScene.content);
+      }
     }
   }
 

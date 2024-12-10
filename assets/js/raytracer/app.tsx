@@ -53,14 +53,15 @@ function App() {
 	}, [])
 
   const handleSave = useCallback(async () => {
-    if (!currentFilename) {
-      const filename = prompt("Enter filename for scene:", "new_scene.json")
+    let filename = currentFilename
+    if (!filename) {
+      filename = prompt("Enter filename for scene:", "new_scene.json")
       if (!filename) return
       setCurrentFilename(filename)
     }
     
     try {
-      await saveScene(currentFilename!, sceneCode)
+      await saveScene(filename, sceneCode)
       setOriginalContent(sceneCode)
       setIsModified(false)
     } catch (error) {
