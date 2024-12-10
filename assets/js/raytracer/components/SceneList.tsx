@@ -94,6 +94,23 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
 
     try {
       await db.scenes.where('filename').equals(scene.filename).delete()
+      
+      // If this was the current scene, load another one
+      if (scene.filename === currentFile) {
+        // Get remaining scenes
+        const remainingScenes = await db.scenes.toArray()
+        
+        if (remainingScenes.length > 0) {
+          // Load the first available scene
+          const nextScene = remainingScenes[0]
+          const { content, isRemote } = await loadScene(nextScene.filename)
+          onSceneSelect(content, nextScene.filename, isRemote)
+        } else {
+          // If no scenes left, clear the current scene
+          onSceneSelect("", "", false)
+        }
+      }
+
       setRefreshTrigger(prev => prev + 1)
       // Dispatch event to notify other components
       window.dispatchEvent(new CustomEvent('scenesUpdated'))
