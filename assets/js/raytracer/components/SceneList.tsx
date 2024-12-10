@@ -17,28 +17,53 @@ export function SceneList({ onSceneSelect, onClose }: SceneListProps) {
   const [scenes, setScenes] = useState<Scene[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [refreshTrigger, setRefreshTrigger] = useState(0)
 
   useEffect(() => {
     loadScenes()
+  }, [refreshTrigger])
+
+  // Subscribe to scene changes
+  useEffect(() => {
+    const refreshScenes = () => setRefreshTrigger(prev => prev + 1)
+    window.addEventListener('scenesUpdated', refreshScenes)
+    return () => window.removeEventListener('scenesUpdated', refreshScenes)
   }, [])
 
   const loadScenes = async () => {
     try {
-      // Load built-in scenes
+      // Load built-in scenes from index.json
       const response = await fetch('/raytracer/index.json')
       if (!response.ok) throw new Error('Failed to fetch scenes index')
       const data = await response.json()
       
-      // Load user-saved scenes from IndexedDB
+      // Load all scenes from IndexedDB
       const savedScenes = await db.scenes.toArray()
-      const userScenes = savedScenes.map(scene => ({
-        name: scene.path.split('/').pop() || '',
-        path: scene.path,
-        hash: scene.hash
-      }))
+      const savedSceneMap = new Map(savedScenes.map(scene => [scene.path, scene]))
       
-      // Combine and set all scenes
-      setScenes([...data.scenes, ...userScenes])
+      // Combine scenes, preferring IndexedDB versions for built-in scenes
+      const combinedScenes = data.scenes.map(scene => {
+        const savedScene = savedSceneMap.get(scene.path)
+        if (savedScene) {
+          return {
+            name: scene.name,
+            path: scene.path,
+            hash: savedScene.hash
+          }
+        }
+        return scene
+      })
+      
+      // Add user-created scenes (those not in index.json)
+      const userScenes = savedScenes
+        .filter(scene => !data.scenes.some(s => s.path === scene.path))
+        .map(scene => ({
+          name: scene.path.split('/').pop() || '',
+          path: scene.path,
+          hash: scene.hash
+        }))
+      
+      setScenes([...combinedScenes, ...userScenes])
     } catch (err) {
       setError(err.message)
       console.error('Error loading scenes:', err)

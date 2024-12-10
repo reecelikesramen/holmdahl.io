@@ -11,6 +11,9 @@ export async function saveScene(filename: string, content: string): Promise<void
     content,
     hash,
   });
+  
+  // Dispatch event to notify scene list to refresh
+  window.dispatchEvent(new Event('scenesUpdated'));
 }
 
 export async function loadScene(filename: string) {
