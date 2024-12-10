@@ -202,7 +202,7 @@ function App() {
                 setIsRemoteFile(isRemote)
                 setOriginalContent(content)
                 setIsModified(path ? isSceneModified(path) : false)
-                setCurrentFilename(path || null)
+                setCurrentFilename(path)
               }}
               onClose={() => setShowScenes(false)}
               currentFile={currentFilename}
