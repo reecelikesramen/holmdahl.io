@@ -197,22 +197,29 @@ function App() {
         {showScenes && (
           <Pane minSize={100} maxSize="20%">
             <SceneList 
-              onSceneSelect={(content, path, isRemote) => {
+              onSceneSelect={async (content, path, isRemote) => {
                 console.log("Scene select called with:", { 
                   contentLength: content?.length || 0,
                   path,
                   isRemote,
                   previousFile: currentFilename
                 });
+                
+                // Update all state synchronously
                 setSceneCode(content)
                 setIsRemoteFile(isRemote)
                 setOriginalContent(content)
                 setIsModified(path ? isSceneModified(path) : false)
                 setCurrentFilename(path)
+                
+                // Wait for state updates to complete
+                await new Promise(resolve => setTimeout(resolve, 0))
+                
                 console.log("After state updates:", {
                   newSceneCode: content?.substring(0, 100) + "...",
                   newPath: path,
-                  newIsRemote: isRemote
+                  newIsRemote: isRemote,
+                  currentFilename: path
                 });
               }}
               onClose={() => setShowScenes(false)}
