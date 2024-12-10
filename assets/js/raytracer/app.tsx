@@ -112,15 +112,18 @@ function App() {
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey)) {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      const modifierKey = isMac ? e.metaKey : e.ctrlKey;
+      
+      if (modifierKey) {
         if (e.shiftKey && (e.key === 'S' || e.key === 's')) {
-          // CMD/CTRL +SHIFT+S
-          e.preventDefault()
-          handleSaveAs()
+          // Mac: CMD+SHIFT+S, Windows/Linux: CTRL+SHIFT+S
+          e.preventDefault();
+          handleSaveAs();
         } else if (e.key === 's') {
-          // CMD/CTRL +S
-          e.preventDefault()
-          handleSave()
+          // Mac: CMD+S, Windows/Linux: CTRL+S
+          e.preventDefault();
+          handleSave();
         }
       }
     }
