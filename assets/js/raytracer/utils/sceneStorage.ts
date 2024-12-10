@@ -13,9 +13,9 @@ export async function saveScene(filename: string, content: string, path?: string
   // Save the new version
   await db.scenes.put({
     filename,
-    path,  // path is only set for built-in scenes
+    path, // path is only set for built-in scenes
     content,
-    hash
+    hash,
   })
 
   // Dispatch event to notify scene list to refresh
@@ -24,27 +24,27 @@ export async function saveScene(filename: string, content: string, path?: string
 
 interface SceneIndex {
   scenes: Array<{
-    filename: string
+    name: string
     path: string
     hash: string
   }>
 }
 
-let sceneIndex: SceneIndex | null = null
+export let sceneIndex: SceneIndex | null = null
 
 export async function initSceneIndex() {
-  const response = await fetch('/raytracer/index.json')
-  if (!response.ok) throw new Error('Failed to fetch scenes index')
+  const response = await fetch("/raytracer/index.json")
+  if (!response.ok) throw new Error("Failed to fetch scenes index")
   sceneIndex = await response.json()
 }
 
-export async function loadScene(filename: string): Promise<{ content: string, isRemote: boolean }> {
+export async function loadScene(filename: string): Promise<{ content: string; isRemote: boolean }> {
   if (!sceneIndex) {
-    throw new Error('Scene index not initialized')
+    throw new Error("Scene index not initialized")
   }
 
   // Find if it's a built-in scene
-  const indexEntry = sceneIndex.scenes.find(s => s.filename === filename)
+  const indexEntry = sceneIndex.scenes.find((s) => s.name === filename)
   const dbScene = await db.scenes.get(filename)
 
   if (indexEntry) {
@@ -57,7 +57,7 @@ export async function loadScene(filename: string): Promise<{ content: string, is
       const response = await fetch(indexEntry.path)
       if (!response.ok) throw new Error(`Failed to fetch scene: ${filename}`)
       const content = await response.text()
-      
+
       await saveScene(filename, content, indexEntry.path)
       return { content, isRemote: true }
     }
