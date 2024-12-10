@@ -1,4 +1,15 @@
 import { db } from "./db"
+import * as JSON5 from "json5"
+
+export function formatJson(content: string): string {
+  try {
+    const parsed = JSON5.parse(content)
+    return JSON.stringify(parsed, null, 2)
+  } catch (e) {
+    console.error("Error formatting JSON:", e)
+    return content
+  }
+}
 
 export async function saveScene(filename: string, content: string, path?: string): Promise<void> {
   const hash = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(content)).then((buf) =>
@@ -51,7 +62,7 @@ export async function loadScene(filename: string): Promise<{ content: string; is
   if (memoryContent) {
     // If it's in memory, we need to determine if it was remote or not
     const dbScene = await db.scenes.get(filename)
-    return { content: memoryContent, isRemote: !!dbScene?.path }
+    return { content: formatJson(memoryContent), isRemote: !!dbScene?.path }
   }
 
   // Find if it's a built-in scene
@@ -62,19 +73,19 @@ export async function loadScene(filename: string): Promise<{ content: string; is
     // Built-in scene logic
     if (dbScene && dbScene.hash === indexEntry.hash) {
       // Use cached version if hash matches
-      return { content: dbScene.content, isRemote: true }
+      return { content: formatJson(dbScene.content), isRemote: true }
     } else {
       // Download and cache if not found or hash mismatch
       const response = await fetch(indexEntry.path)
       if (!response.ok) throw new Error(`Failed to fetch scene: ${filename}`)
-      const content = await response.text()
+      const content = formatJson(await response.text())
 
       await saveScene(filename, content, indexEntry.path)
       return { content, isRemote: true }
     }
   } else if (dbScene) {
     // User-created scene
-    return { content: dbScene.content, isRemote: false }
+    return { content: formatJson(dbScene.content), isRemote: false }
   }
 
   throw new Error(`Scene not found: ${filename}`)
