@@ -44,16 +44,17 @@ export function Raytracer({ sceneJson, wasmModule }) {
         cancelAnimationFrame(renderFrameId.current);
         renderFrameId.current = null;
       }
-      
+
       const canvas = document.getElementById("canvas");
       if (canvas) {
         // Clear the canvas before reinitializing
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext("2d");
         if (ctx) {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
         canvas.width = dimensions.width;
         canvas.height = dimensions.height;
+        canvas.getContext("webgl2");
         delete canvas.dataset.raytracerId;
       }
 
@@ -199,11 +200,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
 
   return (
     <div className="raytracer-preview">
-      <canvas 
-        id="canvas" 
-        width={dimensions.width}
-        height={dimensions.height}
-      />
+      <canvas id="canvas" width={dimensions.width} height={dimensions.height} />
       <RaytracerControls
         previewQuality={previewQuality}
         fullRenderQuality={fullRenderQuality}
