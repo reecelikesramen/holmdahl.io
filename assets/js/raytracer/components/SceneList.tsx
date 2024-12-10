@@ -11,6 +11,7 @@ interface Scene {
 interface SceneListProps {
   onSceneSelect: (sceneJson: string, isRemote: boolean) => void
   onClose: () => void
+  currentFile?: string | null
 }
 
 export function SceneList({ onSceneSelect, onClose }: SceneListProps) {
@@ -123,7 +124,7 @@ export function SceneList({ onSceneSelect, onClose }: SceneListProps) {
         >
           {({ index, style }) => (
             <div 
-              className="scene-item" 
+              className={`scene-item ${scenes[index].path === currentFile ? 'active' : ''}`}
               style={style}
               onClick={() => loadScene(scenes[index])}
             >

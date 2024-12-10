@@ -13,13 +13,13 @@ import defaultScene from "./scenes/cornell_room_quad.json?raw"
 
 
 function App() {
-  const [sceneCode, setSceneCode] = useState(defaultScene)
+  const [sceneCode, setSceneCode] = useState("")
   const [wasmModule, setWasmModule] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [currentFilename, setCurrentFilename] = useState<string | null>(null)
+  const [currentFilename, setCurrentFilename] = useState<string | null>("cornell_room_quad.json")
   const [isModified, setIsModified] = useState(false)
-  const [originalContent, setOriginalContent] = useState(defaultScene)
-  const [isRemoteFile, setIsRemoteFile] = useState(true) // Track if file is from remote
+  const [originalContent, setOriginalContent] = useState("")
+  const [isRemoteFile, setIsRemoteFile] = useState(true)
 
   useEffect(() => {
     const initWasm = async () => {
@@ -48,10 +48,29 @@ function App() {
     }
   }
 
-	// Format the default scene
-	useEffect(() => {
-		handleSceneChange(defaultScene)
-	}, [])
+  // Load initial scene
+  useEffect(() => {
+    const loadInitialScene = async () => {
+      try {
+        const response = await fetch('/raytracer/scenes/cornell_room_quad.json')
+        if (!response.ok) throw new Error('Failed to fetch initial scene')
+        const content = await response.text()
+        
+        // Save to IndexedDB
+        await saveScene('/raytracer/scenes/cornell_room_quad.json', content)
+        
+        // Update editor
+        handleSceneChange(content)
+        setCurrentFilename('cornell_room_quad.json')
+        setOriginalContent(content)
+        setIsRemoteFile(true)
+      } catch (error) {
+        console.error("Failed to load initial scene:", error)
+      }
+    }
+    
+    loadInitialScene()
+  }, [])
 
   const handleSaveAs = useCallback(async () => {
     const filename = prompt("Enter filename for scene:", "new_scene.json")
@@ -144,6 +163,7 @@ function App() {
                 setCurrentFilename(null);
               }}
               onClose={() => setShowScenes(false)}
+              currentFile={currentFilename}
             />
           </Pane>
         )}
@@ -155,7 +175,8 @@ function App() {
                   ◪
                 </button>
               )}
-              Scene Editor
+              Scene Editor {currentFilename ? `-- ${currentFilename}` : ''}
+              {isModified && !isRemoteFile && <span className="modified-indicator">●</span>}
             </div>
             <div className="editor-container">
               <JsonEditor 

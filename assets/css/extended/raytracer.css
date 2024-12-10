@@ -59,6 +59,20 @@
   border-radius: 3px;
 }
 
+.modified-indicator {
+  color: #d19a66;
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+.scene-item.active {
+  background-color: var(--border);
+}
+
+.dark .scene-item.active {
+  background-color: var(--entry);
+}
+
 /* Style for the split pane divider */
 .split-pane-divider {
   background-color: var(--border) !important;
