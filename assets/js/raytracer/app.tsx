@@ -43,13 +43,20 @@ function App() {
     try {
       let json = JSON5.parse(val)
       const formatted = JSON.stringify(json, null, 2)
+      console.log("Scene change:", {
+        currentFilename,
+        formatted: formatted.substring(0, 50) + "...",
+        originalContent: originalContent.substring(0, 50) + "...",
+        isDifferent: formatted !== originalContent
+      })
       setSceneCode(formatted)
       setIsModified(formatted !== originalContent)
       if (currentFilename && formatted !== originalContent) {
+        console.log("Setting modified content for:", currentFilename)
         setModifiedContent(currentFilename, formatted)
       }
     } catch (e) {
-      // console.log("error parsing JSON, ignoring")
+      console.log("Error parsing JSON:", e)
     }
   }
 
