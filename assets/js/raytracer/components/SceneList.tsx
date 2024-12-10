@@ -110,8 +110,11 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
       const isMac = browser.getOS().name === 'macOS'
       const modifierKey = isMac ? e.metaKey : e.ctrlKey
 
-      if (modifierKey && e.key === 'Delete' && document.activeElement?.closest('.scenes-container')) {
-        console.log('Delete key pressed')
+      if (modifierKey && (e.key === 'Delete' || e.key === 'Backspace')) {
+        console.log('Key pressed:', e.key)
+        console.log('Modifier key:', modifierKey)
+        console.log('Active element:', document.activeElement)
+        console.log('Selected scene:', selectedScene)
         e.preventDefault()
         handleDelete(selectedScene)
       }
