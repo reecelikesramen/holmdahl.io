@@ -19,6 +19,43 @@ function App() {
   const [wasmModule, setWasmModule] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [currentFilename, setCurrentFilename] = useState<string | null>("cornell_room_quad.json")
+  
+  const handleSceneDelete = async (filename: string) => {
+    console.log("Handling scene deletion:", {
+      deletingFilename: filename,
+      currentFilename,
+      isCurrentScene: filename === currentFilename
+    });
+
+    // Get remaining scenes before deletion
+    const remainingScenes = await db.scenes
+      .filter(s => s.filename !== filename)
+      .toArray()
+
+    // If this is the current scene, handle selection first
+    if (filename === currentFilename) {
+      console.log("Deleting current scene, selecting new scene");
+      if (remainingScenes.length > 0) {
+        const nextScene = remainingScenes[0]
+        const { content, isRemote } = await loadScene(nextScene.filename)
+        setSceneCode(content)
+        setIsRemoteFile(isRemote)
+        setOriginalContent(content)
+        setCurrentFilename(nextScene.filename)
+        setIsModified(false)
+      } else {
+        setSceneCode("")
+        setCurrentFilename(null)
+        setIsRemoteFile(false)
+        setOriginalContent("")
+        setIsModified(false)
+      }
+    }
+
+    // Now perform the actual deletion
+    await db.scenes.where('filename').equals(filename).delete()
+    window.dispatchEvent(new Event('scenesUpdated'))
+  }
   const [isModified, setIsModified] = useState(false)
   const [originalContent, setOriginalContent] = useState("")
   const [isRemoteFile, setIsRemoteFile] = useState(true)
@@ -197,6 +234,8 @@ function App() {
         {showScenes && (
           <Pane minSize={100} maxSize="20%">
             <SceneList 
+              currentFile={currentFilename}
+              onSceneDelete={handleSceneDelete}
               onSceneSelect={async (content, path, isRemote) => {
                 console.log("Scene select called with:", { 
                   contentLength: content?.length || 0,

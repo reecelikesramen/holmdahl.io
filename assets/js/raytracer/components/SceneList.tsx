@@ -20,6 +20,7 @@ interface Scene {
 
 interface SceneListProps {
   onSceneSelect: (sceneJson: string, path: string, isRemote: boolean) => void
+  onSceneDelete: (filename: string) => Promise<void>
   onClose: () => void
   currentFile?: string | null
 }
@@ -131,49 +132,7 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
         timestamp: Date.now()
       };
 
-      console.log("Starting deletion process for scene:", {
-        deletingScene: scene.filename,
-        currentFile,
-        isCurrentScene: scene.filename === currentFile
-      });
-
-      // If this is the current scene, handle selection first
-      if (scene.filename === currentFile) {
-        console.log("Handling current scene deletion:", {
-          deletingScene: scene.filename,
-          currentFile
-        });
-        
-        // Get remaining scenes before deletion
-        const remainingScenes = await db.scenes
-          .filter(s => s.filename !== scene.filename)
-          .toArray()
-        
-        console.log("Remaining scenes for selection:", {
-          count: remainingScenes.length,
-          filenames: remainingScenes.map(s => s.filename)
-        });
-        
-        console.log("Scene being deleted is current scene");
-        if (remainingScenes.length > 0) {
-          // Load the first available scene
-          const nextScene = remainingScenes[0]
-          console.log("Loading next scene:", nextScene.filename);
-          const { content: nextContent, isRemote } = await loadScene(nextScene.filename)
-          console.log("Loaded next scene content:", nextContent.substring(0, 100) + "...");
-          onSceneSelect(nextContent, nextScene.filename, isRemote)
-        } else {
-          console.log("No remaining scenes, clearing editor");
-          onSceneSelect("", "", false)
-        }
-      }
-
-      // Now perform the actual deletion
-      await db.scenes.where('filename').equals(scene.filename).delete()
-
-      setRefreshTrigger(prev => prev + 1)
-      // Dispatch event to notify other components
-      window.dispatchEvent(new CustomEvent('scenesUpdated'))
+      await onSceneDelete(scene.filename);
 
       // Show temporary undo message
       const undoMsg = document.createElement('div');
@@ -191,7 +150,7 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
       console.error('Failed to delete scene:', error)
       setError('Failed to delete scene')
     }
-  }, [])
+  }, [onSceneDelete])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
