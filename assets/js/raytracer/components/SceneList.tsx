@@ -133,6 +133,12 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
 
       await db.scenes.where('filename').equals(scene.filename).delete()
       
+      console.log("Checking scene deletion condition:", {
+        deletingScene: scene.filename,
+        currentFile,
+        matches: scene.filename === currentFile
+      });
+      
       // If this was the current scene, clear it or load another one
       if (scene.filename === currentFile) {
         console.log("Deleting current scene:", scene.filename);
