@@ -127,6 +127,20 @@ function App() {
     }
   }, [currentFilename, sceneCode, isRemoteFile, handleSaveAs])
 
+  // Add beforeunload handler to warn about unsaved changes
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isModified) {
+        e.preventDefault()
+        e.returnValue = ''
+        return ''
+      }
+    }
+
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+  }, [isModified])
+
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       const browser = Bowser.getParser(window.navigator.userAgent);
