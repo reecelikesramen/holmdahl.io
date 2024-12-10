@@ -132,12 +132,13 @@
 }
 
 #canvas {
+  width: auto;
+  height: auto;
   max-height: 100%;
-  max-width: 100%;
+  max-width: min(100%, 100vh - 100px);
   aspect-ratio: 1/1;
   display: block;
   image-rendering: pixelated;
-  object-fit: contain;
 }
 .assets-container, .scenes-container {
   overflow-x: hidden !important;
