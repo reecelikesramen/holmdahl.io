@@ -8,14 +8,14 @@ export async function saveScene(filename: string, content: string, isBuiltIn: bo
   )
 
   // Delete any existing scene with the same path
-  await db.scenes.where('path').equals(filename).delete();
+  await db.scenes.where("path").equals(filename).delete()
 
   // Save the new version
   await db.scenes.put({
     path: filename,
     content,
     hash,
-    isBuiltIn
+    isBuiltIn,
   })
 
   // Dispatch event to notify scene list to refresh
