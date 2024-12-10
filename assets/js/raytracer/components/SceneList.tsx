@@ -1,4 +1,4 @@
-import { useState, useEffect } from "preact/hooks"
+import { useState, useEffect, useCallback } from "preact/hooks"
 import { FixedSizeList } from 'react-window'
 import { db } from "../utils/db"
 import { loadScene, sceneIndex } from "../utils/sceneStorage"
@@ -20,6 +20,7 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
+  const [selectedScene, setSelectedScene] = useState<Scene | null>(null)
 
   useEffect(() => {
     loadScenes()
@@ -70,12 +71,53 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
   const selectScene = async (scene: Scene) => {
     try {
       const { content, isRemote } = await loadScene(scene.filename)
+      setSelectedScene(scene)
       onSceneSelect(content, scene.filename, isRemote)
     } catch (error) {
       console.error('Failed to load scene:', error)
       setError(error.message)
     }
   }
+
+  const handleDelete = useCallback(async (scene: Scene) => {
+    // Only allow deletion of local scenes (those without a path)
+    if (scene.path) {
+      return
+    }
+
+    const confirmed = window.confirm(`Are you sure you want to delete "${scene.filename}"?`)
+    if (!confirmed) {
+      return
+    }
+
+    try {
+      await db.scenes.where('filename').equals(scene.filename).delete()
+      setRefreshTrigger(prev => prev + 1)
+      // Dispatch event to notify other components
+      window.dispatchEvent(new CustomEvent('scenesUpdated'))
+    } catch (error) {
+      console.error('Failed to delete scene:', error)
+      setError('Failed to delete scene')
+    }
+  }, [])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!selectedScene) return
+
+      const browser = Bowser.getParser(window.navigator.userAgent)
+      const isMac = browser.getOS().name === 'macOS'
+      const modifierKey = isMac ? e.metaKey : e.ctrlKey
+
+      if (modifierKey && e.key === 'Delete' && document.activeElement?.closest('.scenes-container')) {
+        e.preventDefault()
+        handleDelete(selectedScene)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedScene, handleDelete])
 
   if (loading) return <div>Loading scenes...</div>
   if (error) return <div>Error: {error}</div>
