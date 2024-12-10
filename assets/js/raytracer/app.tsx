@@ -94,6 +94,11 @@ function App() {
         return
       }
         
+      // If we're saving from a built-in scene, clear its modifications
+      if (currentFilename && isRemoteFile) {
+        clearModifiedContent(currentFilename)
+      }
+
       await saveScene(finalFilename, sceneCode)
       setCurrentFilename(finalFilename)
       setOriginalContent(sceneCode)
@@ -103,7 +108,7 @@ function App() {
       console.error("Failed to save scene:", error)
       alert("Failed to save scene")
     }
-  }, [sceneCode])
+  }, [sceneCode, currentFilename, isRemoteFile])
 
   const handleSave = useCallback(async () => {
     // For built-in files, always do Save As
