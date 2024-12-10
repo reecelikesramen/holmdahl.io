@@ -45,6 +45,9 @@ function App() {
       const formatted = JSON.stringify(json, null, 2)
       setSceneCode(formatted)
       setIsModified(formatted !== originalContent)
+      if (currentFilename && formatted !== originalContent) {
+        setModifiedContent(currentFilename, formatted)
+      }
     } catch (e) {
       console.log("error parsing JSON, ignoring")
     }
