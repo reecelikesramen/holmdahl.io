@@ -1,6 +1,7 @@
 import * as JSON5 from "json5"
 import Bowser from "bowser"
 import { render } from "preact"
+import type { VNode } from 'preact'
 import { useEffect, useState, useCallback } from "preact/hooks"
 import { saveScene, loadScene, isSceneModified, initSceneIndex, setModifiedContent, clearModifiedContent } from "./utils/sceneStorage"
 import SplitPane, { Pane } from 'split-pane-react'
@@ -229,12 +230,11 @@ function App() {
         split="vertical"
         sizes={sizes}
         onChange={setSizes}
-        sashRender={() => <div className="split-pane-divider" />}
+        sashRender={() => <div className="split-pane-divider" /> as VNode}
       >
         {showScenes && (
           <Pane minSize={100} maxSize="20%">
             <SceneList 
-              currentFile={currentFilename}
               onSceneDelete={handleSceneDelete}
               onSceneSelect={async (content, path, isRemote) => {
                 console.log("Scene select called with:", { 
