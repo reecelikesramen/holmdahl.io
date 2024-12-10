@@ -39,7 +39,12 @@ export function SceneList({ onSceneSelect, onClose }: SceneListProps) {
     const db = await openDB()
     const transaction = db.transaction(['scenes'], 'readonly')
     const store = transaction.objectStore('scenes')
-    const storedScene = await store.get(scene.path)
+    const request = store.get(scene.path)
+    
+    const storedScene = await new Promise((resolve, reject) => {
+      request.onsuccess = () => resolve(request.result)
+      request.onerror = () => reject(request.error)
+    })
 
     if (storedScene && storedScene.hash === scene.hash) {
       onSceneSelect(storedScene.content)

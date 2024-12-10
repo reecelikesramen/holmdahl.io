@@ -7,7 +7,7 @@ import { linter } from "@codemirror/lint"
 interface JsonEditorProps {
   value: string
   onChange: (value: string) => void
-  onSave?: () => void
+  onSave?: () => Promise<void>
   isModified?: boolean
 }
 

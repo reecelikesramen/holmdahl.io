@@ -104,6 +104,7 @@ function App() {
         split="vertical"
         sizes={sizes}
         onChange={setSizes}
+        sashRender={() => <div className="split-pane-divider" />}
       >
         {showScenes && (
           <Pane minSize={100} maxSize="20%">
