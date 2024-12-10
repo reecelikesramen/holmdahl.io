@@ -188,7 +188,7 @@ function App() {
                 </button>
               )}
               Scene Editor {currentFilename ? `— ${currentFilename}` : ''}
-              {isModified && !isRemoteFile && <span className="modified-indicator">●</span>}
+              {isModified && <span className="modified-indicator">●</span>}
             </div>
             <div className="editor-container">
               <JsonEditor 

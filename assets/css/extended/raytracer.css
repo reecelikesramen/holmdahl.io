@@ -173,6 +173,13 @@
   background-color: var(--border);
 }
 
+.scene-item.modified::after {
+  content: "●";
+  color: #d19a66;
+  margin-left: 8px;
+  font-size: 12px;
+}
+
 .list-container {
   height: calc(100% - 40px);  /* Subtract title bar height */
   overflow: hidden;

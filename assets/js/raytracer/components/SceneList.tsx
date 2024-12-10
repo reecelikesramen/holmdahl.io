@@ -142,7 +142,7 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
         >
           {({ index, style }) => (
             <div 
-              className={`scene-item ${scenes[index].filename === currentFile ? 'active' : ''}`}
+              className={`scene-item ${scenes[index].filename === currentFile ? 'active' : ''} ${isSceneModified(scenes[index].filename) ? 'modified' : ''}`}
               style={style}
               onClick={() => selectScene(scenes[index])}
             >
