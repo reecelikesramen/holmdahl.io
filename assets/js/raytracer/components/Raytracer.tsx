@@ -60,6 +60,8 @@ export function Raytracer({ sceneJson, wasmModule }) {
           rt.rescan()
         }
 
+        rt.render_to_canvas()
+
         // log time
         console.log("Raytraced the scene in", (performance.now() - date_start).toFixed(2), "ms!")
 
