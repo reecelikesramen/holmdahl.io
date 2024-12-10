@@ -1,11 +1,16 @@
 import { useState, useEffect, useRef } from "preact/hooks"
 import { RayTracer } from "../pkg/raytracer_wasm.js"
+import { RaytracerControls } from "./RaytracerControls"
+import { PreviewQuality, RenderQuality, AspectRatio, calculateDimensions } from "../types/raytracer"
 
 export function Raytracer({ sceneJson, wasmModule }) {
   const [raytracer, setRaytracer] = useState(null)
   const renderFrameId = useRef(null)
-  const width = 600
-  const height = 600
+  const [previewQuality, setPreviewQuality] = useState<PreviewQuality>('sd')
+  const [fullRenderQuality, setFullRenderQuality] = useState<RenderQuality>('1k')
+  const [aspectRatio, setAspectRatio] = useState<AspectRatio>('16:9')
+  
+  const dimensions = calculateDimensions(previewQuality, aspectRatio)
 
   useEffect(() => {
     let stop = false
@@ -127,6 +132,16 @@ export function Raytracer({ sceneJson, wasmModule }) {
   }
 
   return (
-    <canvas id="canvas" />
+    <div className="raytracer-preview">
+      <canvas id="canvas" />
+      <RaytracerControls
+        previewQuality={previewQuality}
+        fullRenderQuality={fullRenderQuality}
+        aspectRatio={aspectRatio}
+        onPreviewQualityChange={setPreviewQuality}
+        onFullRenderQualityChange={setFullRenderQuality}
+        onAspectRatioChange={setAspectRatio}
+      />
+    </div>
   )
 }
