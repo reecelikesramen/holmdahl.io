@@ -1,8 +1,16 @@
 import { useState, useEffect, useCallback, useRef } from "preact/hooks"
 import { FixedSizeList } from 'react-window'
 import { db } from "../utils/db"
-import { isSceneModified, loadScene, sceneIndex } from "../utils/sceneStorage"
+import { isSceneModified, loadScene, sceneIndex, saveScene } from "../utils/sceneStorage"
 import Bowser from "bowser"
+
+interface DeletedScene {
+  scene: Scene
+  content: string
+  timestamp: number
+}
+
+let lastDeletedScene: DeletedScene | null = null;
 
 interface Scene {
   filename: string
@@ -81,6 +89,28 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
     }
   }
 
+  const handleUndo = async () => {
+    if (!lastDeletedScene) return;
+
+    try {
+      await saveScene(
+        lastDeletedScene.scene.filename,
+        lastDeletedScene.content
+      );
+      
+      // If this was the last selected scene, restore it
+      if (currentFile === null) {
+        onSceneSelect(lastDeletedScene.content, lastDeletedScene.scene.filename, false);
+      }
+
+      lastDeletedScene = null; // Clear the undo history
+      setRefreshTrigger(prev => prev + 1);
+    } catch (error) {
+      console.error('Failed to restore scene:', error);
+      setError('Failed to restore scene');
+    }
+  };
+
   const handleDelete = useCallback(async (scene: Scene) => {
     // Only allow deletion of local scenes (those without a path)
     if (scene.path) {
@@ -93,6 +123,14 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
     }
 
     try {
+      // Store the scene content before deletion
+      const { content } = await loadScene(scene.filename);
+      lastDeletedScene = {
+        scene,
+        content,
+        timestamp: Date.now()
+      };
+
       await db.scenes.where('filename').equals(scene.filename).delete()
       
       // If this was the current scene, load another one
@@ -103,8 +141,8 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
         if (remainingScenes.length > 0) {
           // Load the first available scene
           const nextScene = remainingScenes[0]
-          const { content, isRemote } = await loadScene(nextScene.filename)
-          onSceneSelect(content, nextScene.filename, isRemote)
+          const { content: nextContent, isRemote } = await loadScene(nextScene.filename)
+          onSceneSelect(nextContent, nextScene.filename, isRemote)
         } else {
           // If no scenes left, clear the current scene
           onSceneSelect("", "", false)
@@ -114,6 +152,19 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
       setRefreshTrigger(prev => prev + 1)
       // Dispatch event to notify other components
       window.dispatchEvent(new CustomEvent('scenesUpdated'))
+
+      // Show temporary undo message
+      const undoMsg = document.createElement('div');
+      undoMsg.style.position = 'fixed';
+      undoMsg.style.bottom = '20px';
+      undoMsg.style.right = '20px';
+      undoMsg.style.padding = '10px';
+      undoMsg.style.background = 'var(--entry)';
+      undoMsg.style.border = '1px solid var(--border)';
+      undoMsg.style.borderRadius = '4px';
+      undoMsg.innerHTML = 'Scene deleted. Press ⌘Z to undo.';
+      document.body.appendChild(undoMsg);
+      setTimeout(() => undoMsg.remove(), 3000);
     } catch (error) {
       console.error('Failed to delete scene:', error)
       setError('Failed to delete scene')
@@ -122,8 +173,6 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!selectedScene) return
-
       const browser = Bowser.getParser(window.navigator.userAgent)
       const isMac = browser.getOS().name === 'macOS'
       const modifierKey = isMac ? e.metaKey : e.ctrlKey
@@ -131,9 +180,17 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
       // Check if the active element is within our container
       const isContainerFocused = containerRef.current?.contains(document.activeElement)
       
-      if (modifierKey && (e.key === 'Delete' || e.key === 'Backspace') && isContainerFocused) {
+      if (modifierKey && (e.key === 'Delete' || e.key === 'Backspace') && isContainerFocused && selectedScene) {
         e.preventDefault()
         handleDelete(selectedScene)
+      }
+
+      // Add undo handler
+      if (modifierKey && e.key === 'z' && !e.shiftKey) {
+        e.preventDefault()
+        if (lastDeletedScene && (Date.now() - lastDeletedScene.timestamp) < 10000) { // 10 second window
+          handleUndo()
+        }
       }
     }
 
