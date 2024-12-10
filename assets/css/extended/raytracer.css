@@ -1,9 +1,9 @@
 /* Global font settings */
-.raytracer-page, .pane-title, .asset-item, .scene-item {
+.raytracer-app, .pane-title, .asset-item, .scene-item {
   font-family: 'Reddit Sans', sans-serif;
 }
 
-.raytracer-page {
+.raytracer-app {
   width: 100vw;
   position: relative;
   left: 50%;
@@ -12,21 +12,15 @@
   padding: 0;
 }
 
-.raytracer-page .post-single {
+.raytracer-app .post-single {
   max-width: var(--main-width);
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-.raytracer-page #app {
-  max-width: 100%;
-  width: 100%;
-  margin: 0 auto;
-}
-
 .raytracer-container {
   width: 100%;
-  max-width: 1400px;
+  /* max-width: 1400px; */
   margin: 20px auto;
   position: relative;
   height: 600px;
