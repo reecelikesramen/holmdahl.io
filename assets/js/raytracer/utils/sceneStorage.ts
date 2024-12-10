@@ -18,6 +18,9 @@ export async function saveScene(filename: string, content: string, path?: string
     hash,
   })
 
+  // Clear the modified content since we just saved
+  clearModifiedContent(filename)
+
   // Dispatch event to notify scene list to refresh
   window.dispatchEvent(new Event("scenesUpdated"))
 }
@@ -69,6 +72,23 @@ export async function loadScene(filename: string): Promise<{ content: string; is
   throw new Error(`Scene not found: ${filename}`)
 }
 
-export function isSceneModified(originalContent: string, currentContent: string): boolean {
-  return originalContent !== currentContent
+// Map to store modified but unsaved content
+const modifiedScenes = new Map<string, string>();
+
+export function setModifiedContent(filename: string, content: string) {
+  modifiedScenes.set(filename, content);
+}
+
+export function clearModifiedContent(filename: string) {
+  modifiedScenes.delete(filename);
+}
+
+export async function isSceneModified(filename: string): Promise<boolean> {
+  const modifiedContent = modifiedScenes.get(filename);
+  if (!modifiedContent) return false;
+
+  const dbScene = await db.scenes.get(filename);
+  if (!dbScene) return true;
+
+  return dbScene.content !== modifiedContent;
 }
