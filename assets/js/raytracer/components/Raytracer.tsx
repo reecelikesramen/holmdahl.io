@@ -30,6 +30,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
   const [fullRenderQuality, setFullRenderQuality] =
     useState<RenderQuality>("1k");
   const [aspectRatio, setAspectRatio] = useState<AspectRatio>("3:2");
+  const [raysPerPixel, setRaysPerPixel] = useState<RaysPerPixel>(25);
 
   const dimensions = useMemo(
     () => calculateDimensions(previewQuality, aspectRatio),
@@ -98,7 +99,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
       const scene_args = {
         width,
         height,
-        rays_per_pixel: 25,
+        rays_per_pixel: raysPerPixel,
       };
 
       try {
@@ -208,9 +209,11 @@ export function Raytracer({ sceneJson, wasmModule }) {
         previewQuality={previewQuality}
         fullRenderQuality={fullRenderQuality}
         aspectRatio={aspectRatio}
+        raysPerPixel={raysPerPixel}
         onPreviewQualityChange={setPreviewQuality}
         onFullRenderQualityChange={setFullRenderQuality}
         onAspectRatioChange={setAspectRatio}
+        onRaysPerPixelChange={setRaysPerPixel}
       />
     </div>
   );
