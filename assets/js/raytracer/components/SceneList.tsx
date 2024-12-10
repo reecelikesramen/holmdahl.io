@@ -14,7 +14,7 @@ interface SceneListProps {
   currentFile?: string | null
 }
 
-export function SceneList({ onSceneSelect, onClose }: SceneListProps) {
+export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProps) {
   const [scenes, setScenes] = useState<Scene[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)

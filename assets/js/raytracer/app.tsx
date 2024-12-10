@@ -52,16 +52,21 @@ function App() {
   useEffect(() => {
     const loadInitialScene = async () => {
       try {
-        const response = await fetch('/raytracer/scenes/cornell_room_quad.json')
-        if (!response.ok) throw new Error('Failed to fetch initial scene')
-        const content = await response.text()
+        // Simulate clicking the default scene in SceneList
+        const response = await fetch('/raytracer/index.json')
+        if (!response.ok) throw new Error('Failed to fetch scenes index')
+        const data = await response.json()
         
-        // Save to IndexedDB
-        await saveScene('/raytracer/scenes/cornell_room_quad.json', content, true)
+        const defaultScene = data.scenes.find(s => s.path === '/raytracer/scenes/cornell_room_quad.json')
+        if (!defaultScene) throw new Error('Default scene not found in index')
         
-        // Update editor
+        const sceneResponse = await fetch(defaultScene.path)
+        if (!sceneResponse.ok) throw new Error('Failed to fetch default scene')
+        const content = await sceneResponse.text()
+        
+        await saveScene(defaultScene.path, content)
         handleSceneChange(content)
-        setCurrentFilename('cornell_room_quad.json')
+        setCurrentFilename(defaultScene.path)
         setOriginalContent(content)
         setIsRemoteFile(true)
       } catch (error) {
@@ -166,9 +171,10 @@ function App() {
           <Pane minSize={100} maxSize="20%">
             <SceneList 
               onSceneSelect={(content, isRemote) => {
-                handleSceneChange(content);
-                setIsRemoteFile(isRemote);
-                setCurrentFilename(null);
+                handleSceneChange(content)
+                setIsRemoteFile(isRemote)
+                setOriginalContent(content)
+                setIsModified(false)
               }}
               onClose={() => setShowScenes(false)}
               currentFile={currentFilename}
