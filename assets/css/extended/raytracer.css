@@ -157,13 +157,13 @@
 #canvas {
     flex: 1;
     width: 100%;
-    min-height: 0;  /* Allow canvas to shrink */
+    min-height: 0; /* Allow canvas to shrink */
     object-fit: contain;
     image-rendering: pixelated;
 }
 
 .raytracer-controls {
-    flex-shrink: 0;  /* Prevent controls from shrinking */
+    flex-shrink: 0; /* Prevent controls from shrinking */
     min-height: 40px;
     padding: 5px;
     display: flex;
@@ -171,8 +171,6 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    background: var(--entry);
-    border-top: 1px solid var(--border);  /* Add separation from canvas */
 }
 
 .raytracer-controls select {

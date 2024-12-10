@@ -1,4 +1,9 @@
-import { AspectRatio, PreviewQuality, RenderQuality } from "../types/raytracer";
+import {
+  AspectRatio,
+  PreviewQuality,
+  RaysPerPixel,
+  RenderQuality,
+} from "../types/raytracer";
 
 interface RaytracerControlsProps {
   previewQuality: PreviewQuality;
@@ -15,9 +20,11 @@ export function RaytracerControls({
   previewQuality,
   fullRenderQuality,
   aspectRatio,
+  raysPerPixel,
   onPreviewQualityChange,
   onFullRenderQualityChange,
   onAspectRatioChange,
+  onRaysPerPixelChange,
 }: RaytracerControlsProps) {
   return (
     <div className="raytracer-controls">
@@ -53,13 +60,13 @@ export function RaytracerControls({
           onAspectRatioChange(e.currentTarget.value as AspectRatio)
         }
       >
-        <option value="1:1">1:1 Square</option>
-        <option value="3:2">3:2</option>
+        <option value="1:1">1:1</option>
         <option value="4:3">4:3</option>
+        <option value="3:2">3:2</option>
         <option value="16:9">16:9</option>
         <option value="21:9">21:9</option>
-        <option value="2:3">2:3</option>
         <option value="3:4">3:4</option>
+        <option value="2:3">2:3</option>
         <option value="9:16">9:16</option>
         <option value="9:21">9:21</option>
       </select>

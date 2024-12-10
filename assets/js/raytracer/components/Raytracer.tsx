@@ -27,10 +27,11 @@ export function Raytracer({ sceneJson, wasmModule }) {
     };
   }, []);
   const renderFrameId = useRef(null);
-  const [previewQuality, setPreviewQuality] = useState<PreviewQuality>("low");
+  const [previewQuality, setPreviewQuality] =
+    useState<PreviewQuality>("medium");
   const [fullRenderQuality, setFullRenderQuality] =
     useState<RenderQuality>("1k");
-  const [aspectRatio, setAspectRatio] = useState<AspectRatio>("3:2");
+  const [aspectRatio, setAspectRatio] = useState<AspectRatio>("1:1");
   const [raysPerPixel, setRaysPerPixel] = useState<RaysPerPixel>(25);
 
   const dimensions = useMemo(

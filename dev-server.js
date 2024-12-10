@@ -2,7 +2,7 @@ import httpProxy from "http-proxy"
 import http from "http"
 
 const proxy = httpProxy.createProxyServer({
-  ws: true
+  ws: true,
 })
 
 // Add headers to all responses
@@ -32,8 +32,11 @@ proxy.on("proxyRes", (proxyRes, req, res) => {
       chunks.push(chunk)
     }
 
-    // Only try to modify text/html responses
-    if (proxyRes.headers["content-type"]?.includes("text/html")) {
+    // Only try to modify text/html or json responses
+    if (
+      proxyRes.headers["content-type"]?.includes("text/html") ||
+      proxyRes.headers["content-type"]?.includes("application/json")
+    ) {
       const body = Buffer.concat(chunks).toString("utf8")
       const modified = body.replace(/http:\/\/localhost:1313/g, "http://localhost:3000")
       _write.call(res, modified)
@@ -58,9 +61,9 @@ const server = http.createServer((req, res) => {
 })
 
 // Handle WebSocket connections
-server.on('upgrade', (req, socket, head) => {
+server.on("upgrade", (req, socket, head) => {
   // Forward WebSocket connections to Vite
-  proxy.ws(req, socket, head, { target: 'http://localhost:5173' })
+  proxy.ws(req, socket, head, { target: "http://localhost:5173" })
 })
 
 console.log("Development proxy server running on :3000")

@@ -1,29 +1,22 @@
 {{- define "main" }}
 <style>
-  /* Hide scrollbar while allowing scrolling */
-  html, body {
-    overflow-x: none; /* Ensure scrolling is enabled */
-    scrollbar-width: none; /* For Firefox */
-  }
+    /* Hide scrollbar while allowing scrolling */
+    html,
+    body {
+        overflow-x: none; /* Ensure scrolling is enabled */
+        scrollbar-width: none; /* For Firefox */
+    }
 
-  html::-webkit-scrollbar, body::-webkit-scrollbar {
-    display: none; /* For Chrome, Safari, and Edge */
-  }
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        display: none; /* For Chrome, Safari, and Edge */
+    }
 </style>
 
-<article class="post-single">
-  <header class="post-header">
-    {{ partial "breadcrumbs.html" . }}
-    <h1 class="post-title entry-hint-parent">
-      {{ .Title }}
-    </h1>
-  </header>
-  <div class="post-description">
-    {{ .Description }}
-  </div>
-</article>
-
 <div class="raytracer-app" id="app"></div>
-<script type="module" src="{{ if hugo.IsServer }}http://localhost:3000{{ end }}/assets/js/raytracer/app.tsx"></script>
+<script
+    type="module"
+    src="{{ if hugo.IsServer }}http://localhost:3000{{ end }}/assets/js/raytracer/app.tsx"
+></script>
 
 {{- end }}

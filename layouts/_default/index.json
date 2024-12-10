@@ -8,7 +8,7 @@
       {{ if ne $file.Name "index.json" }}
       {
         "name": "{{ $file.Name }}",
-        "path": "/raytracer/scenes/{{ $file.Name }}",
+        "path": "{{ "/raytracer/scenes/" | absURL }}{{ $file.Name }}",
         "hash": "{{ sha256 (readFile (printf "static/raytracer/scenes/%s" $file.Name)) }}"
       }{{ if ne $index $last }},{{ end }}
       {{ end }}
@@ -19,7 +19,7 @@
     {{ range $index, $file := $modelFiles }}
     {
       "name": "{{ $file.Name }}",
-      "path": "/raytracer/models/{{ $file.Name }}"
+      "path": "{{ "/raytracer/models/" | absURL }}{{ $file.Name }}"
     }{{ if ne $index $last }},{{ end }}
     {{ end }}
   ],
@@ -28,7 +28,7 @@
     {{ range $index, $file := $textureFiles }}
     {
       "name": "{{ $file.Name }}",
-      "path": "/raytracer/textures/{{ $file.Name }}"
+      "path": "{{ "/raytracer/textures/" | absURL }}{{ $file.Name }}"
     }{{ if ne $index $last }},{{ end }}
     {{ end }}
   ]
