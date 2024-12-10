@@ -198,11 +198,21 @@ function App() {
           <Pane minSize={100} maxSize="20%">
             <SceneList 
               onSceneSelect={(content, path, isRemote) => {
+                console.log("Scene select called with:", { 
+                  contentLength: content?.length || 0,
+                  path,
+                  isRemote
+                });
                 setSceneCode(content)
                 setIsRemoteFile(isRemote)
                 setOriginalContent(content)
                 setIsModified(path ? isSceneModified(path) : false)
                 setCurrentFilename(path)
+                console.log("After state updates:", {
+                  newSceneCode: content?.substring(0, 100) + "...",
+                  newPath: path,
+                  newIsRemote: isRemote
+                });
               }}
               onClose={() => setShowScenes(false)}
               currentFile={currentFilename}

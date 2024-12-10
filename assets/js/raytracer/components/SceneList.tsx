@@ -135,18 +135,23 @@ export function SceneList({ onSceneSelect, onClose, currentFile }: SceneListProp
       
       // If this was the current scene, clear it or load another one
       if (scene.filename === currentFile) {
+        console.log("Deleting current scene:", scene.filename);
         // Get remaining scenes (excluding the one we just deleted)
         const remainingScenes = await db.scenes
           .filter(s => s.filename !== scene.filename)
           .toArray()
         
+        console.log("Remaining scenes:", remainingScenes);
+        
         if (remainingScenes.length > 0) {
           // Load the first available scene
           const nextScene = remainingScenes[0]
+          console.log("Loading next scene:", nextScene.filename);
           const { content: nextContent, isRemote } = await loadScene(nextScene.filename)
+          console.log("Loaded next scene content:", nextContent.substring(0, 100) + "...");
           onSceneSelect(nextContent, nextScene.filename, isRemote)
         } else {
-          // If no scenes left, clear the current scene
+          console.log("No remaining scenes, clearing editor");
           onSceneSelect("", "", false)
         }
       }
