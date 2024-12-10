@@ -2,7 +2,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "types": ["vite/client", "./types", "./node_modules/@types"],
+    "typeRoots": ["./node_modules/@types", "./types"],
     "esModuleInterop": true,
     "paths": {
       "react": ["./types/react-preact-bridge.d.ts"]
