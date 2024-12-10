@@ -128,7 +128,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
 
   return (
     <div>
-      <canvas id="canvas" width={width} height={height} />
+      <canvas id="canvas" />
     </div>
   )
 }
