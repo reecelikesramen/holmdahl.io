@@ -151,18 +151,19 @@
     height: 100%;
     width: 100%;
     box-sizing: border-box;
-    overflow: hidden; /* Prevent overflow */
+    overflow: hidden;
 }
 
 #canvas {
-    max-height: calc(100% - 50px); /* Reserve space for controls */
+    flex: 1;
     width: 100%;
+    min-height: 0;  /* Allow canvas to shrink */
     object-fit: contain;
     image-rendering: pixelated;
 }
 
 .raytracer-controls {
-    height: auto;
+    flex-shrink: 0;  /* Prevent controls from shrinking */
     min-height: 40px;
     padding: 5px;
     display: flex;
@@ -170,28 +171,8 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-}
-
-.raytracer-controls {
-    flex-shrink: 0;
-    height: 40px;
-    padding: 5px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-}
-
-.raytracer-controls {
-    flex-shrink: 0;
-    height: auto; /* Allow for wrapping */
-    min-height: 40px;
-    padding: 5px;
-    display: flex;
-    gap: 5px; /* Reduce gap */
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap; /* Allow controls to wrap */
+    background: var(--entry);  /* Add background to ensure controls are visible */
+    border-top: 1px solid var(--border);  /* Add separation from canvas */
 }
 
 .raytracer-controls select {
