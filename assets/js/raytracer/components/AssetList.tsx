@@ -1,4 +1,5 @@
 import { useState, useEffect } from "preact/hooks"
+import { db } from "../utils/db"
 
 interface Asset {
   name: string
