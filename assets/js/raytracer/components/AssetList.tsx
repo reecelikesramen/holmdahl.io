@@ -74,6 +74,7 @@ export function AssetList({ onClose }: AssetListProps) {
       
       await db[type].put({
         path: asset.path,
+        filename: asset.name,
         content
       });
 

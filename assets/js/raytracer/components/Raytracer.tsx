@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "preact/hooks";
-import { RayTracer } from "../pkg/raytracer_wasm.js";
+import { RayTracerApp } from "../pkg/raytracer_wasm.js";
 import { RaytracerControls } from "./RaytracerControls";
 
 import {
@@ -9,9 +9,10 @@ import {
   calculateDimensions,
   RaysPerPixel,
 } from "../types/raytracer";
+import { db } from "../utils/db.js";
 
 export function Raytracer({ sceneJson, wasmModule }) {
-  const [raytracer, setRaytracer] = useState(null);
+  const [raytracer, setRaytracer] = useState<RayTracerApp>(null);
   const renderFrameId = useRef(null);
   const [previewQuality, setPreviewQuality] =
     useState<PreviewQuality>("medium");
@@ -51,7 +52,7 @@ export function Raytracer({ sceneJson, wasmModule }) {
       }
 
       if (raytracer) {
-        console.log(`[Raytracer ${DEBUG_ID}] Cleaning up raytracer instance`);
+        // raytracer.free();
         setRaytracer(null);
       }
     };
@@ -84,7 +85,37 @@ export function Raytracer({ sceneJson, wasmModule }) {
       };
 
       try {
-        const rt = await RayTracer.init("canvas", sceneJson, scene_args);
+        // const rt = await RayTracer.init("canvas", sceneJson, scene_args);
+        const rt = new RayTracerApp();
+        rt.parse_scene(sceneJson);
+        const data_needed = {};
+        for (const resource of rt.get_needed_resources()) {
+          console.log(resource);
+          let match: RegExpMatchArray | null;
+          if (match = resource.match(/models\/(.+)/)) {
+            const model = await db.models.where('filename').equals(match[1]).first();
+            if (model) {
+              console.log(model.content);
+              data_needed[resource] = new Uint8Array(await model.content.arrayBuffer());
+            } else {
+              console.error('Model not found:', match[1]);
+            }
+          } else if (match = resource.match(/textures\/(.+)/)) {
+            const texture = await db.textures.where('filename').equals(match[1]).first();
+            if (texture) {
+              data_needed[resource] = new Uint8Array(await texture.content.arrayBuffer());
+            } else {
+               console.error('Texture not found:', match[1]);
+            }
+          } else {
+            console.error("Unknown resource type:", resource);
+          }
+        }
+        console.log(data_needed);
+
+        rt.initialize("canvas", scene_args, data_needed);
+        rt.set_dimensions(width, height);
+
         setRaytracer(rt);
 
         startRenderToCanvas(rt);

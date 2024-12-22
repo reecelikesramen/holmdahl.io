@@ -9,6 +9,7 @@ interface Scene {
 
 interface Asset {
   path: string
+  filename: string
   content: Blob
 }
 
@@ -20,10 +21,10 @@ export class RaytracerDB extends Dexie {
   constructor() {
     super("raytracer")
 
-    this.version(2).stores({
+    this.version(3).stores({
       scenes: "filename, path, hash",
-      models: "++id, path",
-      textures: "++id, path",
+      models: "++id, path, filename",
+      textures: "++id, path, filename",
     })
   }
 }

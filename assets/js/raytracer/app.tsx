@@ -248,7 +248,7 @@ function App() {
       sashRender={() => (<div className="split-pane-divider" />) as VNode}
     >
       {showScenes && (
-        <Pane minSize={200} maxSize="25%">
+        <Pane minSize={120}>
           <SceneList
             onSceneDelete={handleSceneDelete}
             onSceneSelect={async (content, path, isRemote) => {
@@ -281,7 +281,7 @@ function App() {
           />
         </Pane>
       )}
-      <Pane minSize={450}>
+      <Pane minSize={120}>
         <div className="editor-pane">
           <div className="pane-title">
             {!showScenes && (
@@ -305,7 +305,7 @@ function App() {
           </div>
         </div>
       </Pane>
-      <Pane minSize={350}>
+      <Pane minSize={120}>
         <div className="canvas-pane">
           <div className="pane-title">
             Preview
@@ -319,7 +319,7 @@ function App() {
         </div>
       </Pane>
       {showAssets && (
-        <Pane minSize={200} maxSize="25%">
+        <Pane minSize={120}>
           <div className="editor-pane">
             <div className="pane-title">
               Assets
