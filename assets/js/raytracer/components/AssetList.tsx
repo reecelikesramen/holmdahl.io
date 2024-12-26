@@ -27,63 +27,66 @@ export function AssetList({ onClose }: AssetListProps) {
     }
   }, [models, textures])
 
-
   const loadAssets = async () => {
     try {
-      const response = await fetch('/raytracer/index.json')
-      if (!response.ok) throw new Error('Failed to fetch assets index')
+      const response = await fetch("/raytracer/index.json")
+      if (!response.ok) throw new Error("Failed to fetch assets index")
       const data = await response.json()
       setModels(data.models)
       setTextures(data.textures)
     } catch (err) {
       setError(err.message)
-      console.error('Error loading assets:', err)
+      console.error("Error loading assets:", err)
     }
   }
 
   const checkDownloadedAssets = async () => {
-    const downloaded = new Set<string>();
+    const downloaded = new Set<string>()
 
     // Check models
-    const modelChecks = models.map(async model => {
-      const result = await db.models.get(model.path);
-      if (result) downloaded.add(model.path);
-    });
+    const modelChecksPromise = db.models
+      .where("filename")
+      .anyOf(models.map((model) => model.name))
+      .each(async (model) => {
+        downloaded.add(model.path)
+      })
 
-    // Check textures  
-    const textureChecks = textures.map(async texture => {
-      const result = await db.textures.get(texture.path);
-      if (result) downloaded.add(texture.path);
-    });
+    // Check textures
+    const textureChecksPromise = db.textures
+      .where("filename")
+      .anyOf(textures.map((texture) => texture.name))
+      .each(async (texture) => {
+        downloaded.add(texture.path)
+      })
 
-    await Promise.all([...modelChecks, ...textureChecks]);
-    setDownloadedAssets(downloaded);
+    await Promise.all([modelChecksPromise, textureChecksPromise])
+    setDownloadedAssets(downloaded)
   }
 
-  const downloadAsset = async (asset: Asset, type: 'models' | 'textures') => {
+  const downloadAsset = async (asset: Asset, type: "models" | "textures") => {
     if (downloadedAssets.has(asset.path)) {
       await copyToClipboard(asset.name)
       return
     }
 
-    setDownloading(prev => new Set(prev).add(asset.path))
+    setDownloading((prev) => new Set(prev).add(asset.path))
 
     try {
-      const response = await fetch(asset.path);
-      const content = await response.blob();
-      
+      const response = await fetch(asset.path)
+      const content = await response.blob()
+
       await db[type].put({
         path: asset.path,
         filename: asset.name,
-        content
-      });
+        content,
+      })
 
-      setDownloadedAssets(prev => new Set(prev).add(asset.path));
-      await copyToClipboard(asset.name);
+      setDownloadedAssets((prev) => new Set(prev).add(asset.path))
+      await copyToClipboard(asset.name)
     } catch (err) {
       console.error(`Error downloading ${asset.path}:`, err)
     } finally {
-      setDownloading(prev => {
+      setDownloading((prev) => {
         const next = new Set(prev)
         next.delete(asset.path)
         return next
@@ -95,13 +98,13 @@ export function AssetList({ onClose }: AssetListProps) {
     try {
       await navigator.clipboard.writeText(name)
     } catch (err) {
-      console.error('Failed to copy to clipboard:', err)
+      console.error("Failed to copy to clipboard:", err)
     }
   }
 
   const getAssetIcon = (path: string) => {
-    if (downloading.has(path)) return '⟳'
-    return downloadedAssets.has(path) ? '✓' : '□'
+    if (downloading.has(path)) return "⟳"
+    return downloadedAssets.has(path) ? "✓" : "□"
   }
 
   if (error) return <div>Error: {error}</div>
@@ -110,12 +113,8 @@ export function AssetList({ onClose }: AssetListProps) {
     <div className="assets-container">
       <div className="asset-section">
         <h3>Models</h3>
-        {models.map(model => (
-          <div 
-            key={model.path}
-            className="asset-item"
-            onClick={() => downloadAsset(model, 'models')}
-          >
+        {models.map((model) => (
+          <div key={model.path} className="asset-item" onClick={() => downloadAsset(model, "models")}>
             <span className="asset-icon">[{getAssetIcon(model.path)}]</span>
             {model.name}
           </div>
@@ -123,12 +122,8 @@ export function AssetList({ onClose }: AssetListProps) {
       </div>
       <div className="asset-section">
         <h3>Textures</h3>
-        {textures.map(texture => (
-          <div 
-            key={texture.path}
-            className="asset-item"
-            onClick={() => downloadAsset(texture, 'textures')}
-          >
+        {textures.map((texture) => (
+          <div key={texture.path} className="asset-item" onClick={() => downloadAsset(texture, "textures")}>
             <span className="asset-icon">[{getAssetIcon(texture.path)}]</span>
             {texture.name}
           </div>
