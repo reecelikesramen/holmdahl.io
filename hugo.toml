@@ -102,3 +102,6 @@ apple_touch_icon = "icon/apple-touch-icon.png"
 text = "holmdahl.io"
 # icon = "profile/profile.jpeg"
 # iconHeight = 10
+
+[params.cover]
+responsiveImages = true

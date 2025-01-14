@@ -4,8 +4,9 @@ title: "VoyagerSight"
 description: "Replication and extension study on Nvidia’s groundbreaking Voyager, exploring the effects of multimodal inputs on Minecraft LLM agents"
 cover:
   image: cover.svg
-  caption: "TODO"
+  caption: "TODO Temporary Cover"
 ShowToc: false
+weight: 2
 ---
 
 Key things to highlight when writing:
@@ -18,4 +19,4 @@ Key things to highlight when writing:
 - Conducted similar ablation studies to understand the effects of multimodal inputs
 - LangChain experience
 - Restful API experience
-`
+  `

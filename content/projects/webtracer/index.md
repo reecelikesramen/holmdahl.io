@@ -3,8 +3,9 @@ title: "WebTracer"
 description: "Rust-based ray tracing engine designed for WebAssembly compatibility, featuring a React-powered user interface."
 cover:
   image: cover.svg
-  caption: "TODO"
+  caption: "TODO Temporary Cover"
 ShowToc: false
+weight: 3
 ---
 
 Key things to highlight when writing:
