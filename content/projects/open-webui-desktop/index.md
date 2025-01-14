@@ -199,9 +199,17 @@ The final result was a drop-in replacement for ChatGPT's floating chatbar and co
 
 ## UX
 
-The app is very straightforward to use. Upon initial startup, the user is presented with a dialog where they enter their Open WebUI URL. After that, the flow is identical to the original app. I added a settings pane to allow users to configure their floating chatbar and companion chat by changing the hotkey, screen position, time-to-reset companion chat, open at startup, and to change the Open WebUI URL.
+The application provides a straightforward user experience that fits naturally within macOS. On first launch, users are greeted with a simple dialog prompting for their Open WebUI URL—the only setup required to begin. From there, the flow mirrors the original application while introducing enhanced customization options.
 
-In its current state, the app conforms well to Mac OS style guidelines and feels very much like a native app, mostly thanks to Open WebUI's minimalist design.
+An additional pane in the settings panel gives users control over their experience with options including:
+
+- Customizable hotkey combinations for quick access
+- Flexible screen positioning for the floating chatbar
+- Configurable auto-reset timing for the companion chat
+- Launch-at-startup preferences
+- Simple Open WebUI URL management
+
+By following Open WebUI's minimalist design philosophy and following Apple's Human Interface Guidelines, the application delivers a native macOS experience that feels natural and polished. The result is a practical tool that maintains simplicity while offering the flexibility users need.
 
 ---
 

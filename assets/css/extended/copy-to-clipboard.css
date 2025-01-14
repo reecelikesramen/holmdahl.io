@@ -1,0 +1,48 @@
+.copy-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.copy-content {
+  margin-left: -4px;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  box-sizing: content-box;
+}
+
+.copy-content:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  outline: 1px solid rgba(0, 0, 0, 0.1);
+  outline-offset: -1px;
+}
+
+.copy-content:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.tooltiptext {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.copy-content:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}

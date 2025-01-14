@@ -4,7 +4,7 @@ title = 'holmdahl.io'
 theme = 'hugo-PaperMod'
 
 [params]
-customCSS = ["css/extended/fonts.css", "css/extended/pdf-popup.css"]
+customCSS = ["css/extended/fonts.css", "css/extended/pdf-popup.css", "css/extended/copy-to-clipboard.css"]
 mainSections = ["posts", "projects"]
 
 [menus]
