@@ -4,3 +4,6 @@ resources/
 node_modules/
 .aider*
 dist/
+.vscode/
+.zed/
+**/.obsidian/
