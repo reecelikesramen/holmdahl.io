@@ -4,40 +4,8 @@ title = 'holmdahl.io'
 theme = 'hugo-PaperMod'
 
 [params]
-# customCSS = ["css/extended/fonts.css", "css/extended/pdf-popup.css"]
 mainSections = ["posts", "projects"]
-
-[menus]
-main = [
-    { name = "Home", url = "/", weight = 1 },
-    { name = "Projects", url = "/projects", weight = 2 },
-    { name = "Posts", url = "/posts", weight = 3 },
-    { name = "About", url = "/about", weight = 4 },
-]
-
-[params.profileMode]
-enabled = true
-title = "Reece Holmdahl"
-email = "_reece@holmdahl.io_"
-subtitle = "Software Engineer | CS & Math Graduate from UMN"
-imageUrl = "img/profile.jpeg"
-imageWidth = 250
-imageHeight = 250
-imageTitle = "Reece at Grand Prismatic Spring, Yellowstone"
-buttons = [
-    { name = "Resume", url = "/pdf/Reece_Holmdahl_resume.pdf" },
-    { name = "Projects", url = "/projects" },
-    { name = "Posts", url = "/posts" },
-]
-
-[params.socialIcons]
-github = { name = "github", url = "https://github.com/reecelikesramen/" }
-linkedin = { name = "linkedin", url = "https://www.linkedin.com/in/reeceholmdahl/" }
-#instagram = { name = "instagram", url = "https://www.instagram.com/reece.holmdahl/" }
-
-[params.env]
-underConstruction = false
-description = "Reece Holmdahl's portfolio website"
+description = "Reece Holmdahl's Portfolio"
 keywords = [
     "Software Engineer",
     "Backend Engineer",
@@ -75,6 +43,37 @@ keywords = [
     "Blog",
     "Portfolio",
 ]
+
+[menus]
+main = [
+    { name = "Home", url = "/", weight = 1 },
+    { name = "Projects", url = "/projects", weight = 2 },
+    { name = "Posts", url = "/posts", weight = 3 },
+    { name = "About", url = "/about", weight = 4 },
+]
+
+[params.profileMode]
+enabled = true
+title = "Reece Holmdahl"
+email = "_reece@holmdahl.io_"
+subtitle = "Software Engineer | CS & Math Graduate from UMN"
+imageUrl = "img/profile.jpeg"
+imageWidth = 250
+imageHeight = 250
+imageTitle = "Reece at Grand Prismatic Spring, Yellowstone"
+buttons = [
+    { name = "Resume", url = "/pdf/Reece_Holmdahl_resume.pdf" },
+    { name = "Projects", url = "/projects" },
+    { name = "Posts", url = "/posts" },
+]
+
+[params.socialIcons]
+github = { name = "github", url = "https://github.com/reecelikesramen/" }
+linkedin = { name = "linkedin", url = "https://www.linkedin.com/in/reeceholmdahl/" }
+#instagram = { name = "instagram", url = "https://www.instagram.com/reece.holmdahl/" }
+
+[params.env]
+underConstruction = false
 author = "Reece Holmdahl"
 images = ["profile/profile.jpeg"]
 DateFormat = "January 2, 2006"
