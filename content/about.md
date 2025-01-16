@@ -25,14 +25,14 @@ Beginning this year, I am also a software mentor for the Eagan High School robot
 
 # Looking Forward 🚀
 
-I'm excited to continue growing in tech and hope to explore graduate studies in Robotics, Applied Mathematics, or Machine Learning. I believe in staying curious and embracing new challenges.
+I'm charting a course to grow as a software engineer, focusing on building expertise in backend and full-stack development. My immediate goal is honing my craft in API development and scalable software design by taking on projects that challenge me to think architecturally. As I develop professionally, I'm keeping an eye toward graduate studies that compliment my role, or in specialized fields like robotics, AI, or computational physics.
 
 ---
 
-Feel free to reach out if you'd like to connect! I am active on these platforms:
+Reach out if you'd like to connect! I am active in these places:
 
 My direct inbox
-: _{{< copyText "reece@holmdahl.io" />}}_
+: {{< copyText "_reece@holmdahl.io_" />}}
 
 GitHub
 : [@reecelikesramen](https://github.com/reecelikesramen)

@@ -4,7 +4,7 @@ title = 'holmdahl.io'
 theme = 'hugo-PaperMod'
 
 [params]
-customCSS = ["css/extended/fonts.css", "css/extended/pdf-popup.css", "css/extended/copy-to-clipboard.css"]
+# customCSS = ["css/extended/fonts.css", "css/extended/pdf-popup.css"]
 mainSections = ["posts", "projects"]
 
 [menus]
@@ -18,7 +18,7 @@ main = [
 [params.profileMode]
 enabled = true
 title = "Reece Holmdahl"
-email = "reece@holmdahl.io"
+email = "_reece@holmdahl.io_"
 subtitle = "Software Engineer | CS & Math Graduate from UMN"
 imageUrl = "profile/profile.jpeg"
 imageWidth = 250
@@ -63,7 +63,13 @@ keywords = [
     "Projects",
     "Reece",
     "Reece Holmdahl",
-    "Reece Holmdahl's Portfolio",
+    "Reece Holmdahl portfolio",
+    "Reece Holmdahl Minnesota",
+    "Reece Minnesota",
+    "Holmdahl Minnesota",
+    "Holmdahl",
+    "Reese Holmdahl",
+    "Reese Holmdahl portfolio",
     "Software Engineer",
     "Mathematician",
     "Blog",

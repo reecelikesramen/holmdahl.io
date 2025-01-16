@@ -1,12 +1,14 @@
 ---
 title: "Open WebUI Desktop"
-description: "Desktop app for Open WebUI using Tauri, available [here](https://github.com/reecelikesramen/open-webui-desktop)"
+description: "Desktop app for Open WebUI built with Tauri, available [here](https://github.com/reecelikesramen/open-webui-desktop)"
 cover:
   image: cover.png
   caption: "Open WebUI on the desktop, ongoing chat session and sidebar open"
-ShowToc: false
-weight: 4
+ShowToc: true
+weight: 1
 ---
+
+Desktop app that enhances Open WebUI with native features like floating chatbar and companion chat, built using Tauri and Svelte. The project seamlessly integrates native desktop capabilities while maintaining compatibility with Open WebUI's core functionality.
 
 I encourage you to check out **Open WebUI** on their [website](https://openwebui.com) or their [GitHub](https://github.com/open-webui/open-webui).
 
@@ -20,7 +22,7 @@ I encourage you to check out **Open WebUI** on their [website](https://openwebui
 
 # The Problem
 
-I started Open WebUI Desktop to solve a problem that I and others in the community had: The absence of a desktop integration for Open WebUI. I strongly align with the ideals held by Open WebUI's creator about data-ownership and decentralization and wanted to use a chat app that supports those values. However, the floating chatbar and companion chat were two features that kept me coming back to ChatGPT. As a developer, I find both of those features so valuable, that I could not switch to another chat app that without them.
+I started Open WebUI Desktop to solve a problem that I and others in the community had: The absence of a desktop integration for Open WebUI. I strongly align with the ideals held by Open WebUI's creator about data ownership and decentralization and wanted to use a chat app that supports those values. However, the floating chatbar and companion chat were two features that kept me coming back to ChatGPT. As a developer, I find both of those features so valuable, that I could not switch to another chat app without them.
 
 ![ChatGPT's floating chatbar and companion chat](chatgpt.png)
 
@@ -28,7 +30,7 @@ I started Open WebUI Desktop to solve a problem that I and others in the communi
 
 # The Plan
 
-I was aware of two frameworks that would make converting a web app to a desktop app simple and maintainable: Electron and Tauri. I decided to go with Tauri because I have Rust experience and it supports deployment on _all_ major platforms, not just desktop. Open WebUI's frontend is written in Svelte, so I could fork the code and modify it minimally to support Tauri, then implement the floating chatbar and companion chat features. This would also allow me to keep the codebase up-to-date with the latest Open WebUI changes without having to implement them myself.
+I was aware of two frameworks that would make converting a web app to a desktop app simple and maintainable: Electron and Tauri. I decided to go with Tauri because I have Rust experience and it supports deployment on _all_ major platforms, beyond just desktop. Open WebUI's frontend is written in Svelte, so I could fork the code and modify it minimally to support Tauri, then implement the floating chatbar and companion chat features. This would also allow me to keep the codebase up-to-date with the latest Open WebUI changes without having to implement them myself.
 
 <!-- Flow diagram explaining initial startup flow, and then state diagram for chatbar -->
 
@@ -38,13 +40,13 @@ I was aware of two frameworks that would make converting a web app to a desktop 
 
 ## Connecting to Open WebUI
 
-The Open WebUI project is a Python backend API and a separate frontend written in Svelte. The frontend is built staticly and then served by the backend API. I assume that the user will have an Open WebUI instance running locally or hosted somewhere. The only issue I faced connecting the Tauri app to the backend was changing the API base URL from a constant to a state variable.
+The Open WebUI project is a Python backend API and a separate frontend written in Svelte. The frontend is built and then served statically by the backend API. I assume that the user will have an Open WebUI instance running locally or hosted somewhere. The only issue I faced connecting the Tauri app to the backend was changing the API base URL from a constant to a state variable.
 
-![Open WebUI chat page](openwebui.jpeg)
+![Open WebUI chat page](openwebui.png)
 
 ## Managing State
 
-In Svelte, page state can be handled with writable stores, which is similar to `useState` in React, and persistent state can be handled with local storage or session storage. In Tauri, each window is separate and does not share state with other windows in any of these ways. To solve this problem I created a cross-window store that extends the writable store and relies the app's Rust backend for synchronized state information. I used the **Observer** pattern to implement this. It also optionally persists state to a local file that is reloaded on startup, which was a really convenient way to save settings between sessions.
+In Svelte, page state can be handled with writable stores, which is similar to `useState` in React, and persistent state can be handled with local storage or session storage. In Tauri, each window is separate and does not share state with other windows in any of these ways. To solve this problem I created a cross-window store that extends the writable store and relies on the app's Rust backend for synchronized state information. I used the **Observer** pattern to implement this. It also optionally persists state to a local file that is reloaded on startup, which was a really convenient way to save settings between sessions.
 
 This solution easily handled managing state between windows, kept the codebase idiomatic to Svelte, and still facilitated reactivity.
 
@@ -215,4 +217,4 @@ By following Open WebUI's minimalist design philosophy and following Apple's Hum
 
 # Impact
 
-As of this writing, I made the pre-release available for download 10 days ago. It has been downloaded more than **50 times** and has been welcomed by users in the community. This project has also received attention from the creator of Open WebUI and a few contributors, with whom I will assist in continuing the project in Electron with an expanded feature set. I look forward to continue contributing to this project making AI tools more accessible and decentralized.
+As of this writing, I made the pre-release available for download 10 days ago. It has been downloaded more than **50 times** and has been welcomed by users in the community. This project has also received attention from the creator of Open WebUI and a few contributors, with whom I will assist in continuing to develop the project in Electron with an expanded feature set. I look forward to continue contributing to this project making AI tools more accessible and decentralized.
