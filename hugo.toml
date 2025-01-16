@@ -1,4 +1,4 @@
-baseURL = 'https://reece.holmdahl.io'
+baseURL = 'https://holmdahl.io'
 languageCode = 'en-us'
 title = 'holmdahl.io'
 theme = 'hugo-PaperMod'
@@ -20,7 +20,7 @@ enabled = true
 title = "Reece Holmdahl"
 email = "_reece@holmdahl.io_"
 subtitle = "Software Engineer | CS & Math Graduate from UMN"
-imageUrl = "profile/profile.jpeg"
+imageUrl = "img/profile.jpeg"
 imageWidth = 250
 imageHeight = 250
 imageTitle = "Reece at Grand Prismatic Spring, Yellowstone"
