@@ -18,7 +18,7 @@
     "glob": "^11.0.0",
     "http": "^0.0.1-security",
     "http-proxy": "^1.18.1",
-    "hugo-bin": "^0.136.3",
+    "hugo-extended": "^0.142.0",
     "serve": "^14.2.4",
     "shx": "^0.3.4",
     "typescript": "^5.7.2",
