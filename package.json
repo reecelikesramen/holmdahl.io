@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "concurrently 'vite' 'hugo server --baseURL \"http://localhost:3000\"' 'node ./dev-server.js'",
     "build": "hugo --baseURL '/' && vite build --base '/' && shx cp ./serve.json ./dist/serve.json",
-    "build:prod": "hugo && vite build",
-    "clean": "rm -rf public && rm -rf dist",
+    "build:prod": "hugo --baseURL 'https://holmdahl.io' && vite build --base 'https://holmdahl.io'",
+    "clean": "rm -rf public dist",
     "serve": "serve dist"
   },
   "devDependencies": {
