@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "name": "holmdahl.io",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "hugo-extended": "^0.142.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-go-template": "^0.0.15"
+  }
+}
