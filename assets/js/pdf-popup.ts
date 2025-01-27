@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to open the PDF popup
   function openPdfPopup(pdfUrl) {
-    pdfViewer.src = pdfUrl;
+    pdfViewer.setAttribute("src", pdfUrl);
     pdfPopup.style.display = "block";
   }
 
