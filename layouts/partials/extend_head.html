@@ -1,8 +1,30 @@
+<!-- Google tag (gtag.js) -->
+<script
+    defer
+    src="https://www.googletagmanager.com/gtag/js?id=G-HQESWBHP6J"
+></script>
+<script defer>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-HQESWBHP6J");
+</script>
 <!-- prelink google fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
+rel="stylesheet" />
 <link
-    href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
-    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@400;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400;1,8..60,700&display=swap"
+    rel="preload"
+    as="style"
+    onload="this.onload=null;this.rel='stylesheet'"
 />
-<script type="module" src="{{ if hugo.IsServer }}http://localhost:3000{{ end }}/assets/js/index.js"></script>
+{{- $options := dict "targetPath" "js/bundle.js" -}} {{- $jsBundle :=
+resources.Get "js/index.js" | js.Build $options -}} {{- $jsBundle = $jsBundle |
+resources.Minify -}} {{- if not site.Params.assets.disableFingerprinting }} {{-
+$jsBundle = $jsBundle | fingerprint -}} {{- end }}
+<script defer src="{{ $jsBundle.Permalink }}"></script>

@@ -1,34 +1,95 @@
-baseURL = 'https://reece.holmdahl.io'
+baseURL = 'https://holmdahl.io'
 languageCode = 'en-us'
 title = 'holmdahl.io'
 theme = 'hugo-PaperMod'
 
 [params]
-customCSS = ["css/extended/fonts.css", "css/extended/pdf-popup.css", "css/extended/raytracer.css"]
-mainSections = ["posts"]
+mainSections = ["posts", "projects"]
+description = "Reece Holmdahl's Portfolio"
+keywords = [
+    "Software Engineer I",
+    "Software Engineer Minnesota",
+    "Software Engineer Remote",
+    "Software Engineer I Minnesota",
+    "Software Engineer I Remote",
+    "Professional",
+    "Software Engineer",
+    "Backend Engineer",
+    "Full Stack",
+    "Software Development",
+    "Full Stack Developer",
+    "Full Stack Software Engineer",
+    "Full Stack Software Developer",
+    "Backend Software Engineer",
+    "Backend Software Developer",
+    "Recent Graduate",
+    "Computer Science Graduate",
+    "Computer Science Undergraduate",
+    "Computer Science",
+    "Open to work",
+    "Employers",
+    "Looking for work",
+    "Contact",
+    "Contact Me",
+    "About",
+    "Resume",
+    "CV",
+    "Projects",
+    "Reece",
+    "Reece portfolio",
+    "Reece Holmdahl",
+    "Reece Holmdahl portfolio",
+    "Reece Holmdahl Minnesota",
+    "Reece Minnesota",
+    "Holmdahl Minnesota",
+    "Holmdahl",
+    "Holmdahl Portfolio",
+    "Reese Holmdahl",
+    "Reese Holmdahl portfolio",
+    "Reese Portfolio",
+    "Software Engineer",
+    "Mathematician",
+    "Blog",
+    "Portfolio",
+    "holmdahl.io",
+    "rholmdahl",
+    "r holmdahl",
+    "r at holmdahl dot io",
+    "rholmdahl@gmail.com",
+    "rholmdahl at gmail dot com",
+    "reece@holmdahl.io",
+    "reece at holmdahl dot io",
+    "r@holmdahl.io",
+    "holmdahl.io website",
+    "holmdahl.io portfolio",
+    "software engineer portfolio",
+    "backend engineer portfolio",
+    "reece software engineer portfolio",
+    "reece backend engineer portfolio",
+    "reece fullstack engineer portfolio",
+]
 
 [menus]
 main = [
     { name = "Home", url = "/", weight = 1 },
-    { name = "About", url = "/about", weight = 2 },
-    { name = "Employers", url = "/employers", weight = 3 },
-    { name = "Posts", url = "/posts", weight = 4 },
-    { name = "Projects", url = "/projects", weight = 5 },
+    { name = "Projects", url = "/projects", weight = 2 },
+    { name = "Posts", url = "/posts", weight = 3 },
+    { name = "About", url = "/about", weight = 4 },
 ]
 
 [params.profileMode]
 enabled = true
 title = "Reece Holmdahl"
+email = "_reece@holmdahl.io_"
 subtitle = "Software Engineer | CS & Math Graduate from UMN"
-imageUrl = "profile/profile.jpeg"
-imageWidth = 200
-imageHeight = 200
+imageUrl = "img/profile.jpeg"
+imageWidth = 250
+imageHeight = 250
 imageTitle = "Reece at Grand Prismatic Spring, Yellowstone"
 buttons = [
-    #{ name = "About Me", url = "/about" },
-    #{ name = "For Employers", url = "/employers" },
-    #{ name = "Contact Me", url = "/contact" },
-    { name = "Resume", url = "/pdf/resume.pdf" },
+    { name = "Resume", url = "/pdf/Reece_Holmdahl_resume.pdf" },
+    { name = "Projects", url = "/projects" },
+    { name = "Posts", url = "/posts" },
 ]
 
 [params.socialIcons]
@@ -37,18 +98,7 @@ linkedin = { name = "linkedin", url = "https://www.linkedin.com/in/reeceholmdahl
 #instagram = { name = "instagram", url = "https://www.instagram.com/reece.holmdahl/" }
 
 [params.env]
-production = true
-underConstruction = true
-description = "Reece Holmdahl's personal website"
-keywords = [
-    "Software Engineer",
-    "Computer Science",
-    "Open to work",
-    "Resume",
-    "Mathematician",
-    "Blog",
-    "Portfolio",
-]
+underConstruction = false
 author = "Reece Holmdahl"
 images = ["profile/profile.jpeg"]
 DateFormat = "January 2, 2006"
@@ -58,7 +108,7 @@ ShowReadingTime = true
 ShowShareButtons = true
 ShowPostNavLinks = true
 ShowBreadCrumbs = true
-ShowCodeCopyButtons = false
+ShowCodeCopyButtons = true
 ShowWordCount = true
 ShowRssButtonInSectionTermList = false
 UseHugoToc = true
@@ -71,24 +121,22 @@ showtoc = false
 tocopen = false
 
 [params.assets]
-# disableHLJS = true
-# disableFingerprinting = true
-favicon = "profile/profile.jpeg"
-favicon16x16 = "profile/profile.jpeg"
-favicon32x32 = "profile/profile.jpeg"
-apple_touch_icon = "profile/profile.jpeg"
-safari_pinned_tab = "profile/profile.jpeg"
+favicon = "icon/favicon.ico"
+favicon16x16 = "icon/favicon-16x16.png"
+favicon32x32 = "icon/favicon-32x32.png"
+apple_touch_icon = "icon/apple-touch-icon.png"
 
 [params.label]
 text = "holmdahl.io"
-# icon = "profile/profile.jpeg"
-# iconHeight = 10
 
 [outputs]
-home = ["HTML", "RSS", "JSON"] # Add JSON to outputs
+home = ["HTML", "RSS", "JSON"]
 
 [outputFormats]
 [outputFormats.JSON]
 mediaType = "application/json"
 baseName = "raytracer/index"
 isPlainText = true
+
+[params.cover]
+responsiveImages = true
