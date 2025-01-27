@@ -4,7 +4,7 @@ title: "VoyagerSight"
 description: "Replication and extension study on Nvidia’s groundbreaking Voyager, exploring the effects of multimodal inputs on Minecraft LLM agents"
 cover:
   image: cover.png
-  caption: "TODO Temporary Cover"
+  caption: "Spectating the Minecraft agent completing a task"
 ShowToc: false
 # weight: 2
 weight: 3

@@ -82,7 +82,7 @@ enabled = true
 title = "Reece Holmdahl"
 email = "_reece@holmdahl.io_"
 subtitle = "Software Engineer | CS & Math Graduate from UMN"
-imageUrl = "img/profile.jpeg"
+imageUrl = "img/profile.png"
 imageWidth = 250
 imageHeight = 250
 imageTitle = "Reece at Grand Prismatic Spring, Yellowstone"
@@ -100,7 +100,6 @@ linkedin = { name = "linkedin", url = "https://www.linkedin.com/in/reeceholmdahl
 [params.env]
 underConstruction = false
 author = "Reece Holmdahl"
-images = ["profile/profile.jpeg"]
 DateFormat = "January 2, 2006"
 defaultTheme = "auto"
 disableThemeToggle = false
