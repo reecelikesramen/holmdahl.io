@@ -1,0 +1,135 @@
+---
+interface Props {
+  post: {
+    title: string;
+    url: string;
+    description?: string;
+    pubDate: Date;
+    draft?: boolean;
+    tags?: string[];
+    readingTime?: number;
+  };
+  isFirst?: boolean;
+  isTagEntry?: boolean;
+}
+
+const { post, isFirst = false, isTagEntry = false } = Astro.props;
+
+// Determine the appropriate CSS class
+let cardClass = "post-entry";
+if (isFirst) {
+  cardClass = "first-entry";
+} else if (isTagEntry) {
+  cardClass = "post-entry tag-entry";
+}
+---
+
+<article class={`relative mb-6 p-6 rounded-lg bg-card border border-border transition-transform hover:scale-[1.01] ${isFirst ? 'mb-8' : ''} ${isTagEntry ? 'border-l-4 border-l-primary' : ''}`}>
+  <header>
+    <h2 class="flex items-center gap-2 my-1 text-base font-semibold">
+      <span class={isFirst ? "text-xl" : ""}>
+        {post.title}
+      </span>
+      {post.draft && (
+        <span class="entry-hint" title="Draft">
+          <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
+            <path d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+          </svg>
+        </span>
+      )}
+    </h2>
+  </header>
+  
+  {post.description && (
+    <div class="my-2 text-secondary-text">
+      <p>{post.description}</p>
+    </div>
+  )}
+  
+  <footer class="text-tertiary-text text-sm">
+    <span>
+      {post.pubDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })}
+    </span>
+    {post.readingTime && (
+      <span>&nbsp;·&nbsp;{post.readingTime} min read</span>
+    )}
+    {post.tags && post.tags.length > 0 && (
+      <span>&nbsp;·&nbsp;
+        {post.tags.map((tag, i) => {
+          const tags = post.tags || [];
+          return (
+            <>
+              <a href={`/tags/${tag}`}>{tag}</a>
+              {i < tags.length - 1 && ", "}
+            </>
+          );
+        })}
+      </span>
+    )}
+  </footer>
+  
+  <a class="absolute inset-0 z-10" aria-label={`post link to ${post.title}`} href={post.url}></a>
+</article>
+
+<style>
+  .post-entry, .first-entry {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    transition: transform 0.1s;
+  }
+  
+  .post-entry:hover, .first-entry:hover {
+    transform: scale(1.01);
+  }
+  
+  .first-entry {
+    margin-bottom: 2rem;
+  }
+  
+  .entry-header h2 {
+    margin: 0.25rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .first-entry .entry-header h2 {
+    font-size: 1.75rem;
+  }
+  
+  .entry-hint-parent {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .entry-content {
+    margin: 0.5rem 0;
+    color: var(--secondary-text-color);
+  }
+  
+  .entry-footer {
+    color: var(--tertiary-text-color);
+    font-size: 0.875rem;
+  }
+  
+  .entry-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  .tag-entry {
+    border-left: 3px solid var(--primary-color);
+  }
+</style> 

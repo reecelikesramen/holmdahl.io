@@ -1,0 +1,44 @@
+---
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/posts', label: 'Posts' },
+  { href: '/about', label: 'About' }
+];
+---
+
+<nav class="w-full">
+  <ul id="menu" class="flex list-none m-0 p-0 overflow-x-auto justify-center gap-6">
+    {navItems.map((item) => (
+      <li>
+        <a 
+          href={item.href} 
+          title={item.label} 
+          class="no-underline relative" 
+          style="color: var(--secondary-color)"
+        >
+          <span class={currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href)) ? 'underline decoration-2 underline-offset-4' : ''} style={currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href)) ? 'color: var(--primary-color)' : ''}>
+            {item.label}
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<script is:inline>
+  // Menu scroll position handling
+  let menu = document.getElementById("menu");
+  if (menu) {
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position") || 0;
+    menu.onscroll = function () {
+      localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    };
+  }
+</script> 

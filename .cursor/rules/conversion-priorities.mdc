@@ -1,0 +1,145 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Conversion Priorities and Feature Mapping
+
+## Critical Features (Must Have)
+
+### 1. Profile Mode Home Page
+**Priority**: Highest
+**Hugo Reference**: [hugo-PaperMod/layouts/partials/index_profile.html](mdc:hugo-PaperMod/layouts/partials/index_profile.html)
+**Implementation**: 
+- Centered layout with avatar/image
+- Title and subtitle display
+- Social icons integration
+- Custom buttons with external link indicators
+- Responsive design
+
+### 2. Light/Dark Mode Toggle
+**Priority**: Highest
+**Hugo Reference**: Theme toggle functionality in PaperMod
+**Implementation**:
+- System preference detection
+- Manual toggle with persistence
+- Smooth transitions between themes
+- Icon-based toggle button
+
+### 3. Blog Posts System
+**Priority**: High
+**Hugo Reference**: 
+- [hugo-PaperMod/layouts/_default/list.html](mdc:hugo-PaperMod/layouts/_default/list.html)
+- [hugo-PaperMod/layouts/_default/single.html](mdc:hugo-PaperMod/layouts/_default/single.html)
+**Implementation**:
+- Blog post listing page
+- Individual post pages
+- Post metadata (date, tags, reading time)
+- Post navigation (next/previous)
+
+### 4. Search Functionality
+**Priority**: High
+**Hugo Reference**: [hugo-PaperMod/layouts/_default/search.html](mdc:hugo-PaperMod/layouts/_default/search.html)
+**Implementation**:
+- Client-side search with keyboard shortcuts
+- Search dialog/modal
+- Real-time search results
+- Search index generation
+
+## Important Features (Should Have)
+
+### 5. About Page
+**Priority**: Medium
+**Implementation**:
+- Clean content layout
+- Markdown content support
+- Consistent with site theme
+
+### 6. Navigation System
+**Priority**: Medium
+**Hugo Reference**: [hugo-PaperMod/layouts/partials/header.html](mdc:hugo-PaperMod/layouts/partials/header.html)
+**Implementation**:
+- Header navigation
+- Mobile-responsive menu
+- Active page indicators
+
+### 7. Social Icons
+**Priority**: Medium
+**Hugo Reference**: [hugo-PaperMod/layouts/partials/social_icons.html](mdc:hugo-PaperMod/layouts/partials/social_icons.html)
+**Implementation**:
+- Comprehensive icon set
+- Configurable social links
+- Consistent styling
+
+## Nice to Have Features
+
+### 8. Table of Contents
+**Priority**: Low
+**Implementation**:
+- Auto-generated TOC for blog posts
+- Smooth scrolling to sections
+- Highlight current section
+
+### 9. Code Syntax Highlighting
+**Priority**: Low
+**Implementation**:
+- Multiple language support
+- Theme-aware highlighting
+- Copy code button
+
+### 10. Breadcrumbs
+**Priority**: Low
+**Hugo Reference**: [hugo-PaperMod/layouts/partials/breadcrumbs.html](mdc:hugo-PaperMod/layouts/partials/breadcrumbs.html)
+
+## Features NOT to Implement
+
+### Archive Page
+- Not critical for portfolio use case
+- Can be added later if needed
+
+### Multi-language Support
+- Not required for initial implementation
+- Focus on English-only version
+
+### Comments System
+- Not part of core PaperMod functionality
+- Can be added as separate integration
+
+## Implementation Order
+
+1. **Phase 1**: Basic structure and profile mode
+   - Base layout
+   - Profile mode home page
+   - Basic styling
+
+2. **Phase 2**: Core functionality
+   - Dark/light mode toggle
+   - Navigation system
+   - Blog post system
+
+3. **Phase 3**: Enhanced features
+   - Search functionality
+   - About page
+   - Social icons
+
+4. **Phase 4**: Polish and optimization
+   - Performance optimization
+   - Accessibility improvements
+   - Final styling touches
+
+## Success Criteria
+
+### Visual Fidelity
+- Matches PaperMod's clean, minimalist aesthetic
+- Proper dark/light mode implementation
+- Responsive design across all devices
+
+### Functionality Parity
+- All critical features work as expected
+- Performance is equal or better than Hugo version
+- SEO and accessibility maintained
+
+### Code Quality
+- TypeScript throughout
+- Component-based architecture
+- Maintainable and extensible codebase

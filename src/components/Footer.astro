@@ -1,0 +1,140 @@
+---
+import SocialIcons from './SocialIcons.astro';
+
+interface Props {
+  showScrollToTop?: boolean;
+  showCopyright?: boolean;
+  customText?: string;
+  socialIcons?: Array<{
+    name: string;
+    url: string;
+    title?: string;
+  }>;
+}
+
+const { 
+  showScrollToTop = true, 
+  showCopyright = true, 
+  customText,
+  socialIcons = []
+} = Astro.props;
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="py-8 px-4 text-center text-sm" style="color: var(--secondary-color)">
+  {showCopyright && (
+    <span class="mx-1">&copy; {currentYear} <a href="/" class="no-underline" style="color: var(--primary-color)">holmdahl.io</a></span>
+    <span class="mx-1">·</span>
+  )}
+
+  {customText && (
+    <span class="mx-1" set:html={customText}></span>
+    <span class="mx-1">·</span>
+  )}
+
+  <span class="mx-1">
+    Powered by
+    <a href="https://astro.build/" rel="noopener noreferrer" target="_blank" class="no-underline" style="color: var(--primary-color)">Astro</a>
+  </span>
+
+  {socialIcons.length > 0 && (
+    <div class="mt-4">
+      <SocialIcons icons={socialIcons} />
+    </div>
+  )}
+</footer>
+
+{showScrollToTop && (
+  <a 
+    href="#top" 
+    aria-label="go to top" 
+    title="Go to Top (Alt + G)" 
+    class="fixed bottom-[60px] right-[30px] z-50 w-10 h-10 p-2 rounded flex items-center justify-center transition-opacity duration-200 invisible opacity-0" 
+    style="background: var(--tertiary-color)"
+    id="top-link" 
+    accesskey="g"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor" class="w-6 h-6" style="fill: var(--secondary-color)">
+      <path d="M12 6H0l6-6z" />
+    </svg>
+  </a>
+)}
+
+<script is:inline>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      var id = this.getAttribute("href").substr(1);
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+          behavior: "smooth"
+        });
+      } else {
+        document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+      }
+      if (id === "top") {
+        history.replaceState(null, null, " ");
+      } else {
+        history.pushState(null, null, `#${id}`);
+      }
+    });
+  });
+
+  var mybutton = document.getElementById("top-link");
+  window.onscroll = function () {
+    if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+      mybutton.style.visibility = "visible";
+      mybutton.style.opacity = "1";
+    } else {
+      mybutton.style.visibility = "hidden";
+      mybutton.style.opacity = "0";
+    }
+  };
+</script>
+
+<style>
+  .footer {
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--secondary-color);
+  }
+  
+  .footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+  
+  .footer span {
+    margin: 0 0.25rem;
+  }
+
+  .social-container {
+    margin-top: 1rem;
+  }
+  
+  .top-link {
+    position: fixed;
+    bottom: 60px;
+    right: 30px;
+    z-index: 99;
+    background: var(--tertiary-color);
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: visibility 0.2s, opacity 0.2s;
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .top-link svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: var(--secondary-color);
+  }
+</style> 

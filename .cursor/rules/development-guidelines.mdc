@@ -1,0 +1,73 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Development Guidelines
+
+## Code Style and Standards
+
+### General Principles
+- **Prefer terse answers**: Keep code concise and readable
+- **If-guard style**: Structure conditional trees with early returns, avoiding deep nesting
+- **Component-first**: Break down UI into reusable components
+- **Type safety**: Use TypeScript for all components and utilities
+
+### File Naming Conventions
+- **Astro components**: PascalCase with `.astro` extension (e.g., `ProfileMode.astro`)
+- **React components**: PascalCase with `.tsx` extension (e.g., `ThemeToggle.tsx`)
+- **Pages**: kebab-case for routes (e.g., `about.astro`, `blog/[slug].astro`)
+- **Utilities**: camelCase with `.ts` extension (e.g., `themeUtils.ts`)
+
+### Component Structure
+```astro
+---
+// Astro component frontmatter
+interface Props {
+  title: string;
+  optional?: boolean;
+}
+
+const { title, optional = false } = Astro.props;
+---
+
+<div class="component-wrapper">
+  <!-- Component content -->
+</div>
+
+<style>
+  /* Minimal scoped styles only when necessary */
+</style>
+```
+
+### Styling Guidelines
+- **Tailwind first**: Use Tailwind CSS classes for styling
+- **shadcn UI**: Leverage shadcn components for interactive elements
+- **Minimal global CSS**: Keep [src/styles/global.css](mdc:src/styles/global.css) minimal
+- **Responsive design**: Mobile-first approach with Tailwind breakpoints
+- **Dark mode**: Use Tailwind's dark mode classes with theme provider
+
+### Component Organization
+- **UI components**: Place in `src/components/ui/` (shadcn components)
+- **Layout components**: Place in `src/components/` (Header, Footer, etc.)
+- **Page-specific components**: Co-locate with pages when appropriate
+
+## Hugo PaperMod Reference Guidelines
+
+### When Converting Components
+1. **Study the original**: Always examine the Hugo template first
+2. **Preserve functionality**: Maintain the same user experience
+3. **Modernize implementation**: Use React/Astro patterns instead of Hugo templating
+4. **Match styling**: Replicate the visual design using Tailwind
+
+### Key Hugo Files to Reference
+- [hugo-PaperMod/layouts/partials/index_profile.html](mdc:hugo-PaperMod/layouts/partials/index_profile.html) - Profile mode layout
+- [hugo-PaperMod/layouts/partials/header.html](mdc:hugo-PaperMod/layouts/partials/header.html) - Header component
+- [hugo-PaperMod/layouts/partials/social_icons.html](mdc:hugo-PaperMod/layouts/partials/social_icons.html) - Social icons
+- [hugo-PaperMod/layouts/_default/baseof.html](mdc:hugo-PaperMod/layouts/_default/baseof.html) - Base layout
+
+## Performance Considerations
+- **Static generation**: Leverage Astro's static site generation
+- **Client-side hydration**: Use `client:*` directives judiciously
+- **Image optimization**: Use Astro's image optimization features
+- **Bundle size**: Keep JavaScript minimal, prefer static HTML

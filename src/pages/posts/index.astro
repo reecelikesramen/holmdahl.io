@@ -1,0 +1,40 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import PostsList from '../../components/PostsList.astro';
+import '@/styles/global.css';
+
+// Get all posts and sort by date
+const posts = await Astro.glob('../posts/*.{md,mdx}');
+const sortedPosts = posts
+  .filter(post => !post.frontmatter.draft)
+  .sort((a, b) => 
+    new Date(b.frontmatter.pubDate).getTime() - 
+    new Date(a.frontmatter.pubDate).getTime()
+  )
+  .map(post => ({
+    title: post.frontmatter.title,
+    url: post.url,
+    description: post.frontmatter.description,
+    pubDate: new Date(post.frontmatter.pubDate),
+    draft: post.frontmatter.draft,
+    tags: post.frontmatter.tags || [],
+    readingTime: post.frontmatter.readingTime
+  }));
+---
+
+<MainLayout title="Blog | holmdahl.io" description="Articles and thoughts">
+  <header class="mb-8">
+    <h1 class="mb-2">Blog</h1>
+    {sortedPosts.length > 0 ? (
+      <div class="text-secondary-text text-lg">
+        Writing about tech, code, and other things.
+      </div>
+    ) : (
+      <div class="text-secondary-text text-lg">
+        No posts yet. Check back soon!
+      </div>
+    )}
+  </header>
+  
+  <PostsList posts={sortedPosts} />
+</MainLayout> 

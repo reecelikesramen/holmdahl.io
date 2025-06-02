@@ -1,0 +1,79 @@
+---
+import SocialIcons from './SocialIcons.astro';
+
+interface Button {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  imageUrl?: string;
+  imageTitle?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  title: string;
+  email?: string;
+  subtitle?: string;
+  socialIcons?: {
+    name: string;
+    url: string;
+    title?: string;
+  }[];
+  buttons?: Button[];
+}
+
+const {
+  imageUrl,
+  imageTitle = 'profile image',
+  imageWidth = 200,
+  imageHeight = 200,
+  title,
+  email,
+  subtitle,
+  socialIcons = [],
+  buttons = [],
+} = Astro.props;
+---
+
+<div class="flex justify-center items-center min-h-[calc(100vh-var(--header-height)-var(--footer-height)-(var(--gap)*2))] text-center">
+  <div class="flex flex-col items-center gap-6">
+    {imageUrl && (
+      <img 
+        draggable="false" 
+        src={imageUrl} 
+        alt={imageTitle} 
+        title={imageTitle}
+        height={imageHeight} 
+        width={imageWidth} 
+        class="rounded-full shadow-lg"
+      />
+    )}
+    <div class="flex flex-col items-center gap-2">
+      <h1 class="text-5xl font-bold m-0" style="color: var(--primary-color)">{title}</h1>
+      {email && <span class="text-lg" style="color: var(--secondary-color)">{email}</span>}
+      {subtitle && <span class="text-xl font-medium mt-2" style="color: var(--primary-color)">{subtitle}</span>}
+    </div>
+    
+    {socialIcons.length > 0 && (
+      <div class="mt-2">
+        <SocialIcons icons={socialIcons} />
+      </div>
+    )}
+    
+    {buttons.length > 0 && (
+      <div class="flex flex-wrap justify-center gap-4 mt-6">
+        {buttons.map(button => (
+          <a 
+            class="rounded-lg px-6 py-3 font-semibold text-lg transition-transform hover:no-underline active:scale-[0.96] no-underline" 
+            style="background: var(--tertiary-color); color: var(--primary-color);"
+            href={button.url.trim()} 
+            rel="noopener" 
+            title={button.name}
+          >
+            {button.name}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</div> 

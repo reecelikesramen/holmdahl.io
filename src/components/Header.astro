@@ -1,0 +1,70 @@
+---
+import { Moon, Sun } from 'lucide-react';
+import Navigation from './Navigation.astro';
+import SearchButton from './SearchButton';
+
+interface Props {
+  title?: string;
+  showThemeToggle?: boolean;
+}
+
+const { title = "holmdahl.io", showThemeToggle = true } = Astro.props;
+---
+
+<header class="flex flex-col px-4 py-6 sm:px-[200px]">
+  <nav class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
+    <!-- Left side: Site title and theme toggle -->
+    <div class="flex items-center gap-4">
+      <a href="/" accesskey="h" title={`${title} (Alt + H)`} class="text-3xl font-bold no-underline" style="color: var(--primary-color)">
+        {title}
+      </a>
+      
+      <!-- Theme toggle next to site title -->
+      {showThemeToggle && (
+        <button id="theme-toggle" accesskey="t" title="Toggle theme (Alt + T)" aria-label="Toggle theme" class="bg-transparent border-none cursor-pointer p-1">
+          <Moon className="moon-icon w-6 h-6" />
+          <Sun className="sun-icon w-6 h-6" />
+        </button>
+      )}
+    </div>
+    
+    <!-- Right side: Navigation and Search -->
+    <div class="flex items-center gap-4">
+      <Navigation currentPath={Astro.url.pathname} />
+      <SearchButton client:load />
+    </div>
+  </nav>
+</header>
+
+<script is:inline>
+  // Theme toggle functionality
+  function toggleTheme() {
+    if (document.documentElement.classList.contains("dark")) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    }
+  }
+  
+  document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
+</script>
+
+<style>
+  .moon-icon {
+    display: block;
+  }
+  
+  .sun-icon {
+    display: none;
+  }
+  
+  html.dark .moon-icon {
+    display: none;
+  }
+  
+  html.dark .sun-icon {
+    display: block;
+  }
+</style> 

@@ -1,0 +1,78 @@
+---
+import {  Github, Linkedin, Mail, Facebook, Instagram, Youtube, Sun } from 'lucide-react';
+
+interface Props {
+  align?: 'left' | 'center' | 'right';
+  class?: string;
+  icons: Array<{
+    name: string;
+    url: string;
+    title?: string;
+  }>;
+}
+
+const { align = 'center', class: className = '', icons } = Astro.props;
+
+const iconComponents = {
+  github: Github,
+  linkedin: Linkedin,
+  email: Mail,
+  facebook: Facebook,
+  instagram: Instagram,
+  youtube: Youtube,
+};
+
+const getAlignClass = () => {
+  switch (align) {
+    case 'left':
+      return 'justify-start';
+    case 'right':
+      return 'justify-end';
+    default:
+      return 'justify-center';
+  }
+};
+---
+
+<div class={`flex gap-6 ${getAlignClass()} ${className}`}>
+  {icons.map(({ name, url, title }) => {
+    const IconComponent = iconComponents[name.toLowerCase() as keyof typeof iconComponents];
+    if (!IconComponent) return (<Sun />);
+    
+    return (
+      <a 
+        href={url}
+        target="_blank" 
+        rel="noopener noreferrer me"
+        title={title || name}
+        class="transition-colors duration-200 hover:no-underline"
+        style="color: var(--secondary-color)"
+      >
+        <IconComponent size={24} />
+      </a>
+    );
+  })}
+</div>
+
+<style>
+  .social-icons {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .justify-start {
+    justify-content: flex-start;
+  }
+  
+  .justify-center {
+    justify-content: center;
+  }
+  
+  .justify-end {
+    justify-content: flex-end;
+  }
+  
+  a:hover {
+    color: var(--primary-color) !important;
+  }
+</style> 

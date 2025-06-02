@@ -1,0 +1,95 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  isDark?: boolean;
+}
+
+const { title, description, image, isDark = false } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="robots" content="index, follow" />
+    <title>{(title ? `${title} | ` : "") + "holmdahl.io"}</title>
+    <meta name="description" content={description || "Reece Holmdahl's personal website"} />
+    <meta name="author" content="Robert Holmdahl" />
+    <link rel="canonical" href={Astro.url} />
+    
+    <!-- Google Fonts - Optimized for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#2e2e33" />
+    <meta name="msapplication-TileColor" content="#2e2e33" />
+    
+    <!-- Theme Toggle Script -->
+    {!isDark && (
+      <script is:inline>
+        if (localStorage.getItem("theme") === "dark" || 
+            (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      </script>
+    )}
+  </head>
+  
+  <body class={`${Astro.url.pathname === "/" ? "" : "list"} ${isDark ? "dark" : ""}`} id="top">
+    <slot name="header" />
+    <main class="main">
+      <slot />
+    </main>
+    <slot name="footer" />
+    
+    <script is:inline>
+      // Scroll to top functionality
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          var id = this.getAttribute("href").substr(1);
+          if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+              behavior: "smooth"
+            });
+          } else {
+            document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+          }
+          if (id === "top") {
+            history.replaceState(null, null, " ");
+          } else {
+            history.pushState(null, null, `#${id}`);
+          }
+        });
+      });
+      
+      // Scroll to top button visibility
+      var topButton = document.getElementById("top-link");
+      if (topButton) {
+        window.onscroll = function () {
+          if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            topButton.style.visibility = "visible";
+            topButton.style.opacity = "1";
+          } else {
+            topButton.style.visibility = "hidden";
+            topButton.style.opacity = "0";
+          }
+        };
+      }
+    </script>
+  </body>
+</html> 

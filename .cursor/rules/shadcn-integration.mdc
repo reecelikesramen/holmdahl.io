@@ -1,0 +1,127 @@
+---
+description: When working with shadcn UI
+globs: 
+alwaysApply: false
+---
+# shadcn UI Integration Guidelines
+
+## Adding shadcn Components
+
+### Installation Command
+Use this command to add new shadcn components:
+```bash
+pnpm dlx shadcn@latest add [component-name]
+```
+
+### Essential Components for PaperMod
+- `button` - For profile mode buttons and interactive elements
+- `dropdown-menu` - For navigation menus
+- `dialog` - For search modal and other overlays
+- `command` - For search functionality
+- `input` - For search input and forms
+- `toggle` - For theme switching
+- `card` - For blog post cards
+- `badge` - For tags and categories
+
+## Component Usage Patterns
+
+### Theme Toggle Implementation
+```tsx
+import { Moon, Sun } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+export function ThemeToggle() {
+  // Implementation following shadcn patterns
+}
+```
+
+### Search Dialog Pattern
+```tsx
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+
+export function SearchDialog() {
+  // Search implementation
+}
+```
+
+## Styling Integration
+
+### Tailwind Configuration
+Ensure [tailwind.config.mjs](mdc:tailwind.config.mjs) includes:
+- shadcn color variables
+- Dark mode configuration
+- Custom PaperMod theme colors
+
+### CSS Variables
+Use CSS custom properties for theme colors that match PaperMod:
+```css
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  /* PaperMod specific colors */
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  /* Dark mode variants */
+}
+```
+
+## Component Customization
+
+### Adapting to PaperMod Style
+- Modify shadcn components to match PaperMod's minimalist aesthetic
+- Ensure components work with both light and dark themes
+- Maintain accessibility standards while matching visual design
+
+### Custom Variants
+Create custom variants for shadcn components when needed:
+```tsx
+const buttonVariants = cva(
+  "inline-flex items-center justify-center rounded-md text-sm font-medium",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        papermod: "bg-transparent border border-current hover:bg-current/10",
+      },
+    },
+  }
+)
+```
+
+## Integration with Astro
+
+### Client-Side Components
+Mark interactive shadcn components with appropriate client directives:
+```astro
+---
+import { ThemeToggle } from '@/components/ui/ThemeToggle'
+---
+
+<ThemeToggle client:load />
+```
+
+### Server-Side Rendering
+Use shadcn components in Astro components when possible for better performance:
+```astro
+---
+import { Button } from '@/components/ui/button'
+---
+
+<Button variant="outline">Static Button</Button>
+```

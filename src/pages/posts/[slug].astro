@@ -1,0 +1,79 @@
+---
+import PostLayout from '../../layouts/PostLayout.astro';
+
+interface Post {
+  frontmatter: {
+    title: string;
+    description?: string;
+    pubDate: string;
+    updatedDate?: string;
+    readingTime?: number;
+    tags?: string[];
+    draft?: boolean;
+  };
+  url: string;
+  Content: any;
+}
+
+interface NavPost {
+  title: string;
+  url: string;
+}
+
+export async function getStaticPaths() {
+  const posts: Post[] = await Astro.glob('./*.{md,mdx}');
+  
+  // Sort posts by date (newest first)
+  const allPosts = posts.sort((a: Post, b: Post) => {
+    const dateA = new Date(a.frontmatter.pubDate).getTime();
+    const dateB = new Date(b.frontmatter.pubDate).getTime();
+    return dateB - dateA;
+  });
+
+  return allPosts.map((post: Post, index: number) => {
+    let prevPost: NavPost | undefined;
+    if (index > 0) {
+      prevPost = {
+        title: allPosts[index - 1].frontmatter.title,
+        url: allPosts[index - 1].url,
+      };
+    }
+
+    let nextPost: NavPost | undefined;
+    if (index < allPosts.length - 1) {
+      nextPost = {
+        title: allPosts[index + 1].frontmatter.title,
+        url: allPosts[index + 1].url,
+      };
+    }
+
+    return {
+      params: {
+        slug: post.url.split('/').pop() as string,
+      },
+      props: {
+        post,
+        prevPost,
+        nextPost,
+      },
+    };
+  });
+}
+
+const { post, prevPost, nextPost } = Astro.props;
+const { Content } = post;
+---
+
+<PostLayout
+  title={post.frontmatter.title}
+  description={post.frontmatter.description}
+  pubDate={post.frontmatter.pubDate ? new Date(post.frontmatter.pubDate) : undefined}
+  updatedDate={post.frontmatter.updatedDate ? new Date(post.frontmatter.updatedDate) : undefined}
+  readingTime={post.frontmatter.readingTime}
+  tags={post.frontmatter.tags || []}
+  draft={post.frontmatter.draft}
+  prevPost={prevPost}
+  nextPost={nextPost}
+>
+  <Content />
+</PostLayout> 

@@ -1,0 +1,41 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Hugo PaperMod to Astro Conversion Project
+
+## Project Overview
+This project is converting the Hugo PaperMod theme to an Astro template with React and shadcn UI components. The goal is to replicate the clean, minimalist design and functionality of PaperMod while leveraging modern web technologies.
+
+## Key Technologies
+- **Astro**: Static site generator with React integration
+- **React**: For interactive components
+- **shadcn UI**: Component library for consistent UI elements
+- **Tailwind CSS**: For styling and responsive design
+- **TypeScript**: For type safety
+
+## Source Material
+The original Hugo PaperMod theme is located in [hugo-PaperMod/](mdc:hugo-PaperMod) and serves as the reference for:
+- Layout structure ([hugo-PaperMod/layouts/](mdc:hugo-PaperMod/layouts))
+- Component organization ([hugo-PaperMod/layouts/partials/](mdc:hugo-PaperMod/layouts/partials))
+- Styling patterns ([hugo-PaperMod/assets/css/](mdc:hugo-PaperMod/assets/css))
+
+## Critical Features to Implement
+1. **Profile Mode Home Page**: The signature centered layout with avatar, social links, and buttons
+2. **Light/Dark Mode Toggle**: Seamless theme switching
+3. **Blog Post System**: List and single post layouts
+4. **Search Functionality**: Client-side search with keyboard shortcuts
+5. **About Page**: Clean content page layout
+6. **Responsive Design**: Mobile-first approach
+
+## Project Structure
+- [src/layouts/](mdc:src/layouts) - Astro layout components
+- [src/components/](mdc:src/components) - Reusable components
+- [src/pages/](mdc:src/pages) - Page routes and content
+- [src/styles/](mdc:src/styles) - Global styles (minimal, prefer Tailwind)
+
+## Configuration Files
+- [astro.config.mjs](mdc:astro.config.mjs) - Astro configuration
+- [package.json](mdc:package.json) - Dependencies and scripts
+- [tsconfig.json](mdc:tsconfig.json) - TypeScript configuration

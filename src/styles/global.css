@@ -1,1 +1,212 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  
+  /* PaperMod theme color variables */
+  --theme-color: rgb(255, 255, 255);
+  --entry-color: rgb(255, 255, 255);
+  --primary-color: rgb(30, 30, 30);
+  --secondary-color: rgb(108, 108, 108);
+  --tertiary-color: rgb(214, 214, 214);
+  --content-color: rgb(31, 31, 31);
+  --code-block-color: rgb(245, 245, 245);
+  --code-bg-color: rgb(212, 212, 212);
+  --border-color: rgb(238, 238, 238);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+  
+  /* Dark theme color variables */
+  --theme-color: rgb(29, 30, 32);
+  --entry-color: rgb(46, 46, 51);
+  --primary-color: rgb(218, 218, 219);
+  --secondary-color: rgb(155, 156, 157);
+  --tertiary-color: rgb(65, 66, 68);
+  --content-color: rgb(196, 196, 197);
+  --code-block-color: rgb(46, 46, 51);
+  --code-bg-color: rgb(55, 56, 62);
+  --border-color: rgb(51, 51, 51);
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+    outline-color: hsl(var(--ring) / 0.5);
+  }
+  
+  html {
+    font-family: "STIX Two Text", serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    background-color: var(--theme-color);
+    color: var(--content-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-wrap: break-word;
+    font-family: "STIX Two Text", serif;
+  }
+  
+  /* Headers, titles, navbars use STIX Two Text (already default) */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "STIX Two Text", serif;
+  }
+  
+  /* Code elements use Reddit Mono */
+  code, pre, kbd, samp {
+    font-family: "Reddit Mono", monospace;
+  }
+  
+  /* For any elements that need Reddit Sans, use the font-reddit-sans class */
+  .font-reddit-sans {
+    font-family: "Reddit Sans", sans-serif;
+  }
+  
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+@layer components {
+  /* Search-specific styles */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  
+  /* Search results styling similar to PaperMod */
+  .search-result-item {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--entry-color);
+    transition: background-color 0.2s ease;
+  }
+  
+  .search-result-item:hover {
+    background-color: var(--tertiary-color);
+  }
+  
+  /* Keyboard shortcut styling */
+  kbd {
+    background-color: var(--code-block-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    color: var(--secondary-color);
+  }
+
+  /* Search dialog positioning and styling */
+  .search-dialog-positioned [data-slot="dialog-overlay"] {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(2px) !important;
+  }
+  
+  .search-dialog-positioned [data-slot="dialog-content"] {
+    top: 2vh !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(0) !important;
+    position: fixed !important;
+    background-color: var(--theme-color) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+    opacity: 1 !important;
+  }
+  
+  /* More aggressive positioning overrides */
+  .search-dialog-positioned [data-slot="dialog-content"].fixed {
+    top: 2vh !important;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+  
+  /* Override Tailwind classes */
+  .search-dialog-positioned [data-slot="dialog-content"][class*="top-"] {
+    top: 2vh !important;
+  }
+  
+  /* Additional overrides to ensure solid background */
+  .search-dialog-positioned .bg-popover {
+    background-color: var(--theme-color) !important;
+  }
+  
+  .search-dialog-positioned [data-slot="command"] {
+    background-color: var(--theme-color) !important;
+  }
+}
