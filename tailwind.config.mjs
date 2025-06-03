@@ -4,10 +4,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'stix': ['"STIX Two Text"', 'serif'],
+        'serif': ['"Source Serif 4"', 'serif'],
         'reddit-mono': ['"Reddit Mono"', 'monospace'],
         'reddit-sans': ['"Reddit Sans"', 'sans-serif'],
-        'sans': ['"STIX Two Text"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+        'sans': ['"Source Serif 4"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
         'mono': ['"Reddit Mono"', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
       },
       borderRadius: {

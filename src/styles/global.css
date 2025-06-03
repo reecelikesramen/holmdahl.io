@@ -45,6 +45,33 @@
   --code-block-color: rgb(245, 245, 245);
   --code-bg-color: rgb(212, 212, 212);
   --border-color: rgb(238, 238, 238);
+  
+  /* Profile ring colors - subtle for light mode (monotone website) */
+  --profile-ring-colors: 
+    rgb(60, 60, 60), rgb(90, 90, 90), rgb(120, 120, 120), 
+    rgb(80, 80, 80), rgb(100, 100, 100), rgb(70, 70, 70),
+    rgb(110, 110, 110), rgb(85, 85, 85), rgb(95, 95, 95), rgb(60, 60, 60);
+  --profile-ring-subtle: 
+    rgba(60, 60, 60, 0.2), rgba(90, 90, 90, 0.2), rgba(120, 120, 120, 0.2), 
+    rgba(80, 80, 80, 0.2), rgba(100, 100, 100, 0.2), rgba(70, 70, 70, 0.2);
+
+  /* Profile gradient colors - muted and elegant for light mode */
+  --profile-gradient-1: #93c5fd; /* light blue */
+  --profile-gradient-2: #c4b5fd; /* light purple */
+  --profile-gradient-3: #67e8f9; /* light cyan */
+  --profile-gradient-4: #6ee7b7; /* light green */
+  --profile-gradient-5: #fcd34d; /* light yellow */
+  --profile-gradient-6: #fca5a5; /* light red */
+  --profile-gradient-7: #f9a8d4; /* light pink */
+  
+  /* Profile glow colors - soft transparency for light mode */
+  --profile-glow-1: rgba(147, 197, 253, 0.25);
+  --profile-glow-2: rgba(196, 181, 253, 0.25);
+  --profile-glow-3: rgba(103, 232, 249, 0.25);
+  --profile-glow-4: rgba(110, 231, 183, 0.25);
+  --profile-glow-5: rgba(252, 211, 77, 0.25);
+  --profile-glow-6: rgba(252, 165, 165, 0.25);
+  --profile-glow-7: rgba(249, 168, 212, 0.25);
 }
 
 .dark {
@@ -90,6 +117,70 @@
   --code-block-color: rgb(46, 46, 51);
   --code-bg-color: rgb(55, 56, 62);
   --border-color: rgb(51, 51, 51);
+  
+  /* Profile ring colors - vibrant and saturated for dark mode */
+  --profile-ring-colors: 
+    rgb(255, 75, 75), rgb(75, 200, 200), rgb(75, 150, 255), 
+    rgb(255, 200, 50), rgb(255, 150, 75), rgb(255, 75, 125),
+    rgb(150, 75, 255), rgb(175, 150, 255), rgb(255, 125, 175), rgb(255, 75, 75);
+  --profile-ring-subtle: 
+    rgba(255, 75, 75, 0.3), rgba(75, 200, 200, 0.3), rgba(75, 150, 255, 0.3), 
+    rgba(255, 200, 50, 0.3), rgba(255, 150, 75, 0.3), rgba(150, 75, 255, 0.3);
+
+  /* Profile gradient colors - vibrant and saturated for dark mode */
+  --profile-gradient-1: #3b82f6; /* vibrant blue */
+  --profile-gradient-2: #8b5cf6; /* vibrant purple */
+  --profile-gradient-3: #06b6d4; /* vibrant cyan */
+  --profile-gradient-4: #10b981; /* vibrant green */
+  --profile-gradient-5: #f59e0b; /* vibrant orange */
+  --profile-gradient-6: #ef4444; /* vibrant red */
+  --profile-gradient-7: #ec4899; /* vibrant pink */
+  
+  /* Profile glow colors - stronger transparency for dark mode */
+  --profile-glow-1: rgba(59, 130, 246, 0.4);
+  --profile-glow-2: rgba(139, 92, 246, 0.4);
+  --profile-glow-3: rgba(6, 182, 212, 0.4);
+  --profile-glow-4: rgba(16, 185, 129, 0.4);
+  --profile-glow-5: rgba(245, 158, 11, 0.4);
+  --profile-glow-6: rgba(239, 68, 68, 0.4);
+  --profile-glow-7: rgba(236, 72, 153, 0.4);
+}
+
+/* Profile image animations */
+@keyframes rainbow-rotate {
+  0% { filter: blur(2px) hue-rotate(0deg); }
+  100% { filter: blur(2px) hue-rotate(360deg); }
+}
+
+@keyframes profile-ring-flow {
+  0% { 
+    opacity: 0; 
+    transform: scale(1); 
+    filter: blur(4px);
+  }
+  30% { 
+    opacity: 0.8; 
+    transform: scale(1.05); 
+    filter: blur(3px);
+  }
+  60% { 
+    opacity: 1; 
+    transform: scale(1.08); 
+    filter: blur(2px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1.1); 
+    filter: blur(2px);
+  }
+}
+
+.profile-ring-flowing {
+  will-change: transform, opacity, filter, clip-path;
+}
+
+.rainbow-ring:hover {
+  animation: rainbow-rotate 3s linear infinite;
 }
 
 @layer base {
@@ -99,7 +190,7 @@
   }
   
   html {
-    font-family: "STIX Two Text", serif;
+    font-family: "Source Serif 4", serif;
     scroll-behavior: smooth;
   }
   
@@ -114,12 +205,12 @@
     margin: 0;
     padding: 0;
     overflow-wrap: break-word;
-    font-family: "STIX Two Text", serif;
+    font-family: "Source Serif 4", serif;
   }
   
-  /* Headers, titles, navbars use STIX Two Text (already default) */
+  /* Headers, titles, navbars use Source Serif (already default) */
   h1, h2, h3, h4, h5, h6 {
-    font-family: "STIX Two Text", serif;
+    font-family: "Source Serif 4", serif;
   }
   
   /* Code elements use Reddit Mono */

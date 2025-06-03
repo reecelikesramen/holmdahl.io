@@ -4,8 +4,8 @@ email: "reece@holmdahl.io"
 subtitle: "Software Engineer | CS & Math Graduate from UMN"
 imageUrl: "/profile.png"
 imageTitle: "Profile image of Reece Holmdahl"
-imageWidth: 200
-imageHeight: 200
+imageWidth: 240
+imageHeight: 240
 socialIcons:
   - name: "github"
     url: "https://github.com/reecelikesramen"

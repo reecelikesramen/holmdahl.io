@@ -5,18 +5,12 @@ interface Props {
   showScrollToTop?: boolean;
   showCopyright?: boolean;
   customText?: string;
-  socialIcons?: Array<{
-    name: string;
-    url: string;
-    title?: string;
-  }>;
 }
 
 const { 
   showScrollToTop = true, 
   showCopyright = true, 
   customText,
-  socialIcons = []
 } = Astro.props;
 
 const currentYear = new Date().getFullYear();
@@ -37,12 +31,6 @@ const currentYear = new Date().getFullYear();
     Powered by
     <a href="https://astro.build/" rel="noopener noreferrer" target="_blank" class="no-underline" style="color: var(--primary-color)">Astro</a>
   </span>
-
-  {socialIcons.length > 0 && (
-    <div class="mt-4">
-      <SocialIcons icons={socialIcons} />
-    </div>
-  )}
 </footer>
 
 {showScrollToTop && (

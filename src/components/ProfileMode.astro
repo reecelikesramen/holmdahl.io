@@ -1,5 +1,6 @@
 ---
 import SocialIcons from './SocialIcons.astro';
+import { ProfileImage } from './ProfileImage';
 
 interface Button {
   name: string;
@@ -38,20 +39,19 @@ const {
 <div class="flex justify-center items-center min-h-[calc(100vh-var(--header-height)-var(--footer-height)-(var(--gap)*2))] text-center">
   <div class="flex flex-col items-center gap-6">
     {imageUrl && (
-      <img 
-        draggable="false" 
+      <ProfileImage 
+        client:load
         src={imageUrl} 
         alt={imageTitle} 
         title={imageTitle}
-        height={imageHeight} 
         width={imageWidth} 
-        class="rounded-full shadow-lg"
+        height={imageHeight} 
       />
     )}
     <div class="flex flex-col items-center gap-2">
-      <h1 class="text-5xl font-bold m-0" style="color: var(--primary-color)">{title}</h1>
+      <h1 class="text-3xl font-bold m-0" style="color: var(--primary-color)">{title}</h1>
       {email && <span class="text-lg" style="color: var(--secondary-color)">{email}</span>}
-      {subtitle && <span class="text-xl font-medium mt-2" style="color: var(--primary-color)">{subtitle}</span>}
+      {subtitle && <span class="text-lg font-medium mt-2" style="color: var(--primary-color)">{subtitle}</span>}
     </div>
     
     {socialIcons.length > 0 && (

@@ -14,12 +14,7 @@ const { title, description, image, isDark = false } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} image={image} isDark={isDark}>
-  <Header slot="header" />
-  <main class="flex-1 flex flex-col w-full max-w-3xl mx-auto px-4">
-    <slot />
-  </main>
-  <Footer socialIcons={[{
-    name: 'github',
-    url: 'https://github.com/holmdahl',
-  }]}/>
+  <Header slot="header" />    
+  <slot />
+  <Footer />
 </BaseLayout> 
