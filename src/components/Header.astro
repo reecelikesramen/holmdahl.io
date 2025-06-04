@@ -12,7 +12,7 @@ const { title = "holmdahl.io", showThemeToggle = true } = Astro.props;
 ---
 
 <header class="flex flex-col pt-4 pb-6 px-6">
-  <nav class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center max-w-screen-lg w-full justify-self-center place-self-center">
+  <nav class="flex flex-row justify-between items-center max-w-screen-lg w-full justify-self-center place-self-center">
     <!-- Left side: Site title and theme toggle -->
     <div class="flex items-center gap-2">
       <a href="/" accesskey="h" title={`${title} (Alt + H)`} class="text-2xl font-extrabold no-underline" style="color: var(--primary-color)">
@@ -21,7 +21,7 @@ const { title = "holmdahl.io", showThemeToggle = true } = Astro.props;
       
       <!-- Theme toggle next to site title -->
       {showThemeToggle && (
-        <button id="theme-toggle" accesskey="t" title="Toggle theme (Alt + T)" aria-label="Toggle theme" class="bg-transparent border-none cursor-pointer p-1 mb-0.5">
+        <button id="theme-toggle" accesskey="t" title="Toggle theme (Alt + T)" aria-label="Toggle theme" class="bg-transparent border-none cursor-pointer p-1">
           <Moon className="moon-icon w-5 h-5" />
           <Sun className="sun-icon w-5 h-5" />
         </button>
@@ -29,7 +29,7 @@ const { title = "holmdahl.io", showThemeToggle = true } = Astro.props;
     </div>
     
     <!-- Right side: Navigation and Search -->
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-2">
       <Navigation currentPath={Astro.url.pathname} />
       <SearchButton client:load />
     </div>

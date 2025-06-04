@@ -23,18 +23,11 @@ const sortedPosts = posts
 ---
 
 <MainLayout title="Blog | holmdahl.io" description="Articles and thoughts">
-  <header class="mb-8">
-    <h1 class="mb-2">Blog</h1>
-    {sortedPosts.length > 0 ? (
-      <div class="text-secondary-text text-lg">
-        Writing about tech, code, and other things.
-      </div>
-    ) : (
-      <div class="text-secondary-text text-lg">
-        No posts yet. Check back soon!
-      </div>
-    )}
-  </header>
-  
-  <PostsList posts={sortedPosts} />
+  <div class="container mx-auto py-4">
+    <h1 class="text-4xl font-bold">Posts</h1>
+  </div>
+
+  <div class="container mx-auto">
+    <PostsList posts={sortedPosts} />
+  </div>
 </MainLayout> 

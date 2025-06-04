@@ -49,12 +49,14 @@ const { title, description, image, isDark = false } = Astro.props;
     )}
   </head>
   
-  <body class={`${Astro.url.pathname === "/" ? "" : "list"} ${isDark ? "dark" : ""}`} id="top">
+  <body class={`${Astro.url.pathname === "/" ? "" : "list"} ${isDark ? "dark" : ""} flex flex-col min-h-screen`} id="top">
     <slot name="header" />
-    <main class="main flex-1 flex flex-col w-full max-w-3xl mx-auto p-6">
+    <main class="main flex-1 flex flex-col w-full max-w-3xl mx-auto p-3.5 md:p-6">
       <slot />
     </main>
-    <slot name="footer" />
+    <div class="mt-8">
+      <slot name="footer" />
+    </div>
     
     <script is:inline>
       // Scroll to top functionality

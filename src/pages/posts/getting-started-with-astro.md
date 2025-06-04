@@ -1,15 +1,17 @@
 ---
-layout: ../../layouts/PostLayout.astro
-title: Getting Started with Astro
-description: A quick guide to building with Astro
-pubDate: 2023-05-15
-tags: ["astro", "tutorial", "web-development"]
+layout: ../../layouts/ContentLayout.astro
+title: "Getting Started with Astro"
+description: "Learn how to build fast, content-focused websites with Astro"
+pubDate: 2024-01-15
+tags: ["astro", "web-development", "static-site-generator"]
 readingTime: 5
 ---
 
 # Getting Started with Astro
 
 Astro is a modern static site generator that allows you to build faster websites with less JavaScript. Let's explore how to get started with Astro.
+
+A [test link](https://google.com)
 
 ## Installation
 

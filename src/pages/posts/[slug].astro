@@ -1,5 +1,5 @@
 ---
-import PostLayout from '../../layouts/PostLayout.astro';
+import ContentLayout from '../../layouts/ContentLayout.astro';
 
 interface Post {
   frontmatter: {
@@ -64,16 +64,18 @@ const { post, prevPost, nextPost } = Astro.props;
 const { Content } = post;
 ---
 
-<PostLayout
+<ContentLayout 
   title={post.frontmatter.title}
   description={post.frontmatter.description}
   pubDate={post.frontmatter.pubDate ? new Date(post.frontmatter.pubDate) : undefined}
   updatedDate={post.frontmatter.updatedDate ? new Date(post.frontmatter.updatedDate) : undefined}
   readingTime={post.frontmatter.readingTime}
-  tags={post.frontmatter.tags || []}
+  tags={post.frontmatter.tags}
   draft={post.frontmatter.draft}
+  showBreadcrumbs={true}
+  hideMeta={false}
   prevPost={prevPost}
   nextPost={nextPost}
 >
   <Content />
-</PostLayout> 
+</ContentLayout> 

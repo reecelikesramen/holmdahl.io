@@ -1,4 +1,4 @@
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 export interface SearchIndexItem {
   title: string;
@@ -11,70 +11,96 @@ export interface SearchIndexItem {
 export async function generateSearchIndex(): Promise<SearchIndexItem[]> {
   const searchIndex: SearchIndexItem[] = [];
 
-  // Add static pages (excluding home page)
-  searchIndex.push(
-    {
-      title: 'About',
-      url: '/about',
-      content: 'About page containing information about my background, experience, and interests.',
-      summary: 'Learn more about my background and experience',
+  // Add about page from content collection
+  try {
+    const aboutEntry = await getEntry('about', 'index');
+    if (aboutEntry) {
+      searchIndex.push({
+        title: aboutEntry.data.title,
+        url: '/about',
+        content: cleanTextForSearch(`${aboutEntry.data.title} ${aboutEntry.data.description || ''} ${aboutEntry.body}`),
+        summary: aboutEntry.data.description,
+      });
     }
-  );
+  } catch (error) {
+    console.warn('Could not load about page for search index:', error);
+  }
 
-  // Add sample projects (these would be real projects in a real implementation)
-  searchIndex.push(
+  // Add blog posts from posts directory
+  try {
+    // Use dynamic import to avoid SSR issues
+    const postFiles = import.meta.glob('/src/pages/posts/*.{md,mdx}', { eager: true });
+    
+    for (const [path, post] of Object.entries(postFiles)) {
+      const postData = post as any;
+      
+      if (postData.frontmatter && !postData.frontmatter.draft) {
+        // Extract slug from file path
+        const slug = path.split('/').pop()?.replace(/\.(md|mdx)$/, '');
+        const url = `/posts/${slug}`;
+        
+        // Try to get the raw content from the module
+        let rawContent = '';
+        if (postData.rawContent && typeof postData.rawContent === 'function') {
+          rawContent = postData.rawContent();
+        } else if (postData.body) {
+          rawContent = postData.body;
+        } else if (postData.compiledContent && typeof postData.compiledContent === 'function') {
+          try {
+            rawContent = await postData.compiledContent();
+          } catch {
+            // If compiled content fails, try to extract from other properties
+            rawContent = '';
+          }
+        }
+        
+        // Combine frontmatter and content for search
+        const content = cleanTextForSearch(
+          `${postData.frontmatter.title} ${postData.frontmatter.description || ''} ${rawContent}`
+        );
+        
+        searchIndex.push({
+          title: postData.frontmatter.title,
+          url,
+          content,
+          summary: postData.frontmatter.description,
+          tags: postData.frontmatter.tags || [],
+        });
+      }
+    }
+  } catch (error) {
+    console.warn('Could not load blog posts for search index:', error);
+  }
+
+  // Add other static pages that should be searchable
+  const staticPages = [
     {
-      title: 'Project Alpha',
-      url: '/projects/alpha',
-      content: 'A detailed description of Project Alpha, including technologies used and challenges overcome.',
-      summary: 'An innovative web application built with modern technologies',
-      tags: ['web', 'javascript', 'react'],
+      title: 'Projects',
+      url: '/projects',
+      content: cleanTextForSearch('Projects page showcasing development work and contributions.'),
+      summary: 'View my projects and development work',
     },
     {
-      title: 'Project Beta',
-      url: '/projects/beta',
-      content: 'Project Beta showcases advanced data visualization techniques and user interface design.',
-      summary: 'Data visualization dashboard with interactive charts',
-      tags: ['data', 'visualization', 'dashboard'],
+      title: 'Resume',
+      url: '/resume',
+      content: cleanTextForSearch('Resume page with professional experience and qualifications.'),
+      summary: 'Professional experience and qualifications',
     }
-  );
+  ];
 
-  // Add sample blog posts (these would be real posts in a real implementation)
-  searchIndex.push(
-    {
-      title: 'Getting Started with Astro',
-      url: '/posts/getting-started-astro',
-      content: 'A comprehensive guide to building static sites with Astro framework, covering setup, components, and deployment.',
-      summary: 'Learn how to build fast static sites with Astro',
-      tags: ['astro', 'tutorial', 'web development'],
-    },
-    {
-      title: 'Modern CSS Techniques',
-      url: '/posts/modern-css-techniques',
-      content: 'Exploring the latest CSS features including grid, flexbox, custom properties, and container queries.',
-      summary: 'Discover powerful CSS features for modern web development',
-      tags: ['css', 'web design', 'frontend'],
-    },
-    {
-      title: 'TypeScript Best Practices',
-      url: '/posts/typescript-best-practices',
-      content: 'Essential TypeScript patterns and practices for building maintainable and type-safe applications.',
-      summary: 'Write better TypeScript code with these proven patterns',
-      tags: ['typescript', 'javascript', 'best practices'],
-    }
-  );
-
-  // TODO: Replace sample data with actual content from collections when they're set up
-  // This would be done with getCollection('blog') and getCollection('projects')
+  searchIndex.push(...staticPages);
 
   return searchIndex;
 }
 
 // Function to clean and prepare text for search
 export function cleanTextForSearch(text: string): string {
+  if (!text) return '';
+  
   return text
     .replace(/<[^>]*>/g, ' ') // Remove HTML tags
     .replace(/\s+/g, ' ')     // Normalize whitespace
+    .replace(/[^\w\s-]/g, ' ') // Remove special characters except hyphens
     .trim()
     .toLowerCase();
 } 

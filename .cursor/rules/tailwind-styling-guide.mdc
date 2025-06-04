@@ -1,0 +1,77 @@
+---
+description: When working on styling, CSS, or visual components - enforces Tailwind-first practices and proactive CSS optimization
+globs: 
+alwaysApply: false
+---
+# Tailwind-First Styling Guide
+
+## Core Principles
+
+### 1. Tailwind Utilities First
+- **Always prefer Tailwind utility classes** over custom CSS properties
+- Use Tailwind classes for spacing, colors, typography, layout, and responsive design
+- Only write custom CSS when Tailwind utilities cannot achieve the desired result
+
+### 2. Global CSS Guidelines
+When working with [src/styles/global.css](mdc:src/styles/global.css):
+- **Use utility class selectors** whenever practical (e.g., `.prose`, `.btn`, `.card`)
+- Compose complex styles using `@apply` with Tailwind utilities
+- Keep global styles minimal and focused on base elements only
+
+### 3. Proactive CSS Replacement
+As you work on any file with styling:
+- **Scan for regular CSS properties** that can be replaced with Tailwind utilities
+- **Immediately convert** basic CSS like `margin`, `padding`, `color`, `background`, `display`, `flex`, etc.
+- **Flag complex CSS** that could benefit from Tailwind utility composition
+
+## Conversion Examples
+
+### Replace These CSS Properties:
+```css
+/* ❌ Avoid */
+.component {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+}
+
+/* ✅ Use Tailwind */
+<div class="m-4 px-4 py-2 bg-white rounded-md flex items-center">
+```
+
+### Global CSS with @apply:
+```css
+/* ✅ Good global CSS pattern */
+.btn-primary {
+  @apply px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors;
+}
+```
+
+## Auto-Conversion Checklist
+When editing any component file:
+1. **Scan for inline styles** → Convert to Tailwind classes
+2. **Check CSS modules/styled-components** → Migrate to utility classes
+3. **Review custom CSS properties** → Replace with Tailwind equivalents
+4. **Identify repeated patterns** → Create utility class compositions in global CSS
+
+## Files to Monitor
+- Component files (`.astro`, `.tsx`, `.jsx`)
+- [src/styles/global.css](mdc:src/styles/global.css)
+- Any files with `<style>` blocks or CSS imports
+
+## Responsive Design
+- Use Tailwind's responsive prefixes: `sm:`, `md:`, `lg:`, `xl:`, `2xl:`
+- Prefer mobile-first responsive design patterns
+- Replace media queries with Tailwind responsive utilities
+
+## Dark Mode
+- Use Tailwind's `dark:` prefix for dark mode styles
+- Ensure all color utilities have dark mode variants when needed
+- Avoid custom CSS for theme switching
+
+## Astro-specific guidelines
+- Import @src/styles/global.css into the component
+- `@reference` global.css when using Tailwind utility classes in the <style> tags

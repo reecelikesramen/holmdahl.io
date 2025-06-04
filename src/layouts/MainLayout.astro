@@ -16,5 +16,5 @@ const { title, description, image, isDark = false } = Astro.props;
 <BaseLayout title={title} description={description} image={image} isDark={isDark}>
   <Header slot="header" />    
   <slot />
-  <Footer />
+  <Footer slot="footer" />
 </BaseLayout> 

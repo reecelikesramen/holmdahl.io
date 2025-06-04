@@ -1,10 +1,9 @@
 ---
-layout: ../../layouts/PostLayout.astro
-title: Hello, World!
-description: First post on my new Astro-powered blog
-pubDate: 2023-05-01
-updatedDate: 2023-05-02
-tags: ["astro", "web-development", "blogging"]
+layout: ../../layouts/ContentLayout.astro
+title: "Hello World"
+description: "My first blog post"
+pubDate: 2024-01-01
+tags: ["intro", "personal"]
 readingTime: 3
 ---
 

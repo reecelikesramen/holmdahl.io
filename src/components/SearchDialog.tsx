@@ -87,10 +87,6 @@ export default function SearchDialog({ open, onOpenChange }: SearchDialogProps) 
         e.preventDefault();
         onOpenChange(!open);
       }
-      if (e.key === '/' && !open) {
-        e.preventDefault();
-        onOpenChange(true);
-      }
     };
 
     document.addEventListener('keydown', down);
