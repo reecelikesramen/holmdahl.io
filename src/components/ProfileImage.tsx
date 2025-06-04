@@ -260,7 +260,7 @@ export function ProfileImage({
       {/* Outer glow layer - much smaller and more subtle */}
       <div 
         className={`absolute inset-1 rounded-full transition-all ease-out ${
-          isHovered ? 'opacity-30 scale-108 duration-500' : 'opacity-0 scale-100 duration-200'
+          isHovered ? 'opacity-70 dark:opacity-30 scale-108 duration-500' : 'opacity-0 scale-100 duration-200'
         }`}
         style={{
           background: glowGradient,
@@ -271,7 +271,7 @@ export function ProfileImage({
       {/* Concentrated color ring - 75% of previous size */}
       <div 
         className={`absolute inset-2 rounded-full transition-all ease-out ${
-          isHovered ? 'opacity-80 scale-102 duration-400 delay-50' : 'opacity-0 scale-100 duration-200'
+          isHovered ? 'opacity-100 dark:opacity-80 scale-102 duration-400 delay-50' : 'opacity-0 scale-100 duration-200'
         }`}
         style={{
           background: glowGradient,

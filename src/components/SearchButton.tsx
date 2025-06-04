@@ -12,7 +12,7 @@ export default function SearchButton() {
         variant="ghost"
         size="sm"
         onClick={() => setOpen(true)}
-        className="gap-2 text-sm bg-transparent hover:bg-accent/40 hover:brightness-105 dark:hover:brightness-110 cursor-pointer transition-all duration-300 ease-out text-[var(--secondary-color)] hover:text-[var(--secondary-color)]"
+        className="gap-2 text-sm bg-transparent hover:bg-accent/40 hover:brightness-105 dark:hover:brightness-110 cursor-pointer transition-all duration-300 ease-out text-(--secondary-color)] hover:text-(--secondary-color)"
         aria-label="Search"
       >
         <Search className="h-4 w-4" />

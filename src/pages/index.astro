@@ -11,17 +11,8 @@ if (!profileEntry) {
 }
 
 const { data: profileData } = profileEntry;
-
-// Set some CSS variables specifically for the profile mode
-const cssVars = {
-	'--header-height': '60px',
-	'--footer-height': '60px',
-	'--gap': '24px'
-};
 ---
 
 <MainLayout title="Home">
-	<div style={cssVars}>
-		<ProfileMode {...profileData} />
-	</div>
+	<ProfileMode {...profileData} />
 </MainLayout>

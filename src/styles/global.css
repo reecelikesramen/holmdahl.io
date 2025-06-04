@@ -218,8 +218,7 @@
   
   html {
     font-family: "Source Serif 4", serif;
-    scroll-behavior: smooth;
-  }
+    scroll-behavior: smooth;  }
   
   body {
     background-color: hsl(var(--background));
@@ -533,10 +532,6 @@
   max-width: calc(720px + 48px);
 }
 
-.content-single {
-  @apply px-6;
-}
-
 .post-header,
 .content-header {
   @apply my-6 mx-auto;
@@ -646,9 +641,6 @@
 /* Mobile responsiveness for shared layouts */
 @media (max-width: 768px) {
   .post-single,
-  .content-single {
-    @apply px-4;
-  }
 
   .post-title,
   .content-title {
