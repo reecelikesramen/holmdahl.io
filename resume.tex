@@ -1,0 +1,239 @@
+%-------------------------
+% Resume in Latex
+% Author : Jake Gutierrez
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{tnr}
+% \usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+\item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}
+\item
+  \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textbf{#1} & #2 \\
+    \textit{\small#3} & \textit{\small #4} \\
+  \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+\item
+  \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+    \textit{\small#1} & \textit{\small #2} \\
+  \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+\item
+  \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+    \small#1 & #2 \\
+  \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{
+\begin{itemize}[leftmargin=0.15in, label={}]}
+    \newcommand{\resumeSubHeadingListEnd}{
+  \end{itemize}}
+\newcommand{\resumeItemListStart}{
+\begin{itemize}}
+    \newcommand{\resumeItemListEnd}{
+  \end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+  \textbf{\Huge Reece Holmdahl} \\ \vspace{1pt}
+  \small (651) 260-8698 $|$ \href{mailto:reece@holmdahl.io}{\underline{reece@holmdahl.io}} $|$
+  \href{https://linkedin.com/in/reeceholmdahl}{\underline{linkedin.com/in/reeceholmdahl}} $|$
+  \href{https://github.com/reecelikesramen}{\underline{github.com/reecelikesramen}}
+\end{center}
+
+%-----------EDUCATION-----------
+\section{Education}
+\resumeSubHeadingListStart
+\resumeSubheading
+{University of Minnesota}{Minneapolis, MN}
+{Bachelor of Science in Computer Science, Minor in Mathematics}{August 2021 -- May 2024}
+\resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+\resumeSubHeadingListStart
+
+%-----------OWC SWE I-----------
+\resumeSubheading
+{Other World Computing}{Woodstock, IL}
+{Software Engineer I}{July 2022 -- August 2023}
+\resumeItemListStart
+\resumeItem{Designed and implemented a new Salesforce-ERP ETL system processing 10K daily records, reducing synchronization failures by 90\% (from 300 to under 20 daily), and established real-time monitoring dashboards with Kibana.}
+\resumeItem{Resolved a critical Work Order Automation system failure within three hours, protecting \$50,000 in daily revenue (5\% of company revenue stream).}
+\resumeItem{Elevated code quality in .NET and React projects through strategic implementation of design patterns and packages, measurably improving performance and maintainability.}
+\resumeItem{Improved sprint delivery from 80\% to 95\% completion rate over four months.}
+\resumeItemListEnd
+
+%-----------OWC SWE INTERN-----------
+\resumeSubSubheading
+{Software Engineer Intern}{April 2022 -- July 2022}
+\resumeItemListStart
+\resumeItem{Optimized six major database queries in the RMA processing app, increasing performance by 70\% through analysis, indexing improvements, and parallel processing techniques.}
+\resumeItem{Improved application responsiveness in three apps through asynchronous programming and intuitive UI elements, resulting in improved efficiency supported by user feedback.}
+\resumeItem{Transitioned older software deployments to CI/CD using Jenkins and Octopus, streamlining DevOps processes, enabling automatic testing, and reducing manual errors.}
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects and Volunteering}
+\resumeSubHeadingListStart
+
+%-----------OPEN WEBUI DESKTOP-----------
+\resumeProjectHeading
+{\href{https://holmdahl.io/projects/open-webui-desktop/}{\textbf{\underline{Open WebUI Desktop}}} $|$ \emph{Tauri, Svelte, TypeScript, Rust}}{December 2024 -- January 2025}
+\resumeItemListStart
+\resumeItem{Fulfilled a popular community request by developing a desktop app for Open WebUI.}
+\resumeItem{Implemented requested features like the floating chatbar, global hotkey, and companion chat window.}
+\resumeItem{Created a novel solution for managing application state in Svelte across windows.}
+\resumeItem{Contributed the project back to Open WebUI, with development continuing under their organization.}
+\resumeItemListEnd
+
+%-----------WEBTRACER-----------
+\resumeProjectHeading
+{\href{https://holmdahl.io/projects/webtracer/}{\textbf{\underline{WebTracer}}} $|$ \emph{Rust, React, WebAssembly, wgpu}}{October 2024 -- Present}
+\resumeItemListStart
+\resumeItem{Implemented a realistic light transport simulation (raytracer) from scratch with minimal packages.}
+\resumeItem{Optimized render time by leveraging cache locality, SIMD instructions, and concurrency with Rayon.}
+\resumeItem{Provided fast and efficient execution with broad browser support by compiling to WebAssembly.}
+\resumeItem{Created a React UI for editing scenes, managing assets, and seeing a live preview of the render.}
+\resumeItem{Continuing to improve render time by leveraging GPU computation with wgpu and by implementing the ReSTIR technique.}
+\resumeItemListEnd
+
+%-----------HOLMDAHL.IO-----------
+\resumeProjectHeading
+{\href{https://holmdahl.io/projects/holmdahl.io/}{\textbf{\underline{holmdahl.io}}} $|$ \emph{Hugo, React, Vite, GitHub Actions}}{September 2024 -- October 2024}
+\resumeItemListStart
+\resumeItem{Designed a responsive portfolio website with static site generation to feature professional projects and articles.}
+\resumeItem{Integrated Google Tag Manager and Analytics to gain insights into website usage and optimize user experience.}
+\resumeItem{Leveraged GitHub Pages and Actions as a no-cost hosting and CI/CD solution with fast serving speeds.}
+\resumeItem{Created a Vite build pipeline to minify, use CDN-served JS packages, and bundle WebAssembly to optimize load time.}
+\resumeItem{Contributed a responsive image system to the Hugo project that improved PageSpeed Insights score from 68 to 85 and reduced LCP by 50\% on slow 4G connections.}
+\resumeItemListEnd
+
+% %-----------VOYAGER SIGHT-----------
+% \resumeProjectHeading
+% {\href{https://holmdahl.io/projects/voyagersight/}{\textbf{\underline{VoyagerSight}}} $|$ \emph{Python, LangChain, ChromaDB, Pandas}}{Dates?}
+% \resumeItemListStart
+% \resumeItem{Conducted an extension study on Nvidia's Voyager to examine how multimodal inputs affect Minecraft LLM agents.}
+% \resumeItem{Tested the hypothesis that agents with multimodal perception will play more effectively and display more diverse behavior.}
+% \resumeItem{Included POV images as context for each gameplay iteration to provide more variation and information to the LLM.}
+% \resumeItemListEnd
+
+%-----------ROBOTICS MENTORSHIP-----------
+\resumeProjectHeading
+{\textbf{Robotics Mentorship} $|$ \emph{Communication, Leadership, Project Management, Java}}{January 2025 -- Present}
+\resumeItemListStart
+\resumeItem{Volunteering as a software mentor for the Eagan High School FIRST Robotics Competition (FRC) organization.}
+\resumeItem{Providing technical guidance to 8 students, developing their proficiency in Software Engineering principles, Java programming, simulation, and computer vision techniques.}
+\resumeItem{Working closely with professionals across many disciplines to help students learn novel skills and achieve complex goals.}
+\resumeItemListEnd
+
+% %-----------LEARNPYTORCH.IO-----------
+% \resumeProjectHeading
+% {\textbf{learnpytorch.io} $|$ \emph{PyTorch, Python, Matplotlib, Google Colab}}{September 2025}
+% \resumeItemListStart
+% \resumeItem{Developed a Minecraft server plugin to entertain kids during free time for a previous job}
+% \resumeItemListEnd
+
+% %-----------OPEN-SOURCE CONTRIBUTION-----------
+% \resumeProjectHeading
+% {\textbf{Open-source Contribution} $|$ \emph{Python, JavaScript, Rust}}{September 2025 -- Present}
+% \resumeItemListStart
+% \resumeItem{Developed a Minecraft server plugin to entertain kids during free time for a previous job}
+% \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------PROGRAMMING SKILLS-----------
+\section{Technical Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+    \small{
+    \item{
+        \begin{tabbing}
+          \hspace{8em} \= \hspace{10em} \= \kill
+          \textbf{Languages:}\> C\#, Go, TypeScript/JavaScript, Ruby, Python, Java, Rust, C/C++ \\
+          \textbf{Frameworks:} \> .NET, Gin, Node.js, Rails, FastAPI, React, Svelte, Next.js, Spark, PyTorch, NUnit \\
+          \textbf{Developer Tools:} \> AWS, Terraform, Git, GitHub, Datadog, Elasticsearch, Jenkins, Octopus, Docker, Kubernetes, Jira \\
+          \textbf{Databases:} \> PostgreSQL, MongoDB, DynamoDB, Redis, Snowflake, Microsoft SQL Server
+        \end{tabbing}
+    }}
+\end{itemize}
+
+%-------------------------------------------
+\end{document}
