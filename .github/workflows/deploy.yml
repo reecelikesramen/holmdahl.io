@@ -30,7 +30,11 @@ jobs:
             astro:
               - 'src/**'
               - 'public/**'
-            resume:
+              - '.github/workflows/deploy.yml'
+              - 'package.json'
+              - 'astro.config.mjs'
+              - 'tailwind.config.mjs'
+              resume:
               - 'resume.tex'
 
   # -----------------------------------------------------------------------------------
@@ -59,6 +63,9 @@ jobs:
 
       - name: Build Astro site
         run: pnpm run build
+        env:
+          GITHUB_PAGES_SITE: https://${{ github.repository_owner }}.github.io
+          GITHUB_PAGES_BASE: /${{ github.event.repository.name }}
 
       - name: Upload Astro build artifact
         uses: actions/upload-artifact@v4
@@ -111,31 +118,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      # Set up Node.js and build Astro if not already built
-      - name: Set up Node.js
-        if: needs.filter.outputs.astro == 'false'
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Install pnpm
-        if: needs.filter.outputs.astro == 'false'
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        if: needs.filter.outputs.astro == 'false'
-        run: pnpm install
-
-      - name: Build Astro site
-        if: needs.filter.outputs.astro == 'false'
-        run: pnpm run build
-
       # Download Astro build if it was built in separate job
       - name: Download Astro build
-        if: needs.filter.outputs.astro == 'true'
         uses: actions/download-artifact@v4
         with:
           name: astro-dist
@@ -143,7 +127,6 @@ jobs:
 
       # Download resume only if build-resume job actually ran and succeeded
       - name: Download resume
-        if: needs.build-resume.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: resume-pdf
@@ -151,7 +134,6 @@ jobs:
 
       # Copy resume to dist root if it was built
       - name: Copy resume to site root
-        if: needs.build-resume.result == 'success'
         run: cp temp-resume/resume.pdf dist/
 
       # Upload Pages artifact
