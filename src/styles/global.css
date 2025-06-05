@@ -147,6 +147,7 @@
 }
 
 @theme inline {
+  --breakpoint-xs: 30rem;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -387,32 +388,32 @@
 
 /* Shared Post Content Styles */
 .post-content {
-  @apply text-foreground mb-14;
+  @apply text-foreground mb-8 md:mb-14;
 }
 
 /* Headings */
 .post-content h1 {
-  @apply mt-10 mb-8 text-5xl font-bold leading-tight text-foreground;
+  @apply mt-6 mb-4 md:mt-10 md:mb-8 text-3xl md:text-5xl font-bold leading-tight text-foreground;
 }
 
 .post-content h2 {
-  @apply mt-8 mb-6 text-3xl font-bold leading-tight text-foreground;
+  @apply mt-6 mb-3 md:mt-8 md:mb-6 text-2xl md:text-3xl font-bold leading-tight text-foreground;
 }
 
 .post-content h3 {
-  @apply mt-6 mb-4 text-xl font-bold leading-tight text-foreground;
+  @apply mt-4 mb-2 md:mt-6 md:mb-4 text-lg md:text-xl font-bold leading-tight text-foreground;
 }
 
 .post-content h4 {
-  @apply mt-6 mb-4 text-lg font-bold leading-tight text-foreground;
+  @apply mt-4 mb-2 md:mt-6 md:mb-4 text-base md:text-lg font-bold leading-tight text-foreground;
 }
 
 .post-content h5 {
-  @apply mt-6 mb-4 text-base font-bold leading-tight text-foreground;
+  @apply mt-4 mb-2 md:mt-6 md:mb-4 text-sm md:text-base font-bold leading-tight text-foreground;
 }
 
 .post-content h6 {
-  @apply mt-6 mb-4 text-base font-bold leading-tight text-foreground;
+  @apply mt-4 mb-2 md:mt-6 md:mb-4 text-sm md:text-base font-bold leading-tight text-foreground;
 }
 
 /* Paragraphs and basic content */
@@ -421,13 +422,13 @@
 .post-content ol,
 .post-content ul,
 .post-content figure {
-  @apply mb-5;
+  @apply mb-3 md:mb-5;
 }
 
 /* Lists */
 .post-content ol,
 .post-content ul {
-  @apply pl-5;
+  @apply pl-4 md:pl-5;
 }
 
 .post-content ol {
@@ -457,7 +458,7 @@
 }
 
 .post-content li {
-  @apply mt-1;
+  @apply mt-0.5 md:mt-1;
 }
 
 .post-content li p {
@@ -471,37 +472,38 @@
 
 /* Code */
 .post-content code {
-  @apply mx-1 px-1.5 py-1 text-xs leading-normal rounded-sm text-foreground;
+  @apply mx-0.5 md:mx-1 px-1 md:px-1.5 py-0.5 md:py-1 text-xs leading-normal rounded-sm text-foreground;
   background: var(--code-bg-color);
 }
 
 .post-content pre {
-  @apply my-5 rounded-lg overflow-x-auto;
+  @apply my-3 md:my-5 rounded-lg overflow-x-auto;
   background: var(--code-block-color) !important;
   direction: ltr;
 }
 
 .post-content pre code {
-  @apply grid m-0 p-2.5 rounded-lg overflow-x-auto break-all;
+  @apply grid m-0 p-2 md:p-2.5 rounded-lg overflow-x-auto break-all;
   color: rgb(213, 213, 214);
   background: var(--code-block-color) !important;
+  font-size: 0.75rem;
 }
 
 /* Blockquotes */
 .post-content blockquote {
-  @apply my-5 px-3.5 text-foreground italic;
+  @apply my-3 md:my-5 px-2 md:px-3.5 text-foreground italic text-sm md:text-base;
   border-inline-start: 3px solid var(--primary-color);
 }
 
 /* Horizontal rules */
 .post-content hr {
-  @apply my-8 h-0.5 border-0;
+  @apply my-6 md:my-8 h-0.5 border-0;
   background: var(--tertiary-color);
 }
 
 /* Images */
 .post-content img {
-  @apply rounded my-4 max-w-full h-auto;
+  @apply rounded my-3 md:my-4 max-w-full h-auto;
 }
 
 .post-content img[src*="#center"] {
@@ -510,14 +512,14 @@
 
 /* Tables */
 .post-content table {
-  @apply mb-5 w-full border-collapse overflow-x-auto;
+  @apply mb-3 md:mb-5 w-full border-collapse overflow-x-auto text-sm md:text-base;
   border-spacing: 0;
   word-break: keep-all;
 }
 
 .post-content table th,
 .post-content table td {
-  @apply min-w-20 px-1.5 py-2 leading-normal;
+  @apply min-w-16 md:min-w-20 px-1 md:px-1.5 py-1.5 md:py-2 leading-normal;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -528,36 +530,35 @@
 /* Shared Layout Styles for Post and Content Pages */
 .post-single,
 .content-single {
-  @apply w-full mx-auto;
+  @apply w-full mx-auto px-4 md:px-6;
   max-width: calc(720px + 48px);
 }
 
 .post-header,
 .content-header {
-  @apply my-6 mx-auto;
-  margin-bottom: 20px;
+  @apply mt-3 mb-2 md:mt-6 md:mb-5 mx-auto;
 }
 
 .post-title,
 .content-title {
-  @apply mb-0.5 text-5xl font-bold leading-tight;
+  @apply mb-0.5 text-3xl md:text-5xl font-bold leading-tight;
   color: var(--content-color);
 }
 
 .post-description,
 .content-description {
-  @apply mt-2.5 mb-1.5 text-xl;
+  @apply mt-2 mb-1 md:mt-2.5 md:mb-1.5 text-lg md:text-xl;
   color: var(--secondary-color);
 }
 
 .post-meta,
 .content-meta {
-  @apply flex flex-wrap items-center mb-8 text-sm;
+  @apply flex flex-wrap items-center mb-6 md:mb-8 text-xs md:text-sm;
   color: var(--secondary-color);
 }
 
 .content-meta {
-  @apply gap-4;
+  @apply gap-2 md:gap-4;
 }
 
 .breadcrumbs {
@@ -576,17 +577,17 @@
 /* Consolidated Footer and Tags Styling */
 .post-footer,
 .content-footer {
-  @apply mt-14;
+  @apply mt-8 md:mt-14;
 }
 
 .post-footer > *,
 .content-footer > * {
-  @apply mb-2.5;
+  @apply mb-2 md:mb-2.5;
 }
 
 .post-tags,
 .content-tags {
-  @apply flex flex-wrap gap-2.5 list-none p-0 mb-5;
+  @apply flex flex-wrap gap-1.5 md:gap-2.5 list-none p-0 mb-3 md:mb-5;
 }
 
 .post-tags li,
@@ -596,7 +597,7 @@
 
 .post-tags a,
 .content-tags a {
-  @apply block px-3.5 text-sm leading-9 rounded-lg border no-underline;
+  @apply block px-2 md:px-3.5 text-xs md:text-sm leading-7 md:leading-9 rounded-lg border no-underline;
   color: var(--secondary-color);
   background: var(--code-bg-color);
   border-color: var(--border-color);
@@ -609,14 +610,20 @@
 
 /* Post Navigation Styling */
 .paginav {
-  @apply flex rounded-lg border;
-  line-height: 30px;
+  @apply flex flex-col md:flex-row rounded-lg border;
+  line-height: 24px;
   background: var(--code-bg-color);
   border-color: var(--border-color);
 }
 
+@media (min-width: 768px) {
+  .paginav {
+    line-height: 30px;
+  }
+}
+
 .paginav a {
-  @apply p-3.5 rounded-lg no-underline;
+  @apply p-2.5 md:p-3.5 rounded-lg no-underline text-sm md:text-base;
   color: var(--primary-color);
 }
 
@@ -625,30 +632,49 @@
 }
 
 .paginav .title {
-  @apply tracking-wider uppercase text-sm;
+  @apply tracking-wider uppercase text-xs md:text-sm;
   color: var(--secondary-color);
 }
 
 .paginav .prev,
 .paginav .next {
-  @apply w-1/2;
+  @apply w-full md:w-1/2;
 }
 
 .paginav .next {
-  @apply ml-auto text-right;
+  @apply md:ml-auto md:text-right;
 }
 
 /* Mobile responsiveness for shared layouts */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .post-single,
+  .content-single {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 
-  .post-title,
-  .content-title {
-    @apply text-3xl;
+  .post-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 
   .post-meta,
   .content-meta {
     @apply flex-col gap-2;
+  }
+
+  /* Improve touch targets for mobile */
+  .post-tags a,
+  .content-tags a,
+  .paginav a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Better spacing for mobile navigation */
+  .paginav .prev {
+    border-bottom: 1px solid var(--border-color);
   }
 }

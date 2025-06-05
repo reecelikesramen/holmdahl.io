@@ -14,7 +14,7 @@ const navItems = [
 ---
 
 <nav class="w-full">
-  <ul id="menu" class="flex list-none m-0 p-0 overflow-x-auto justify-center gap-2 md:gap-3 text-base md:text-lg font-medium">
+  <ul id="menu" class="flex list-none m-0 p-0 overflow-x-auto justify-start sm:justify-center gap-1.5 sm:gap-2 md:gap-3 text-sm sm:text-base md:text-lg font-medium">
     {navItems.map((item) => {
       const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
       return (
@@ -22,9 +22,9 @@ const navItems = [
           <a 
             href={item.href} 
             title={item.label} 
-            class={`no-underline relative hover:underline decoration-1 underline-offset-5 text-[var(--secondary-color)] transition-all duration-300 ease-out hover:brightness-105 dark:hover:brightness-108 ${isActive ? '' : ''}`}
+            class={`no-underline relative hover:underline decoration-1 underline-offset-4 sm:underline-offset-5 text-(--secondary-color) transition-all duration-300 ease-out hover:brightness-105 dark:hover:brightness-108 ${isActive ? '' : ''}`}
           >
-            <span class={`${isActive ? 'underline decoration-2 underline-offset-5 text-[var(--primary-color)]' : ''}`}>
+            <span class={`${isActive ? 'underline decoration-2 underline-offset-4 sm:underline-offset-5 text-(--primary-color)' : ''}`}>
               {item.label}
             </span>
           </a>
