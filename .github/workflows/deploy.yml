@@ -43,7 +43,7 @@ jobs:
   build-astro:
     name: Build Astro site
     needs: filter
-    if: needs.filter.outputs.astro == 'true'
+    if: needs.filter.outputs.astro == 'true' || always()
     runs-on: ubuntu-latest
 
     steps:
@@ -79,7 +79,7 @@ jobs:
   build-resume:
     name: Build resume (LaTeX)
     needs: filter
-    if: needs.filter.outputs.resume == 'true'
+    if: needs.filter.outputs.resume == 'true' || always()
     runs-on: ubuntu-latest
 
     steps:
