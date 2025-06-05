@@ -1,5 +1,6 @@
 ---
 import MainLayout from './MainLayout.astro';
+import { withBase } from '@/utils/paths';
 
 interface Props {
   title?: string;
@@ -49,8 +50,8 @@ const {
 
 // Default breadcrumbs for posts if none provided
 const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
-  { title: 'Home', url: '/' },
-  { title: 'Posts', url: '/posts' }
+  { title: 'Home', url: withBase('/') },
+  { title: 'Posts', url: withBase('/posts') }
 ] : breadcrumbPath;
 ---
 
@@ -130,7 +131,7 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
           <ul class="content-tags">
             {tags.map(tag => (
               <li>
-                <a href={`/tags/${tag.toLowerCase()}`}>
+                <a href={withBase(`/tags/${tag.toLowerCase()}`)}>
                   {tag}
                 </a>
               </li>
@@ -141,7 +142,7 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
         {(prevPost || nextPost) && (
           <nav class="paginav">
             {prevPost && (
-              <a class="prev" href={prevPost.url}>
+              <a class="prev" href={withBase(prevPost.url)}>
                 <span class="title">« Prev</span>
                 <br>
                 <span>{prevPost.title}</span>
@@ -149,7 +150,7 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
             )}
             
             {nextPost && (
-              <a class="next" href={nextPost.url}>
+              <a class="next" href={withBase(nextPost.url)}>
                 <span class="title">Next »</span>
                 <br>
                 <span>{nextPost.title}</span>

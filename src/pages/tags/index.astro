@@ -1,5 +1,6 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
+import { withBase } from '@/utils/paths';
 
 const posts = await Astro.glob('../posts/*.{md,mdx}');
 
@@ -25,8 +26,8 @@ const sortedTags: Array<[string, number]> = Array.from(tagCounts.entries())
 
 <MainLayout title="Tags | holmdahl.io" description="Browse all post tags">
   <div class="mb-4 text-sm text-secondary-text">
-    <a href="/" class="text-secondary-text hover:text-primary hover:underline no-underline">Home</a> » 
-    <a href="/posts" class="text-secondary-text hover:text-primary hover:underline no-underline">Posts</a> » 
+    <a href={withBase('/')} class="text-secondary-text hover:text-primary hover:underline no-underline">Home</a> » 
+    <a href={withBase('/posts')} class="text-secondary-text hover:text-primary hover:underline no-underline">Posts</a> » 
     <span>Tags</span>
   </div>
 
@@ -41,7 +42,7 @@ const sortedTags: Array<[string, number]> = Array.from(tagCounts.entries())
     <div class="flex flex-wrap gap-4">
       {sortedTags.map(([tag, count]) => (
         <a 
-          href={`/tags/${tag}`} 
+          href={withBase(`/tags/${tag}`)} 
           class="inline-flex items-center gap-2 py-2 px-4 rounded-lg bg-card border border-border no-underline text-content hover:bg-hover transition-colors"
         >
           <span>{tag}</span>

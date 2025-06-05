@@ -2,6 +2,7 @@
 import SocialIcons from './SocialIcons.astro';
 import { ProfileImage } from './ProfileImage';
 import { ButtonLink } from '@/components/ui/button-link';
+import { withBase, isExternalUrl } from '@/utils/paths';
 
 interface ButtonConfig {
   name: string;
@@ -42,7 +43,7 @@ const {
     {imageUrl && (
       <ProfileImage 
         client:load
-        src={imageUrl} 
+        src={isExternalUrl(imageUrl) ? imageUrl : withBase(imageUrl)} 
         alt={imageTitle} 
         title={imageTitle}
         width={imageWidth} 
@@ -63,18 +64,22 @@ const {
     
     {buttons.length > 0 && (
       <div class="flex flex-wrap justify-center gap-4 mt-6">
-        {buttons.map(button => (
-                    <a 
-            class="rounded-lg px-4 py-1.5 font-medium text-base transition-transform hover:scale-[0.98] hover:no-underline no-underline" 
-            style="background: var(--tertiary-color); color: var(--primary-color);"
-            href={button.url.trim()} 
-            rel="noopener" 
-            title={button.name}
-          >
-            {button.name}
-          </a>
-
-        ))}
+        {buttons.map(button => {
+          const cleanUrl = button.url.trim();
+          const isExternal = isExternalUrl(cleanUrl);
+          return (
+            <a 
+              class="rounded-lg px-4 py-1.5 font-medium text-base transition-transform hover:scale-[0.98] hover:no-underline no-underline" 
+              style="background: var(--tertiary-color); color: var(--primary-color);"
+              href={isExternal ? cleanUrl : withBase(cleanUrl)} 
+              rel={isExternal ? "noopener noreferrer" : "noopener"}
+              target={isExternal ? "_blank" : undefined}
+              title={button.name}
+            >
+              {button.name}
+            </a>
+          );
+        })}
       </div>
     )}
   </div>

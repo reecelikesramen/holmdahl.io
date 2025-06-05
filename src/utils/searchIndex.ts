@@ -1,4 +1,5 @@
 import { getCollection, getEntry } from 'astro:content';
+import { withBase } from './paths';
 
 export interface SearchIndexItem {
   title: string;
@@ -17,7 +18,7 @@ export async function generateSearchIndex(): Promise<SearchIndexItem[]> {
     if (aboutEntry) {
       searchIndex.push({
         title: aboutEntry.data.title,
-        url: '/about',
+        url: withBase('/about'),
         content: cleanTextForSearch(`${aboutEntry.data.title} ${aboutEntry.data.description || ''} ${aboutEntry.body}`),
         summary: aboutEntry.data.description,
       });
@@ -37,7 +38,7 @@ export async function generateSearchIndex(): Promise<SearchIndexItem[]> {
       if (postData.frontmatter && !postData.frontmatter.draft) {
         // Extract slug from file path
         const slug = path.split('/').pop()?.replace(/\.(md|mdx)$/, '');
-        const url = `/posts/${slug}`;
+        const url = withBase(`/posts/${slug}`);
         
         // Try to get the raw content from the module
         let rawContent = '';
@@ -76,13 +77,13 @@ export async function generateSearchIndex(): Promise<SearchIndexItem[]> {
   const staticPages = [
     {
       title: 'Projects',
-      url: '/projects',
+      url: withBase('/projects'),
       content: cleanTextForSearch('Projects page showcasing development work and contributions.'),
       summary: 'View my projects and development work',
     },
     {
       title: 'Resume',
-      url: '/resume',
+      url: withBase('/resume'),
       content: cleanTextForSearch('Resume page with professional experience and qualifications.'),
       summary: 'Professional experience and qualifications',
     }
