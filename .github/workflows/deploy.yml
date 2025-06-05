@@ -13,8 +13,9 @@ jobs:
     name: Check for relevant changes
     runs-on: ubuntu-latest
     outputs:
-      watch: ${{ steps.filter.outputs.watch }}
+      astro: ${{ steps.filter.outputs.astro }}
       resume: ${{ steps.filter.outputs.resume }}
+      any: ${{ steps.filter.outputs.astro == 'true' || steps.filter.outputs.resume == 'true' }}
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -26,20 +27,78 @@ jobs:
         uses: dorny/paths-filter@v2
         with:
           filters: |
-            watch:
+            astro:
               - 'src/**'
               - 'public/**'
-              - 'resume.tex'
             resume:
               - 'resume.tex'
 
   # -----------------------------------------------------------------------------------
-  # 2) Build job: runs only if something under src/, public/, or resume.tex changed
+  # 2) Build Astro site: runs only if src/ or public/ changed
   # -----------------------------------------------------------------------------------
-  build:
-    name: Build & Deploy
+  build-astro:
+    name: Build Astro site
     needs: filter
-    if: needs.filter.outputs.watch == 'true'
+    if: needs.filter.outputs.astro == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js (v22) & enable pnpm cache
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Astro site
+        run: pnpm run build
+
+      - name: Upload Astro build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: astro-dist
+          path: ./dist
+
+  # -----------------------------------------------------------------------------------
+  # 3) Build resume: runs only if resume.tex changed
+  # -----------------------------------------------------------------------------------
+  build-resume:
+    name: Build resume (LaTeX)
+    needs: filter
+    if: needs.filter.outputs.resume == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Build resume.tex
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: resume.tex
+          latexmk_args: '-output-directory=build'
+
+      - name: Upload resume artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: resume-pdf
+          path: build/resume.pdf
+
+  # -----------------------------------------------------------------------------------
+  # 4) Deploy: runs if either build job completed
+  # -----------------------------------------------------------------------------------
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: [filter, build-astro, build-resume]
+    if: always() && needs.filter.outputs.any == 'true' && (needs.build-astro.result == 'success' || needs.build-astro.result == 'skipped') && (needs.build-resume.result == 'success' || needs.build-resume.result == 'skipped')
     runs-on: ubuntu-latest
     
     # Grant GITHUB_TOKEN the permissions required for Pages deployment
@@ -52,54 +111,59 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
-    defaults:
-      run:
-        shell: bash
 
     steps:
-      # 2.1) Always check out the repository
       - name: Check out repository
         uses: actions/checkout@v3
 
-      # 2.2) Set up Node.js with PNPM cache
-      - name: Set up Node.js (v22) & enable pnpm cache
+      # Download Astro build if it was built
+      - name: Download Astro build
+        if: needs.filter.outputs.astro == 'true'
+        uses: actions/download-artifact@v3
+        with:
+          name: astro-dist
+          path: ./dist
+
+      # Download resume if it was built
+      - name: Download resume
+        if: needs.filter.outputs.resume == 'true'
+        uses: actions/download-artifact@v3
+        with:
+          name: resume-pdf
+          path: ./temp-resume
+
+      # Copy resume to public directory and rebuild if needed
+      - name: Set up Node.js for potential rebuild
+        if: needs.filter.outputs.resume == 'true' && needs.filter.outputs.astro == 'false'
         uses: actions/setup-node@v3
         with:
           node-version: '22'
-          cache: 'pnpm'
 
-      # 2.3) Install pnpm globally
-      - name: Install pnpm
+      - name: Install pnpm for potential rebuild
+        if: needs.filter.outputs.resume == 'true' && needs.filter.outputs.astro == 'false'
         run: npm install -g pnpm
 
-      # 2.4) Install project dependencies with pnpm
-      - name: Install dependencies
+      - name: Install dependencies for potential rebuild
+        if: needs.filter.outputs.resume == 'true' && needs.filter.outputs.astro == 'false'
         run: pnpm install
 
-      # 2.5) Build resume.tex if it changed, output to public/resume.pdf
-      - name: Build resume (LaTeX)
-        if: needs.filter.outputs.resume == 'true'
-        uses: xu-cheng/latex-action@v2
-        with:
-          root_file: resume.tex
-          latexmk_args: '-output-directory=build'
+      - name: Copy resume to public and rebuild Astro
+        if: needs.filter.outputs.resume == 'true' && needs.filter.outputs.astro == 'false'
+        run: |
+          cp temp-resume/resume.pdf public/
+          pnpm run build
 
-      - name: Copy resume to public
-        if: needs.filter.outputs.resume == 'true'
-        run: cp build/resume.pdf public/
+      - name: Copy resume to existing build
+        if: needs.filter.outputs.resume == 'true' && needs.filter.outputs.astro == 'true'
+        run: cp temp-resume/resume.pdf dist/
 
-      # 2.6) Build Astro site unconditionally
-      - name: Build Astro site
-        run: pnpm run build
-
-      # 2.7) Upload Pages artifact
+      # Upload Pages artifact
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
-      # 2.8) Deploy to GitHub Pages
+      # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
