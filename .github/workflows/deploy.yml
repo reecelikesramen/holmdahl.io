@@ -34,7 +34,7 @@ jobs:
               - 'package.json'
               - 'astro.config.mjs'
               - 'tailwind.config.mjs'
-              resume:
+            resume:
               - 'resume.tex'
 
   # -----------------------------------------------------------------------------------
