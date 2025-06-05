@@ -83,13 +83,12 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: resume.tex
-          latexmk_args: '-output-directory=build'
 
       - name: Upload resume artifact
         uses: actions/upload-artifact@v4
         with:
           name: resume-pdf
-          path: build/resume.pdf
+          path: resume.pdf
 
   # -----------------------------------------------------------------------------------
   # 4) Deploy: runs if either build job completed
@@ -115,7 +114,26 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # Download Astro build if it was built
+      # Set up Node.js and build Astro if not already built
+      - name: Set up Node.js
+        if: needs.filter.outputs.astro == 'false'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pnpm
+        if: needs.filter.outputs.astro == 'false'
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        if: needs.filter.outputs.astro == 'false'
+        run: pnpm install
+
+      - name: Build Astro site
+        if: needs.filter.outputs.astro == 'false'
+        run: pnpm run build
+
+      # Download Astro build if it was built in separate job
       - name: Download Astro build
         if: needs.filter.outputs.astro == 'true'
         uses: actions/download-artifact@v4
@@ -123,37 +141,17 @@ jobs:
           name: astro-dist
           path: ./dist
 
-      # Download resume if it was built
+      # Download resume only if build-resume job actually ran and succeeded
       - name: Download resume
-        if: needs.filter.outputs.resume == 'true'
+        if: needs.build-resume.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: resume-pdf
           path: ./temp-resume
 
-      # Copy resume to public directory and rebuild if needed
-      - name: Set up Node.js for potential rebuild
-        if: needs.filter.outputs.resume == 'true' && needs.filter.outputs.astro == 'false'
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Install pnpm for potential rebuild
-        if: needs.filter.outputs.resume == 'true' && needs.filter.outputs.astro == 'false'
-        run: npm install -g pnpm
-
-      - name: Install dependencies for potential rebuild
-        if: needs.filter.outputs.resume == 'true' && needs.filter.outputs.astro == 'false'
-        run: pnpm install
-
-      - name: Copy resume to public and rebuild Astro
-        if: needs.filter.outputs.resume == 'true' && needs.filter.outputs.astro == 'false'
-        run: |
-          cp temp-resume/resume.pdf public/
-          pnpm run build
-
-      - name: Copy resume to existing build
-        if: needs.filter.outputs.resume == 'true' && needs.filter.outputs.astro == 'true'
+      # Copy resume to dist root if it was built
+      - name: Copy resume to site root
+        if: needs.build-resume.result == 'success'
         run: cp temp-resume/resume.pdf dist/
 
       # Upload Pages artifact
