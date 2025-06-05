@@ -18,13 +18,13 @@ jobs:
       any: ${{ steps.filter.outputs.astro == 'true' || steps.filter.outputs.resume == 'true' }}
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
 
       - name: Detect changes in src/, public/, or resume.tex
         id: filter
-        uses: dorny/paths-filter@v2
+        uses: dorny/paths-filter@v3
         with:
           filters: |
             astro:
@@ -44,10 +44,10 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js (v22) & enable pnpm cache
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'pnpm'
@@ -62,7 +62,7 @@ jobs:
         run: pnpm run build
 
       - name: Upload Astro build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: astro-dist
           path: ./dist
@@ -78,16 +78,16 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build resume.tex
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v3
         with:
           root_file: resume.tex
           latexmk_args: '-output-directory=build'
 
       - name: Upload resume artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: resume-pdf
           path: build/resume.pdf
@@ -114,12 +114,12 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Download Astro build if it was built
       - name: Download Astro build
         if: needs.filter.outputs.astro == 'true'
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: astro-dist
           path: ./dist
@@ -127,7 +127,7 @@ jobs:
       # Download resume if it was built
       - name: Download resume
         if: needs.filter.outputs.resume == 'true'
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: resume-pdf
           path: ./temp-resume
@@ -135,7 +135,7 @@ jobs:
       # Copy resume to public directory and rebuild if needed
       - name: Set up Node.js for potential rebuild
         if: needs.filter.outputs.resume == 'true' && needs.filter.outputs.astro == 'false'
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
 
