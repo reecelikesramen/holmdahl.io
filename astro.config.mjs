@@ -7,8 +7,10 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   // Configure for GitHub Pages deployment
-  site: process.env.GITHUB_PAGES_SITE || 'https://localhost:4321',
-  base: process.env.GITHUB_PAGES_BASE || '/',
+  site: 'https://reecelikesramen.github.io',
+  base: '/holmdahl.io/',
+  // site: 'https://holmdahl.io',
+  // base: '/',
   
   vite: {
       plugins: [tailwindcss()]

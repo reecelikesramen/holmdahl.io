@@ -2,7 +2,7 @@
 import SocialIcons from './SocialIcons.astro';
 import { ProfileImage } from './ProfileImage';
 import { ButtonLink } from '@/components/ui/button-link';
-import { withBase, isExternalUrl } from '@/utils/paths';
+import { createAbsoluteUrl, isExternalUrl } from '@/utils/paths';
 
 interface ButtonConfig {
   name: string;
@@ -43,7 +43,7 @@ const {
     {imageUrl && (
       <ProfileImage 
         client:load
-        src={isExternalUrl(imageUrl) ? imageUrl : withBase(imageUrl)} 
+        src={isExternalUrl(imageUrl) ? imageUrl : createAbsoluteUrl(imageUrl)} 
         alt={imageTitle} 
         title={imageTitle}
         width={imageWidth} 
@@ -71,7 +71,7 @@ const {
             <a 
               class="rounded-lg px-4 py-1.5 font-medium text-base transition-transform hover:scale-[0.98] hover:no-underline no-underline" 
               style="background: var(--tertiary-color); color: var(--primary-color);"
-              href={isExternal ? cleanUrl : withBase(cleanUrl)} 
+              href={isExternal ? cleanUrl : createAbsoluteUrl(cleanUrl)} 
               rel={isExternal ? "noopener noreferrer" : "noopener"}
               target={isExternal ? "_blank" : undefined}
               title={button.name}

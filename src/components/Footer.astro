@@ -1,6 +1,6 @@
 ---
 import SocialIcons from './SocialIcons.astro';
-import { withBase } from '@/utils/paths';
+import { createAbsoluteUrl } from '@/utils/paths';
 
 interface Props {
   showScrollToTop?: boolean;
@@ -19,7 +19,7 @@ const currentYear = new Date().getFullYear();
 
 <footer class="py-4 px-4 text-center text-sm" style="color: var(--secondary-color)">
   {showCopyright && (
-    <span class="mx-1">&copy; {currentYear} <a href={withBase('/')} class="no-underline" style="color: var(--primary-color)">holmdahl.io</a></span>
+    <span class="mx-1">&copy; {currentYear} <a href={createAbsoluteUrl('/')} class="no-underline" style="color: var(--primary-color)">holmdahl.io</a></span>
     <span class="mx-1">·</span>
   )}
 

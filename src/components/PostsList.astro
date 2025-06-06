@@ -1,6 +1,6 @@
 ---
 import PostCard from './PostCard.astro';
-import { withBase } from '@/utils/paths';
+import { createAbsoluteUrl } from '@/utils/paths';
 
 interface Props {
   posts: Array<{
@@ -41,14 +41,14 @@ const {
     <footer class="mt-8 text-center">
       <nav class="flex justify-between mx-auto max-w-[500px]">
         {prevUrl && (
-          <a class="text-primary no-underline px-4 py-2 rounded bg-card border border-border hover:bg-hover" href={withBase(prevUrl)}>
+          <a class="text-primary no-underline px-4 py-2 rounded bg-card border border-border hover:bg-hover" href={createAbsoluteUrl(prevUrl)}>
             «&nbsp;Prev&nbsp;
             {currentPage > 1 && `${currentPage - 1}/${totalPages}`}
           </a>
         )}
         
         {nextUrl && (
-          <a class="text-primary no-underline px-4 py-2 rounded bg-card border border-border hover:bg-hover" href={withBase(nextUrl)}>
+          <a class="text-primary no-underline px-4 py-2 rounded bg-card border border-border hover:bg-hover" href={createAbsoluteUrl(nextUrl)}>
             Next&nbsp;
             {currentPage < totalPages && `${currentPage + 1}/${totalPages}`}&nbsp;»
           </a>

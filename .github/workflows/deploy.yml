@@ -1,9 +1,23 @@
-name: CI (Build & Deploy with PNPM, Astro, LaTeX)
+name: Deploy to GitHub Pages
 
 on:
+  # Trigger the workflow every time you push to the `main` branch
+  # Using a different branch name? Replace `main` with your branch’s name
   push:
-    branches:
-      - main
+    branches: [main]
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  workflow_dispatch:
+
+# Allow this job to clone the repo and create a page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   # -----------------------------------------------------------------------------------
@@ -47,26 +61,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: Checkout your repository using git
         uses: actions/checkout@v4
-
-      - name: Set up Node.js (v22)
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: "latest"
+          package_json_file: "package.json"
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: "pnpm-lock.yaml"
       - name: Install dependencies
+        shell: bash
         run: pnpm install
-
       - name: Build Astro site
+        shell: bash
         run: pnpm run build
-        env:
-          GITHUB_PAGES_SITE: https://${{ github.repository_owner }}.github.io
-          GITHUB_PAGES_BASE: /${{ github.event.repository.name }}
-
       - name: Upload Astro build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -74,19 +87,26 @@ jobs:
           path: ./dist
 
   # -----------------------------------------------------------------------------------
-  # 3) Build resume: runs only if resume.tex changed
+  # 3) Build resume: use cache to avoid rebuilding if resume.tex unchanged
   # -----------------------------------------------------------------------------------
   build-resume:
     name: Build resume (LaTeX)
     needs: filter
-    if: needs.filter.outputs.resume == 'true' || always()
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Cache resume PDF
+        id: cache-resume
+        uses: actions/cache@v4
+        with:
+          path: resume.pdf
+          key: resume-${{ hashFiles('resume.tex') }}
+
       - name: Build resume.tex
+        if: steps.cache-resume.outputs.cache-hit != 'true'
         uses: xu-cheng/latex-action@v3
         with:
           root_file: resume.tex
@@ -106,11 +126,10 @@ jobs:
     if: always() && needs.filter.outputs.any == 'true' && (needs.build-astro.result == 'success' || needs.build-astro.result == 'skipped') && (needs.build-resume.result == 'success' || needs.build-resume.result == 'skipped')
     runs-on: ubuntu-latest
     
-    # Grant GITHUB_TOKEN the permissions required for Pages deployment
     permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-      contents: read    # to checkout the repository
+      pages: write
+      id-token: write
+      contents: read
     
     # Deploy to the github-pages environment
     environment:
@@ -118,23 +137,17 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      # Download Astro build if it was built in separate job
       - name: Download Astro build
         uses: actions/download-artifact@v4
         with:
           name: astro-dist
           path: ./dist
 
-      # Download resume only if build-resume job actually ran and succeeded
       - name: Download resume
         uses: actions/download-artifact@v4
         with:
           name: resume-pdf
-          path: ./temp-resume
-
-      # Copy resume to dist root if it was built
-      - name: Copy resume to site root
-        run: cp temp-resume/resume.pdf dist/
+          path: ./dist
 
       # Upload Pages artifact
       - name: Upload Pages artifact

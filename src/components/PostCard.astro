@@ -1,5 +1,5 @@
 ---
-import { withBase } from '@/utils/paths';
+import { createAbsoluteUrl } from '@/utils/paths';
 
 interface Props {
   post: {
@@ -65,7 +65,7 @@ if (isFirst) {
           const tags = post.tags || [];
           return (
             <>
-              <a href={withBase(`/tags/${tag}`)}>{tag}</a>
+              <a href={createAbsoluteUrl(`/tags/${tag}`)}>{tag}</a>
               {i < tags.length - 1 && ", "}
             </>
           );
@@ -74,7 +74,7 @@ if (isFirst) {
     )}
   </footer>
   
-  <a class="absolute inset-0 z-10" aria-label={`post link to ${post.title}`} href={withBase(post.url)}></a>
+  <a class="absolute inset-0 z-10" aria-label={`post link to ${post.title}`} href={createAbsoluteUrl(post.url)}></a>
 </article>
 
 <style>
