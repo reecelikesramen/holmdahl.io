@@ -54,7 +54,7 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
 ] : breadcrumbPath;
 ---
 
-<MainLayout title={title || 'Content'} description={description} image={image}>
+<MainLayout title={title || 'Content'} description={description} image={image} pageType="post">
   <article class="content-single">
     {showBreadcrumbs && defaultBreadcrumbs.length > 0 && (
       <div class="breadcrumbs">

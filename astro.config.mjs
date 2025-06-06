@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import favicons from 'astro-favicons';
 import react from '@astrojs/react';
+import criticalCSS from 'astro-critical-css';
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,7 +16,8 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     build: {
-      cssCodeSplit: false,
+      cssCodeSplit: true,
+      assetsInlineLimit: 2048, // Inline assets smaller than 2KB
       rollupOptions: {
         output: {
           manualChunks: {
@@ -32,5 +34,15 @@ export default defineConfig({
     assets: '_astro'
   },
 
-  integrations: [react(), favicons()]
+  integrations: [
+    react(), 
+    favicons(),
+    criticalCSS({
+      width: 1300,
+      height: 900,
+      extract: true,
+      htmlPathRegex: '.*\\.html$',
+      silent: false
+    })
+  ]
 });

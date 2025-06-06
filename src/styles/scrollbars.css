@@ -1,0 +1,56 @@
+/* Custom Scrollbar Styling (from Hugo PaperMod) */
+::-webkit-scrollbar-track {
+  background: 0 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--tertiary-color);
+  border: 5px solid var(--theme-color);
+  border-radius: var(--radius);
+  transition: background-color 200ms ease-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--tertiary-color) 85%, var(--secondary-color) 15%);
+}
+
+::-webkit-scrollbar {
+  background: var(--theme-color);
+}
+
+/* Code block specific scrollbars */
+.post-content .highlighttable td .highlight pre code::-webkit-scrollbar {
+  display: none;
+}
+
+.post-content :not(table) ::-webkit-scrollbar-thumb {
+  border: 2px solid var(--code-block-color);
+  background: rgba(113, 113, 117, 0.7);
+  transition: background-color 200ms ease-out;
+}
+
+.post-content :not(table) ::-webkit-scrollbar-thumb:hover {
+  background: rgba(113, 113, 117, 0.85);
+}
+
+.dark .post-content :not(table) ::-webkit-scrollbar-thumb {
+  background: rgba(163, 163, 165, 0.7);
+}
+
+.dark .post-content :not(table) ::-webkit-scrollbar-thumb:hover {
+  background: rgba(163, 163, 165, 0.85);
+}
+
+/* Table scrollbars */
+.post-content table::-webkit-scrollbar-thumb {
+  border-width: 2px;
+  transition: background-color 200ms ease-out;
+}
+
+/* Responsive scrollbar sizing */
+@media screen and (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 19px;
+    height: 11px;
+  }
+} 

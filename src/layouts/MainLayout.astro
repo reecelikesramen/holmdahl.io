@@ -8,12 +8,13 @@ interface Props {
   description?: string;
   image?: string;
   isDark?: boolean;
+  pageType?: 'home' | 'post' | 'search' | 'about';
 }
 
-const { title, description, image, isDark = false } = Astro.props;
+const { title, description, image, isDark = false, pageType = 'home' } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} image={image} isDark={isDark}>
+<BaseLayout title={title} description={description} image={image} isDark={isDark} pageType={pageType}>
   <Header slot="header" />    
   <slot />
   <Footer slot="footer" />

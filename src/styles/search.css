@@ -1,0 +1,66 @@
+/* Search-specific styles */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+/* Search results styling similar to PaperMod */
+.search-result-item {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--entry-color);
+  transition: background-color 0.2s ease;
+}
+
+.search-result-item:hover {
+  background-color: var(--tertiary-color);
+}
+
+/* Keyboard shortcut styling */
+kbd {
+  background-color: var(--code-block-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  color: var(--secondary-color);
+}
+
+/* Search dialog positioning and styling */
+.search-dialog-positioned [data-slot="dialog-overlay"] {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(2px) !important;
+}
+
+.search-dialog-positioned [data-slot="dialog-content"] {
+  top: 2vh !important;
+  left: 50% !important;
+  transform: translateX(-50%) translateY(0) !important;
+  position: fixed !important;
+  background-color: var(--theme-color) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+  opacity: 1 !important;
+}
+
+/* More aggressive positioning overrides */
+.search-dialog-positioned [data-slot="dialog-content"].fixed {
+  top: 2vh !important;
+  transform: translateX(-50%) translateY(0) !important;
+}
+
+/* Override Tailwind classes */
+.search-dialog-positioned [data-slot="dialog-content"][class*="top-"] {
+  top: 2vh !important;
+}
+
+/* Additional overrides to ensure solid background */
+.search-dialog-positioned .bg-popover {
+  background-color: var(--theme-color) !important;
+}
+
+.search-dialog-positioned [data-slot="command"] {
+  background-color: var(--theme-color) !important;
+} 
