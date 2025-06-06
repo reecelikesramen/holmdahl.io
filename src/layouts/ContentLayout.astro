@@ -256,6 +256,24 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
 
   /* Anchor link styles to match current working inline styles */
   :global(.post-content .anchor-link) {
-    @apply ml-4 text-muted-foreground select-none transition-all duration-200 ease-out relative no-underline decoration-2 hover:underline hover:brightness-105 dark:hover:brightness-108; 
+    @apply text-muted-foreground select-none transition-all duration-200 ease-out relative no-underline decoration-2 hover:underline hover:brightness-105 dark:hover:brightness-108; 
   }
+
+  :global(.post-content h1 .anchor-link) {
+    @apply ml-4
+  }
+  :global(.post-content h2 .anchor-link) {
+    @apply ml-3
+  }
+
+  :global(.post-content h3 .anchor-link) {
+    @apply ml-1.5
+  }
+
+  :global(.post-content h4 .anchor-link),
+  :global(.post-content h5 .anchor-link),
+  :global(.post-content h6 .anchor-link) {
+    @apply ml-1
+  }
+  
 </style> 

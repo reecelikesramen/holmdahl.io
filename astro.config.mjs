@@ -7,8 +7,8 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   // Configure for GitHub Pages deployment
-  site: 'https://reecelikesramen.github.io',
-  base: '/holmdahl.io/',
+  site: import.meta.env.DEV ? 'http://localhost:4321' : 'https://reecelikesramen.github.io',
+  base: import.meta.env.DEV ? '/' : '/holmdahl.io/',
   // site: 'https://holmdahl.io',
   // base: '/',
   

@@ -75,3 +75,15 @@ const name = "Astro";
 4. **Full-featured**: Built-in Markdown, file-based routing, and more
 
 I'm really enjoying working with Astro so far! 
+
+# Headers!
+
+## h2
+
+### h3
+
+#### h4
+
+##### h5
+
+###### h6
