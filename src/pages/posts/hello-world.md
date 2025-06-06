@@ -1,42 +1,30 @@
 ---
 layout: ../../layouts/ContentLayout.astro
-title: "Hello World"
-description: "My first blog post"
-pubDate: 2024-01-01
-tags: ["intro", "personal"]
-readingTime: 3
+author: "Reece Holmdahl"
+title: "Hello, world!"
+pubDate: "2021-01-15"
+categories: ["hello", "welcome", "introduction", "new", "start", "beginning", "first", "post", "article", "blog"]
+aliases: ["welcome-to-my-website"]
+# cover:
+#   image: "https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?w=800&h=400&fit=crop"
+#   caption: "Hello, and welcome to my blog!"
+#   alt: "Welcome banner with colorful confetti"
+ShowToc: true
+TocOpen: false
 ---
 
-# Hello, World!
+# 📢 Announcing My New Portfolio
 
-Welcome to my new blog powered by Astro! This is a sample post to test the blog functionality.
+I'm thrilled to release my portfolio to the world! While I'm still putting the finishing touches on several project descriptions, you can already explore the initial versions of each showcase, complete with concise descriptions and technology stacks. Just head over to the [Projects](/projects) page to see what I've been working on.
 
-## Features
+I'm particularly excited to highlight the [Open WebUI Desktop project](/projects/open-webui-desktop), which features a complete, in-depth overview. This project serves as a preview of the detailed write-ups I'll be adding to the other projects soon.
 
-- **Fast**: Built with Astro for optimal performance
-- **Simple**: Clean design inspired by PaperMod
-- **Markdown**: Write content in Markdown
-- **Tags**: Organize posts with tags
-- **Responsive**: Looks great on all devices
+Stay tuned as I continue to enhance and expand the portfolio with comprehensive details about each project.
 
-## Code Example
+# What Else to Expect
 
-```js
-// This is a sample code block
-function greet(name) {
-  return `Hello, ${name}!`;
-}
+I'm working on more projects, but since I'm volunteering as a software mentor for the Eagan High School robotics team, they will take a backseat during the build and competition seasons. I plan on sharing updates about that experience on my blog in the coming months.
 
-console.log(greet('World'));
-```
+This blog will mostly be focused on technology and software development. I have two upcoming articles that I am writing: one providing insight into the **Tauri v2 Developer Experience** and another looking at **Advanced Logging, Simulation, and Replay with AdvantageKit and AdvantageScope**. These articles will be published within a few weeks, and there will be more to come too. I'm looking forward to writing more and intend to publish at least quarterly.
 
-## What's Next?
-
-I plan to write about:
-
-1. Web development
-2. Programming tips
-3. Tech reviews
-4. Personal projects
-
-Stay tuned for more content coming soon! 
+Thanks for reading!

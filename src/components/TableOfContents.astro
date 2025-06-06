@@ -1,0 +1,160 @@
+---
+import '../styles/critical.css';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+  isOpen?: boolean;
+}
+
+const { headings, isOpen = false } = Astro.props;
+
+// Filter and organize headings (typically h2 and h3)
+const filteredHeadings = headings.filter(h => h.depth >= 2 && h.depth <= 3);
+---
+
+{filteredHeadings.length > 0 && (
+  <div class="toc-container mb-6 md:mb-8">
+    <details class="toc-details" open={isOpen}>
+      <summary class="toc-summary">
+        <svg class="toc-chevron" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M4.427 9.573l3.396-3.396a.25.25 0 01.354 0l3.396 3.396a.25.25 0 01-.177.427H4.604a.25.25 0 01-.177-.427z"/>
+        </svg>
+        <span class="toc-title">Table of Contents</span>
+      </summary>
+      
+      <div class="toc-content">
+        <nav class="toc-nav">
+          <ul class="toc-list">
+            {filteredHeadings.map((heading) => (
+              <li class={`toc-item toc-depth-${heading.depth}`}>
+                <a 
+                  href={`#${heading.slug}`} 
+                  class="toc-link"
+                  data-toc-id={heading.slug}
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </details>
+  </div>
+)}
+
+<style>
+  @reference "../styles/critical.css";
+
+  .toc-container {
+    @apply border border-border rounded-lg bg-card;
+  }
+
+  .toc-details {
+    @apply w-full;
+  }
+
+  .toc-summary {
+    @apply flex items-center gap-2 p-4 cursor-pointer select-none font-medium text-foreground;
+    @apply hover:bg-muted/50 transition-colors;
+    list-style: none;
+  }
+
+  .toc-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .toc-chevron {
+    @apply transition-transform duration-200 text-muted-foreground;
+    flex-shrink: 0;
+  }
+
+  .toc-details[open] .toc-chevron {
+    @apply rotate-180;
+  }
+
+  .toc-title {
+    @apply text-sm font-semibold;
+  }
+
+  .toc-content {
+    @apply border-t border-border;
+  }
+
+  .toc-nav {
+    @apply p-4 pt-3;
+  }
+
+  .toc-list {
+    @apply list-none m-0 p-0 space-y-1;
+  }
+
+  .toc-item {
+    @apply text-sm;
+  }
+
+  .toc-depth-2 {
+    @apply ml-0;
+  }
+
+  .toc-depth-3 {
+    @apply ml-4;
+  }
+
+  .toc-link {
+    @apply block py-1 px-2 rounded text-muted-foreground hover:text-foreground;
+    @apply hover:bg-muted/30 transition-colors no-underline;
+  }
+
+  .toc-link.active {
+    @apply text-primary bg-primary/10;
+  }
+</style>
+
+<script>
+  // Intersection Observer for active section highlighting
+  function initTocObserver() {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headings = document.querySelectorAll('.post-content h2[id], .post-content h3[id]');
+    
+    if (!headings.length || !tocLinks.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.getAttribute('id');
+          const tocLink = document.querySelector(`[data-toc-id="${id}"]`);
+          
+          if (entry.isIntersecting) {
+            // Remove active class from all links
+            tocLinks.forEach(link => link.classList.remove('active'));
+            // Add active class to current link
+            if (tocLink) tocLink.classList.add('active');
+          }
+        });
+      },
+      {
+        rootMargin: '-20% 0px -35% 0px',
+        threshold: 0.1
+      }
+    );
+
+    headings.forEach(heading => observer.observe(heading));
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTocObserver);
+  } else {
+    initTocObserver();
+  }
+
+  // Re-initialize on view transitions
+  document.addEventListener('astro:after-swap', initTocObserver);
+</script> 

@@ -10,9 +10,26 @@ interface Post {
     readingTime?: number;
     tags?: string[];
     draft?: boolean;
+    cover?: {
+      image: string;
+      caption?: string;
+      alt?: string;
+    };
+    ShowToc?: boolean;
+    showToc?: boolean;
+    TocOpen?: boolean;
+    tocOpen?: boolean;
   };
   url: string;
   Content: any;
+  render: () => Promise<{
+    Content: any;
+    headings: Array<{
+      depth: number;
+      slug: string;
+      text: string;
+    }>;
+  }>;
 }
 
 interface NavPost {
@@ -62,21 +79,25 @@ export async function getStaticPaths() {
 }
 
 const { post, prevPost, nextPost } = Astro.props;
-const { Content } = post;
+const { Content, headings } = await post.render();
 ---
 
 <ContentLayout 
   title={post.frontmatter.title}
   description={post.frontmatter.description}
+  cover={post.frontmatter.cover}
   pubDate={post.frontmatter.pubDate ? new Date(post.frontmatter.pubDate) : undefined}
   updatedDate={post.frontmatter.updatedDate ? new Date(post.frontmatter.updatedDate) : undefined}
   readingTime={post.frontmatter.readingTime}
   tags={post.frontmatter.tags}
   draft={post.frontmatter.draft}
+  showToc={post.frontmatter.ShowToc || post.frontmatter.showToc}
+  tocOpen={post.frontmatter.TocOpen || post.frontmatter.tocOpen}
   showBreadcrumbs={true}
   hideMeta={false}
   prevPost={prevPost}
   nextPost={nextPost}
+  headings={headings}
 >
   <Content />
 </ContentLayout> 

@@ -1,5 +1,7 @@
 ---
 import '../styles/post-content.css';
+import { Picture } from 'astro:assets';
+import TableOfContents from '../components/TableOfContents.astro';
 
 import MainLayout from './MainLayout.astro';
 
@@ -7,6 +9,11 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  cover?: {
+    image: string;
+    caption?: string;
+    alt?: string;
+  };
   pubDate?: Date;
   updatedDate?: Date;
   readingTime?: number;
@@ -17,6 +24,7 @@ interface Props {
   hideImage?: boolean;
   hideMeta?: boolean;
   showToc?: boolean;
+  tocOpen?: boolean;
   showBreadcrumbs?: boolean;
   breadcrumbPath?: Array<{ title: string; url: string }>;
   prevPost?: {
@@ -27,12 +35,18 @@ interface Props {
     title: string;
     url: string;
   };
+  headings?: Array<{
+    depth: number;
+    slug: string;
+    text: string;
+  }>;
 }
 
 const { 
   title, 
   description, 
   image, 
+  cover,
   pubDate,
   updatedDate,
   readingTime,
@@ -43,10 +57,12 @@ const {
   hideImage = false,
   hideMeta = true,
   showToc = false,
+  tocOpen = false,
   showBreadcrumbs = false,
   breadcrumbPath = [],
   prevPost,
-  nextPost
+  nextPost,
+  headings = []
 } = Astro.props;
 
 // Default breadcrumbs for posts if none provided
@@ -70,6 +86,29 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
             )}
           </>
         ))}
+      </div>
+    )}
+
+    {/* Cover Image */}
+    {cover && !hideImage && (
+      <div class="cover-image-container mb-6 md:mb-8">
+        <Picture
+          src={cover.image}
+          alt={cover.alt || title || 'Cover image'}
+          width={800}
+          height={400}
+          class="cover-image w-full h-auto rounded-lg"
+          formats={['avif', 'webp']}
+          densities={[1, 1.5, 2]}
+          fallbackFormat="jpg"
+          loading="eager"
+          fetchpriority="high"
+        />
+        {cover.caption && (
+          <figcaption class="cover-caption mt-2 text-center text-sm text-secondary-text">
+            {cover.caption}
+          </figcaption>
+        )}
       </div>
     )}
 
@@ -120,6 +159,11 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
           </div>
         )}
       </header>
+    )}
+
+    {/* Table of Contents */}
+    {showToc && headings.length > 0 && (
+      <TableOfContents headings={headings} isOpen={tocOpen} />
     )}
 
     <div class="post-content">
@@ -249,11 +293,26 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
 </script>
 
 <style>
-  @reference "../styles/global.css";
-
+  @reference "../styles/critical.css";
+  
   /* Minimal component-specific styles - most moved to global.css */
   .entry-hint {
     @apply inline-block ml-2 text-base;
+  }
+
+  /* Cover image styles */
+  .cover-image-container {
+    @apply -mx-4 md:-mx-6;
+  }
+  
+  .cover-image {
+    @apply shadow-sm;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+  }
+  
+  .cover-caption {
+    @apply px-4 md:px-6;
   }
 
   /* Anchor link styles to match current working inline styles */

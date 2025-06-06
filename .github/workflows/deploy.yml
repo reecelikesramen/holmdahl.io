@@ -20,44 +20,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # -----------------------------------------------------------------------------------
-  # 1) Filter job: check if any of src/, public/, or resume.tex changed
-  # -----------------------------------------------------------------------------------
-  filter:
-    name: Check for relevant changes
-    runs-on: ubuntu-latest
-    outputs:
-      astro: ${{ steps.filter.outputs.astro }}
-      resume: ${{ steps.filter.outputs.resume }}
-      any: ${{ steps.filter.outputs.astro == 'true' || steps.filter.outputs.resume == 'true' }}
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Detect changes in src/, public/, or resume.tex
-        id: filter
-        uses: dorny/paths-filter@v3
-        with:
-          filters: |
-            astro:
-              - 'src/**'
-              - 'public/**'
-              - '.github/workflows/deploy.yml'
-              - 'package.json'
-              - 'astro.config.mjs'
-              - 'tailwind.config.mjs'
-            resume:
-              - 'resume.tex'
-
-  # -----------------------------------------------------------------------------------
-  # 2) Build Astro site: runs only if src/ or public/ changed
-  # -----------------------------------------------------------------------------------
   build-astro:
     name: Build Astro site
-    needs: filter
-    if: needs.filter.outputs.astro == 'true' || always()
     runs-on: ubuntu-latest
 
     steps:
@@ -86,12 +50,8 @@ jobs:
           name: astro-dist
           path: ./dist
 
-  # -----------------------------------------------------------------------------------
-  # 3) Build resume: use cache to avoid rebuilding if resume.tex unchanged
-  # -----------------------------------------------------------------------------------
   build-resume:
     name: Build resume (LaTeX)
-    needs: filter
     runs-on: ubuntu-latest
 
     steps:
@@ -116,14 +76,9 @@ jobs:
         with:
           name: resume-pdf
           path: resume.pdf
-
-  # -----------------------------------------------------------------------------------
-  # 4) Deploy: runs if either build job completed
-  # -----------------------------------------------------------------------------------
   deploy:
     name: Deploy to GitHub Pages
-    needs: [filter, build-astro, build-resume]
-    if: always() && needs.filter.outputs.any == 'true' && (needs.build-astro.result == 'success' || needs.build-astro.result == 'skipped') && (needs.build-resume.result == 'success' || needs.build-resume.result == 'skipped')
+    needs: [build-astro, build-resume]
     runs-on: ubuntu-latest
     
     permissions:

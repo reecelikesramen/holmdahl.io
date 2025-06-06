@@ -5,6 +5,8 @@ description: "Learn how to build fast, content-focused websites with Astro"
 pubDate: 2024-01-15
 tags: ["astro", "web-development", "static-site-generator"]
 readingTime: 5
+ShowToc: true
+TocOpen: false
 ---
 
 # Getting Started with Astro
