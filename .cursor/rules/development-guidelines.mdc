@@ -3,9 +3,37 @@ description:
 globs: 
 alwaysApply: true
 ---
-# Development Guidelines
+# Development Guide
 
-## Code Style and Standards
+## 🚫 CRITICAL RESTRICTIONS
+- **NEVER start the dev server** - It is likely already running
+- **NEVER use `npm`** - Always use `pnpm` as the package manager
+- **NEVER use terminal commands** to inspect directories or file trees - Use available tools instead
+
+## 🛠️ Core Technologies Stack
+- **pnpm**: Package manager (required)
+- **Astro (v4.3)**: Static site generator with React integration
+- **React**: Interactive components only
+- **shadcn UI**: Component library for consistent UI elements
+- **Tailwind CSS (v4.1.8)**: Primary styling framework
+- **TypeScript**: Type safety for all components
+
+## 📁 Project Structure
+```
+src/
+├── layouts/     # Astro layout components
+├── components/  # Reusable components
+│   └── ui/      # shadcn UI components
+├── pages/       # Page routes and content
+└── styles/      # Global styles (minimal, prefer Tailwind)
+```
+
+## 📋 Configuration Files
+- `astro.config.mjs` - Astro configuration
+- `tailwind.config.mjs` - Tailwind configuration  
+- `package.json` - Dependencies and scripts
+
+## 📝 Code Style Standards
 
 ### General Principles
 - **Prefer terse answers**: Keep code concise and readable
@@ -14,15 +42,17 @@ alwaysApply: true
 - **Type safety**: Use TypeScript for all components and utilities
 
 ### File Naming Conventions
-- **Astro components**: PascalCase with `.astro` extension (e.g., `ProfileMode.astro`)
-- **React components**: PascalCase with `.tsx` extension (e.g., `ThemeToggle.tsx`)
-- **Pages**: kebab-case for routes (e.g., `about.astro`, `blog/[slug].astro`)
-- **Utilities**: camelCase with `.ts` extension (e.g., `themeUtils.ts`)
+| File Type | Convention | Example |
+|-----------|------------|---------|
+| Astro components | PascalCase.astro | `ProfileMode.astro` |
+| React components | PascalCase.tsx | `ThemeToggle.tsx` |
+| Pages | kebab-case | `about.astro`, `blog/[slug].astro` |
+| Utilities | camelCase.ts | `themeUtils.ts` |
 
-### Component Structure
+### Component Structure Template
 ```astro
 ---
-// Astro component frontmatter
+// Astro component frontmatter - the --- delimiters are essential
 interface Props {
   title: string;
   optional?: boolean;
@@ -36,38 +66,145 @@ const { title, optional = false } = Astro.props;
 </div>
 
 <style>
+  /* @reference critical css whenever using Tailwind */
   /* Minimal scoped styles only when necessary */
+  /* prefer to @apply tailwind utility classes */
 </style>
 ```
 
-### Styling Guidelines
-- **Tailwind first**: Use Tailwind CSS classes for styling
-- **shadcn UI**: Leverage shadcn components for interactive elements
-- **Minimal global CSS**: Keep [src/styles/global.css](mdc:src/styles/global.css) minimal
-- **Responsive design**: Mobile-first approach with Tailwind breakpoints
-- **Dark mode**: Use Tailwind's dark mode classes with theme provider
-
 ### Component Organization
-- **UI components**: Place in `src/components/ui/` (shadcn components)
-- **Layout components**: Place in `src/components/` (Header, Footer, etc.)
+- **UI components**: `src/components/ui/` (shadcn components)
+- **Layout components**: `src/components/` (Header, Footer, etc.)
 - **Page-specific components**: Co-locate with pages when appropriate
 
-## Hugo PaperMod Reference Guidelines
-
-### When Converting Components
-1. **Study the original**: Always examine the Hugo template first
-2. **Preserve functionality**: Maintain the same user experience
-3. **Modernize implementation**: Use React/Astro patterns instead of Hugo templating
-4. **Match styling**: Replicate the visual design using Tailwind
-
-### Key Hugo Files to Reference
-- [hugo-PaperMod/layouts/partials/index_profile.html](mdc:hugo-PaperMod/layouts/partials/index_profile.html) - Profile mode layout
-- [hugo-PaperMod/layouts/partials/header.html](mdc:hugo-PaperMod/layouts/partials/header.html) - Header component
-- [hugo-PaperMod/layouts/partials/social_icons.html](mdc:hugo-PaperMod/layouts/partials/social_icons.html) - Social icons
-- [hugo-PaperMod/layouts/_default/baseof.html](mdc:hugo-PaperMod/layouts/_default/baseof.html) - Base layout
-
-## Performance Considerations
-- **Static generation**: Leverage Astro's static site generation
+## ⚡ Performance Requirements
+- **Static generation**: Only leverage Astro's static site generation
 - **Client-side hydration**: Use `client:*` directives judiciously
-- **Image optimization**: Use Astro's image optimization features
+  - `client:load` for important UI elements
+  - `client:idle` for non-critical UI hydration
+- **Image optimization**: Use Astro's `<Picture>` component
+- **CSS optimization**: Inline essential CSS, separate by components
 - **Bundle size**: Keep JavaScript minimal, prefer static HTML
+
+## 🎨 Styling Rules & Color System
+
+### ❌ FORBIDDEN Color Patterns
+**NEVER use these antipatterns:**
+```css
+/* ❌ NEVER - Inline style with CSS variables */
+<div style="color: var(--primary-color)">
+
+/* ❌ NEVER - Arbitrary value with CSS variables */
+<div class="text-[var(--primary-color)]">
+<div class="bg-[var(--theme-color)]">
+
+/* ❌ NEVER - Direct CSS variable usage in Tailwind */
+<div class="bg-(--var-name)">
+```
+
+### ✅ CORRECT Color Usage
+**Always use predefined Tailwind utility classes:**
+```html
+<!-- ✅ CORRECT - Use mapped Tailwind classes -->
+<div class="text-primary-color bg-theme-color">
+<div class="text-content-color bg-entry-color">
+<div class="border-border-color">
+```
+
+### 🎨 Available Color Systems
+
+#### **PaperMod Theme Colors** (Primary Use)
+| Tailwind Class | CSS Variable | Purpose |
+|----------------|--------------|---------|
+| `bg-theme-color` | `--theme-color` | Main background |
+| `bg-entry-color` | `--entry-color` | Content containers |
+| `text-primary-color` | `--primary-color` | Primary text |
+| `text-secondary-color` | `--secondary-color` | Secondary text |
+| `text-tertiary-color` | `--tertiary-color` | Tertiary text |
+| `text-content-color` | `--content-color` | Body content |
+| `border-border-color` | `--border-color` | Borders |
+
+#### **shadcn UI Colors** (Component Library)
+| Tailwind Class | CSS Variable | Purpose |
+|----------------|--------------|---------|
+| `bg-background` | `--background` | Page background |
+| `text-foreground` | `--foreground` | Main text |
+| `bg-card` | `--card` | Card backgrounds |
+| `text-card-foreground` | `--card-foreground` | Card text |
+| `bg-primary` | `--primary` | Primary buttons |
+| `text-primary-foreground` | `--primary-foreground` | Primary button text |
+| `bg-secondary` | `--secondary` | Secondary elements |
+| `bg-muted` | `--muted` | Muted backgrounds |
+| `text-muted-foreground` | `--muted-foreground` | Muted text |
+| `bg-accent` | `--accent` | Accent elements |
+| `bg-destructive` | `--destructive` | Error/danger |
+| `border-border` | `--border` | Component borders |
+
+### General Styling Guidelines
+
+#### 1. **Tailwind Utilities First**
+- **Always prefer Tailwind utility classes** over custom CSS properties
+- Use Tailwind for: spacing, colors, typography, layout, responsive design
+- Only write custom CSS when Tailwind utilities cannot achieve the result
+
+#### 2. **Global CSS Guidelines**
+When working with `src/styles/global.css` and `src/styles/critical.css`:
+- **Use utility class selectors** (`.prose`, `.btn`, `.card`)
+- Compose styles using `@apply` with Tailwind utilities
+- Keep global styles minimal and focused on base elements only
+
+#### 3. **CSS Replacement Priority**
+When editing any file with styling:
+- **Scan for inline styles** → Convert to Tailwind classes
+- **Replace CSS properties**: `margin`, `padding`, `color`, `background`, `display`, `flex`
+- **Identify repeated patterns** → Create utility compositions in global CSS
+
+### Conversion Examples
+
+#### ❌ Avoid These Patterns:
+```css
+/* ❌ Custom CSS properties */
+.component {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  color: var(--primary-color); /* ❌ Direct variable usage */
+}
+```
+
+#### ✅ Use These Patterns:
+```html
+<!-- ✅ Tailwind utility classes -->
+<div class="m-4 px-4 py-2 bg-white rounded-md flex items-center text-primary-color">
+
+<!-- ✅ Global CSS with @apply -->
+<style>
+.btn-primary {
+  @apply px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors;
+}
+</style>
+```
+
+### Responsive Design
+- Use Tailwind's responsive prefixes: `xs:`, `sm:`, `md:`, `lg:`, `xl:`, `2xl:`
+- Prefer mobile-first responsive design patterns
+- Replace media queries with Tailwind responsive utilities
+
+### Dark Mode
+- Use Tailwind's `dark:` prefix for dark mode styles
+- Ensure all color utilities have dark mode variants when needed
+- Avoid custom CSS for theme switching
+
+### Astro-Specific Guidelines
+- Import `@src/styles/global.css` into components when needed
+- Use `@reference` directive when using Tailwind utility classes in `<style>` tags
+- Prefer component composition over complex styling
+
+## 🔧 Development Workflow
+1. **Structure**: Create component hierarchy first
+2. **Style**: Apply Tailwind classes using the color system above
+3. **Enhance**: Add interactivity with React components
+4. **Optimize**: Ensure minimal JavaScript and optimal loading

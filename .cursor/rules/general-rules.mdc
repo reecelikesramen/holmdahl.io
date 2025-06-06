@@ -1,8 +1,0 @@
----
-description: 
-globs: 
-alwaysApply: true
----
-# General rules
-- Do not start the dev server, it is probably already running
-- Do not run terminal commands to inspect directories or file trees, use the available tools.

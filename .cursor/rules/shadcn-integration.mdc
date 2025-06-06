@@ -1,5 +1,5 @@
 ---
-description: When working with shadcn UI
+description: Include this whenever working with shadcn UI components
 globs: 
 alwaysApply: false
 ---
