@@ -16,9 +16,9 @@ const {
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="py-4 px-4 text-center text-sm" style="color: var(--secondary-color)">
+<footer class="py-4 px-4 text-center text-sm text-(--color-secondary)">
   {showCopyright && (
-    <span class="mx-1">&copy; {currentYear} <a href="/" class="no-underline" style="color: var(--primary-color)">holmdahl.io</a></span>
+    <span class="mx-1">&copy; {currentYear} <a href="/" class="no-underline text-(--color-primary)">holmdahl.io</a></span>
     <span class="mx-1">·</span>
   )}
 
@@ -29,7 +29,7 @@ const currentYear = new Date().getFullYear();
 
   <span class="mx-1">
     Powered by
-    <a href="https://astro.build/" rel="noopener noreferrer" target="_blank" class="no-underline" style="color: var(--primary-color)">Astro</a>
+    <a href="https://astro.build/" rel="noopener noreferrer" target="_blank" class="no-underline text-(--color-primary)">Astro</a>
   </span>
 </footer>
 
