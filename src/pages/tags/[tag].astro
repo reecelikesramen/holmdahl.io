@@ -1,10 +1,10 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
 import PostCard from '../../components/PostCard.astro';
-import { createAbsoluteUrl } from '@/utils/paths';
 
 export async function getStaticPaths() {
-  const posts = await Astro.glob('../posts/*.{md,mdx}');
+  const postModules = import.meta.glob('../posts/*.{md,mdx}');
+  const posts = await Promise.all(Object.values(postModules).map(fn => fn())) as any[];
   
   // Create a map to count tags
   const tagMap: Map<string, number> = new Map();
@@ -51,9 +51,9 @@ const { posts, tag, count } = Astro.props;
 
 <MainLayout title={`Posts tagged "${tag}" | holmdahl.io`} description={`All posts tagged with ${tag}`}>
   <div class="mb-4 text-sm text-secondary-text">
-    <a href={createAbsoluteUrl('/')} class="text-secondary-text hover:text-primary hover:underline no-underline">Home</a> » 
-    <a href={createAbsoluteUrl('/posts')} class="text-secondary-text hover:text-primary hover:underline no-underline">Posts</a> » 
-    <a href={createAbsoluteUrl('/tags')} class="text-secondary-text hover:text-primary hover:underline no-underline">Tags</a> » 
+    <a href="/" class="text-secondary-text hover:text-primary hover:underline no-underline">Home</a> » 
+    <a href="/posts" class="text-secondary-text hover:text-primary hover:underline no-underline">Posts</a> » 
+    <a href="/tags" class="text-secondary-text hover:text-primary hover:underline no-underline">Tags</a> » 
     <span>{tag}</span>
   </div>
 

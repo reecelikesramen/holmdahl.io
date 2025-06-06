@@ -21,7 +21,8 @@ interface NavPost {
 }
 
 export async function getStaticPaths() {
-  const posts: Post[] = await Astro.glob('./*.{md,mdx}');
+  const postModules = import.meta.glob('./*.{md,mdx}');
+  const posts: Post[] = await Promise.all(Object.values(postModules).map(fn => fn())) as Post[];
   
   // Sort posts by date (newest first)
   const allPosts = posts.sort((a: Post, b: Post) => {

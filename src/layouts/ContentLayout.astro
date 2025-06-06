@@ -1,6 +1,5 @@
 ---
 import MainLayout from './MainLayout.astro';
-import { createAbsoluteUrl } from '@/utils/paths';
 
 interface Props {
   title?: string;
@@ -50,8 +49,8 @@ const {
 
 // Default breadcrumbs for posts if none provided
 const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
-  { title: 'Home', url: createAbsoluteUrl('/') },
-  { title: 'Posts', url: createAbsoluteUrl('/posts') }
+  { title: 'Home', url: '/' },
+  { title: 'Posts', url: '/posts' }
 ] : breadcrumbPath;
 ---
 
@@ -131,7 +130,7 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
           <ul class="content-tags">
             {tags.map(tag => (
               <li>
-                <a href={createAbsoluteUrl(`/tags/${tag.toLowerCase()}`)}>
+                <a href={`/tags/${tag.toLowerCase()}`}>
                   {tag}
                 </a>
               </li>
@@ -142,7 +141,7 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
         {(prevPost || nextPost) && (
           <nav class="paginav">
             {prevPost && (
-              <a class="prev" href={createAbsoluteUrl(prevPost.url)}>
+              <a class="prev" href={prevPost.url}>
                 <span class="title">« Prev</span>
                 <br>
                 <span>{prevPost.title}</span>
@@ -150,7 +149,7 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
             )}
             
             {nextPost && (
-              <a class="next" href={createAbsoluteUrl(nextPost.url)}>
+              <a class="next" href={nextPost.url}>
                 <span class="title">Next »</span>
                 <br>
                 <span>{nextPost.title}</span>

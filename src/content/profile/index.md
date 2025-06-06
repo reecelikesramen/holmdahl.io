@@ -2,7 +2,6 @@
 title: "Reece Holmdahl"
 email: "reece@holmdahl.io"
 subtitle: "Software Engineer | CS & Math Graduate from UMN"
-imageUrl: "/profile.png"
 imageTitle: "Profile image of Reece Holmdahl"
 imageWidth: 240
 imageHeight: 240

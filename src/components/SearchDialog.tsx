@@ -8,7 +8,6 @@ import {
   CommandItem,
   CommandList,
 } from './ui/command';
-import { createAbsoluteUrl } from '@/utils/paths';
 
 interface SearchResult {
   title: string;
@@ -32,7 +31,7 @@ export default function SearchDialog({ open, onOpenChange }: SearchDialogProps) 
   useEffect(() => {
     const loadSearchIndex = async () => {
       try {
-        const response = await fetch(createAbsoluteUrl('/search-index.json'));
+        const response = await fetch('/search-index.json');
         if (response.ok) {
           const data = await response.json();
           setSearchIndex(data);

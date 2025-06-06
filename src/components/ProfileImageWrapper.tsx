@@ -1,22 +1,18 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 
-interface ProfileImageProps {
-  src: string;
-  alt: string;
-  title?: string;
+interface ProfileImageWrapperProps {
   width?: number;
   height?: number;
   className?: string;
+  children: React.ReactNode;
 }
 
-export function ProfileImage({ 
-  src, 
-  alt, 
-  title, 
+export function ProfileImageWrapper({ 
   width = 200, 
   height = 200, 
-  className = '' 
-}: ProfileImageProps) {
+  className = '',
+  children
+}: ProfileImageWrapperProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [mouseSpeedMultiplier, setMouseSpeedMultiplier] = useState(1); // Separate from base rotation
   const [isMobileSpeedBoost, setIsMobileSpeedBoost] = useState(false);
@@ -297,19 +293,19 @@ export function ProfileImage({
         />
       </div>
 
-      {/* Profile image container - always visible, unaffected by borders */}
+      {/* Profile image container - now renders children instead of img */}
       <div className={`absolute inset-4 rounded-full overflow-hidden transition-all duration-300 ease-out ${
         isHovered ? 'scale-102' : 'scale-100'
       }`}>
-        <img 
-          draggable="false"
-          src={src}
-          alt={alt}
-          title={title}
-          width={width}
-          height={height}
-          className="w-full h-full object-cover"
-        />
+        <div 
+          className="w-full h-full"
+          style={{
+            width: width,
+            height: height,
+          }}
+        >
+          {children}
+        </div>
         
         {/* Holographic shine overlay */}
         <div 

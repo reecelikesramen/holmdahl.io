@@ -1,8 +1,7 @@
 ---
 import SocialIcons from './SocialIcons.astro';
-import { ProfileImage } from './ProfileImage';
+import ProfileImage from './ProfileImage.astro';
 import { ButtonLink } from '@/components/ui/button-link';
-import { createAbsoluteUrl, isExternalUrl } from '@/utils/paths';
 
 interface ButtonConfig {
   name: string;
@@ -26,7 +25,6 @@ interface Props {
 }
 
 const {
-  imageUrl,
   imageTitle = 'profile image',
   imageWidth = 200,
   imageHeight = 200,
@@ -40,16 +38,12 @@ const {
 
 <div class="flex flex-1 justify-center items-center text-center">
   <div class="flex flex-col items-center gap-1">
-    {imageUrl && (
       <ProfileImage 
-        client:load
-        src={isExternalUrl(imageUrl) ? imageUrl : createAbsoluteUrl(imageUrl)} 
         alt={imageTitle} 
         title={imageTitle}
         width={imageWidth} 
         height={imageHeight} 
       />
-    )}
     <div class="flex flex-col items-center gap-2">
       <h1 class="text-3xl font-bold m-0" style="color: var(--primary-color)">{title}</h1>
       {email && <span class="text-lg" style="color: var(--secondary-color)">{email}</span>}
@@ -66,14 +60,13 @@ const {
       <div class="flex flex-wrap justify-center gap-4 mt-6">
         {buttons.map(button => {
           const cleanUrl = button.url.trim();
-          const isExternal = isExternalUrl(cleanUrl);
           return (
             <a 
               class="rounded-lg px-4 py-1.5 font-medium text-base transition-transform hover:scale-[0.98] hover:no-underline no-underline" 
               style="background: var(--tertiary-color); color: var(--primary-color);"
-              href={isExternal ? cleanUrl : createAbsoluteUrl(cleanUrl)} 
-              rel={isExternal ? "noopener noreferrer" : "noopener"}
-              target={isExternal ? "_blank" : undefined}
+              href={cleanUrl} 
+              rel="noopener"
+              target="_blank"
               title={button.name}
             >
               {button.name}

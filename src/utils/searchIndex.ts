@@ -1,5 +1,4 @@
-import { getCollection, getEntry } from 'astro:content';
-import { createAbsoluteUrl } from './paths';
+import { getEntry } from 'astro:content';
 
 export interface SearchIndexItem {
   title: string;
@@ -18,7 +17,7 @@ export async function generateSearchIndex(): Promise<SearchIndexItem[]> {
     if (aboutEntry) {
       searchIndex.push({
         title: aboutEntry.data.title,
-        url: createAbsoluteUrl('/about'),
+        url: '/about',
         content: cleanTextForSearch(`${aboutEntry.data.title} ${aboutEntry.data.description || ''} ${aboutEntry.body}`),
         summary: aboutEntry.data.description,
       });
@@ -38,7 +37,7 @@ export async function generateSearchIndex(): Promise<SearchIndexItem[]> {
       if (postData.frontmatter && !postData.frontmatter.draft) {
         // Extract slug from file path
         const slug = path.split('/').pop()?.replace(/\.(md|mdx)$/, '');
-        const url = createAbsoluteUrl(`/posts/${slug}`);
+        const url = `/posts/${slug}`;
         
         // Try to get the raw content from the module
         let rawContent = '';
@@ -77,13 +76,13 @@ export async function generateSearchIndex(): Promise<SearchIndexItem[]> {
   const staticPages = [
     {
       title: 'Projects',
-      url: createAbsoluteUrl('/projects'),
+      url: '/projects',
       content: cleanTextForSearch('Projects page showcasing development work and contributions.'),
       summary: 'View my projects and development work',
     },
     {
       title: 'Resume',
-      url: createAbsoluteUrl('/resume'),
+      url: '/resume',
       content: cleanTextForSearch('Resume page with professional experience and qualifications.'),
       summary: 'Professional experience and qualifications',
     }

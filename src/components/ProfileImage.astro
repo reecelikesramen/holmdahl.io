@@ -1,0 +1,41 @@
+---
+import { Picture } from 'astro:assets';
+import { ProfileImageWrapper } from './ProfileImageWrapper.tsx';
+import profileImage from '@/assets/profile.png';
+
+export interface Props {
+  alt: string;
+  title?: string;
+  width?: number;
+  height?: number;
+  className?: string;
+}
+
+const { 
+  alt, 
+  title, 
+  width = 200, 
+  height = 200, 
+  className = '' 
+} = Astro.props;
+---
+
+<ProfileImageWrapper 
+  width={width} 
+  height={height} 
+  className={className}
+  client:load
+>
+  <Picture 
+    src={profileImage}
+    alt={alt}
+    title={title}
+    width={width}
+    height={height}
+    class="w-full h-full object-cover"
+    draggable="false"
+    formats={['avif', 'webp']}
+    densities={[1, 1.5, 2]}
+    fallbackFormat="jpg"
+  />
+</ProfileImageWrapper> 
