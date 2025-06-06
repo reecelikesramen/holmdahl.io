@@ -31,7 +31,7 @@ const { title = "holmdahl.io", showThemeToggle = true } = Astro.props;
     <!-- Right side: Navigation and Search -->
     <div class="flex items-center gap-2 justify-start sm:justify-end">
       <Navigation currentPath={Astro.url.pathname} />
-      <SearchButton client:idle />
+      <SearchButton client:visible />
     </div>
   </nav>
 </header>

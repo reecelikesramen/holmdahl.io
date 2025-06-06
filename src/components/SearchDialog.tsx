@@ -26,23 +26,30 @@ export default function SearchDialog({ open, onOpenChange }: SearchDialogProps) 
   const [results, setResults] = useState<SearchResult[]>([]);
   const [searchIndex, setSearchIndex] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
+  const [indexLoaded, setIndexLoaded] = useState(false);
 
-  // Load search index
+  // Load search index only when dialog opens
   useEffect(() => {
-    const loadSearchIndex = async () => {
-      try {
-        const response = await fetch('/search-index.json');
-        if (response.ok) {
-          const data = await response.json();
-          setSearchIndex(data);
+    if (open && !indexLoaded) {
+      const loadSearchIndex = async () => {
+        setLoading(true);
+        try {
+          const response = await fetch('/search-index.json');
+          if (response.ok) {
+            const data = await response.json();
+            setSearchIndex(data);
+            setIndexLoaded(true);
+          }
+        } catch (error) {
+          console.error('Failed to load search index:', error);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error('Failed to load search index:', error);
-      }
-    };
+      };
 
-    loadSearchIndex();
-  }, []);
+      loadSearchIndex();
+    }
+  }, [open, indexLoaded]);
 
   // Perform search
   const performSearch = useCallback((searchQuery: string) => {
@@ -106,7 +113,7 @@ export default function SearchDialog({ open, onOpenChange }: SearchDialogProps) 
       />
       <CommandList>
         <CommandEmpty>
-          {searchIndex.length === 0 ? 'Loading search index...' : 'No results found.'}
+          {loading ? 'Loading search index...' : searchIndex.length === 0 ? 'Search index not loaded.' : 'No results found.'}
         </CommandEmpty>
         {results.length > 0 && (
           <CommandGroup heading="Results">

@@ -13,8 +13,24 @@ export default defineConfig({
   // base: '/',
   
   vite: {
-      plugins: [tailwindcss()]
-	},
+    plugins: [tailwindcss()],
+    build: {
+      cssCodeSplit: false,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'search': ['./src/components/SearchDialog.tsx', './src/components/SearchButton.tsx'],
+            'profile-animation': ['./src/components/ProfileImageWrapper.tsx']
+          }
+        }
+      }
+    }
+  },
+
+  build: {
+    inlineStylesheets: 'auto',
+    assets: '_astro'
+  },
 
   integrations: [react(), favicons()]
 });

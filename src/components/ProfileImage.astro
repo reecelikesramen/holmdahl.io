@@ -24,7 +24,7 @@ const {
   width={width} 
   height={height} 
   className={className}
-  client:load
+  client:visible
 >
   <Picture 
     src={profileImage}
@@ -32,10 +32,12 @@ const {
     title={title}
     width={width}
     height={height}
-    class="w-full h-full object-cover"
+    class="w-full h-full object-cover select-none"
     draggable="false"
     formats={['avif', 'webp']}
     densities={[1, 1.5, 2]}
     fallbackFormat="jpg"
+    loading="eager"
+    fetchpriority="high"
   />
 </ProfileImageWrapper> 
