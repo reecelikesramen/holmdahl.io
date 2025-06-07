@@ -6,8 +6,10 @@ pubDate: 2024-01-15
 tags: ["astro", "web-development", "static-site-generator"]
 readingTime: 5
 ShowToc: true
-TocOpen: false
+TocOpen: true
 ---
+
+# Test
 
 # Getting Started with Astro
 

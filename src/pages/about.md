@@ -1,5 +1,8 @@
 ---
-title: 'About'
+layout: ../layouts/ContentLayout.astro
+title: About
+hideTitle: true
+showBreadcrumbs: false
 ---
 
 # Hello! 👋

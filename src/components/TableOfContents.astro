@@ -14,8 +14,8 @@ interface Props {
 
 const { headings, isOpen = false } = Astro.props;
 
-// Filter and organize headings (typically h2 and h3)
-const filteredHeadings = headings.filter(h => h.depth >= 2 && h.depth <= 3);
+// Filter and organize headings (h1, h2, and h3)
+const filteredHeadings = headings.filter(h => h.depth >= 1 && h.depth <= 3);
 ---
 
 {filteredHeadings.length > 0 && (
@@ -99,53 +99,46 @@ const filteredHeadings = headings.filter(h => h.depth >= 2 && h.depth <= 3);
     @apply text-sm;
   }
 
+  .toc-depth-1 {
+    @apply ml-0 font-medium;
+  }
+
   .toc-depth-2 {
-    @apply ml-0;
+    @apply ml-4;
   }
 
   .toc-depth-3 {
-    @apply ml-4;
+    @apply ml-8;
   }
 
   .toc-link {
     @apply block py-1 px-2 rounded text-muted-foreground hover:text-foreground;
     @apply hover:bg-muted/30 transition-colors no-underline;
   }
-
-  .toc-link.active {
-    @apply text-primary bg-primary/10;
-  }
 </style>
 
 <script>
-  // Intersection Observer for active section highlighting
+  // Intersection Observer for active section highlighting (removed persistent active state)
   function initTocObserver() {
     const tocLinks = document.querySelectorAll('.toc-link');
-    const headings = document.querySelectorAll('.post-content h2[id], .post-content h3[id]');
+    const headings = document.querySelectorAll('.post-content h1[id], .post-content h2[id], .post-content h3[id]');
     
     if (!headings.length || !tocLinks.length) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const id = entry.target.getAttribute('id');
-          const tocLink = document.querySelector(`[data-toc-id="${id}"]`);
-          
-          if (entry.isIntersecting) {
-            // Remove active class from all links
-            tocLinks.forEach(link => link.classList.remove('active'));
-            // Add active class to current link
-            if (tocLink) tocLink.classList.add('active');
-          }
-        });
-      },
-      {
-        rootMargin: '-20% 0px -35% 0px',
-        threshold: 0.1
-      }
-    );
-
-    headings.forEach(heading => observer.observe(heading));
+    // Just add smooth scroll behavior to TOC links
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+        const target = e.target as HTMLAnchorElement;
+        const href = target.getAttribute('href');
+        if (!href) return;
+        
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
   }
 
   // Initialize on DOM ready

@@ -113,6 +113,15 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
   --default-border-radius: var(--radius);
+
+  /* PaperMod theme color variables */
+  --color-theme-color: var(--theme-color);
+  --color-entry-color: var(--entry-color);
+  --color-primary-color: var(--primary-color);
+  --color-secondary-color: var(--secondary-color);
+  --color-tertiary-color: var(--tertiary-color);
+  --color-content-color: var(--content-color);
+  --color-border-color: var(--border-color);
 }
 
 @layer base {

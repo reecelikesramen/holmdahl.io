@@ -1,15 +1,14 @@
 ---
 layout: ../../layouts/ContentLayout.astro
 author: "Reece Holmdahl"
-title: "Hello, world!"
+title: Hello, world!
+description: Welcome to my site!
 pubDate: "2021-01-15"
-categories: ["hello", "welcome", "introduction", "new", "start", "beginning", "first", "post", "article", "blog"]
-aliases: ["welcome-to-my-website"]
-# cover:
-#   image: "https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?w=800&h=400&fit=crop"
-#   caption: "Hello, and welcome to my blog!"
-#   alt: "Welcome banner with colorful confetti"
-ShowToc: true
+cover:
+  image: "../assets/hello-world-cover.svg"
+  caption: "Hello, and welcome to my blog!"
+  alt: "Welcome banner with colorful confetti"
+ShowToc: false
 TocOpen: false
 ---
 

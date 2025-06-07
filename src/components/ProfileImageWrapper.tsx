@@ -324,13 +324,9 @@ export function ProfileImageWrapper({
 
       {/* Simple themed border when not hovered */}
       <div 
-        className={`absolute inset-3.5 rounded-full border transition-opacity ease-out ${
+        className={`absolute inset-3.5 rounded-full border-2 border-border-color/20 transition-opacity ease-out ${
           isHovered ? 'opacity-0 duration-75' : 'opacity-100 duration-300 delay-0'
         }`}
-        style={{
-          borderColor: 'var(--border-color, rgba(0, 0, 0, 0.2))',
-          borderWidth: '2px',
-        }}
       />
     </div>
   );

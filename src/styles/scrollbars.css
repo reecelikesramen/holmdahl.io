@@ -1,13 +1,12 @@
+@reference "./critical.css";
+
 /* Custom Scrollbar Styling (from Hugo PaperMod) */
 ::-webkit-scrollbar-track {
-  background: 0 0;
+  @apply bg-transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--tertiary-color);
-  border: 5px solid var(--theme-color);
-  border-radius: var(--radius);
-  transition: background-color 200ms ease-out;
+  @apply bg-tertiary-color border-[5px] border-theme-color rounded-[var(--radius)] transition-colors duration-200 ease-out;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -15,18 +14,17 @@
 }
 
 ::-webkit-scrollbar {
-  background: var(--theme-color);
+  @apply bg-theme-color;
 }
 
 /* Code block specific scrollbars */
 .post-content .highlighttable td .highlight pre code::-webkit-scrollbar {
-  display: none;
+  @apply hidden;
 }
 
 .post-content :not(table) ::-webkit-scrollbar-thumb {
-  border: 2px solid var(--code-block-color);
+  @apply border-2 border-[var(--code-block-color)] transition-colors duration-200 ease-out;
   background: rgba(113, 113, 117, 0.7);
-  transition: background-color 200ms ease-out;
 }
 
 .post-content :not(table) ::-webkit-scrollbar-thumb:hover {
@@ -43,14 +41,12 @@
 
 /* Table scrollbars */
 .post-content table::-webkit-scrollbar-thumb {
-  border-width: 2px;
-  transition: background-color 200ms ease-out;
+  @apply border-2 transition-colors duration-200 ease-out;
 }
 
 /* Responsive scrollbar sizing */
 @media screen and (min-width: 768px) {
   ::-webkit-scrollbar {
-    width: 19px;
-    height: 11px;
+    @apply w-[19px] h-[11px];
   }
 } 

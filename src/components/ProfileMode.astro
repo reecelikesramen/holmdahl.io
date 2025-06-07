@@ -47,9 +47,9 @@ const {
         height={imageHeight} 
       />
     <div class="flex flex-col items-center gap-2">
-      <h1 class="text-3xl font-bold m-0" style="color: var(--primary-color)">{title}</h1>
-      {email && <span class="text-lg" style="color: var(--secondary-color)">{email}</span>}
-      {subtitle && <span class="text-lg font-medium mt-2" style="color: var(--primary-color)">{subtitle}</span>}
+      <h1 class="text-3xl font-bold m-0 text-primary-color">{title}</h1>
+      {email && <span class="text-lg text-secondary-color">{email}</span>}
+      {subtitle && <span class="text-lg font-medium mt-2 text-primary-color">{subtitle}</span>}
     </div>
     
     {socialIcons.length > 0 && (
@@ -64,8 +64,7 @@ const {
           const cleanUrl = button.url.trim();
           return (
             <a 
-              class="rounded-lg px-4 py-1.5 font-medium text-base transition-transform hover:scale-[0.98] hover:no-underline no-underline" 
-              style="background: var(--tertiary-color); color: var(--primary-color);"
+              class="rounded-lg px-4 py-1.5 text-primary-color bg-tertiary-color font-medium text-base transition-transform hover:scale-[0.98] hover:no-underline no-underline" 
               href={cleanUrl} 
               rel="noopener"
               target="_blank"

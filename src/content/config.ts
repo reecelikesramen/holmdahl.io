@@ -22,13 +22,4 @@ const profile = defineCollection({
   }),
 });
 
-const about = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    description: z.string().optional(),
-    lastModified: z.date().optional(),
-  }),
-});
-
-export const collections = { profile, about }; 
+export const collections = { profile }; 
