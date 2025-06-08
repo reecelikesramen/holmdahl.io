@@ -12,10 +12,10 @@ alwaysApply: true
 
 ## 🛠️ Core Technologies Stack
 - **pnpm**: Package manager (required)
-- **Astro (v4.3)**: Static site generator with React integration
-- **React**: Interactive components only
+- **Astro 5.8**: Static site generator with React integration
+- **React 19**: Interactive components only
 - **shadcn UI**: Component library for consistent UI elements
-- **Tailwind CSS (v4.1.8)**: Primary styling framework
+- **Tailwind CSS 4.1**: Primary styling framework
 - **TypeScript**: Type safety for all components
 
 ## 📁 Project Structure
@@ -30,7 +30,6 @@ src/
 
 ## 📋 Configuration Files
 - `astro.config.mjs` - Astro configuration
-- `tailwind.config.mjs` - Tailwind configuration  
 - `package.json` - Dependencies and scripts
 
 ## 📝 Code Style Standards

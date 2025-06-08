@@ -1,142 +1,26 @@
 ---
 import '../styles/post-content.css';
+import MainLayout from './MainLayout.astro';
 import { Picture } from 'astro:assets';
 import TableOfContents from '../components/TableOfContents.astro';
+import type { CollectionEntry } from 'astro:content';
 
-import MainLayout from './MainLayout.astro';
+type Headings = {}
 
-interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  cover?: {
-    image: string;
-    caption?: string;
-    alt?: string;
-  };
-  pubDate?: Date;
-  updatedDate?: Date;
-  readingTime?: number;
-  tags?: string[];
-  draft?: boolean;
-  hideTitle?: boolean;
-  hideDescription?: boolean;
-  hideImage?: boolean;
-  hideMeta?: boolean;
-  showToc?: boolean;
-  tocOpen?: boolean;
-  showBreadcrumbs?: boolean;
-  breadcrumbPath?: Array<{ title: string; url: string }>;
-  prevPost?: {
-    title: string;
-    url: string;
-  };
-  nextPost?: {
-    title: string;
-    url: string;
-  };
-  headings?: Array<{
-    depth: number;
-    slug: string;
-    text: string;
-  }>;
-  // For markdown layout support
-  frontmatter?: {
-    title?: string;
-    description?: string;
-    image?: string;
-    cover?: {
-      image: string;
-      caption?: string;
-      alt?: string;
-    };
-    pubDate?: string;
-    updatedDate?: string;
-    readingTime?: number;
-    tags?: string[];
-    draft?: boolean;
-    hideTitle?: boolean;
-    hideDescription?: boolean;
-    hideImage?: boolean;
-    hideMeta?: boolean;
-    showToc?: boolean;
-    ShowToc?: boolean;
-    tocOpen?: boolean;
-    TocOpen?: boolean;
-    showBreadcrumbs?: boolean;
-    breadcrumbPath?: Array<{ title: string; url: string }>;
-    prevPost?: {
-      title: string;
-      url: string;
-    };
-    nextPost?: {
-      title: string;
-      url: string;
-    };
-  };
-}
-
-// Handle both direct props and markdown layout props
 const props = Astro.props;
-
-// Check if this is coming from markdown file (has frontmatter property)
-const isMarkdownLayout = props.frontmatter && typeof props.frontmatter === 'object';
-const frontmatter = props.frontmatter;
-
-const { 
-  title = isMarkdownLayout && frontmatter ? frontmatter.title : props.title, 
-  description = isMarkdownLayout && frontmatter ? frontmatter.description : props.description, 
-  image = isMarkdownLayout && frontmatter ? frontmatter.image : props.image, 
-  cover = isMarkdownLayout && frontmatter ? frontmatter.cover : props.cover,
-  pubDate = isMarkdownLayout && frontmatter ? (frontmatter.pubDate ? new Date(frontmatter.pubDate) : undefined) : props.pubDate,
-  updatedDate = isMarkdownLayout && frontmatter ? (frontmatter.updatedDate ? new Date(frontmatter.updatedDate) : undefined) : props.updatedDate,
-  readingTime = isMarkdownLayout && frontmatter ? frontmatter.readingTime : props.readingTime,
-  tags = isMarkdownLayout && frontmatter ? (frontmatter.tags || []) : (props.tags || []), 
-  draft = isMarkdownLayout && frontmatter ? (frontmatter.draft || false) : (props.draft || false),
-  hideTitle = isMarkdownLayout && frontmatter ? (frontmatter.hideTitle || false) : (props.hideTitle || false),
-  hideDescription = isMarkdownLayout && frontmatter ? (frontmatter.hideDescription || false) : (props.hideDescription || false),
-  hideImage = isMarkdownLayout && frontmatter ? (frontmatter.hideImage || false) : (props.hideImage || false),
-  hideMeta = isMarkdownLayout && frontmatter ? (frontmatter.hideMeta !== undefined ? frontmatter.hideMeta : false) : (props.hideMeta !== undefined ? props.hideMeta : true),
-  showToc = isMarkdownLayout && frontmatter ? (frontmatter.ShowToc || frontmatter.showToc || false) : (props.showToc || false),
-  tocOpen = isMarkdownLayout && frontmatter ? (frontmatter.TocOpen || frontmatter.tocOpen || false) : (props.tocOpen || false),
-  showBreadcrumbs = isMarkdownLayout && frontmatter ? (frontmatter.showBreadcrumbs !== undefined ? frontmatter.showBreadcrumbs : true) : (props.showBreadcrumbs || false),
-  breadcrumbPath = isMarkdownLayout && frontmatter ? (frontmatter.breadcrumbPath || []) : (props.breadcrumbPath || []),
-  prevPost = isMarkdownLayout && frontmatter ? frontmatter.prevPost : props.prevPost,
-  nextPost = isMarkdownLayout && frontmatter ? frontmatter.nextPost : props.nextPost,
-  headings = isMarkdownLayout ? (props.headings || []) : (props.headings || [])
-} = {};
-
-// Default breadcrumbs for posts if none provided
-const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
-  { title: 'Home', url: '/' },
-  { title: 'Posts', url: '/posts' }
-] : breadcrumbPath;
+const data: CollectionEntry<"posts">['data'] = props.frontmatter;
+const headings: { depth: number; text: string; slug: string }[] = props.headings;
 ---
 
-<MainLayout title={title || 'Content'} description={description} image={image} pageType="post">
+<MainLayout title={data.title || 'Content'} description={data.description}>
   <article class="content-single">
-    {showBreadcrumbs && defaultBreadcrumbs.length > 0 && (
-      <div class="breadcrumbs">
-        {defaultBreadcrumbs.map((crumb: { title: string; url: string }, index: number) => (
-          <>
-            <a href={crumb.url} class="text-secondary-text hover:text-primary hover:underline no-underline text-sm">
-              {crumb.title}
-            </a>
-            {index < defaultBreadcrumbs.length - 1 && (
-              <span class="text-tertiary-text">&nbsp;»&nbsp;</span>
-            )}
-          </>
-        ))}
-      </div>
-    )}
-
     {/* Title */}
-    {!hideTitle && title && (
+    {data.showTitle && data.title && (
       <header class="content-header">
         <h1 class="content-title">
-          {title}
-          {draft && (
-            <span class="entry-hint" title="Draft">
+          {data.title}
+          {data.draft && (
+            <span class="inline-block ml-2 text-base" title="Draft">
               <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
                 <path d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
               </svg>
@@ -147,18 +31,17 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
     )}
     
     {/* Description */}
-    {!hideDescription && description && (
+    {data.showDescription && data.description && (
       <div class="content-description mb-4">
-        {description}
+        {data.description}
       </div>
     )}
 
     {/* Meta information - date, author, read time */}
-    {!hideMeta && (pubDate || updatedDate || readingTime || tags.length > 0) && (
       <div class="content-meta mb-6">
-        {pubDate && !isNaN(pubDate.getTime()) && (
+        {data.showPubDate && data.pubDate && !isNaN(data.pubDate.getTime()) && (
           <span>
-            {pubDate.toLocaleDateString('en-US', {
+            {data.pubDate.toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
               day: 'numeric',
@@ -166,26 +49,25 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
           </span>
         )}
         
-        {updatedDate && !isNaN(updatedDate.getTime()) && (
-          <span>&nbsp;·&nbsp;Updated: {updatedDate.toLocaleDateString('en-US', {
+        {data.showUpdatedDate && data.updatedDate && !isNaN(data.updatedDate.getTime()) && (
+          <span>&nbsp;·&nbsp;Updated: {data.updatedDate.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
           })}</span>
         )}
         
-        {readingTime && (
-          <span>&nbsp;·&nbsp;{readingTime} min read</span>
+        {data.showReadingTime && data.readingTime && (
+          <span>&nbsp;·&nbsp;{data.readingTime} min read</span>
         )}
       </div>
-    )}
 
     {/* Cover Image */}
-    {cover && !hideImage && (
+    {data.showCover && data.cover && (
       <div class="cover-image-container mb-6 md:mb-8">
         <Picture
-          src={cover.image}
-          alt={cover.alt || title || 'Cover image'}
+          src={data.cover.image}
+          alt={data.cover.alt}
           width={800}
           height={400}
           class="cover-image w-full h-auto rounded-lg"
@@ -196,17 +78,17 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
           fetchpriority="high"
         />
         {/* Cover Image Caption */}
-        {cover.caption && (
+        {data.cover.caption && (
           <figcaption class="cover-caption mt-2 text-center text-sm text-secondary-text">
-            {cover.caption}
+            {data.cover.caption}
           </figcaption>
         )}
       </div>
     )}
 
     {/* Table of Contents */}
-    {showToc && headings.length > 0 && (
-      <TableOfContents headings={headings} isOpen={tocOpen} />
+    {data.showToc && headings && headings.length > 0 && (
+      <TableOfContents headings={headings} isOpen={data.tocOpen} />
     )}
 
     {/* Post Content */}
@@ -214,11 +96,11 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
       <slot />
     </div>
 
-    {(tags.length > 0 || prevPost || nextPost) && (
+    {(data.tags && data.tags.length > 0) && (
       <footer class="content-footer">
-        {tags.length > 0 && (
+        {data.tags.length > 0 && (
           <ul class="content-tags">
-            {tags.map((tag: string) => (
+            {data.tags.map((tag: string) => (
               <li>
                 <a href={`/tags/${tag.toLowerCase()}`}>
                   {tag}
@@ -226,26 +108,6 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
               </li>
             ))}
           </ul>
-        )}
-        
-        {(prevPost || nextPost) && (
-          <nav class="paginav">
-            {prevPost && (
-              <a class="prev" href={prevPost.url}>
-                <span class="title">« Prev</span>
-                <br>
-                <span>{prevPost.title}</span>
-              </a>
-            )}
-            
-            {nextPost && (
-              <a class="next" href={nextPost.url}>
-                <span class="title">Next »</span>
-                <br>
-                <span>{nextPost.title}</span>
-              </a>
-            )}
-          </nav>
         )}
       </footer>
     )}
@@ -338,12 +200,6 @@ const defaultBreadcrumbs = showBreadcrumbs && breadcrumbPath.length === 0 ? [
 
 <style>
   @reference "../styles/critical.css";
-  
-  /* Minimal component-specific styles - most moved to global.css */
-  .entry-hint {
-    @apply inline-block ml-2 text-base;
-  }
-
   /* Cover image styles */
   .cover-image-container {
     @apply -mx-4 md:-mx-6;

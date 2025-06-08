@@ -1,15 +1,14 @@
 ---
-layout: ../../layouts/ContentLayout.astro
-author: "Reece Holmdahl"
+author: Reece Holmdahl
 title: Hello, world!
 description: Welcome to my site!
-pubDate: "2021-01-15"
+pubDate: 2021-01-15T00:00:00.000Z
 cover:
-  image: "../assets/hello-world-cover.svg"
-  caption: "Hello, and welcome to my blog!"
-  alt: "Welcome banner with colorful confetti"
-ShowToc: false
-TocOpen: false
+  image: "../../assets/hello-world-cover.png"
+  caption: Hello, and welcome to my blog!
+  alt: Welcome banner with colorful confetti
+showToc: false
+tocOpen: false
 ---
 
 # 📢 Announcing My New Portfolio

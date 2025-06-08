@@ -1,103 +1,26 @@
 ---
-import ContentLayout from '../../layouts/ContentLayout.astro';
-
-interface Post {
-  frontmatter: {
-    title: string;
-    description?: string;
-    pubDate: string;
-    updatedDate?: string;
-    readingTime?: number;
-    tags?: string[];
-    draft?: boolean;
-    cover?: {
-      image: string;
-      caption?: string;
-      alt?: string;
-    };
-    ShowToc?: boolean;
-    showToc?: boolean;
-    TocOpen?: boolean;
-    tocOpen?: boolean;
-  };
-  url: string;
-  Content: any;
-  render: () => Promise<{
-    Content: any;
-    headings: Array<{
-      depth: number;
-      slug: string;
-      text: string;
-    }>;
-  }>;
-}
-
-interface NavPost {
-  title: string;
-  url: string;
-}
+import { getCollection } from "astro:content";
+import ContentLayout from "../../layouts/ContentLayout.astro";
 
 export async function getStaticPaths() {
-  const postModules = import.meta.glob('./*.{md,mdx}');
-  const posts: Post[] = await Promise.all(Object.values(postModules).map(fn => fn())) as Post[];
-  
-  // Sort posts by date (newest first)
-  const allPosts = posts.sort((a: Post, b: Post) => {
-    const dateA = new Date(a.frontmatter.pubDate).getTime();
-    const dateB = new Date(b.frontmatter.pubDate).getTime();
-    return dateB - dateA;
-  });
-
-  return allPosts.map((post: Post, index: number) => {
-    let prevPost: NavPost | undefined;
-    if (index > 0) {
-      prevPost = {
-        title: allPosts[index - 1].frontmatter.title,
-        url: allPosts[index - 1].url,
-      };
-    }
-
-    let nextPost: NavPost | undefined;
-    if (index < allPosts.length - 1) {
-      nextPost = {
-        title: allPosts[index + 1].frontmatter.title,
-        url: allPosts[index + 1].url,
-      };
-    }
-
-    return {
-      params: {
-        slug: post.url.split('/').pop() as string,
-      },
-      props: {
-        post,
-        prevPost,
-        nextPost,
-      },
-    };
-  });
+  const posts = await getCollection("posts");
+  console.log(posts.map((post) => post.slug));
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: {
+      post,
+    },
+  }));
 }
 
-const { post, prevPost, nextPost } = Astro.props;
+const { post } = Astro.props;
 const { Content, headings } = await post.render();
 ---
 
-<ContentLayout 
-  title={post.frontmatter.title}
-  description={post.frontmatter.description}
-  cover={post.frontmatter.cover}
-  pubDate={post.frontmatter.pubDate ? new Date(post.frontmatter.pubDate) : undefined}
-  updatedDate={post.frontmatter.updatedDate ? new Date(post.frontmatter.updatedDate) : undefined}
-  readingTime={post.frontmatter.readingTime}
-  tags={post.frontmatter.tags}
-  draft={post.frontmatter.draft}
-  showToc={post.frontmatter.ShowToc || post.frontmatter.showToc}
-  tocOpen={post.frontmatter.TocOpen || post.frontmatter.tocOpen}
-  showBreadcrumbs={true}
-  hideMeta={false}
-  prevPost={prevPost}
-  nextPost={nextPost}
+<ContentLayout
+  frontmatter={post.data}
   headings={headings}
 >
   <Content />
-</ContentLayout> 
+</ContentLayout>
+

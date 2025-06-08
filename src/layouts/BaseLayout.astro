@@ -7,12 +7,10 @@ import '../styles/scrollbars.css';
 interface Props {
   title: string;
   description?: string;
-  image?: string;
   isDark?: boolean;
-  pageType?: 'home' | 'post' | 'search' | 'about';
 }
 
-const { title, description, image, isDark = false, pageType = 'home' } = Astro.props;
+const { title, description, isDark = false } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -24,7 +22,7 @@ const { title, description, image, isDark = false, pageType = 'home' } = Astro.p
     <meta name="robots" content="index, follow" />
     <title>{(title ? `${title} | ` : "") + "holmdahl.io"}</title>
     <meta name="description" content={description || "Reece Holmdahl's personal website"} />
-    <meta name="author" content="Robert Holmdahl" />
+    <meta name="author" content="Reece Holmdahl" />
     <link rel="canonical" href={Astro.url.pathname} />
     
     <!-- DNS prefetch for external resources -->

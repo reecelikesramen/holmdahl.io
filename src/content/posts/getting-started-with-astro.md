@@ -1,12 +1,11 @@
 ---
-layout: ../../layouts/ContentLayout.astro
-title: "Getting Started with Astro"
-description: "Learn how to build fast, content-focused websites with Astro"
-pubDate: 2024-01-15
-tags: ["astro", "web-development", "static-site-generator"]
+title: Getting Started with Astro
+description: Learn how to build fast, content-focused websites with Astro
+pubDate: 2024-01-15T00:00:00.000Z
+tags: [astro, web-development, static-site-generator]
 readingTime: 5
-ShowToc: true
-TocOpen: true
+showToc: true
+tocOpen: true
 ---
 
 # Test

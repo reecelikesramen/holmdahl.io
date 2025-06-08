@@ -10,8 +10,11 @@ export default defineConfig({
   // Configure for GitHub Pages deployment
   site: import.meta.env.DEV ? 'http://localhost:4321' : 'https://reecelikesramen.github.io',
   base: import.meta.env.DEV ? '/' : '/holmdahl.io/',
-  // site: 'https://holmdahl.io',
-  // base: '/',
+
+  prefetch: {
+    defaultStrategy: 'hover',
+    prefetchAll: true,
+  },
   
   vite: {
     plugins: [tailwindcss()],
