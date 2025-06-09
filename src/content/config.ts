@@ -12,7 +12,7 @@ const posts = defineCollection({
     }).optional(),
     pubDate: z.date(),
     updatedDate: z.date().optional(),
-    readingTime: z.number().optional(),
+    minutesRead: z.string().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     showTitle: z.boolean().default(true),

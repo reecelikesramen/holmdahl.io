@@ -13,11 +13,11 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
 ---
 
 <MainLayout title={data.title || 'Content'} description={data.description}>
-  <article class="content-single">
+  <article class="w-full max-w-3xl mx-auto px-4 md:px-6">
     {/* Title */}
     {data.showTitle && data.title && (
-      <header class="content-header">
-        <h1 class="content-title">
+      <header class="mt-3 mb-2 md:mt-6 md:mb-5 mx-auto">
+        <h1 class="mb-0.5 text-3xl md:text-5xl font-bold leading-tight text-content-color">
           {data.title}
           {data.draft && (
             <span class="inline-block ml-2 text-base" title="Draft">
@@ -32,15 +32,15 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
     
     {/* Description */}
     {data.showDescription && data.description && (
-      <div class="content-description mb-4">
+      <div class="mt-2 mb-1 md:mt-2.5 md:mb-1.5 text-lg md:text-xl text-secondary-color">
         {data.description}
       </div>
     )}
 
     {/* Meta information - date, author, read time */}
-      <div class="content-meta mb-6">
+      <div class="flex flex-col xs:flex-row xs:flex-wrap items-center mb-6 md:mb-8 text-xs md:text-sm text-secondary-color">
         {data.showPubDate && data.pubDate && !isNaN(data.pubDate.getTime()) && (
-          <span>
+          <span class="xs:after:content-['·'] xs:after:mx-1 md:after:mx-2 last:after:content-none">
             {data.pubDate.toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
@@ -50,27 +50,27 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
         )}
         
         {data.showUpdatedDate && data.updatedDate && !isNaN(data.updatedDate.getTime()) && (
-          <span>&nbsp;·&nbsp;Updated: {data.updatedDate.toLocaleDateString('en-US', {
+          <span class="xs:after:content-['·'] xs:after:mx-1 md:after:mx-2 last:after:content-none">Updated: {data.updatedDate.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
           })}</span>
         )}
         
-        {data.showReadingTime && data.readingTime && (
-          <span>&nbsp;·&nbsp;{data.readingTime} min read</span>
+        {data.showReadingTime && data.minutesRead && (
+          <span class="xs:after:content-['·'] xs:after:mx-1 md:after:mx-2 last:after:content-none">{data.minutesRead}</span>
         )}
       </div>
 
     {/* Cover Image */}
     {data.showCover && data.cover && (
-      <div class="cover-image-container mb-6 md:mb-8">
+      <div class="-mx-4 md:-mx-6 mb-6 md:mb-8">
         <Picture
           src={data.cover.image}
           alt={data.cover.alt}
           width={800}
           height={400}
-          class="cover-image w-full h-auto rounded-lg"
+          class="w-full h-auto rounded-lg shadow-sm aspect-[2/1] object-cover"
           formats={['avif', 'webp']}
           densities={[1, 1.5, 2]}
           fallbackFormat="jpg"
@@ -79,7 +79,7 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
         />
         {/* Cover Image Caption */}
         {data.cover.caption && (
-          <figcaption class="cover-caption mt-2 text-center text-sm text-secondary-text">
+          <figcaption class="px-4 md:px-6 mt-2 text-center text-sm text-secondary-text">
             {data.cover.caption}
           </figcaption>
         )}
@@ -97,12 +97,12 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
     </Prose>
 
     {(data.tags && data.tags.length > 0) && (
-      <footer class="content-footer">
+      <footer class="mt-8 md:mt-14">
         {data.tags.length > 0 && (
-          <ul class="content-tags">
+          <ul class="flex flex-wrap gap-1.5 md:gap-2.5 list-none p-0 mb-3 md:mb-5">
             {data.tags.map((tag: string) => (
-              <li>
-                <a href={`/tags/${tag.toLowerCase()}`}>
+              <li class="inline-block">
+                <a href={`/tags/${tag.toLowerCase()}`} class="block px-2 md:px-3.5 text-xs md:text-sm leading-7 md:leading-9 rounded-lg border no-underline text-secondary-color bg-code-bg-color border-border-color hover:bg-border-color min-h-11 flex items-center justify-center">
                   {tag}
                 </a>
               </li>
@@ -115,44 +115,7 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
 </MainLayout>
 
 <script>
-  // Add anchor links to headings, similar to Hugo PaperMod
-  function addAnchorLinks() {
-    const headings = document.querySelectorAll('.post-content h1[id], .post-content h2[id], .post-content h3[id], .post-content h4[id], .post-content h5[id], .post-content h6[id]');
-    
-    headings.forEach(heading => {
-      const id = heading.getAttribute('id');
-      if (!id) return;
-      
-      // Check if anchor already exists
-      if (heading.querySelector('.anchor')) return;
-      
-      // Create the anchor link with CSS classes
-      const anchor = document.createElement('a');
-      anchor.className = 'anchor-link hidden';
-      anchor.setAttribute('aria-hidden', 'true');
-      anchor.setAttribute('href', `#${id}`);
-      anchor.textContent = '#';
-      
-      // Add group class to heading for hover behavior
-      heading.classList.add('group');
-      
-      // Show anchor on heading hover using classes
-      heading.addEventListener('mouseenter', () => {
-        anchor.classList.remove('hidden');
-        anchor.setAttribute('aria-hidden', 'false');
-      });
-      
-      heading.addEventListener('mouseleave', () => {
-        anchor.classList.add('hidden');
-        anchor.setAttribute('aria-hidden', 'true');
-      });
-      
-      // Append the anchor to the heading
-      heading.appendChild(anchor);
-    });
-  }
-
-  // Smooth scroll for anchor links, similar to Hugo PaperMod
+  // Smooth scroll for anchor links
   function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
@@ -189,11 +152,9 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
   // Initialize when DOM is loaded
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-      addAnchorLinks();
       setupSmoothScroll();
     });
   } else {
-    addAnchorLinks();
     setupSmoothScroll();
   }
 </script>
@@ -201,113 +162,86 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
 <style>
   @reference "../styles/critical.css";
   
-  /* Shared Layout Styles for Post and Content Pages */
-  .content-single {
-    @apply w-full mx-auto px-4 md:px-6;
-    max-width: calc(720px + 48px);
-  }
-
-  .content-header {
-    @apply mt-3 mb-2 md:mt-6 md:mb-5 mx-auto;
-  }
-
-  .content-title {
-    @apply mb-0.5 text-3xl md:text-5xl font-bold leading-tight;
-    color: var(--content-color);
-  }
-
-  .content-description {
-    @apply mt-2 mb-1 md:mt-2.5 md:mb-1.5 text-lg md:text-xl;
-    color: var(--secondary-color);
-  }
-
-  .content-meta {
-    @apply flex flex-wrap items-center mb-6 md:mb-8 text-xs md:text-sm gap-2 md:gap-4;
-    color: var(--secondary-color);
-  }
-
-  /* Footer and Tags Styling */
-  .content-footer {
-    @apply mt-8 md:mt-14;
-  }
-
-  .content-footer > * {
-    @apply mb-2 md:mb-2.5;
-  }
-
-  .content-tags {
-    @apply flex flex-wrap gap-1.5 md:gap-2.5 list-none p-0 mb-3 md:mb-5;
-  }
-
-  .content-tags li {
-    @apply inline-block;
-  }
-
-  .content-tags a {
-    @apply block px-2 md:px-3.5 text-xs md:text-sm leading-7 md:leading-9 rounded-lg border no-underline;
-    color: var(--secondary-color);
-    background: var(--code-bg-color);
-    border-color: var(--border-color);
-  }
-
-  .content-tags a:hover {
-    background: var(--border-color);
-  }
-
-  /* Cover image styles */
-  .cover-image-container {
-    @apply -mx-4 md:-mx-6;
+  /* Anchor link icon styles for headings - responsive to prose size and heading level */
+  :global(.icon.icon-link) {
+    @apply opacity-0 transition-opacity duration-150 ease-in-out inline-block align-top;
+    /* Base size responsive to prose scale */
+    @apply w-3 h-3 ml-1;
+    /* Medium prose size */
+    @apply md:w-4 md:h-4 md:ml-2;
+    /* Large prose size */
+    @apply lg:w-5 lg:h-5 lg:ml-2;
   }
   
-  .cover-image {
-    @apply shadow-sm;
-    aspect-ratio: 2 / 1;
-    object-fit: cover;
+  /* H1 specific sizing - largest headings get larger icons */
+  :global(h1 .icon.icon-link) {
+    @apply w-4 h-4 ml-2;
+    @apply md:w-5 md:h-5 md:ml-3;
+    @apply lg:w-6 lg:h-6 lg:ml-3;
   }
   
-  .cover-caption {
-    @apply px-4 md:px-6;
+  /* H2 specific sizing */
+  :global(h2 .icon.icon-link) {
+    @apply w-3.5 h-3.5 ml-1.5;
+    @apply md:w-4 md:h-4 md:ml-2;
+    @apply lg:w-5 lg:h-5 lg:ml-2.5;
   }
-
-  /* Anchor link styles */
-  :global(.post-content .anchor-link) {
-    @apply text-muted-foreground select-none transition-all duration-200 ease-out relative no-underline decoration-2 hover:underline hover:brightness-105 dark:hover:brightness-108; 
+  
+  /* H3 specific sizing */
+  :global(h3 .icon.icon-link) {
+    @apply w-3 h-3 ml-1;
+    @apply md:w-3.5 md:h-3.5 md:ml-1.5;
+    @apply lg:w-4 lg:h-4 lg:ml-2;
   }
-
-  :global(.post-content h1 .anchor-link) {
-    @apply ml-4
+  
+  /* H4-H6 specific sizing - smaller headings get smaller icons */
+  :global(h4 .icon.icon-link),
+  :global(h5 .icon.icon-link),
+  :global(h6 .icon.icon-link) {
+    @apply w-2.5 h-2.5 ml-1;
+    @apply md:w-3 md:h-3 md:ml-1;
+    @apply lg:w-3.5 lg:h-3.5 lg:ml-1.5;
   }
-  :global(.post-content h2 .anchor-link) {
-    @apply ml-3
+  
+  /* Show anchor icons on heading hover */
+  :global(h1:hover .icon.icon-link),
+  :global(h2:hover .icon.icon-link),
+  :global(h3:hover .icon.icon-link),
+  :global(h4:hover .icon.icon-link),
+  :global(h5:hover .icon.icon-link),
+  :global(h6:hover .icon.icon-link) {
+    @apply opacity-100;
   }
+  
 
-  :global(.post-content h3 .anchor-link) {
-    @apply ml-1.5
+  
+  /* Starlight-style chain link icon using SVG - responsive sizing */
+  :global(.icon.icon-link::before) {
+    @apply inline-block bg-no-repeat bg-contain bg-center content-[''];
+    /* Size matches the parent icon container */
+    @apply w-full h-full;
+    /* Use a black SVG and filter it to desired colors */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E");
+    /* Filter to match theme colors - adjust brightness/contrast for your theme */
+    @apply brightness-0 contrast-100;
+    /* Add transition for smooth color changes */
+    @apply transition-all duration-150 ease-in-out;
   }
-
-  :global(.post-content h4 .anchor-link),
-  :global(.post-content h5 .anchor-link),
-  :global(.post-content h6 .anchor-link) {
-    @apply ml-1
+  
+  /* Color variations using filters */
+  :global(.icon.icon-link:hover::before) {
+    /* Lighter color on hover - adjust values as needed */
+    @apply brightness-50 contrast-150;
   }
-
-  /* Mobile responsiveness */
-  @media (max-width: 767px) {
-    .content-single {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-
-    .content-meta {
-      @apply flex-col gap-2;
-    }
-
-    /* Improve touch targets for mobile */
-    .content-tags a {
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+  
+  /* Dark mode support */
+  :global(.dark .icon.icon-link::before) {
+    /* Invert for dark mode */
+    @apply brightness-0 invert;
   }
-</style> 
+  
+  :global(.dark .icon.icon-link:hover::before) {
+    /* Slightly dimmed on hover in dark mode */
+    @apply brightness-0 invert contrast-75;
+  }
+</style>

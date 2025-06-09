@@ -4,6 +4,10 @@ import tailwindcss from '@tailwindcss/vite';
 import favicons from 'astro-favicons';
 import react from '@astrojs/react';
 import criticalCSS from 'astro-critical-css';
+import remarkDefinitionList, { defListHastHandlers } from 'remark-definition-list'
+import { remarkReadingTime } from './astro-plugins/remark-reading-time.mjs';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,6 +18,16 @@ export default defineConfig({
   prefetch: {
     defaultStrategy: 'hover',
     prefetchAll: true,
+  },
+
+  markdown: {
+    remarkPlugins: [remarkDefinitionList, remarkReadingTime],
+    rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'append' }]],
+    remarkRehype: {
+      handlers: {
+        ...defListHastHandlers,
+      }
+    }
   },
   
   vite: {

@@ -7,6 +7,7 @@ cover:
   image: "../../assets/hello-world-cover.png"
   caption: Hello, and welcome to my blog!
   alt: Welcome banner with colorful confetti
+showReadingTime: true
 showToc: false
 tocOpen: false
 ---
