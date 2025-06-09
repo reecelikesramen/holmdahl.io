@@ -208,44 +208,42 @@ export function ProfileImageWrapper({
   // Use base rotation directly (no mouse angle offset)
   const finalRotation = baseRotationRef.current;
 
-  // Theme-aware gradient colors - muted for light mode, vibrant for dark mode
+  // Simplified gradients for better Safari compatibility
   const borderGradient = `conic-gradient(from var(--rotation, 0deg), 
-    var(--profile-gradient-1, #93c5fd) 0deg, 
-    var(--profile-gradient-2, #c4b5fd) 36deg, 
-    var(--profile-gradient-3, #67e8f9) 72deg, 
-    var(--profile-gradient-4, #6ee7b7) 108deg, 
-    var(--profile-gradient-5, #fcd34d) 144deg, 
-    var(--profile-gradient-6, #fca5a5) 180deg, 
-    var(--profile-gradient-7, #f9a8d4) 216deg, 
-    var(--profile-gradient-2, #c4b5fd) 252deg, 
-    var(--profile-gradient-3, #67e8f9) 288deg,
-    var(--profile-gradient-1, #93c5fd) 324deg,
-    var(--profile-gradient-1, #93c5fd) 360deg
+    #93c5fd 0deg, 
+    #c4b5fd 60deg, 
+    #67e8f9 120deg, 
+    #6ee7b7 180deg, 
+    #fcd34d 240deg, 
+    #fca5a5 300deg, 
+    #93c5fd 360deg
   )`;
 
-  // Softer glow gradient with transparency
   const glowGradient = `conic-gradient(from calc(var(--rotation, 0deg) + 30deg), 
-    var(--profile-glow-1, rgba(147, 197, 253, 0.3)) 0deg, 
-    var(--profile-glow-2, rgba(196, 181, 253, 0.3)) 36deg, 
-    var(--profile-glow-3, rgba(103, 232, 249, 0.3)) 72deg, 
-    var(--profile-glow-4, rgba(110, 231, 183, 0.3)) 108deg, 
-    var(--profile-glow-5, rgba(252, 211, 77, 0.3)) 144deg, 
-    var(--profile-glow-6, rgba(252, 165, 165, 0.3)) 180deg, 
-    var(--profile-glow-7, rgba(249, 168, 212, 0.3)) 216deg, 
-    var(--profile-glow-2, rgba(196, 181, 253, 0.3)) 252deg, 
-    var(--profile-glow-3, rgba(103, 232, 249, 0.3)) 288deg,
-    var(--profile-glow-1, rgba(147, 197, 253, 0.3)) 324deg,
-    var(--profile-glow-1, rgba(147, 197, 253, 0.3)) 360deg
+    rgba(147, 197, 253, 0.3) 0deg, 
+    rgba(196, 181, 253, 0.3) 60deg, 
+    rgba(103, 232, 249, 0.3) 120deg, 
+    rgba(110, 231, 183, 0.3) 180deg, 
+    rgba(252, 211, 77, 0.3) 240deg, 
+    rgba(252, 165, 165, 0.3) 300deg, 
+    rgba(147, 197, 253, 0.3) 360deg
   )`;
+
+  // Calculate proper dimensions to allow glow overflow
+  const glowPadding = 40; // Extra space for glow to extend
+  const containerSize = Math.max(width, height) + glowPadding * 2;
+  const profileOffset = glowPadding;
 
   return (
     <div 
       ref={containerRef}
       className={`relative inline-block ${className}`}
       style={{ 
-        width: width + 24, 
-        height: height + 24,
+        width: containerSize, 
+        height: containerSize,
         touchAction: 'none',
+        // Remove overflow constraints to prevent clipping
+        overflow: 'visible',
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -253,55 +251,87 @@ export function ProfileImageWrapper({
       onTouchEnd={handleTouchEnd}
       onTouchMove={handleTouchMove}
     >
-      {/* Outer glow layer - much smaller and more subtle */}
+      {/* Extended outer glow layer - no clipping */}
       <div 
-        className={`absolute inset-1 rounded-full transition-all ease-out ${
-          isHovered ? 'opacity-70 dark:opacity-30 scale-108 duration-500' : 'opacity-0 scale-100 duration-200'
+        className={`absolute transition-all ease-out ${
+          isHovered ? 'opacity-50 dark:opacity-20 duration-500' : 'opacity-0 duration-200'
         }`}
         style={{
           background: glowGradient,
-          filter: 'blur(16px)',
+          filter: 'blur(24px)',
+          borderRadius: '50%',
+          transform: isHovered ? 'scale(1.15)' : 'scale(1)',
+          left: profileOffset - 20,
+          top: profileOffset - 20,
+          right: profileOffset - 20,
+          bottom: profileOffset - 20,
+          willChange: 'transform, opacity',
         }}
       />
 
-      {/* Concentrated color ring - 75% of previous size */}
+      {/* Medium glow layer */}
       <div 
-        className={`absolute inset-2 rounded-full transition-all ease-out ${
-          isHovered ? 'opacity-100 dark:opacity-80 scale-102 duration-400 delay-50' : 'opacity-0 scale-100 duration-200'
+        className={`absolute transition-all ease-out ${
+          isHovered ? 'opacity-70 dark:opacity-30 duration-400 delay-50' : 'opacity-0 duration-200'
         }`}
         style={{
           background: glowGradient,
-          filter: 'blur(3px)',
+          filter: 'blur(12px)',
+          borderRadius: '50%',
+          transform: isHovered ? 'scale(1.08)' : 'scale(1)',
+          left: profileOffset - 8,
+          top: profileOffset - 8,
+          right: profileOffset - 8,
+          bottom: profileOffset - 8,
+          willChange: 'transform, opacity',
         }}
       />
 
-      {/* Gradient border layer - only visible when hovered */}
+      {/* Gradient border layer */}
       <div 
-        className={`absolute inset-2.75 rounded-full transition-all ease-out ${
+        className={`absolute transition-all ease-out ${
           isHovered ? 'opacity-100 duration-300 delay-100' : 'opacity-0 duration-200'
         }`}
         style={{
           background: borderGradient,
+          borderRadius: '50%',
           padding: '6px',
+          left: profileOffset - 6,
+          top: profileOffset - 6,
+          right: profileOffset - 6,
+          bottom: profileOffset - 6,
+          willChange: 'opacity',
         }}
       >
         <div 
-          className="w-full h-full rounded-full" 
+          className="w-full h-full" 
           style={{ 
             backgroundColor: 'var(--theme-color, #ffffff)',
+            borderRadius: '50%',
           }} 
         />
       </div>
 
-      {/* Profile image container - now renders children instead of img */}
-      <div className={`absolute inset-4 rounded-full overflow-hidden transition-all duration-300 ease-out ${
-        isHovered ? 'scale-102' : 'scale-100'
-      }`}>
+      {/* Profile image container */}
+      <div 
+        className={`absolute transition-all duration-300 ease-out`}
+        style={{
+          left: profileOffset,
+          top: profileOffset,
+          width: width,
+          height: height,
+          borderRadius: '50%',
+          overflow: 'hidden',
+          transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+          willChange: 'transform',
+        }}
+      >
         <div 
           className="w-full h-full"
           style={{
             width: width,
             height: height,
+            borderRadius: '50%',
           }}
         >
           {children}
@@ -318,15 +348,23 @@ export function ProfileImageWrapper({
               rgba(255, 255, 255, 0.6) 50%, 
               transparent 70%)`,
             mixBlendMode: 'overlay',
+            borderRadius: '50%',
           }}
         />
       </div>
 
       {/* Simple themed border when not hovered */}
       <div 
-        className={`absolute inset-3.5 rounded-full border-2 border-border-color/20 transition-opacity ease-out ${
+        className={`absolute border-2 border-border-color/40 transition-opacity ease-out ${
           isHovered ? 'opacity-0 duration-75' : 'opacity-100 duration-300 delay-0'
         }`}
+        style={{
+          left: profileOffset - 2,
+          top: profileOffset - 2,
+          right: profileOffset - 2,
+          bottom: profileOffset - 2,
+          borderRadius: '50%',
+        }}
       />
     </div>
   );
