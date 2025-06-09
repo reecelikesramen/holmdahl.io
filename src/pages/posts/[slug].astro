@@ -4,8 +4,7 @@ import ContentLayout from "../../layouts/ContentLayout.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
-  console.log(posts.map((post) => post.slug));
-  return posts.map((post) => ({
+  return posts.filter((post) => !post.data.draft).map((post) => ({
     params: { slug: post.slug },
     props: {
       post,

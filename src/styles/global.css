@@ -1,9 +1,6 @@
 /* Import critical CSS first */
 @import "./critical.css";
 
-/* Import tw-animate-css for animations */
-@import "tw-animate-css";
-
 /* Font style overrides for code elements */
 code, pre, kbd, samp {
   font-family: "Reddit Mono", monospace;

@@ -50,7 +50,20 @@ const { title = "holmdahl.io", showThemeToggle = true } = Astro.props;
     }
   }
   
-  document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
+  // Bind theme toggle event listener
+  function bindThemeToggle() {
+    const themeToggle = document.getElementById("theme-toggle");
+    if (themeToggle && !themeToggle.hasAttribute("data-bound")) {
+      themeToggle.addEventListener("click", toggleTheme);
+      themeToggle.setAttribute("data-bound", "true");
+    }
+  }
+  
+  // Initialize on page load
+  bindThemeToggle();
+  
+  // Re-bind after Astro view transitions (if used)
+  document.addEventListener("astro:after-swap", bindThemeToggle);
 </script>
 
 <style>

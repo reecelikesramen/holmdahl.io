@@ -1,58 +1,17 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import PostCard from './PostCard.astro';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
-  posts: Array<{
-    title: string;
-    url: string;
-    description?: string;
-    pubDate: Date;
-    draft?: boolean;
-    tags?: string[];
-    readingTime?: number;
-  }>;
-  showPagination?: boolean;
-  currentPage?: number;
-  totalPages?: number;
-  prevUrl?: string;
-  nextUrl?: string;
+  posts: CollectionEntry<"posts">[]
 }
 
-const { 
-  posts, 
-  showPagination = false, 
-  currentPage = 1, 
-  totalPages = 1, 
-  prevUrl, 
-  nextUrl 
-} = Astro.props;
+const sortedPosts = Astro.props.posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 
 <div class="py-4">
-  {posts.map((post, index) => (
-    <PostCard 
-      post={post} 
-      isFirst={index === 0 && currentPage === 1}
-    />
+  {sortedPosts.map((post, index) => (
+    <PostCard post={post.data} url={`/posts/${post.slug}`} isFirst3={index < 3} />
   ))}
-  
-  {showPagination && totalPages > 1 && (
-    <footer class="mt-8 text-center">
-      <nav class="flex justify-between mx-auto max-w-[500px]">
-        {prevUrl && (
-          <a class="text-primary no-underline px-4 py-2 rounded bg-card border border-border hover:bg-hover" href={prevUrl}>
-            «&nbsp;Prev&nbsp;
-            {currentPage > 1 && `${currentPage - 1}/${totalPages}`}
-          </a>
-        )}
-        
-        {nextUrl && (
-          <a class="text-primary no-underline px-4 py-2 rounded bg-card border border-border hover:bg-hover" href={nextUrl}>
-            Next&nbsp;
-            {currentPage < totalPages && `${currentPage + 1}/${totalPages}`}&nbsp;»
-          </a>
-        )}
-      </nav>
-    </footer>
-  )}
 </div> 

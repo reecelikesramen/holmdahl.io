@@ -1,0 +1,19 @@
+---
+---
+
+<div
+  class="prose dark:prose-invert max-w-none
+  prose-h1:font-bold prose-h1:text-xl
+  prose-p:text-justify prose-img:rounded-xl prose-img:my-3 md:prose-img:my-4
+  prose-table:text-sm md:prose-table:text-base">
+  <slot />
+</div>
+
+<style>
+  @reference "../styles/critical.css";
+  
+  /* Custom image centering for markdown images with #center */
+  :global(.prose img[src*="#center"]) {
+    @apply mx-auto block;
+  }
+</style>

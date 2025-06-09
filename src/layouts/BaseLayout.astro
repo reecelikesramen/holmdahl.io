@@ -48,17 +48,24 @@ const { title, description, isDark = false } = Astro.props;
     <meta name="theme-color" content="#2e2e33" />
     <meta name="msapplication-TileColor" content="#2e2e33" />
     
-    <!-- Theme Toggle Script -->
-    {!isDark && (
-      <script is:inline>
+    <!-- Theme Initialization Script -->
+    <script is:inline>
+      // Initialize theme immediately to prevent FOUC
+      function initializeTheme() {
         if (localStorage.getItem("theme") === "dark" || 
             (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
           document.documentElement.classList.add("dark");
         } else {
           document.documentElement.classList.remove("dark");
         }
-      </script>
-    )}
+      }
+      
+      // Initialize on page load
+      initializeTheme();
+      
+      // Re-initialize after Astro view transitions (if used)
+      document.addEventListener("astro:after-swap", initializeTheme);
+    </script>
   </head>
   
   <body class={`${Astro.url.pathname === "/" ? "" : "list"} ${isDark ? "dark" : ""} flex flex-col min-h-screen`} id="top">

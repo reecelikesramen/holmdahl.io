@@ -1,9 +1,9 @@
 ---
-import '../styles/post-content.css';
 import MainLayout from './MainLayout.astro';
 import { Picture } from 'astro:assets';
 import TableOfContents from '../components/TableOfContents.astro';
 import type { CollectionEntry } from 'astro:content';
+import Prose from '@/components/Prose.astro';
 
 type Headings = {}
 
@@ -92,9 +92,9 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
     )}
 
     {/* Post Content */}
-    <div class="post-content">
+    <Prose>
       <slot />
-    </div>
+    </Prose>
 
     {(data.tags && data.tags.length > 0) && (
       <footer class="content-footer">
@@ -200,6 +200,60 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
 
 <style>
   @reference "../styles/critical.css";
+  
+  /* Shared Layout Styles for Post and Content Pages */
+  .content-single {
+    @apply w-full mx-auto px-4 md:px-6;
+    max-width: calc(720px + 48px);
+  }
+
+  .content-header {
+    @apply mt-3 mb-2 md:mt-6 md:mb-5 mx-auto;
+  }
+
+  .content-title {
+    @apply mb-0.5 text-3xl md:text-5xl font-bold leading-tight;
+    color: var(--content-color);
+  }
+
+  .content-description {
+    @apply mt-2 mb-1 md:mt-2.5 md:mb-1.5 text-lg md:text-xl;
+    color: var(--secondary-color);
+  }
+
+  .content-meta {
+    @apply flex flex-wrap items-center mb-6 md:mb-8 text-xs md:text-sm gap-2 md:gap-4;
+    color: var(--secondary-color);
+  }
+
+  /* Footer and Tags Styling */
+  .content-footer {
+    @apply mt-8 md:mt-14;
+  }
+
+  .content-footer > * {
+    @apply mb-2 md:mb-2.5;
+  }
+
+  .content-tags {
+    @apply flex flex-wrap gap-1.5 md:gap-2.5 list-none p-0 mb-3 md:mb-5;
+  }
+
+  .content-tags li {
+    @apply inline-block;
+  }
+
+  .content-tags a {
+    @apply block px-2 md:px-3.5 text-xs md:text-sm leading-7 md:leading-9 rounded-lg border no-underline;
+    color: var(--secondary-color);
+    background: var(--code-bg-color);
+    border-color: var(--border-color);
+  }
+
+  .content-tags a:hover {
+    background: var(--border-color);
+  }
+
   /* Cover image styles */
   .cover-image-container {
     @apply -mx-4 md:-mx-6;
@@ -215,7 +269,7 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
     @apply px-4 md:px-6;
   }
 
-  /* Anchor link styles to match current working inline styles */
+  /* Anchor link styles */
   :global(.post-content .anchor-link) {
     @apply text-muted-foreground select-none transition-all duration-200 ease-out relative no-underline decoration-2 hover:underline hover:brightness-105 dark:hover:brightness-108; 
   }
@@ -236,5 +290,24 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
   :global(.post-content h6 .anchor-link) {
     @apply ml-1
   }
-  
+
+  /* Mobile responsiveness */
+  @media (max-width: 767px) {
+    .content-single {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .content-meta {
+      @apply flex-col gap-2;
+    }
+
+    /* Improve touch targets for mobile */
+    .content-tags a {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 </style> 
