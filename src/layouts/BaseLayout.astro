@@ -7,10 +7,9 @@ import '../styles/scrollbars.css';
 interface Props {
   title: string;
   description?: string;
-  isDark?: boolean;
 }
 
-const { title, description, isDark = false } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -68,7 +67,7 @@ const { title, description, isDark = false } = Astro.props;
     </script>
   </head>
   
-  <body class={`${Astro.url.pathname === "/" ? "" : "list"} ${isDark ? "dark" : ""} flex flex-col min-h-screen`} id="top">
+  <body class={`${Astro.url.pathname === "/" ? "" : "list"} flex flex-col min-h-screen`} id="top">
     <slot name="header" />
     <main class="main flex-1 flex flex-col w-full max-w-3xl mx-auto p-3.5 md:p-6 h-full">
       <slot />

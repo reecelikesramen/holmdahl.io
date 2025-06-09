@@ -102,7 +102,7 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
           <ul class="flex flex-wrap gap-1.5 md:gap-2.5 list-none p-0 mb-3 md:mb-5">
             {data.tags.map((tag: string) => (
               <li class="inline-block">
-                <a href={`/tags/${tag.toLowerCase()}`} class="block px-2 md:px-3.5 text-xs md:text-sm leading-7 md:leading-9 rounded-lg border no-underline text-secondary-color bg-code-bg-color border-border-color hover:bg-border-color min-h-11 flex items-center justify-center">
+                <a href={`/tags/${tag.toLowerCase()}`} class="px-2 md:px-3.5 text-xs md:text-sm leading-7 md:leading-9 rounded-lg border no-underline text-secondary-color bg-code-bg-color border-border-color hover:bg-border-color min-h-11 flex items-center justify-center">
                   {tag}
                 </a>
               </li>

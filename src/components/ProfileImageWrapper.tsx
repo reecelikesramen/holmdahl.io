@@ -210,23 +210,23 @@ export function ProfileImageWrapper({
 
   // Simplified gradients for better Safari compatibility
   const borderGradient = `conic-gradient(from var(--rotation, 0deg), 
-    #93c5fd 0deg, 
-    #c4b5fd 60deg, 
-    #67e8f9 120deg, 
-    #6ee7b7 180deg, 
-    #fcd34d 240deg, 
-    #fca5a5 300deg, 
-    #93c5fd 360deg
+    var(--profile-gradient-1) 0deg, 
+    var(--profile-gradient-2) 60deg, 
+    var(--profile-gradient-3) 120deg, 
+    var(--profile-gradient-4) 180deg, 
+    var(--profile-gradient-5) 240deg, 
+    var(--profile-gradient-6) 300deg, 
+    var(--profile-gradient-7) 360deg
   )`;
 
   const glowGradient = `conic-gradient(from calc(var(--rotation, 0deg) + 30deg), 
-    rgba(147, 197, 253, 0.3) 0deg, 
-    rgba(196, 181, 253, 0.3) 60deg, 
-    rgba(103, 232, 249, 0.3) 120deg, 
-    rgba(110, 231, 183, 0.3) 180deg, 
-    rgba(252, 211, 77, 0.3) 240deg, 
-    rgba(252, 165, 165, 0.3) 300deg, 
-    rgba(147, 197, 253, 0.3) 360deg
+    var(--profile-glow-1) 0deg, 
+    var(--profile-glow-2) 60deg, 
+    var(--profile-glow-3) 120deg, 
+    var(--profile-glow-4) 180deg, 
+    var(--profile-glow-5) 240deg, 
+    var(--profile-glow-6) 300deg, 
+    var(--profile-glow-7) 360deg
   )`;
 
   // Calculate proper dimensions to allow glow overflow

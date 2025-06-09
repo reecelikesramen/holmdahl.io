@@ -6,13 +6,12 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description?: string;
-  isDark?: boolean;
 }
 
-const { title, description, isDark = false} = Astro.props;
+const { title, description } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} isDark={isDark}>
+<BaseLayout title={title} description={description}>
   <Header slot="header" />    
   <slot />
   <Footer slot="footer" />
