@@ -216,7 +216,7 @@ export function ProfileImageWrapper({
     var(--profile-gradient-4) 180deg, 
     var(--profile-gradient-5) 240deg, 
     var(--profile-gradient-6) 300deg, 
-    var(--profile-gradient-7) 360deg
+    var(--profile-gradient-1) 360deg
   )`;
 
   const glowGradient = `conic-gradient(from calc(var(--rotation, 0deg) + 30deg), 
@@ -226,7 +226,7 @@ export function ProfileImageWrapper({
     var(--profile-glow-4) 180deg, 
     var(--profile-glow-5) 240deg, 
     var(--profile-glow-6) 300deg, 
-    var(--profile-glow-7) 360deg
+    var(--profile-glow-1) 360deg
   )`;
 
   // Calculate proper dimensions to allow glow overflow

@@ -1,4 +1,5 @@
 ---
+layout: ../components/ProfileMode.astro
 title: "Reece Holmdahl"
 email: "reece@holmdahl.io"
 subtitle: "Software Engineer | CS & Math Graduate from UMN"
@@ -20,5 +21,3 @@ buttons:
   - name: "Posts"
     url: "/posts"
 ---
-
-Welcome to my personal website! I'm a software engineer passionate about building elegant solutions to complex problems. 

@@ -133,7 +133,8 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
         
         if (!prefersReducedMotion) {
           target.scrollIntoView({
-            behavior: 'smooth'
+            behavior: 'smooth',
+            block: 'start'
           });
         } else {
           target.scrollIntoView();
@@ -164,7 +165,9 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
   
   /* Anchor link icon styles for headings - responsive to prose size and heading level */
   :global(.icon.icon-link) {
-    @apply opacity-0 transition-opacity duration-150 ease-in-out inline-block align-top;
+    @apply transition-opacity duration-150 ease-in-out inline-block align-top;
+    /* Hide by default on fine pointer devices (desktop), always show on coarse pointer devices (touch) */
+    @apply pointer-fine:opacity-0 pointer-coarse:opacity-100;
     /* Base size responsive to prose scale */
     @apply w-3 h-3 ml-1;
     /* Medium prose size */
@@ -203,14 +206,14 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
     @apply lg:w-3.5 lg:h-3.5 lg:ml-1.5;
   }
   
-  /* Show anchor icons on heading hover */
+  /* Show anchor icons on heading hover - only for fine pointer devices (desktop) */
   :global(h1:hover .icon.icon-link),
   :global(h2:hover .icon.icon-link),
   :global(h3:hover .icon.icon-link),
   :global(h4:hover .icon.icon-link),
   :global(h5:hover .icon.icon-link),
   :global(h6:hover .icon.icon-link) {
-    @apply opacity-100;
+    @apply pointer-fine:opacity-100;
   }
   
 
