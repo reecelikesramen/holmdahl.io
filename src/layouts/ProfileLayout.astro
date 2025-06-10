@@ -1,10 +1,9 @@
 ---
 import type { MarkdownLayoutProps } from 'astro';
-import MainLayout from '../layouts/MainLayout.astro';
-import '../styles/profile-animations.css';
-import SocialIcons from './SocialIcons.astro';
-import ProfileImage from './ProfileImage.astro';
-import { getImage } from 'astro:assets';
+import MainLayout from '@/layouts/MainLayout.astro';
+import '@/styles/profile-animations.css';
+import SocialIcons from '@/components/SocialIcons.astro';
+import ProfileImage from '@/components/ProfileImage.astro';
 
 interface ButtonConfig {
   name: string;

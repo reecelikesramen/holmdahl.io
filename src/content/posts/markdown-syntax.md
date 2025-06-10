@@ -1,14 +1,10 @@
 ---
-draft: false
 author: Hugo Authors
 title: Markdown Syntax Guide
-pubDate: 2019-03-11T00:00:00.000Z
 description: Sample article showcasing basic Markdown syntax and formatting for HTML elements.
+draft: false
+pubDate: 2019-03-11T00:00:00.000Z
 tags: [markdown, css, html, themes]
-cover:
-  image: "../../assets/markdown-cover.png"
-  caption: "Generated using [OG Image Playground by Vercel](https://og-playground.vercel.app/)"
-  alt: "Markdown logo and syntax examples"
 showToc: true
 tocOpen: true
 ---

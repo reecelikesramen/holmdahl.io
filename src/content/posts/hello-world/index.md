@@ -2,11 +2,12 @@
 author: Reece Holmdahl
 title: Hello, world!
 description: Welcome to my site!
+draft: false
 pubDate: 2021-01-15T00:00:00.000Z
 cover:
-  image: "../../assets/hello-world-cover.png"
+  image: ./cover.png
+  alt: waving hand and console.log('Hello, world!');
   caption: Hello, and welcome to my blog!
-  alt: Welcome banner with colorful confetti
 showReadingTime: true
 showToc: false
 tocOpen: false

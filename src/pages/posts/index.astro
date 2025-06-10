@@ -1,20 +1,37 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
-import PostsList from '../../components/PostsList.astro';
 import { getCollection } from 'astro:content';
+import MainLayout from '@/layouts/MainLayout.astro';
+import PostCard from '@/components/PostCard.astro';
 
-// Get all posts and sort by date
+// Get all posts, filter out drafts, and get reading time for each post
 const posts = await getCollection("posts");
-const sortedPosts = posts
+const processedPosts = await Promise.all(posts
   .filter((post) => !post.data.draft)
+  .map(async (post) => {
+    const { remarkPluginFrontmatter } = await post.render();
+    return {
+      ...post,
+      data: {
+        ...post.data,
+        minutesRead: remarkPluginFrontmatter.minutesRead || 0
+      }
+    };
+  }));
+
+  // Sort descending
+  processedPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 
-<MainLayout title="Posts | holmdahl.io" description="Articles and thoughts">
+<MainLayout title="Posts" description="Articles and thoughts">
   <div class="container mx-auto py-4">
     <h1 class="text-4xl font-bold">Posts</h1>
   </div>
 
-  <div class="container mx-auto">
-    <PostsList posts={sortedPosts} />
+  <div class="container mx-auto py-4">
+    <div class="py-4">
+      {processedPosts.map((post, index) => (
+        <PostCard data={post.data} url={`/posts/${post.slug}`} aboveTheFold={index < 2} />
+      ))}
+    </div> 
   </div>
 </MainLayout> 

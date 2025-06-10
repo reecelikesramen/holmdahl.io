@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '@/layouts/MainLayout.astro';
+import PostCard from '@/components/PostCard.astro';
+
+// Get all posts, filter out drafts, and get reading time for each post
+const projects = await getCollection("projects");
+const processedProjects = await Promise.all(projects
+  .filter((project) => !project.data.draft)
+  .map(async (project) => {
+    const { remarkPluginFrontmatter } = await project.render();
+    return {
+      ...project,
+      data: {
+        ...project.data,
+        minutesRead: remarkPluginFrontmatter.minutesRead || 0
+      }
+    };
+  }));
+
+  // Sort ascending by weight
+  processedProjects.sort((a, b) => a.data.weight - b.data.weight);
+---
+
+<MainLayout title="Projects" description="Projects I've worked on">
+  <div class="container mx-auto py-4">
+    <h1 class="text-4xl font-bold">Projects</h1>
+  </div>
+
+  <div class="container mx-auto py-4">
+    <div class="py-4">
+      {processedProjects.map((project, index) => (
+        <PostCard data={project.data} url={`/projects/${project.slug}`} aboveTheFold={index < 2} />
+      ))}
+    </div> 
+  </div>
+</MainLayout> 

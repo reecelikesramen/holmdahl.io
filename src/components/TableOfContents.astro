@@ -1,5 +1,5 @@
 ---
-import '../styles/critical.css';
+import '@/styles/critical.css';
 
 interface Heading {
   depth: number;
@@ -50,7 +50,7 @@ const filteredHeadings = headings.filter(h => h.depth >= 1 && h.depth <= 3);
 )}
 
 <style>
-  @reference "../styles/critical.css";
+  @reference "@/styles/critical.css";
 
   .toc-container {
     @apply border border-border rounded-lg bg-entry-color;

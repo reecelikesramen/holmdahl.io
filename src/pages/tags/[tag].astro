@@ -1,6 +1,6 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
-import PostCard from '../../components/PostCard.astro';
+import MainLayout from '@/layouts/MainLayout.astro';
+import PostCard from '@/components/PostCard.astro';
 
 export async function getStaticPaths() {
   const postModules = import.meta.glob('../posts/*.{md,mdx}');
@@ -67,7 +67,7 @@ const { posts, tag, count } = Astro.props;
   {posts.length > 0 ? (
     <div class="space-y-6">
       {posts.map((post, index) => (
-        <PostCard post={post} isFirst={index === 0} />
+        <PostCard data={post} isFirst={index === 0} />
       ))}
     </div>
   ) : (

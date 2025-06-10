@@ -1,11 +1,9 @@
 ---
 import MainLayout from './MainLayout.astro';
 import { Picture } from 'astro:assets';
-import TableOfContents from '../components/TableOfContents.astro';
 import type { CollectionEntry } from 'astro:content';
+import TableOfContents from '@/components/TableOfContents.astro';
 import Prose from '@/components/Prose.astro';
-
-type Headings = {}
 
 const props = Astro.props;
 const data: CollectionEntry<"posts">['data'] = props.frontmatter;
@@ -161,7 +159,7 @@ const headings: { depth: number; text: string; slug: string }[] = props.headings
 </script>
 
 <style>
-  @reference "../styles/critical.css";
+  @reference "@/styles/critical.css";
   
   /* Anchor link icon styles for headings - responsive to prose size and heading level */
   :global(.icon.icon-link) {

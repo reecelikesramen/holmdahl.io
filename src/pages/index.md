@@ -1,5 +1,5 @@
 ---
-layout: ../components/ProfileMode.astro
+layout: "@/layouts/ProfileLayout.astro"
 title: "Reece Holmdahl"
 email: "reece@holmdahl.io"
 subtitle: "Software Engineer | CS & Math Graduate from UMN"

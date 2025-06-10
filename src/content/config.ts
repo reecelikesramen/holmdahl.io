@@ -27,4 +27,20 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { posts };
+const projects = defineCollection({
+  type: 'content',
+  schema: ({image}) => z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    cover: z.object({
+      image: image(),
+      alt: z.string(),
+      caption: z.string().optional(),
+    }).optional(),
+    minutesRead: z.string().optional(),
+    draft: z.boolean().default(false),
+    weight: z.number().default(0),
+  }),
+});
+
+export const collections = { posts, projects };

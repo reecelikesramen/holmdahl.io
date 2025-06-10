@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { generateSearchIndex } from '../utils/searchIndex';
+import { generateSearchIndex } from '@/utils/searchIndex';
 
 export const GET: APIRoute = async () => {
   try {

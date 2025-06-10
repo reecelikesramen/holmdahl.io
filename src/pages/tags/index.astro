@@ -1,5 +1,5 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
+import MainLayout from '@/layouts/MainLayout.astro';
 
 const postModules = import.meta.glob('../posts/*.{md,mdx}');
 const posts = await Promise.all(Object.values(postModules).map(fn => fn())) as any[];

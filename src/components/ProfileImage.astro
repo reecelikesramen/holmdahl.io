@@ -3,6 +3,8 @@ import { Picture } from 'astro:assets';
 import { ProfileImageWrapper } from './ProfileImageWrapper.tsx';
 import profileImage from '@/assets/profile.png';
 
+const size = 300;
+
 export interface Props {
   alt: string;
   title?: string;
@@ -15,16 +17,16 @@ const {
 ---
 
 <ProfileImageWrapper 
-  width={240} 
-  height={240} 
+  width={size} 
+  height={size} 
   client:visible
 >
   <Picture 
     src={profileImage}
     alt={alt}
     title={title}
-    width={240}
-    height={240}
+    width={size}
+    height={size}
     class="w-full h-full object-cover select-none"
     draggable="false"
     formats={['avif', 'webp']}

@@ -9,6 +9,8 @@ import { remarkReadingTime } from './astro-plugins/remark-reading-time.mjs';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
+import mdx from '@astrojs/mdx';
+
 // https://astro.build/config
 export default defineConfig({
   // Configure for GitHub Pages deployment
@@ -51,15 +53,11 @@ export default defineConfig({
     assets: '_astro'
   },
 
-  integrations: [
-    react(), 
-    favicons(),
-    criticalCSS({
-      width: 1300,
-      height: 900,
-      extract: true,
-      htmlPathRegex: '.*\\.html$',
-      silent: false
-    })
-  ]
+  integrations: [react(), favicons(), criticalCSS({
+    width: 1300,
+    height: 900,
+    extract: true,
+    htmlPathRegex: '.*\\.html$',
+    silent: false
+  }), mdx()]
 });
