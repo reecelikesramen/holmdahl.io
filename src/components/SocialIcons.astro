@@ -37,7 +37,7 @@ const getAlignClass = () => {
 <div class={`flex gap-6 ${getAlignClass()} ${className}`}>
   {icons.map(({ name, url, title }) => {
     if (name.toLowerCase() === 'email') {
-      return <EmailButton client:load email={url} />;
+      return <EmailButton client:idle email={url} />;
     }
     
     const IconComponent = iconComponents[name.toLowerCase() as keyof typeof iconComponents];

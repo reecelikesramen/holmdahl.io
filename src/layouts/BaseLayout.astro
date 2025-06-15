@@ -47,6 +47,25 @@ const { title, description } = Astro.props;
     <meta name="theme-color" content="#2e2e33" />
     <meta name="msapplication-TileColor" content="#2e2e33" />
     
+    <!-- Google Analytics -->
+    <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-HQESWBHP6J"></script>
+    <script type="text/partytown" define:vars={{ GA_MEASUREMENT_ID: 'G-HQESWBHP6J' }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', GA_MEASUREMENT_ID, {
+        send_page_view: false // Disable automatic page views
+      });
+      
+      // Handle view transitions
+      document.addEventListener('astro:after-swap', () => {
+        gtag('event', 'page_view', {
+          page_location: window.location.href,
+          page_path: window.location.pathname
+        });
+      });
+    </script>
+    
     <!-- Theme Initialization Script -->
     <script is:inline>
       // Initialize theme immediately to prevent FOUC

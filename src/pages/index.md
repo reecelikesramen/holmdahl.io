@@ -15,7 +15,7 @@ socialIcons:
     title: Email
 buttons:
   - name: "Resume"
-    url: "/resume"
+    url: "/resume.pdf"
   - name: "Projects"
     url: "/projects"
   - name: "Posts"

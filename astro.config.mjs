@@ -8,6 +8,7 @@ import remarkDefinitionList, { defListHastHandlers } from 'remark-definition-lis
 import { remarkReadingTime } from './astro-plugins/remark-reading-time.mjs';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import partytown from '@astrojs/partytown';
 
 import mdx from '@astrojs/mdx';
 
@@ -16,8 +17,8 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   // Configure for GitHub Pages deployment
-  site: import.meta.env.DEV ? 'http://localhost:4321' : 'https://reecelikesramen.github.io',
-  base: import.meta.env.DEV ? '/' : '/holmdahl.io/',
+  site: import.meta.env.DEV ? 'http://localhost:4321' : 'https://holmdahl.io',
+  base: '/',
 
   prefetch: {
     defaultStrategy: 'hover',
@@ -55,11 +56,23 @@ export default defineConfig({
     assets: '_astro'
   },
 
-  integrations: [react(), favicons(), criticalCSS({
-    width: 1300,
-    height: 900,
-    extract: true,
-    htmlPathRegex: '.*\\.html$',
-    silent: false
-  }), mdx(), sitemap()]
+  integrations: [
+    react(), 
+    favicons(), 
+    criticalCSS({
+      width: 1300,
+      height: 900,
+      extract: true,
+      htmlPathRegex: '.*\\.html$',
+      silent: false
+    }), 
+    mdx(), 
+    sitemap(),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+        debug: false
+      }
+    })
+  ]
 });
