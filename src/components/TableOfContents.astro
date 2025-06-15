@@ -23,7 +23,7 @@ const filteredHeadings = headings.filter(h => h.depth >= 1 && h.depth <= 3);
     <details class="toc-details" open={isOpen}>
       <summary class="toc-summary">
         <svg class="toc-chevron" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-          <path d="M4.427 9.573l3.396-3.396a.25.25 0 01.354 0l3.396 3.396a.25.25 0 01-.177.427H4.604a.25.25 0 01-.177-.427z"/>
+          <path d="M6.573 4.427l3.396 3.396a.25.25 0 010 .354l-3.396 3.396a.25.25 0 01-.427-.177V4.604a.25.25 0 01.427-.177z"/>
         </svg>
         <span class="toc-title">Table of Contents</span>
       </summary>
@@ -76,7 +76,7 @@ const filteredHeadings = headings.filter(h => h.depth >= 1 && h.depth <= 3);
   }
 
   .toc-details[open] .toc-chevron {
-    @apply rotate-180;
+    @apply rotate-90;
   }
 
   .toc-title {

@@ -24,6 +24,7 @@ const posts = defineCollection({
     showTags: z.boolean().default(true),
     showToc: z.boolean().default(false),
     tocOpen: z.boolean().default(false),
+    coverEffects: z.boolean().default(true),
   }),
 });
 
@@ -40,6 +41,8 @@ const projects = defineCollection({
     minutesRead: z.string().optional(),
     draft: z.boolean().default(false),
     weight: z.number().default(0),
+    showToc: z.boolean().default(false),
+    coverEffects: z.boolean().default(false),
   }),
 });
 

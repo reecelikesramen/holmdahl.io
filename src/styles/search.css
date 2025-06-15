@@ -28,6 +28,16 @@ kbd {
   color: var(--secondary-color);
 }
 
+/* Prevent body scroll when modal is open */
+html:has([data-slot="dialog-overlay"]) {
+  overflow: hidden;
+}
+
+/* Only add padding compensation when scrollbar was NOT visible before */
+html:has([data-slot="dialog-overlay"]):not(.has-scrollbar) {
+  padding-right: var(--scrollbar-width, 0px);
+}
+
 /* Search dialog positioning and styling */
 .search-dialog-positioned [data-slot="dialog-overlay"] {
   background-color: rgba(0, 0, 0, 0.4) !important;
@@ -39,6 +49,8 @@ kbd {
   left: 50% !important;
   transform: translateX(-50%) translateY(0) !important;
   position: fixed !important;
+  width: min(calc(100% - 2rem), 32rem) !important;
+  max-width: 32rem !important;
   background-color: var(--theme-color) !important;
   border: 1px solid var(--border-color) !important;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;

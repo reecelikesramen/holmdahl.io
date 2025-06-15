@@ -1,5 +1,6 @@
 ---
-import {  Github, Linkedin, Mail, Facebook, Instagram, Youtube, Sun } from 'lucide-react';
+import {  Github, Linkedin, Facebook, Instagram, Youtube, Sun } from 'lucide-react';
+import EmailButton from './EmailButton';
 
 interface Props {
   align?: 'left' | 'center' | 'right';
@@ -16,7 +17,6 @@ const { align = 'center', class: className = '', icons } = Astro.props;
 const iconComponents = {
   github: Github,
   linkedin: Linkedin,
-  email: Mail,
   facebook: Facebook,
   instagram: Instagram,
   youtube: Youtube,
@@ -36,6 +36,10 @@ const getAlignClass = () => {
 
 <div class={`flex gap-6 ${getAlignClass()} ${className}`}>
   {icons.map(({ name, url, title }) => {
+    if (name.toLowerCase() === 'email') {
+      return <EmailButton client:load email={url} />;
+    }
+    
     const IconComponent = iconComponents[name.toLowerCase() as keyof typeof iconComponents];
     if (!IconComponent) return (<Sun />);
     
@@ -45,8 +49,8 @@ const getAlignClass = () => {
         target="_blank" 
         rel="noopener noreferrer me"
         title={title || name}
-        class="transition-colors duration-200 hover:no-underline"
-        style="color: var(--secondary-color)"
+        aria-label={`Link to my ${name} profile`}
+        class="transition-colors duration-200 hover:no-underline text-secondary-color hover:text-primary-color"
       >
         <IconComponent size={24} />
       </a>

@@ -11,6 +11,8 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 import mdx from '@astrojs/mdx';
 
+import sitemap from '@astrojs/sitemap';
+
 // https://astro.build/config
 export default defineConfig({
   // Configure for GitHub Pages deployment
@@ -59,5 +61,5 @@ export default defineConfig({
     extract: true,
     htmlPathRegex: '.*\\.html$',
     silent: false
-  }), mdx()]
+  }), mdx(), sitemap()]
 });

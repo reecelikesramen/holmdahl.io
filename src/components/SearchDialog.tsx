@@ -28,6 +28,36 @@ export default function SearchDialog({ open, onOpenChange }: SearchDialogProps) 
   const [loading, setLoading] = useState(false);
   const [indexLoaded, setIndexLoaded] = useState(false);
 
+  // Calculate and set scrollbar width on mount
+  useEffect(() => {
+    const calculateScrollbarWidth = () => {
+      const scrollDiv = document.createElement('div');
+      scrollDiv.style.width = '100px';
+      scrollDiv.style.height = '100px';
+      scrollDiv.style.overflow = 'scroll';
+      scrollDiv.style.position = 'absolute';
+      scrollDiv.style.top = '-9999px';
+      document.body.appendChild(scrollDiv);
+      
+      const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+      document.body.removeChild(scrollDiv);
+      
+      document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
+    };
+
+    const checkScrollbar = () => {
+      const hasScrollbar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
+      document.documentElement.classList.toggle('has-scrollbar', hasScrollbar);
+    };
+
+    calculateScrollbarWidth();
+    checkScrollbar();
+    
+    // Re-check on resize
+    window.addEventListener('resize', checkScrollbar);
+    return () => window.removeEventListener('resize', checkScrollbar);
+  }, []);
+
   // Load search index only when dialog opens
   useEffect(() => {
     if (open && !indexLoaded) {

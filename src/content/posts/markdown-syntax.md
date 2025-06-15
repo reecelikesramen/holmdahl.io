@@ -2,7 +2,7 @@
 author: Hugo Authors
 title: Markdown Syntax Guide
 description: Sample article showcasing basic Markdown syntax and formatting for HTML elements.
-draft: false
+draft: true
 pubDate: 2019-03-11T00:00:00.000Z
 tags: [markdown, css, html, themes]
 showToc: true

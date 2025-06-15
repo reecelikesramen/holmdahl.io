@@ -30,7 +30,8 @@ const {
     class="w-full h-full object-cover select-none"
     draggable="false"
     formats={['avif', 'webp']}
-    densities={[1, 1.5, 2]}
+    densities={[1, 1.5]}
+    sizes="(max-width: 640px) 200px, 300px"
     fallbackFormat="jpg"
     loading="eager"
     fetchpriority="high"

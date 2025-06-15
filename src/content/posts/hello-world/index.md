@@ -1,9 +1,9 @@
 ---
 author: Reece Holmdahl
 title: Hello, world!
-description: Welcome to my site!
+description: Welcome to my new portfolio and website!
 draft: false
-pubDate: 2021-01-15T00:00:00.000Z
+pubDate: 2025-01-15
 cover:
   image: ./cover.png
   alt: waving hand and console.log('Hello, world!');

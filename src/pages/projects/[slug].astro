@@ -1,4 +1,5 @@
 ---
+import ContentLayout from "@/layouts/ContentLayout.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -15,4 +16,6 @@ const { project } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await project.render();
 ---
 
-<Content />
+<ContentLayout frontmatter={project.data} headings={headings}>
+  <Content />
+</ContentLayout>

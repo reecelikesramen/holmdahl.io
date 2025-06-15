@@ -1,44 +1,53 @@
 ---
+import { getCollection } from 'astro:content';
 import MainLayout from '@/layouts/MainLayout.astro';
 import PostCard from '@/components/PostCard.astro';
 
 export async function getStaticPaths() {
-  const postModules = import.meta.glob('../posts/*.{md,mdx}');
-  const posts = await Promise.all(Object.values(postModules).map(fn => fn())) as any[];
+  // Get all posts from content collections (projects don't have tags)
+  const posts = await getCollection("posts");
   
-  // Create a map to count tags
+  // Filter out drafts
+  const publishedPosts = posts.filter(post => !post.data.draft);
+  
+  // Create a map to count tags and store content by tag
   const tagMap: Map<string, number> = new Map();
-  const tagPosts: Map<string, any[]> = new Map();
+  const tagContent: Map<string, any[]> = new Map();
   
-  posts
-    .filter(post => !post.frontmatter.draft)
-    .forEach(post => {
-      const tags: string[] = post.frontmatter.tags || [];
-      tags.forEach((tag: string) => {
-        tagMap.set(tag, (tagMap.get(tag) || 0) + 1);
-        
-        if (!tagPosts.has(tag)) {
-          tagPosts.set(tag, []);
-        }
-        tagPosts.get(tag)!.push({
-          title: post.frontmatter.title,
-          url: post.url,
-          description: post.frontmatter.description,
-          pubDate: new Date(post.frontmatter.pubDate),
-          draft: post.frontmatter.draft,
-          tags: post.frontmatter.tags || [],
-          readingTime: post.frontmatter.readingTime
-        });
+  // Process posts
+  publishedPosts.forEach(post => {
+    const tags: string[] = post.data.tags || [];
+    tags.forEach((tag: string) => {
+      tagMap.set(tag, (tagMap.get(tag) || 0) + 1);
+      
+      if (!tagContent.has(tag)) {
+        tagContent.set(tag, []);
+      }
+      tagContent.get(tag)!.push({
+        data: {
+          title: post.data.title,
+          description: post.data.description,
+          pubDate: post.data.pubDate,
+          tags: post.data.tags || [],
+          minutesRead: post.data.minutesRead,
+          showReadingTime: post.data.showReadingTime,
+          cover: post.data.cover,
+          coverEffects: post.data.coverEffects
+        },
+        url: `/posts/${post.slug}`,
+        type: 'post'
       });
     });
+  });
 
-  return Array.from(tagPosts.keys()).map((tag: string) => {
+  return Array.from(tagContent.keys()).map((tag: string) => {
     return {
       params: { tag },
       props: { 
-        posts: tagPosts.get(tag)!.sort((a, b) => 
-          b.pubDate.getTime() - a.pubDate.getTime()
-        ),
+        content: tagContent.get(tag)!.sort((a, b) => {
+          // Sort posts by date (descending)
+          return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+        }),
         tag,
         count: tagMap.get(tag) || 0
       }
@@ -46,64 +55,27 @@ export async function getStaticPaths() {
   });
 }
 
-const { posts, tag, count } = Astro.props;
+const { content, tag, count } = Astro.props;
 ---
 
-<MainLayout title={`Posts tagged "${tag}" | holmdahl.io`} description={`All posts tagged with ${tag}`}>
-  <div class="mb-4 text-sm text-secondary-text">
-    <a href="/" class="text-secondary-text hover:text-primary hover:underline no-underline">Home</a> » 
-    <a href="/posts" class="text-secondary-text hover:text-primary hover:underline no-underline">Posts</a> » 
-    <a href="/tags" class="text-secondary-text hover:text-primary hover:underline no-underline">Tags</a> » 
-    <span>{tag}</span>
-  </div>
+<MainLayout title={`Posts tagged "${tag}"`} description={`All posts tagged with ${tag}`}>
 
   <header class="mb-8">
-    <h1 class="mb-2">Posts tagged "{tag}"</h1>
-    <div class="text-secondary-text text-lg">
+    <h1 class="text-xl sm:text-2xl font-semibold mb-2">Posts tagged "{tag}"</h1>
+    <div class="text-secondary-color text-lg">
       {count} post{count !== 1 ? 's' : ''}
     </div>
   </header>
   
-  {posts.length > 0 ? (
+  {content.length > 0 ? (
     <div class="space-y-6">
-      {posts.map((post, index) => (
-        <PostCard data={post} isFirst={index === 0} />
+      {content.map((item, index) => (
+        <PostCard data={item.data} url={item.url} aboveTheFold={index < 2} />
       ))}
     </div>
   ) : (
-    <div class="text-secondary-text">
+    <div class="text-secondary-color">
       No posts found with this tag.
     </div>
   )}
-</MainLayout>
-
-<style>
-  .page-header {
-    margin-bottom: 2rem;
-  }
-  
-  .breadcrumbs {
-    margin-bottom: 1rem;
-    font-size: 0.875rem;
-    color: var(--secondary-text-color);
-  }
-  
-  .breadcrumbs a {
-    color: var(--secondary-text-color);
-    text-decoration: none;
-  }
-  
-  .breadcrumbs a:hover {
-    color: var(--primary-color);
-    text-decoration: underline;
-  }
-  
-  h1 {
-    margin-bottom: 0.5rem;
-  }
-  
-  .archive-description {
-    color: var(--secondary-text-color);
-    font-size: 1.1rem;
-  }
-</style> 
+</MainLayout> 

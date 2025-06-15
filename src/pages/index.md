@@ -1,18 +1,18 @@
 ---
 layout: "@/layouts/ProfileLayout.astro"
 title: "Reece Holmdahl"
-email: "reece@holmdahl.io"
-subtitle: "Software Engineer | CS & Math Graduate from UMN"
-imageTitle: "Profile image of Reece Holmdahl"
-imageWidth: 240
-imageHeight: 240
+subtitle: "Fullstack Software Engineer | CS & Math @ UMN"
+imageTitle: "Reece at Grand Prismatic Spring in Yellowstone"
 socialIcons:
-  - name: "github"
-    url: "https://github.com/reecelikesramen"
-    title: "GitHub Profile"
-  - name: "linkedin"
-    url: "https://linkedin.com/in/reeceholmdahl"
-    title: "LinkedIn Profile"
+  - name: github
+    url: https://github.com/reecelikesramen
+    title: GitHub
+  - name: linkedin
+    url: https://linkedin.com/in/reeceholmdahl
+    title: LinkedIn
+  - name: email
+    url: reece@holmdahl.io
+    title: Email
 buttons:
   - name: "Resume"
     url: "/resume"

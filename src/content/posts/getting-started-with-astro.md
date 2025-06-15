@@ -1,7 +1,7 @@
 ---
 title: Getting Started with Astro
 description: Learn how to build fast, content-focused websites with Astro
-draft: false
+draft: true
 pubDate: 2024-01-15T00:00:00.000Z
 tags: [astro, web-development, static-site-generator]
 showReadingTime: true

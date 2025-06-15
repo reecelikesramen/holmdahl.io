@@ -1,5 +1,14 @@
 @reference "./critical.css";
 
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Disable gutter when modal is open to prevent visual discontinuity */
+html:has([data-slot="dialog-overlay"]) {
+  scrollbar-gutter: auto;
+}
+
 /* Custom Scrollbar Styling (from Hugo PaperMod) */
 ::-webkit-scrollbar-track {
   @apply bg-transparent;
