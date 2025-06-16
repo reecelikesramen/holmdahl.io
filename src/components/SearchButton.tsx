@@ -5,7 +5,12 @@ import SearchDialog from './SearchDialog';
 
 export default function SearchButton() {
   const [open, setOpen] = useState(false);
-  const [isMac, setIsMac] = useState<boolean>(() => window.localStorage.getItem("isMac") === "true");
+  const [isMac, setIsMac] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Set isMac from localStorage on mount
+    setIsMac(window.localStorage.getItem("isMac") === "true");
+  }, []);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
