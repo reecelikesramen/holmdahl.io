@@ -82,7 +82,7 @@ const processedDescription = description ? marked(description, {
     )}
 
     {/* Meta information - date, author, read time */}
-      <div class="flex flex-col xs:flex-row xs:flex-wrap items-center mb-6 md:mb-8 text-xs md:text-sm text-secondary-color">
+      <div class="meta-info flex flex-col xs:flex-row xs:flex-wrap xs:items-center mb-6 md:mb-8 text-xs md:text-sm text-secondary-color">
         {showPubDate && pubDate && !isNaN(pubDate.getTime()) && (
           <span class="xs:after:content-['·'] xs:after:mx-1 md:after:mx-2 last:after:content-none">
             {pubDate.toLocaleDateString('en-US', {
@@ -305,5 +305,16 @@ const processedDescription = description ? marked(description, {
   .dark .icon.icon-link:hover::before {
     /* Slightly dimmed on hover in dark mode */
     @apply brightness-0 invert contrast-75;
+  }
+  
+  /* Fix metadata alignment - override any prose interference */
+  .meta-info {
+    @apply flex flex-col xs:flex-row xs:flex-wrap xs:items-center;
+    text-align: left !important;
+    justify-content: flex-start !important;
+  }
+  
+  .meta-info > span {
+    text-align: left !important;
   }
 </style>

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@layer base {
+@layer components {
   /* Custom image centering for markdown images with #center */
   .prose img[src*="#center"] {
     margin-left: auto;

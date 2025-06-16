@@ -12,8 +12,8 @@ interface Props {
 const { title = "holmdahl.io", showThemeToggle = true } = Astro.props;
 ---
 
-<header class="flex flex-col py-2 sm:py-4 pl-3.5 pr-0 md:pl-6 md:pr-2">
-  <nav class="flex flex-col xs:flex-row xs:justify-between xs:items-center max-w-screen-lg w-full justify-self-center place-self-center gap-2 xs:gap-0">
+<header class="not-prose flex flex-col py-2 sm:py-4 pl-3.5 pr-0 md:pl-6 md:pr-2">
+  <nav class="not-prose flex flex-col xs:flex-row xs:justify-between xs:items-center max-w-screen-lg w-full justify-self-center place-self-center gap-2 xs:gap-0">
     <!-- Left side: Site title and theme toggle -->
     <div class="flex items-center gap-0 sm:gap-2">
       <a href="/" title={title} class="text-lg sm:text-2xl font-extrabold no-underline text-primary-color">
@@ -68,6 +68,9 @@ const { title = "holmdahl.io", showThemeToggle = true } = Astro.props;
 </script>
 
 <style>
+  @reference "@/styles/critical.css";
+  
+  /* Theme toggle icons */
   .moon-icon {
     display: block;
   }
@@ -82,5 +85,21 @@ const { title = "holmdahl.io", showThemeToggle = true } = Astro.props;
   
   html.dark .sun-icon {
     display: block;
+  }
+  
+  /* Force proper header layout to override any prose interference */
+  header {
+    @apply flex flex-col;
+  }
+  
+  header nav {
+    @apply flex flex-col xs:flex-row xs:justify-between xs:items-center;
+    gap: 0.5rem;
+  }
+  
+  @media (min-width: 30rem) {
+    header nav {
+      gap: 0;
+    }
   }
 </style> 
