@@ -35,6 +35,11 @@ const navItems = [
   </ul>
 </nav>
 
+<script define:vars={{ currentPath }}>
+  // Log current path on page load
+  console.log('Current path:', currentPath);
+</script>
+
 <script is:inline>
   // Menu scroll position handling
   let menu = document.getElementById("menu");
