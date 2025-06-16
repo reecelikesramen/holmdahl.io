@@ -19,6 +19,7 @@ export default defineConfig({
   // Configure for GitHub Pages deployment
   site: import.meta.env.DEV ? 'http://localhost:4321' : 'https://holmdahl.io',
   base: '/',
+  trailingSlash: 'never',
 
   prefetch: {
     defaultStrategy: 'hover',
