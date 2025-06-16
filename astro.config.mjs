@@ -20,6 +20,7 @@ export default defineConfig({
   site: import.meta.env.DEV ? 'http://localhost:4321' : 'https://holmdahl.io',
   base: '/',
   trailingSlash: 'never',
+  compressHTML: true,
 
   prefetch: {
     defaultStrategy: 'hover',
@@ -35,7 +36,7 @@ export default defineConfig({
       }
     }
   },
-  
+
   vite: {
     plugins: [tailwindcss()],
     build: {
@@ -57,23 +58,16 @@ export default defineConfig({
     assets: '_astro'
   },
 
-  integrations: [
-    react(), 
-    favicons(), 
-    criticalCSS({
-      width: 1300,
-      height: 900,
-      extract: true,
-      htmlPathRegex: '.*\\.html$',
-      silent: false
-    }), 
-    mdx(), 
-    sitemap(),
-    partytown({
-      config: {
-        forward: ["dataLayer.push"],
-        debug: false
-      }
-    })
-  ]
+  integrations: [react(), favicons(), criticalCSS({
+    width: 1300,
+    height: 900,
+    extract: true,
+    htmlPathRegex: '.*\\.html$',
+    silent: false
+  }), mdx(), sitemap(), partytown({
+    config: {
+      forward: ["dataLayer.push"],
+      debug: false
+    }
+  })]
 });

@@ -13,60 +13,20 @@ const { title, description } = Astro.props;
 <!DOCTYPE html>
 <html lang="en" dir="auto">
   <head>
+    <!-- 1. Essential meta tags (must be first) -->
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="robots" content="index, follow" />
-    <title>{(title ? `${title} | ` : "") + "holmdahl.io"}</title>
-    <meta name="description" content={description || "Reece Holmdahl's personal website"} />
-    <meta name="author" content="Reece Holmdahl" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="canonical" href={Astro.url.pathname} />
     
-    <!-- DNS prefetch for external resources -->
+    <!-- 2. Title (important for SEO and user experience) -->
+    <title>{(title ? `${title} | ` : "") + "holmdahl.io"}</title>
+    
+    <!-- 3. DNS prefetch and preconnect (start connections early) -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    
-    <!-- Google Fonts - Optimized for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Preload key font files -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700&display=swap"></noscript>
-    <!-- Secondary fonts loaded with lower priority -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap" media="print" onload="this.media='all'">
     
-
-    
-    <!-- Favicons -->
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2e2e33" />
-    <meta name="theme-color" content="#2e2e33" />
-    <meta name="msapplication-TileColor" content="#2e2e33" />
-    
-    <!-- Google Analytics -->
-    <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-HQESWBHP6J"></script>
-    <script type="text/partytown" define:vars={{ GA_MEASUREMENT_ID: 'G-HQESWBHP6J' }}>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', GA_MEASUREMENT_ID, {
-        send_page_view: false // Disable automatic page views
-      });
-      
-      // Handle view transitions
-      document.addEventListener('astro:after-swap', () => {
-        gtag('event', 'page_view', {
-          page_location: window.location.href,
-          page_path: window.location.pathname
-        });
-      });
-    </script>
-    
-    <!-- Theme Initialization Script -->
+    <!-- 4. Critical theme initialization (prevent FOUC) -->
     <script is:inline>
       // Initialize theme immediately to prevent FOUC
       function initializeTheme() {
@@ -84,6 +44,30 @@ const { title, description } = Astro.props;
       // Re-initialize after Astro view transitions (if used)
       document.addEventListener("astro:after-swap", initializeTheme);
     </script>
+    
+    <!-- 5. Critical CSS (Astro handles CSS automatically here) -->
+    
+    <!-- 6. Font loading (optimized for performance) -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700&display=swap"></noscript>
+    
+    <!-- 7. SEO and meta information -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content={description || "Reece Holmdahl's personal website"} />
+    <meta name="author" content="Reece Holmdahl" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="canonical" href={import.meta.env.SITE + Astro.url.pathname} />
+    
+    <!-- 8. Favicons and theme meta (lowest priority) -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2e2e33" />
+    <meta name="theme-color" content="#2e2e33" />
+    <meta name="msapplication-TileColor" content="#2e2e33" />
   </head>
   
   <body class={`${Astro.url.pathname === "/" ? "" : "list"} flex flex-col min-h-screen`} id="top">
@@ -93,40 +77,23 @@ const { title, description } = Astro.props;
     </main>
     <slot name="footer" />
     
-    <script is:inline>
-      // Scroll to top functionality
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          var id = this.getAttribute("href").substr(1);
-          if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-              behavior: "smooth"
-            });
-          } else {
-            document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-          }
-          if (id === "top") {
-            history.replaceState(null, null, " ");
-          } else {
-            history.pushState(null, null, `#${id}`);
-          }
-        });
+    <!-- Google Analytics - Moved to bottom for better LCP performance -->
+    <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-HQESWBHP6J"></script>
+    <script type="text/partytown" define:vars={{ GA_MEASUREMENT_ID: 'G-HQESWBHP6J' }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', GA_MEASUREMENT_ID, {
+        send_page_view: false // Disable automatic page views
       });
       
-      // Scroll to top button visibility
-      var topButton = document.getElementById("top-link");
-      if (topButton) {
-        window.onscroll = function () {
-          if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            topButton.style.visibility = "visible";
-            topButton.style.opacity = "1";
-          } else {
-            topButton.style.visibility = "hidden";
-            topButton.style.opacity = "0";
-          }
-        };
-      }
+      // Handle view transitions
+      document.addEventListener('astro:after-swap', () => {
+        gtag('event', 'page_view', {
+          page_location: window.location.href,
+          page_path: window.location.pathname
+        });
+      });
     </script>
   </body>
 </html> 

@@ -118,27 +118,10 @@ const filteredHeadings = headings.filter(h => h.depth >= 1 && h.depth <= 3);
 </style>
 
 <script>
-  // Intersection Observer for active section highlighting (removed persistent active state)
+  // TOC-specific initialization (smooth scroll handled by ContentLayout)
   function initTocObserver() {
-    const tocLinks = document.querySelectorAll('.toc-link');
-    const headings = document.querySelectorAll('.post-content h1[id], .post-content h2[id], .post-content h3[id]');
-    
-    if (!headings.length || !tocLinks.length) return;
-
-    // Just add smooth scroll behavior to TOC links
-    tocLinks.forEach(link => {
-      link.addEventListener('click', (e: Event) => {
-        e.preventDefault();
-        const target = e.target as HTMLAnchorElement;
-        const href = target.getAttribute('href');
-        if (!href) return;
-        
-        const element = document.querySelector(href);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
+    // Future TOC-specific functionality can go here
+    // Smooth scroll is already handled by ContentLayout for all anchor links
   }
 
   // Initialize on DOM ready
