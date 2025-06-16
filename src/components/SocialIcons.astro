@@ -22,19 +22,17 @@ const iconComponents = {
   youtube: Youtube,
 };
 
-const getAlignClass = () => {
-  switch (align) {
-    case 'left':
-      return 'justify-start';
-    case 'right':
-      return 'justify-end';
-    default:
-      return 'justify-center';
-  }
-};
 ---
 
-<div class={`flex gap-6 ${getAlignClass()} ${className}`}>
+<div class:list={[
+  "flex gap-6",
+  className,
+  {
+    "justify-start": align === "left",
+    "justify-end": align === "right",
+    "justify-center": align === "center"
+  },
+]}>
   {icons.map(({ name, url, title }) => {
     if (name.toLowerCase() === 'email') {
       return <EmailButton client:idle email={url} />;

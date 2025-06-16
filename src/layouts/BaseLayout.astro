@@ -38,11 +38,21 @@ const { title, description } = Astro.props;
         }
       }
       
+      // Detect and store platform information
+      function initializePlatform() {
+        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+        localStorage.setItem("isMac", isMac.toString());
+      }
+      
       // Initialize on page load
       initializeTheme();
+      initializePlatform();
       
       // Re-initialize after Astro view transitions (if used)
-      document.addEventListener("astro:after-swap", initializeTheme);
+      document.addEventListener("astro:after-swap", () => {
+        initializeTheme();
+        initializePlatform();
+      });
     </script>
     
     <!-- 5. Critical CSS (Astro handles CSS automatically here) -->
@@ -70,7 +80,12 @@ const { title, description } = Astro.props;
     <meta name="msapplication-TileColor" content="#2e2e33" />
   </head>
   
-  <body class={`${Astro.url.pathname === "/" ? "" : "list"} flex flex-col min-h-screen`} id="top">
+  <body class:list={[
+    "flex flex-col min-h-screen",
+    {
+      "list": Astro.url.pathname !== "/"
+    }
+  ]} id="top">
     <slot name="header" />
     <main class="main flex-1 flex flex-col w-full max-w-3xl mx-auto p-3.5 md:p-6 h-full">
       <slot />

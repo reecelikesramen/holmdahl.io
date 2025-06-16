@@ -47,7 +47,12 @@ const processedDescription = data.description ? marked(data.description, {
         <Picture
           src={data.cover.image}
           alt={data.cover.alt}
-          class={`w-full object-cover select-none pointer-events-none rounded-lg ${data.coverEffects ? 'shadow-sm aspect-[2/1]' : ''}`}
+          class:list={[
+            "w-full object-cover select-none pointer-events-none rounded-lg",
+            {
+              "shadow-sm aspect-[2/1]": data.coverEffects
+            }
+          ]}
           draggable="false"
           loading={aboveTheFold ? "eager" : "lazy"}
           fetchpriority={aboveTheFold ? "high" : "auto"}
@@ -58,7 +63,12 @@ const processedDescription = data.description ? marked(data.description, {
     )
   }
 
-  <div class={`px-4 pb-4 pt-2 xs:p-6 ${data.coverEffects ? '' : '-mt-4 xs:-mt-10'}`}>
+  <div class:list={[
+    "px-4 pb-4 pt-2 xs:p-6",
+    {
+      "-mt-4 xs:-mt-10": !data.coverEffects
+    }
+  ]}>
     <header>
       <h2
         class="flex items-center gap-2 mb-1 xs:my-1 text-lg xs:text-xl font-semibold text-primary-color leading-snug"

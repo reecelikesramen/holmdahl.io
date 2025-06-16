@@ -32,14 +32,16 @@ const { title = "holmdahl.io", showThemeToggle = true } = Astro.props;
     <!-- Right side: Navigation and Search -->
     <div class="flex items-center gap-2 justify-start sm:justify-end">
       <Navigation currentPath={Astro.url.pathname} />
-      <SearchButton client:idle />
+      <SearchButton client:only="react">
+        
+      </SearchButton>
     </div>
   </nav>
 </header>
 
-<script>
+<script is:inline>
   // Theme toggle functionality
-  const toggleTheme = () => {
+  function toggleTheme() {
     if (document.documentElement.classList.contains("dark")) {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");

@@ -113,7 +113,12 @@ const processedDescription = description ? marked(description, {
           src={cover.image}
           alt={cover.alt}
           width={800}
-          class={`w-full h-auto rounded-lg ${coverEffects ? 'shadow-sm aspect-[2/1]' : ''} object-cover mb-4`}
+          class:list={[
+            "w-full h-auto rounded-lg object-cover mb-4",
+            {
+              "shadow-sm aspect-[2/1]": coverEffects
+            }
+          ]}
           formats={['avif', 'webp']}
           densities={[1, 1.5, 2]}
           fallbackFormat="jpg"
@@ -214,11 +219,11 @@ const processedDescription = description ? marked(description, {
   }
 </script>
 
-<style>
+<style is:global>
   @reference "@/styles/critical.css";
   
   /* Anchor link icon styles for headings - responsive to prose size and heading level */
-  :global(.icon.icon-link) {
+  .icon.icon-link {
     @apply transition-opacity duration-150 ease-in-out inline-block align-top;
     /* Hide by default on fine pointer devices (desktop), always show on coarse pointer devices (touch) */
     @apply pointer-fine:opacity-0 pointer-coarse:opacity-100;
@@ -231,49 +236,49 @@ const processedDescription = description ? marked(description, {
   }
   
   /* H1 specific sizing - largest headings get larger icons */
-  :global(h1 .icon.icon-link) {
+  h1 .icon.icon-link {
     @apply w-4 h-4 ml-2;
     @apply md:w-5 md:h-5 md:ml-3;
     @apply lg:w-6 lg:h-6 lg:ml-3;
   }
   
   /* H2 specific sizing */
-  :global(h2 .icon.icon-link) {
+  h2 .icon.icon-link {
     @apply w-3.5 h-3.5 ml-1.5;
     @apply md:w-4 md:h-4 md:ml-2;
     @apply lg:w-5 lg:h-5 lg:ml-2.5;
   }
   
   /* H3 specific sizing */
-  :global(h3 .icon.icon-link) {
+  h3 .icon.icon-link {
     @apply w-3 h-3 ml-1;
     @apply md:w-3.5 md:h-3.5 md:ml-1.5;
     @apply lg:w-4 lg:h-4 lg:ml-2;
   }
   
   /* H4-H6 specific sizing - smaller headings get smaller icons */
-  :global(h4 .icon.icon-link),
-  :global(h5 .icon.icon-link),
-  :global(h6 .icon.icon-link) {
+  h4 .icon.icon-link,
+  h5 .icon.icon-link,
+  h6 .icon.icon-link {
     @apply w-2.5 h-2.5 ml-1;
     @apply md:w-3 md:h-3 md:ml-1;
     @apply lg:w-3.5 lg:h-3.5 lg:ml-1.5;
   }
   
   /* Show anchor icons on heading hover - only for fine pointer devices (desktop) */
-  :global(h1:hover .icon.icon-link),
-  :global(h2:hover .icon.icon-link),
-  :global(h3:hover .icon.icon-link),
-  :global(h4:hover .icon.icon-link),
-  :global(h5:hover .icon.icon-link),
-  :global(h6:hover .icon.icon-link) {
+  h1:hover .icon.icon-link,
+  h2:hover .icon.icon-link,
+  h3:hover .icon.icon-link,
+  h4:hover .icon.icon-link,
+  h5:hover .icon.icon-link,
+  h6:hover .icon.icon-link {
     @apply pointer-fine:opacity-100;
   }
   
 
   
   /* Starlight-style chain link icon using SVG - responsive sizing */
-  :global(.icon.icon-link::before) {
+  .icon.icon-link::before {
     @apply inline-block bg-no-repeat bg-contain bg-center content-[''];
     /* Size matches the parent icon container */
     @apply w-full h-full;
@@ -286,18 +291,18 @@ const processedDescription = description ? marked(description, {
   }
   
   /* Color variations using filters */
-  :global(.icon.icon-link:hover::before) {
+  .icon.icon-link:hover::before {
     /* Lighter color on hover - adjust values as needed */
     @apply brightness-50 contrast-150;
   }
   
   /* Dark mode support */
-  :global(.dark .icon.icon-link::before) {
+  .dark .icon.icon-link::before {
     /* Invert for dark mode */
     @apply brightness-0 invert;
   }
   
-  :global(.dark .icon.icon-link:hover::before) {
+  .dark .icon.icon-link:hover::before {
     /* Slightly dimmed on hover in dark mode */
     @apply brightness-0 invert contrast-75;
   }

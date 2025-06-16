@@ -5,11 +5,7 @@ import SearchDialog from './SearchDialog';
 
 export default function SearchButton() {
   const [open, setOpen] = useState(false);
-  const [isMac, setIsMac] = useState(false);
-
-  useEffect(() => {
-    setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
-  }, []);
+  const [isMac, setIsMac] = useState<boolean>(() => window.localStorage.getItem("isMac") === "true");
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {

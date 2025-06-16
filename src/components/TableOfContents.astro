@@ -32,7 +32,10 @@ const filteredHeadings = headings.filter(h => h.depth >= 1 && h.depth <= 3);
         <nav class="toc-nav">
           <ul class="toc-list">
             {filteredHeadings.map((heading) => (
-              <li class={`toc-item toc-depth-${heading.depth}`}>
+              <li class:list={[
+                "toc-item",
+                `toc-depth-${heading.depth}`
+              ]}>
                 <a 
                   href={`#${heading.slug}`} 
                   class="toc-link"

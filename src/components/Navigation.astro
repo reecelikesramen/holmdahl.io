@@ -25,9 +25,16 @@ const navItems = [
           <a 
             href={item.href} 
             title={item.label} 
-            class={`no-underline relative hover:underline decoration-1 underline-offset-4 sm:underline-offset-5 text-secondary-color transition-all duration-300 ease-out hover:brightness-105 dark:hover:brightness-108 ${isActive ? '' : ''}`}
+            class:list={[
+              "no-underline relative hover:underline decoration-1 underline-offset-4 sm:underline-offset-5 text-secondary-color transition-all duration-300 ease-out hover:brightness-105 dark:hover:brightness-108"
+            ]}
           >
-            <span class={`${isActive ? 'underline decoration-2 underline-offset-4 sm:underline-offset-5 text-primary-color' : ''}`}>
+            <span class:list={[
+              "text-secondary-color",
+              {
+                "underline decoration-2 underline-offset-4 sm:underline-offset-5 text-primary-color": isActive
+              }
+            ]}>
               {item.label}
             </span>
           </a>
