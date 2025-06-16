@@ -5,6 +5,8 @@ import '@/styles/profile-animations.css';
 import SocialIcons from '@/components/SocialIcons.astro';
 import ProfileImage from '@/components/ProfileImage.astro';
 
+export const prerender = false;
+
 interface ButtonConfig {
   name: string;
   url: string;

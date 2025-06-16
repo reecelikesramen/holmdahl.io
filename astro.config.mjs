@@ -14,10 +14,13 @@ import mdx from '@astrojs/mdx';
 
 import sitemap from '@astrojs/sitemap';
 
+import cloudflare from '@astrojs/cloudflare';
+
 // https://astro.build/config
 export default defineConfig({
   // Configure for GitHub Pages deployment
   site: import.meta.env.DEV ? 'http://localhost:4321' : 'https://holmdahl.io',
+
   base: '/',
   trailingSlash: 'never',
   compressHTML: true,
@@ -50,6 +53,11 @@ export default defineConfig({
           }
         }
       }
+    },
+    resolve: {
+      alias: {
+        "react-dom/server": "react-dom/server.edge",
+      }
     }
   },
 
@@ -69,5 +77,7 @@ export default defineConfig({
       forward: ["dataLayer.push"],
       debug: false
     }
-  })]
+  })],
+
+  adapter: cloudflare()
 });

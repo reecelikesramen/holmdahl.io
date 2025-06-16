@@ -1,0 +1,14 @@
+{
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "holmdahl-io",
+    "main": "./dist/_worker.js/index.js",
+    "compatibility_date": "2025-06-16",
+    "compatibility_flags": ["nodejs_compat"],
+    "assets": {
+      "binding": "ASSETS",
+      "directory": "./dist"
+    },
+    "observability": {
+      "enabled": true
+    }
+  }

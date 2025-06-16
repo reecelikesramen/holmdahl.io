@@ -35,7 +35,7 @@ const iconComponents = {
 ]}>
   {icons.map(({ name, url, title }) => {
     if (name.toLowerCase() === 'email') {
-      return <EmailButton client:idle email={url} />;
+      return <EmailButton client:visible email={url} />;
     }
     
     const IconComponent = iconComponents[name.toLowerCase() as keyof typeof iconComponents];
