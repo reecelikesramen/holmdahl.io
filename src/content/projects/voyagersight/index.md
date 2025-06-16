@@ -1,5 +1,4 @@
 ---
-draft: false
 title: "VoyagerSight"
 description: "Replication and extension study on Nvidia’s groundbreaking Voyager, exploring the effects of multimodal inputs on Minecraft LLM agents"
 cover:
