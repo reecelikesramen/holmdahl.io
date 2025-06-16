@@ -23,10 +23,27 @@ jobs:
   build-astro:
     name: Build Astro site
     runs-on: ubuntu-latest
+    environment:
+      name: cf-workers
 
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+      - name: Cache resume PDF
+        id: cache-resume
+        uses: actions/cache@v4
+        with:
+          path: resume.pdf
+          key: resume-${{ hashFiles('resume.tex') }}
+      - name: Build resume.tex
+        if: steps.cache-resume.outputs.cache-hit != 'true'
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: resume.tex
+      - name: Move resume.pdf to public/
+        shell: bash
+        run: mv resume.pdf public/
+
       - name: Setup PNPM
         uses: pnpm/action-setup@v4
         with:
@@ -44,79 +61,8 @@ jobs:
       - name: Build Astro site
         shell: bash
         run: pnpm run build
-      - name: Upload Astro build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: astro-dist
-          path: ./dist
-
-  build-resume:
-    name: Build resume (LaTeX)
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Cache resume PDF
-        id: cache-resume
-        uses: actions/cache@v4
-        with:
-          path: resume.pdf
-          key: resume-${{ hashFiles('resume.tex') }}
-
-      - name: Build resume.tex
-        if: steps.cache-resume.outputs.cache-hit != 'true'
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: resume.tex
-
-      - name: Upload resume artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: resume-pdf
-          path: resume.pdf
-  deploy:
-    name: Deploy to GitHub Pages
-    needs: [build-astro, build-resume]
-    runs-on: ubuntu-latest
-    
-    permissions:
-      pages: write
-      id-token: write
-      contents: read
-    
-    # Deploy to the github-pages environment
-    environment:
-      name: cf-workers
-      # url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Download Astro build
-        uses: actions/download-artifact@v4
-        with:
-          name: astro-dist
-          path: ./dist
-
-      - name: Download resume
-        uses: actions/download-artifact@v4
-        with:
-          name: resume-pdf
-          path: ./dist
-
       - name: Publish to Cloudflare Workers
         run: npx wrangler deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           # CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      # # Upload Pages artifact
-      # - name: Upload Pages artifact
-      #   uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     path: ./dist
-
-      # # Deploy to GitHub Pages
-      # - name: Deploy to GitHub Pages
-      #   id: deployment
-      #   uses: actions/deploy-pages@v4
