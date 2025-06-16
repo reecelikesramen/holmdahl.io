@@ -30,7 +30,7 @@ const processedPosts = await Promise.all(posts
   <div class="container mx-auto py-4">
     <div class="py-4">
       {processedPosts.map((post, index) => (
-        <PostCard data={post.data} url={`/posts/${post.slug}`} aboveTheFold={index < 2} />
+        <PostCard data={post.data} url={`/posts/${post.slug}`} aboveTheFold={index === 0} />
       ))}
     </div> 
   </div>

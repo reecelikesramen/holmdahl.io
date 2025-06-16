@@ -1,33 +1,26 @@
-name: Deploy to GitHub Pages
+name: Deploy to Cloudflare Workers
 
 on:
-  # Trigger the workflow every time you push to the `main` branch
-  # Using a different branch name? Replace `main` with your branch’s name
-  push:
-    branches: [main]
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  push:        # all branches
   workflow_dispatch:
 
-# Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
-# Allow one concurrent deployment
+# Per-branch concurrency: only cancels in-progress builds for the same branch
 concurrency:
-  group: "pages"
+  group: deploy-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build-astro:
-    name: Build Astro site
+  build-and-deploy:
+    name: Build & Deploy (${{ github.ref_name }})
     runs-on: ubuntu-latest
     environment:
       name: cf-workers
 
     steps:
-      - name: Checkout your repository using git
+      - name: Checkout your repository
         uses: actions/checkout@v4
       - name: Cache resume PDF
         id: cache-resume
@@ -35,13 +28,12 @@ jobs:
         with:
           path: resume.pdf
           key: resume-${{ hashFiles('resume.tex') }}
-      - name: Build resume.tex
+      - name: Build resume.tex (if needed)
         if: steps.cache-resume.outputs.cache-hit != 'true'
         uses: xu-cheng/latex-action@v3
         with:
           root_file: resume.tex
       - name: Move resume.pdf to public/
-        shell: bash
         run: mv resume.pdf public/
 
       - name: Setup PNPM
@@ -49,20 +41,36 @@ jobs:
         with:
           version: "latest"
           package_json_file: "package.json"
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: "22"
           cache: pnpm
-          cache-dependency-path: "pnpm-lock.yaml"
+          cache-dependency-path: pnpm-lock.yaml
       - name: Install dependencies
-        shell: bash
         run: pnpm install
+
+      # ⚡️ Cache Astro & Vite build artifacts
+      - name: Cache Astro build cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .astro
+            node_modules/.vite
+          key: ${{ runner.os }}-astro-${{ github.ref_name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-astro-${{ github.ref_name }}-
+            ${{ runner.os }}-astro-
       - name: Build Astro site
-        shell: bash
         run: pnpm run build
+
       - name: Publish to Cloudflare Workers
+        if: github.ref == 'refs/heads/main'
         run: npx wrangler deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          # CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Publish preview to Cloudflare Workers (preview env)
+        if: github.ref != 'refs/heads/main'
+        run: npx wrangler deploy --env preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
