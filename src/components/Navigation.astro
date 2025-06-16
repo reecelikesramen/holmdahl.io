@@ -17,7 +17,9 @@ const navItems = [
 <nav class="w-full">
   <ul id="menu" class="flex list-none m-0 p-0 overflow-x-auto justify-start sm:justify-center gap-1.5 sm:gap-2 md:gap-3 text-sm sm:text-base md:text-lg font-medium">
     {navItems.map((item) => {
-      const isActive = currentPath === item.href;
+      const isActive = (item.label === 'Posts' || item.label === 'Projects')
+        ? currentPath.startsWith(item.href) && currentPath !== item.href
+        : currentPath === item.href;
       return (
         <li>
           <a 
