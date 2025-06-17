@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@reference "@/styles/critical.css";
 @plugin "@tailwindcss/typography";
 
 @layer components {
