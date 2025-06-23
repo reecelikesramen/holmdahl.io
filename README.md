@@ -1,13 +1,27 @@
-# Astro with Tailwind
+# holmdahl.io | [Visit](https://holmdahl.io)
 
-```sh
-pnpm create astro@latest -- --template with-tailwindcss
-```
+[![Deploy to Cloudflare Workers](https://github.com/reecelikesramen/holmdahl.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/reecelikesramen/holmdahl.io/actions/workflows/deploy.yml)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/with-tailwindcss)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/with-tailwindcss)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/with-tailwindcss/devcontainer.json)
+This is the source and content for [holmdahl.io](https://holmdahl.io) — my personal site for writing, showcasing work, and building in public.
 
-Astro comes with [Tailwind](https://tailwindcss.com) support out of the box. This example showcases how to style your Astro project with Tailwind.
+---
 
-For complete setup instructions, please see our [Tailwind Integration Guide](https://docs.astro.build/en/guides/integrations-guide/tailwind).
+## 🧰 Stack
+
+- **Astro** for static site generation
+- **React** for interactive UI islands
+- **Tailwind CSS** for rapid styling
+- **shadcn/ui** for accessible, headless components
+- **GitHub Actions** for zero-cost CI/CD
+- **Cloudflare Workers** for fast, global, serverless hosting
+
+The design is heavily inspired by [Hugo PaperMod](https://github.com/adityatelange/hugo-PaperMod), reimplemented in a modern frontend stack.
+
+---
+
+## 🚀 Deployment
+
+- **`main` branch** deploys automatically to production at [holmdahl.io](https://holmdahl.io)
+- **All other branches** deploy to **preview environments** at `*.pages.dev` via Cloudflare's preview deployments
+
+CI/CD is powered by GitHub Actions using Wrangler for automated publishing and rollouts.
