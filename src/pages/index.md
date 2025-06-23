@@ -1,7 +1,7 @@
 ---
 layout: "@/layouts/ProfileLayout.astro"
 title: "Reece Holmdahl"
-subtitle: "Test on Preview Environment"
+subtitle: "Fullstack Software Engineer | CS & Math @ UMN"
 imageTitle: "Reece at Grand Prismatic Spring in Yellowstone"
 socialIcons:
   - name: github
