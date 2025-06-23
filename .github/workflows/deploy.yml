@@ -2,6 +2,8 @@ name: Deploy to Cloudflare Workers
 
 on:
   push:        # all branches
+    paths-ignore:
+      - "README.md"
   workflow_dispatch:
 
 permissions:
