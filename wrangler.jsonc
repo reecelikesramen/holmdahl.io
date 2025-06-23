@@ -8,6 +8,19 @@
     "binding": "ASSETS",
     "directory": "./dist"
   },
+  "route": {
+    "zone_name": "holmdahl.io",
+    "pattern": "holmdahl.io/*"
+  },
+  "env": {
+    "preview": {
+      "name": "holmdahl-io-preview",
+      "route": {
+        "zone_name": "holmdahl.io",
+        "pattern": "preview.holmdahl.io/*"
+      }
+    }
+  },
   "observability": {
     "enabled": true
   }
