@@ -1,0 +1,8 @@
+# Approve the dependency build scripts the site needs. pnpm 10.16+/11 blocks
+# un-approved build scripts in CI (ERR_PNPM_IGNORED_BUILDS, exit 1) unless approved here.
+allowBuilds:
+  '@tailwindcss/oxide': true
+  esbuild: true
+  puppeteer: true
+  sharp: true
+  workerd: true
