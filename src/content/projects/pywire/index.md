@@ -1,6 +1,10 @@
 ---
 title: "pywire"
 description: "An open-source, HTML-over-the-wire Python web framework. Live at [pywire.dev](https://pywire.dev)"
+cover:
+  image: ./cover.png
+  alt: The pywire counter starter app, showing a count of 42 with Increment and Reset buttons
+  caption: The counter app from uvx create-pywire-app
 showToc: false
 weight: 0
 ---
