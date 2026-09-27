@@ -39,12 +39,12 @@ const processedDescription = data.description ? marked(data.description, {
 ---
 
 <article
-  class="relative mb-8 xs:mb-6 rounded-lg bg-entry-color border border-border-color transition-transform hover:scale-[1.01] overflow-hidden"
+  class="card relative mb-8 xs:mb-6 rounded-lg bg-entry-color border border-border-color transition-transform hover:scale-[1.01] overflow-hidden"
 >
   <!-- Cover Image -->
   {
     data.cover && (
-      <div class="p-3 xs:p-4 md:p-6">
+      <div class="card-media p-3 xs:p-4 md:p-6">
         <Picture
           src={data.cover.image}
           alt={data.cover.alt}
@@ -67,14 +67,14 @@ const processedDescription = data.description ? marked(data.description, {
   }
 
   <div class:list={[
-    "px-4 pb-4 pt-2 xs:p-6",
+    "card-body px-4 pb-4 pt-2 xs:p-6",
     {
       "-mt-4 xs:-mt-10": !data.coverEffects
     }
   ]}>
     <header>
       <h2
-        class="flex items-center gap-2 mb-1 xs:my-1 text-lg xs:text-xl font-semibold text-primary-color leading-snug"
+        class="card-title flex items-center gap-2 mb-1 xs:my-1 text-lg xs:text-xl font-semibold text-primary-color leading-snug"
       >
         {data.title}
       </h2>
@@ -82,7 +82,7 @@ const processedDescription = data.description ? marked(data.description, {
 
     {
       processedDescription && (
-        <div class="mb-2 xs:my-2 leading-relaxed text-secondary-color prose dark:prose-invert prose-sm md:prose-base prose-a:z-20 prose-a:relative prose-a:underline-offset-2 max-w-none">
+        <div class="card-desc mb-2 xs:my-2 leading-relaxed text-secondary-color prose dark:prose-invert prose-sm md:prose-base prose-a:z-20 prose-a:relative prose-a:underline-offset-2 max-w-none">
           <Fragment set:html={processedDescription} />
         </div>
       )
@@ -90,7 +90,7 @@ const processedDescription = data.description ? marked(data.description, {
 
     {
       showMetadata && (
-        <footer class="text-secondary-color text-sm leading-relaxed">
+        <footer class="card-meta text-secondary-color text-sm leading-relaxed">
           {
             data.pubDate && (
               <span>
@@ -123,7 +123,7 @@ const processedDescription = data.description ? marked(data.description, {
   </div>
 
   <a
-    class="absolute inset-0 z-10"
+    class="card-link absolute inset-0 z-10"
     aria-label={`post link to ${data.title}`}
     href={url}></a>
 </article>

@@ -26,6 +26,7 @@ const navItems = [
             href={item.href} 
             title={item.label} 
             class:list={[
+              "nav-link", { "is-active": isActive },
               "no-underline relative hover:underline decoration-1 underline-offset-4 sm:underline-offset-5 text-secondary-color transition-all duration-300 ease-out hover:brightness-105 dark:hover:brightness-108"
             ]}
           >

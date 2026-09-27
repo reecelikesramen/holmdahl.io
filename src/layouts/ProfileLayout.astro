@@ -55,33 +55,35 @@ const personJsonLd = [
 ---
 
 <MainLayout title={title} description={description} fullTitle jsonLd={personJsonLd}>
-  <div class="flex flex-1 justify-center items-center text-center">
-    <div class="flex flex-col items-center gap-1">
+  <div class="hero-wrap flex flex-1 justify-center items-center text-center">
+    <div class="hero flex flex-col items-center gap-1">
+      <div class="hero-photo">
         <ProfileImage 
           alt={imageTitle} 
           title={imageTitle}
         />
-      <div class="flex flex-col items-center gap-2">
-        <h1 class="text-3xl font-bold m-0 text-primary-color">{title}</h1>
-        {email && <span class="text-lg text-secondary-color">{email}</span>}
-        {subtitle && <span class="text-lg font-medium mt-2 text-primary-color">{subtitle}</span>}
+      </div>
+      <div class="hero-heading flex flex-col items-center gap-2">
+        <h1 class="hero-name text-3xl font-bold m-0 text-primary-color">{title}</h1>
+        {email && <span class="hero-email text-lg text-secondary-color">{email}</span>}
+        {subtitle && <span class="hero-subtitle text-lg font-medium mt-2 text-primary-color">{subtitle}</span>}
       </div>
       
       {socialIcons.length > 0 && (
-        <div class="mt-2">
+        <div class="hero-social mt-2">
           <SocialIcons icons={socialIcons} />
         </div>
       )}
       
       {buttons.length > 0 && (
-        <div class="flex flex-wrap justify-center gap-4 mt-6">
+        <div class="hero-actions flex flex-wrap justify-center gap-4 mt-6">
           {buttons.map(button => {
             const cleanUrl = button.url.trim();
             // Only files and external links open in a new tab
             const newTab = /^https?:\/\//.test(cleanUrl) || cleanUrl.endsWith('.pdf');
             return (
               <a 
-                class="rounded-lg px-4 py-1.5 text-primary-color bg-tertiary-color font-medium text-base transition-transform hover:scale-[1.02] hover:no-underline no-underline" 
+                class="hero-btn rounded-lg px-4 py-1.5 text-primary-color bg-tertiary-color font-medium text-base transition-transform hover:scale-[1.02] hover:no-underline no-underline" 
                 href={cleanUrl} 
                 rel={newTab ? "noopener" : undefined}
                 target={newTab ? "_blank" : undefined}
