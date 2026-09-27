@@ -95,29 +95,29 @@
 }
 
 /* ================================================================== */
-/* 1. Editorial: warm paper, serif typography, one rust accent         */
+/* 1. Editorial: serif typography, asymmetric layout, pine accent      */
 /* ================================================================== */
 
 :root[data-look=editorial] {
-  --theme-color: #f5f1e8;
-  --entry-color: #fbf8f2;
-  --primary-color: #1c1a16;
-  --secondary-color: #6f675b;
-  --tertiary-color: #e7e0d2;
-  --content-color: #2a2721;
-  --border-color: #ddd4c3;
-  --look-accent: #a8431e;
+  --theme-color: #fbfbf9;
+  --entry-color: #ffffff;
+  --primary-color: #15181c;
+  --secondary-color: #5f656b;
+  --tertiary-color: #e9ecea;
+  --content-color: #23272c;
+  --border-color: #dfe3e0;
+  --look-accent: #1f5c4a;
 }
 
 :root[data-look=editorial].dark {
-  --theme-color: #161410;
-  --entry-color: #1d1a15;
-  --primary-color: #efe8da;
-  --secondary-color: #a59c8c;
-  --tertiary-color: #2c2821;
-  --content-color: #d9d2c3;
-  --border-color: #332e26;
-  --look-accent: #e2805a;
+  --theme-color: #101312;
+  --entry-color: #161a19;
+  --primary-color: #ecefed;
+  --secondary-color: #9aa39f;
+  --tertiary-color: #232927;
+  --content-color: #d3d9d6;
+  --border-color: #2a302e;
+  --look-accent: #86c3aa;
 }
 
 [data-look=editorial] body {
@@ -341,7 +341,7 @@
   object-fit: cover;
   object-position: top;
   border-radius: 2px;
-  box-shadow: 0 12px 24px -18px rgba(40, 25, 10, 0.5);
+  box-shadow: 0 12px 24px -18px rgba(15, 30, 25, 0.45);
   transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
