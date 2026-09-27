@@ -1,11 +1,11 @@
 ---
 import ContentLayout from "@/layouts/ContentLayout.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
   return projects.filter((project) => !project.data.draft).map((project) => ({
-    params: { slug: project.slug },
+    params: { slug: project.id },
     props: {
       project,
     },
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { Content, headings, remarkPluginFrontmatter } = await project.render();
+const { Content, headings, remarkPluginFrontmatter } = await render(project);
 ---
 
 <ContentLayout frontmatter={project.data} headings={headings}>

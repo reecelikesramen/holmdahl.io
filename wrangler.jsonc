@@ -1,12 +1,11 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "holmdahl-io",
-  "main": "./dist/_worker.js/index.js",
-  "compatibility_date": "2025-06-16",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_date": "2026-09-01",
   "assets": {
-    "binding": "ASSETS",
-    "directory": "./dist"
+    "directory": "./dist",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page"
   },
   "route": {
     "zone_name": "holmdahl.io",
@@ -15,6 +14,11 @@
   "env": {
     "preview": {
       "name": "holmdahl-io-preview",
+      "assets": {
+        "directory": "./dist",
+        "html_handling": "drop-trailing-slash",
+        "not_found_handling": "404-page"
+      },
       "route": {
         "zone_name": "holmdahl.io",
         "pattern": "preview.holmdahl.io/*"

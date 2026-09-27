@@ -22,6 +22,6 @@ The design is heavily inspired by [Hugo PaperMod](https://github.com/adityatelan
 ## 🚀 Deployment
 
 - **`main` branch** deploys automatically to production at [holmdahl.io](https://holmdahl.io)
-- **All other branches** deploy to **preview environments** at `*.pages.dev` via Cloudflare's preview deployments
+- **All other branches** deploy to the preview environment at [preview.holmdahl.io](https://preview.holmdahl.io) (noindexed)
 
 CI/CD is powered by GitHub Actions using Wrangler for automated publishing and rollouts.

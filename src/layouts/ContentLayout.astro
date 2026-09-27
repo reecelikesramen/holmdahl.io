@@ -4,6 +4,7 @@ import { Picture } from 'astro:assets';
 import TableOfContents from '@/components/TableOfContents.astro';
 import Prose from '@/components/Prose.astro';
 import { marked } from 'marked';
+import { tagSlug } from '@/lib/utils';
 
 interface Data {
     title: string;
@@ -56,6 +57,13 @@ const {
   coverEffects = true,
 } = frontmatter;
 
+// Descriptions are markdown; meta tags need plain text
+const plainDescription = description
+  .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+  .replace(/[*_`~#>]/g, '')
+  .replace(/\s+/g, ' ')
+  .trim();
+
 // Process description with marked if it exists
 const processedDescription = description ? marked(description, { 
   breaks: true,
@@ -63,7 +71,16 @@ const processedDescription = description ? marked(description, {
 }) : "";
 ---
 
-<MainLayout title={title || 'Content'} description={description}>
+<MainLayout
+  title={title || 'Content'}
+  description={description ? plainDescription : undefined}
+  image={cover?.image}
+  imageAlt={cover?.alt}
+  type={pubDate ? 'article' : 'website'}
+  publishedTime={pubDate}
+  modifiedTime={updatedDate}
+  tags={tags}
+>
   <article class="w-full max-w-3xl mx-auto px-4 md:px-6 mb-12 md:mb-16">
     {/* Title */}
     {showTitle && title && (
@@ -150,7 +167,7 @@ const processedDescription = description ? marked(description, {
           <ul class="flex flex-wrap gap-1.5 md:gap-2.5 list-none p-0 mb-3 md:mb-5">
             {tags.map((tag: string) => (
               <li class="inline-block">
-                <a href={`/tags/${tag.toLowerCase()}`} class="px-2 md:px-3.5 text-xs md:text-sm leading-7 md:leading-9 rounded-lg border no-underline text-secondary-color bg-code-bg-color border-border-color hover:bg-border-color min-h-11 flex items-center justify-center">
+                <a href={`/tags/${tagSlug(tag)}`} class="px-2 md:px-3.5 text-xs md:text-sm leading-7 md:leading-9 rounded-lg border no-underline text-secondary-color bg-code-bg-color border-border-color hover:bg-border-color min-h-11 flex items-center justify-center">
                   {tag}
                 </a>
               </li>

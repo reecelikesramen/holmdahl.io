@@ -50,7 +50,7 @@ jobs:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       # ⚡️ Cache Astro & Vite build artifacts
       - name: Cache Astro build cache
@@ -65,6 +65,9 @@ jobs:
             ${{ runner.os }}-astro-
       - name: Build Astro site
         run: pnpm run build
+        env:
+          # Preview builds are noindexed (robots.txt + meta robots)
+          SITE_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
 
       - name: Publish to Cloudflare Workers
         if: github.ref == 'refs/heads/main'

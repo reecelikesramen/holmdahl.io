@@ -17,7 +17,7 @@ export async function generateSearchIndex(): Promise<SearchIndexItem[]> {
     const publishedPosts = posts.filter(post => !post.data.draft);
     
     for (const post of publishedPosts) {
-      const url = `/posts/${post.slug}`;
+      const url = `/posts/${post.id}`;
       
       // Get the content from the post body
       const content = cleanTextForSearch(
@@ -42,7 +42,7 @@ export async function generateSearchIndex(): Promise<SearchIndexItem[]> {
     const publishedProjects = projects.filter(project => !project.data.draft);
     
     for (const project of publishedProjects) {
-      const url = `/projects/${project.slug}`;
+      const url = `/projects/${project.id}`;
       
       // Get the content from the project body
       const content = cleanTextForSearch(
