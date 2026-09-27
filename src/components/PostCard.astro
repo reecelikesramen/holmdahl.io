@@ -31,6 +31,10 @@ interface Props {
 
 const { data, url, aboveTheFold = false, showMetadata = true } = Astro.props;
 
+// Project covers are 2224x1224 macOS window captures with the window shadow
+// baked in; card thumbnails crop to the 2000x1000 window inside them.
+const isWindowCapture = data.cover?.image.width === 2224 && data.cover?.image.height === 1224;
+
 // Process description with marked if it exists
 const processedDescription = data.description ? marked(data.description, { 
   breaks: true,
@@ -44,7 +48,7 @@ const processedDescription = data.description ? marked(data.description, {
   <!-- Cover Image -->
   {
     data.cover && (
-      <div class="card-media p-3 xs:p-4 md:p-6">
+      <div class:list={["card-media p-3 xs:p-4 md:p-6", { "is-window-capture": isWindowCapture }]}>
         <Picture
           src={data.cover.image}
           alt={data.cover.alt}
