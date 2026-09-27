@@ -52,7 +52,6 @@
 \raggedright
 \setlength{\tabcolsep}{0in}
 
-% force build
 % Sections formatting
 \titleformat{\section}{
   \vspace{-4pt}\scshape\raggedright\large
@@ -112,112 +111,87 @@
 
 \begin{center}
   \textbf{\Huge Reece Holmdahl} \\ \vspace{1pt}
-  \small (651) 260-8698 $|$ \href{mailto:reece@holmdahl.io}{\underline{reece@holmdahl.io}} $|$
+  \small \href{mailto:reece@holmdahl.io}{\underline{reece@holmdahl.io}} $|$
+  \href{https://holmdahl.io}{\underline{holmdahl.io}} $|$
   \href{https://linkedin.com/in/reeceholmdahl}{\underline{linkedin.com/in/reeceholmdahl}} $|$
   \href{https://github.com/reecelikesramen}{\underline{github.com/reecelikesramen}}
 \end{center}
-
-%-----------EDUCATION-----------
-\section{Education}
-\resumeSubHeadingListStart
-\resumeSubheading
-{University of Minnesota}{Minneapolis, MN}
-{Bachelor of Science in Computer Science, Minor in Mathematics}{August 2021 -- May 2024}
-\resumeSubHeadingListEnd
 
 %-----------EXPERIENCE-----------
 \section{Experience}
 \resumeSubHeadingListStart
 
+%-----------CalcAir Lead SWE-----------
+\resumeSubheading
+{CalcAir Employee Benefit Systems \textnormal{\small(formerly DATAIR)}}{Remote, USA}
+{Lead Software Engineer}{Mar 2026 -- Present}
+\resumeItemListStart
+\resumeItem{Technical lead for the DS product migration; built a web demo on my own initiative that moved the plan from a .NET desktop port to a cloud-native web app, and set up the project's code review, CI/CD, and work tracking.}
+\resumeItem{Designed and built DS Web's AI-first development platform (.NET, React, shared libraries, component templates, non-AI code automation, automated quality gates) that the team now builds on using an AI-driven development lifecycle (AI-DLC).}
+\resumeItem{Own DS Web's application shell and shared UI components, and am designing its scalable SaaS foundation: integration with existing MyCalcAir cloud hosting, sign-in parity for existing clients, and a migration path off legacy dependencies.}
+\resumeItem{Led R\&D-wide Claude adoption and run monthly AI meetings; built the DS Smart Import MVP in two days at a hackathon.}
+\resumeItem{Primary technical contact for PwC/Yonder consultants on the PE/PR migration, setting expectations and allocating resources.}
+\resumeItem{Hotfixed a major EFAST2 production outage; while covering Azure cloud engineering for 2--3 months, onboarded 3 new clients and fixed a critical production reporting issue within a day.}
+\resumeItemListEnd
+
+%-----------CalcAir SWE II-----------
+\resumeSubSubheading
+{Software Engineer II}{Jul 2025 -- Mar 2026}
+\resumeItemListStart
+\resumeItem{Designed and built a framework that migrates legacy VB6 screens to .NET without hand-rebuilding each one; migrated all of PEWin's main screens, including dynamic behavior, in 2.5 months.}
+\resumeItem{Led the cloud cutover from DATAIR to CalcAir hosting with zero client impact; co-led the website rebrand and its .NET port.}
+\resumeItem{Introduced Azure DevOps (Git, CI/CD, Boards) and led 8+ workshops rolling out Cursor, Git, and .NET API development.}
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+\resumeSubHeadingListStart
+
 %-----------OWC SWE I-----------
 \resumeSubheading
-{Other World Computing}{Woodstock, IL}
-{Software Engineer I}{July 2022 -- August 2023}
+{Other World Computing}{Remote, USA}
+{Software Engineer I}{Jul 2022 -- Aug 2023}
 \resumeItemListStart
-\resumeItem{Designed and implemented a new Salesforce-ERP ETL system processing 10K daily records, reducing synchronization failures by 90\% (from 300 to under 20 daily), and established real-time monitoring dashboards with Kibana.}
-\resumeItem{Resolved a critical Work Order Automation system failure within three hours, protecting \$50,000 in daily revenue (5\% of company revenue stream).}
-\resumeItem{Elevated code quality in .NET and React projects through strategic implementation of design patterns and packages, measurably improving performance and maintainability.}
-\resumeItem{Improved sprint delivery from 80\% to 95\% completion rate over four months.}
+\resumeItem{Built a Salesforce-to-ERP sync for 10K records/day, cutting sync failures 90\% (300 to under 20/day), monitored in Kibana.}
+\resumeItem{Restored a failed work-order automation system within three hours, protecting \$50K in daily revenue (5\% of company total).}
+\resumeItem{Automated three sales and customer service reporting workflows, cutting manual reporting from 15 to 1 hour per week.}
 \resumeItemListEnd
 
 %-----------OWC SWE INTERN-----------
 \resumeSubSubheading
-{Software Engineer Intern}{April 2022 -- July 2022}
+{Software Engineer Intern}{Apr 2022 -- Jul 2022}
 \resumeItemListStart
-\resumeItem{Optimized six major database queries in the RMA processing app, increasing performance by 70\% through analysis, indexing improvements, and parallel processing techniques.}
-\resumeItem{Improved application responsiveness in three apps through asynchronous programming and intuitive UI elements, resulting in improved efficiency supported by user feedback.}
-\resumeItem{Transitioned older software deployments to CI/CD using Jenkins and Octopus, streamlining DevOps processes, enabling automatic testing, and reducing manual errors.}
+\resumeItem{Sped up six major RMA app queries 70\% via indexing and parallelism; moved deployments to CI/CD (Jenkins, Octopus).}
 \resumeItemListEnd
 
 \resumeSubHeadingListEnd
 
 %-----------PROJECTS-----------
-\section{Projects and Volunteering}
+\section{Projects}
 \resumeSubHeadingListStart
+
+%-----------PYWIRE-----------
+\resumeProjectHeading
+{\href{https://pywire.dev}{\textbf{\underline{pywire}}} $|$ \emph{Python, Starlette, WebSockets, tree-sitter, TypeScript}}{Jan 2026 -- Present}
+\resumeItemListStart
+\resumeItem{Created an open-source, HTML-over-the-wire Python web framework: single-file \texttt{.wire} components compile to Python, render on the server, and push reactive updates to the browser over WebSockets.}
+\resumeItem{Built its tooling: tree-sitter grammar, language server, VS Code extension, Prettier plugin, scaffolding CLI, OIDC auth.}
+\resumeItem{Ship it as a monorepo with automated, versioned releases to PyPI and npm via release-please.}
+\resumeItemListEnd
 
 %-----------OPEN WEBUI DESKTOP-----------
 \resumeProjectHeading
-{\href{https://holmdahl.io/projects/open-webui-desktop/}{\textbf{\underline{Open WebUI Desktop}}} $|$ \emph{Tauri, Svelte, TypeScript, Rust}}{December 2024 -- January 2025}
+{\href{https://holmdahl.io/projects/open-webui-desktop/}{\textbf{\underline{Open WebUI Desktop}}} $|$ \emph{Tauri, Svelte, TypeScript, Rust}}{Dec 2024 -- Jan 2025}
 \resumeItemListStart
-\resumeItem{Fulfilled a popular community request by developing a desktop app for Open WebUI.}
-\resumeItem{Implemented requested features like the floating chatbar, global hotkey, and companion chat window.}
-\resumeItem{Created a novel solution for managing application state in Svelte across windows.}
-\resumeItem{Contributed the project back to Open WebUI, with development continuing under their organization.}
+\resumeItem{Built the community-requested Open WebUI desktop app (floating chat bar, hotkey, cross-window state); adopted upstream.}
 \resumeItemListEnd
 
 %-----------WEBTRACER-----------
 \resumeProjectHeading
-{\href{https://holmdahl.io/projects/webtracer/}{\textbf{\underline{WebTracer}}} $|$ \emph{Rust, React, WebAssembly, wgpu}}{October 2024 -- Present}
+{\href{https://holmdahl.io/projects/webtracer/}{\textbf{\underline{WebTracer}}} $|$ \emph{Rust, WebAssembly, React, wgpu}}{Oct 2024 -- Jan 2025}
 \resumeItemListStart
-\resumeItem{Implemented a realistic light transport simulation (raytracer) from scratch with minimal packages.}
-\resumeItem{Optimized render time by leveraging cache locality, SIMD instructions, and concurrency with Rayon.}
-\resumeItem{Provided fast and efficient execution with broad browser support by compiling to WebAssembly.}
-\resumeItem{Created a React UI for editing scenes, managing assets, and seeing a live preview of the render.}
-\resumeItem{Continuing to improve render time by leveraging GPU computation with wgpu and by implementing the ReSTIR technique.}
+\resumeItem{Wrote a raytracer from scratch in Rust (SIMD, Rayon, cache-aware), compiled to WebAssembly with a React scene editor.}
 \resumeItemListEnd
-
-%-----------HOLMDAHL.IO-----------
-\resumeProjectHeading
-{\href{https://holmdahl.io/projects/holmdahl.io/}{\textbf{\underline{holmdahl.io}}} $|$ \emph{Hugo, React, Vite, GitHub Actions}}{September 2024 -- October 2024}
-\resumeItemListStart
-\resumeItem{Designed a responsive portfolio website with static site generation to feature professional projects and articles.}
-\resumeItem{Integrated Google Tag Manager and Analytics to gain insights into website usage and optimize user experience.}
-\resumeItem{Leveraged GitHub Pages and Actions as a no-cost hosting and CI/CD solution with fast serving speeds.}
-\resumeItem{Created a Vite build pipeline to minify, use CDN-served JS packages, and bundle WebAssembly to optimize load time.}
-\resumeItem{Contributed a responsive image system to the Hugo project that improved PageSpeed Insights score from 68 to 85 and reduced LCP by 50\% on slow 4G connections.}
-\resumeItemListEnd
-
-% %-----------VOYAGER SIGHT-----------
-% \resumeProjectHeading
-% {\href{https://holmdahl.io/projects/voyagersight/}{\textbf{\underline{VoyagerSight}}} $|$ \emph{Python, LangChain, ChromaDB, Pandas}}{Dates?}
-% \resumeItemListStart
-% \resumeItem{Conducted an extension study on Nvidia's Voyager to examine how multimodal inputs affect Minecraft LLM agents.}
-% \resumeItem{Tested the hypothesis that agents with multimodal perception will play more effectively and display more diverse behavior.}
-% \resumeItem{Included POV images as context for each gameplay iteration to provide more variation and information to the LLM.}
-% \resumeItemListEnd
-
-%-----------ROBOTICS MENTORSHIP-----------
-\resumeProjectHeading
-{\textbf{Robotics Mentorship} $|$ \emph{Communication, Leadership, Project Management, Java}}{January 2025 -- Present}
-\resumeItemListStart
-\resumeItem{Volunteering as a software mentor for the Eagan High School FIRST Robotics Competition (FRC) organization.}
-\resumeItem{Providing technical guidance to 8 students, developing their proficiency in Software Engineering principles, Java programming, simulation, and computer vision techniques.}
-\resumeItem{Working closely with professionals across many disciplines to help students learn novel skills and achieve complex goals.}
-\resumeItemListEnd
-
-% %-----------LEARNPYTORCH.IO-----------
-% \resumeProjectHeading
-% {\textbf{learnpytorch.io} $|$ \emph{PyTorch, Python, Matplotlib, Google Colab}}{September 2025}
-% \resumeItemListStart
-% \resumeItem{Developed a Minecraft server plugin to entertain kids during free time for a previous job}
-% \resumeItemListEnd
-
-% %-----------OPEN-SOURCE CONTRIBUTION-----------
-% \resumeProjectHeading
-% {\textbf{Open-source Contribution} $|$ \emph{Python, JavaScript, Rust}}{September 2025 -- Present}
-% \resumeItemListStart
-% \resumeItem{Developed a Minecraft server plugin to entertain kids during free time for a previous job}
-% \resumeItemListEnd
 
 \resumeSubHeadingListEnd
 
@@ -227,14 +201,26 @@
     \small{
     \item{
         \begin{tabbing}
-          \hspace{8em} \= \hspace{10em} \= \kill
-          \textbf{Languages:}\> C\#, Go, TypeScript/JavaScript, Ruby, Python, Java, Rust, C/C++ \\
-          \textbf{Frameworks:} \> .NET, Gin, Node.js, Rails, FastAPI, React, Svelte, Next.js, Spark, PyTorch, NUnit \\
-          \textbf{Developer Tools:} \> AWS, Terraform, Git, GitHub, Datadog, Elasticsearch, Jenkins, Octopus, Docker, Kubernetes, Jira \\
-          \textbf{Databases:} \> PostgreSQL, MongoDB, DynamoDB, Redis, Snowflake, Microsoft SQL Server
+          \hspace{8.5em} \= \kill
+          \textbf{Languages:}\> C\#, TypeScript/JavaScript, Python, SQL, Rust, Java, C/C++, VB6 \\
+          \textbf{Frameworks:} \> .NET / ASP.NET Core, React, Node.js, FastAPI, Starlette, Svelte, Tauri, NUnit \\
+          \textbf{Cloud \& DevOps:} \> Azure, Azure DevOps, GitHub Actions, Docker, Jenkins, Octopus Deploy, Git \\
+          \textbf{Databases:} \> Microsoft SQL Server, PostgreSQL, Redis, MongoDB, SQLite \\
+          \textbf{AI Engineering:} \> Claude Code, Cursor, AI-DLC, agentic coding workflows, LLM agents (LangChain)
         \end{tabbing}
     }}
 \end{itemize}
+
+%-----------EDUCATION-----------
+\section{Education}
+\resumeSubHeadingListStart
+\resumeSubheading
+{University of Minnesota}{Minneapolis, MN}
+{B.S. Computer Science, Minor in Mathematics; completed in 3 years}{Aug 2021 -- May 2024}
+\resumeSubHeadingListEnd
+
+\vspace{-4pt}
+\begin{center}\small\textit{Volunteer software mentor, Eagan High School FIRST Robotics (FRC 2220), Jan 2025 -- Present}\end{center}
 
 %-------------------------------------------
 \end{document}
