@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import MainLayout from '@/layouts/MainLayout.astro';
 import PostCard from '@/components/PostCard.astro';
+import { tagSlug } from '@/lib/utils';
 
 export async function getStaticPaths() {
   // Get all posts from content collections (projects don't have tags)
@@ -34,7 +35,7 @@ export async function getStaticPaths() {
           cover: post.data.cover,
           coverEffects: post.data.coverEffects
         },
-        url: `/posts/${post.slug}`,
+        url: `/posts/${post.id}`,
         type: 'post'
       });
     });
@@ -42,7 +43,7 @@ export async function getStaticPaths() {
 
   return Array.from(tagContent.keys()).map((tag: string) => {
     return {
-      params: { tag },
+      params: { tag: tagSlug(tag) },
       props: { 
         content: tagContent.get(tag)!.sort((a, b) => {
           // Sort posts by date (descending)

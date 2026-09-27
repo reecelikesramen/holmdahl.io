@@ -1,0 +1,109 @@
+---
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { SITE_ENV } from 'astro:env/server';
+import profileImage from '@/assets/profile.png';
+
+export interface Props {
+  title: string;
+  description?: string;
+  /** Use `title` as-is instead of appending the site name */
+  fullTitle?: boolean;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  tags?: string[];
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const SITE_NAME = 'holmdahl.io';
+const AUTHOR = 'Reece Holmdahl';
+const DEFAULT_DESCRIPTION = "Reece Holmdahl's personal website";
+
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  fullTitle = false,
+  image,
+  imageAlt,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  tags = [],
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const pageTitle = fullTitle || !title ? (title || SITE_NAME) : `${title} | ${SITE_NAME}`;
+
+// Canonical URLs always point at production, without a trailing slash (trailingSlash: 'never')
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const canonicalURL = new URL(pathname, Astro.site).href;
+
+// Preview deploys (preview.holmdahl.io) must not be indexed
+const robots = noindex || SITE_ENV !== 'production' ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
+
+// Social cards: the page's cover image as a large card, otherwise the profile photo as a small card
+const ogImage = image
+  ? await getImage({ src: image, width: 1200, height: 630, fit: 'cover', format: 'jpg' })
+  : await getImage({ src: profileImage, width: 600, height: 600, fit: 'cover', format: 'jpg' });
+const ogImageURL = new URL(ogImage.src, Astro.site).href;
+const ogImageAlt = image ? (imageAlt ?? title) : AUTHOR;
+const twitterCard = image ? 'summary_large_image' : 'summary';
+
+const structuredData = [
+  ...(Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : []),
+  ...(type === 'article' && publishedTime
+    ? [{
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: title,
+        description,
+        image: ogImageURL,
+        datePublished: publishedTime.toISOString(),
+        ...(modifiedTime && { dateModified: modifiedTime.toISOString() }),
+        ...(tags.length > 0 && { keywords: tags.join(', ') }),
+        author: { '@type': 'Person', name: AUTHOR, url: new URL('/', Astro.site).href },
+        mainEntityOfPage: canonicalURL,
+      }]
+    : []),
+];
+---
+
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+<meta name="author" content={AUTHOR} />
+<meta name="robots" content={robots} />
+{!noindex && <link rel="canonical" href={canonicalURL} />}
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- Open Graph -->
+<meta property="og:site_name" content={SITE_NAME} />
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title || SITE_NAME} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content={ogImageURL} />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content={String(ogImage.attributes.width ?? ogImage.options.width)} />
+<meta property="og:image:height" content={String(ogImage.attributes.height ?? ogImage.options.height)} />
+<meta property="og:image:alt" content={ogImageAlt} />
+{publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+{type === 'article' && <meta property="article:author" content={AUTHOR} />}
+{type === 'article' && tags.map(tag => <meta property="article:tag" content={tag} />)}
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content={twitterCard} />
+<meta name="twitter:title" content={title || SITE_NAME} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageURL} />
+<meta name="twitter:image:alt" content={ogImageAlt} />
+
+{structuredData.length > 0 && (
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData.length === 1 ? structuredData[0] : structuredData).replace(/</g, '\\u003c')} />
+)}

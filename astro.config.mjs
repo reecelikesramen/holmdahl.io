@@ -1,9 +1,9 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import { unified } from '@astrojs/markdown-remark';
 import favicons from 'astro-favicons';
 import react from '@astrojs/react';
-import criticalCSS from 'astro-critical-css';
 import remarkDefinitionList, { defListHastHandlers } from 'remark-definition-list'
 import { remarkReadingTime } from './astro-plugins/remark-reading-time.mjs';
 import rehypeSlug from 'rehype-slug';
@@ -14,14 +14,18 @@ import mdx from '@astrojs/mdx';
 
 import sitemap from '@astrojs/sitemap';
 
-import cloudflare from '@astrojs/cloudflare';
-
 // https://astro.build/config
 export default defineConfig({
-  // Configure for GitHub Pages deployment
   site: import.meta.env.DEV ? 'http://localhost:4321' : 'https://holmdahl.io',
 
   base: '/',
+
+  env: {
+    schema: {
+      // Set to "preview" by CI for non-main branches so preview deploys are noindexed
+      SITE_ENV: envField.enum({ context: 'server', access: 'public', values: ['production', 'preview'], default: 'production' }),
+    },
+  },
   trailingSlash: 'never',
   compressHTML: true,
 
@@ -31,13 +35,15 @@ export default defineConfig({
   },
 
   markdown: {
-    remarkPlugins: [remarkDefinitionList, remarkReadingTime],
-    rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'append' }]],
-    remarkRehype: {
-      handlers: {
-        ...defListHastHandlers,
+    processor: unified({
+      remarkPlugins: [remarkDefinitionList, remarkReadingTime],
+      rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'append' }]],
+      remarkRehype: {
+        handlers: {
+          ...defListHastHandlers,
+        }
       }
-    }
+    }),
   },
 
   vite: {
@@ -45,20 +51,7 @@ export default defineConfig({
     build: {
       cssCodeSplit: true,
       assetsInlineLimit: 2048, // Inline assets smaller than 2KB
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            'search': ['./src/components/SearchDialog.tsx', './src/components/SearchButton.tsx'],
-            'profile-animation': ['./src/components/ProfileImageWrapper.tsx']
-          }
-        }
-      }
     },
-    resolve: {
-      alias: import.meta.env.PROD ? {
-        "react-dom/server": "react-dom/server.edge",
-      } : {}
-    }
   },
 
   build: {
@@ -66,20 +59,12 @@ export default defineConfig({
     assets: '_astro'
   },
 
-  integrations: [react(), favicons(), criticalCSS({
-    width: 1300,
-    height: 900,
-    extract: true,
-    htmlPathRegex: '.*\\.html$',
-    silent: false
-  }), mdx(), sitemap(), partytown({
+  integrations: [react(), favicons(), mdx(), sitemap({
+    filter: (page) => !page.endsWith('/404'),
+  }), partytown({
     config: {
       forward: ["dataLayer.push"],
       debug: false
     }
-  })],
-
-  adapter: cloudflare({
-    imageService: 'cloudflare'
-  })
+  })]
 });

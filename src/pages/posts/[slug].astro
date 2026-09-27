@@ -1,11 +1,11 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import ContentLayout from "@/layouts/ContentLayout.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
   return posts.filter((post) => !post.data.draft).map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: {
       post,
     },
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content, headings, remarkPluginFrontmatter } = await post.render();
+const { Content, headings, remarkPluginFrontmatter } = await render(post);
 ---
 
 <ContentLayout

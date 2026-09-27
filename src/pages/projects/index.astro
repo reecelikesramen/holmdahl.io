@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import MainLayout from '@/layouts/MainLayout.astro';
 import PostCard from '@/components/PostCard.astro';
 
@@ -8,7 +8,7 @@ const projects = await getCollection("projects");
 const processedProjects = await Promise.all(projects
   .filter((project) => !project.data.draft)
   .map(async (project) => {
-    const { remarkPluginFrontmatter } = await project.render();
+    const { remarkPluginFrontmatter } = await render(project);
     return {
       ...project,
       data: {
@@ -30,7 +30,7 @@ const processedProjects = await Promise.all(projects
   <div class="container mx-auto py-4">
     <div class="py-4">
       {processedProjects.map((project, index) => (
-        <PostCard data={project.data} url={`/projects/${project.slug}`} aboveTheFold={index === 0} />
+        <PostCard data={project.data} url={`/projects/${project.id}`} aboveTheFold={index === 0} />
       ))}
     </div> 
   </div>

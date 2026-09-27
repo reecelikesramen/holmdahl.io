@@ -5,8 +5,6 @@ import '@/styles/profile-animations.css';
 import SocialIcons from '@/components/SocialIcons.astro';
 import ProfileImage from '@/components/ProfileImage.astro';
 
-export const prerender = false;
-
 interface ButtonConfig {
   name: string;
   url: string;
@@ -14,6 +12,7 @@ interface ButtonConfig {
 
 type Props = MarkdownLayoutProps<{
   title: string;
+  description?: string;
   email?: string
   subtitle?: string;
   imageTitle?: string;
@@ -30,14 +29,32 @@ const { frontmatter } = Astro.props;
 const {
   imageTitle = 'Profile image',
   title,
+  description,
   email,
   subtitle,
   socialIcons = [],
   buttons = [],
 } = frontmatter;
+
+const siteUrl = new URL('/', Astro.site).href;
+const personJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'holmdahl.io',
+    url: siteUrl,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: title,
+    url: siteUrl,
+    sameAs: socialIcons.map(icon => icon.url).filter(url => /^https?:\/\//.test(url)),
+  },
+];
 ---
 
-<MainLayout title="Home">
+<MainLayout title={title} description={description} fullTitle jsonLd={personJsonLd}>
   <div class="flex flex-1 justify-center items-center text-center">
     <div class="flex flex-col items-center gap-1">
         <ProfileImage 
@@ -60,12 +77,14 @@ const {
         <div class="flex flex-wrap justify-center gap-4 mt-6">
           {buttons.map(button => {
             const cleanUrl = button.url.trim();
+            // Only files and external links open in a new tab
+            const newTab = /^https?:\/\//.test(cleanUrl) || cleanUrl.endsWith('.pdf');
             return (
               <a 
                 class="rounded-lg px-4 py-1.5 text-primary-color bg-tertiary-color font-medium text-base transition-transform hover:scale-[1.02] hover:no-underline no-underline" 
                 href={cleanUrl} 
-                rel="noopener"
-                target="_blank"
+                rel={newTab ? "noopener" : undefined}
+                target={newTab ? "_blank" : undefined}
                 title={button.name}
               >
                 {button.name}
