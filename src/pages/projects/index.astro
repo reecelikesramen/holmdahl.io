@@ -24,11 +24,11 @@ const processedProjects = await Promise.all(projects
 
 <MainLayout title="Projects" description="Projects I've worked on">
   <div class="container mx-auto py-4">
-    <h1 class="text-4xl font-bold">Projects</h1>
+    <h1 class="page-title text-4xl font-bold">Projects</h1>
   </div>
 
   <div class="container mx-auto py-4">
-    <div class="py-4">
+    <div class="card-list py-4">
       {processedProjects.map((project, index) => (
         <PostCard data={project.data} url={`/projects/${project.id}`} aboveTheFold={index === 0} />
       ))}

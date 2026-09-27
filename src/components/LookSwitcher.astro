@@ -1,0 +1,33 @@
+---
+// Preview-only switcher for comparing design explorations.
+const looks = [
+  { id: 'current', label: 'Current' },
+  { id: 'editorial', label: 'Editorial' },
+  { id: 'workbench', label: 'Workbench' },
+  { id: 'prismatic', label: 'Prismatic' },
+];
+---
+
+<div class="look-switcher" role="group" aria-label="Design exploration">
+  {looks.map((look) => (
+    <button type="button" data-look-option={look.id}>{look.label}</button>
+  ))}
+</div>
+
+<script is:inline>
+  function bindLookSwitcher() {
+    document.querySelectorAll("[data-look-option]").forEach((button) => {
+      const look = button.getAttribute("data-look-option");
+      button.setAttribute("aria-pressed", String(document.documentElement.dataset.look === look));
+      if (button.hasAttribute("data-bound")) return;
+      button.setAttribute("data-bound", "true");
+      button.addEventListener("click", () => {
+        const url = new URL(window.location.href);
+        url.searchParams.set("look", look);
+        window.location.replace(url);
+      });
+    });
+  }
+  bindLookSwitcher();
+  document.addEventListener("astro:after-swap", bindLookSwitcher);
+</script>

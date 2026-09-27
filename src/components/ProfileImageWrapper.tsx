@@ -237,7 +237,7 @@ export function ProfileImageWrapper({
   return (
     <div 
       ref={containerRef}
-      className={`relative inline-block ${className}`}
+      className={`pf relative inline-block ${className}`}
       style={{ 
         width: containerSize, 
         height: containerSize,
@@ -253,7 +253,7 @@ export function ProfileImageWrapper({
     >
       {/* Extended outer glow layer - no clipping */}
       <div 
-        className={`absolute transition-all ease-out ${
+        className={`pf-glow absolute transition-all ease-out ${
           isHovered ? 'opacity-50 dark:opacity-20 duration-500' : 'opacity-0 duration-200'
         }`}
         style={{
@@ -271,7 +271,7 @@ export function ProfileImageWrapper({
 
       {/* Medium glow layer */}
       <div 
-        className={`absolute transition-all ease-out ${
+        className={`pf-glow absolute transition-all ease-out ${
           isHovered ? 'opacity-70 dark:opacity-30 duration-400 delay-50' : 'opacity-0 duration-200'
         }`}
         style={{
@@ -289,7 +289,7 @@ export function ProfileImageWrapper({
 
       {/* Gradient border layer */}
       <div 
-        className={`absolute transition-all ease-out ${
+        className={`pf-ring absolute transition-all ease-out ${
           isHovered ? 'opacity-100 duration-300 delay-100' : 'opacity-0 duration-200'
         }`}
         style={{
@@ -314,7 +314,7 @@ export function ProfileImageWrapper({
 
       {/* Profile image container */}
       <div 
-        className={`absolute transition-all duration-300 ease-out`}
+        className={`pf-img absolute transition-all duration-300 ease-out`}
         style={{
           left: profileOffset,
           top: profileOffset,
@@ -355,7 +355,7 @@ export function ProfileImageWrapper({
 
       {/* Simple themed border when not hovered */}
       <div 
-        className={`absolute border-2 border-border-color/40 transition-opacity ease-out ${
+        className={`pf-outline absolute border-2 border-border-color/40 transition-opacity ease-out ${
           isHovered ? 'opacity-0 duration-75' : 'opacity-100 duration-300 delay-0'
         }`}
         style={{

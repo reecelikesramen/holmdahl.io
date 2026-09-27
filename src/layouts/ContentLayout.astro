@@ -81,11 +81,11 @@ const processedDescription = description ? marked(description, {
   modifiedTime={updatedDate}
   tags={tags}
 >
-  <article class="w-full max-w-3xl mx-auto px-4 md:px-6 mb-12 md:mb-16">
+  <article class="article w-full max-w-3xl mx-auto px-4 md:px-6 mb-12 md:mb-16">
     {/* Title */}
     {showTitle && title && (
       <header class="mt-3 mb-2 md:mt-6 md:mb-5 mx-auto">
-        <h1 class="mb-0.5 text-3xl md:text-5xl font-bold leading-tight text-content-color">
+        <h1 class="article-title mb-0.5 text-3xl md:text-5xl font-bold leading-tight text-content-color">
           {title}
         </h1>
       </header>
@@ -93,13 +93,13 @@ const processedDescription = description ? marked(description, {
     
     {/* Description */}
     {showDescription && processedDescription && (
-      <div class="mt-2 mb-1 md:mt-2.5 md:mb-1.5 text-secondary-color prose dark:prose-invert prose-sm md:prose-base prose-a:underline-offset-2 max-w-none">
+      <div class="article-desc mt-2 mb-1 md:mt-2.5 md:mb-1.5 text-secondary-color prose dark:prose-invert prose-sm md:prose-base prose-a:underline-offset-2 max-w-none">
         <Fragment set:html={processedDescription} />
       </div>
     )}
 
     {/* Meta information - date, author, read time */}
-      <div class="meta-info flex flex-col xs:flex-row xs:flex-wrap xs:items-center mb-6 md:mb-8 text-xs md:text-sm text-secondary-color">
+      <div class="article-meta meta-info flex flex-col xs:flex-row xs:flex-wrap xs:items-center mb-6 md:mb-8 text-xs md:text-sm text-secondary-color">
         {showPubDate && pubDate && !isNaN(pubDate.getTime()) && (
           <span class="xs:after:content-['·'] xs:after:mx-1 md:after:mx-2 last:after:content-none">
             {pubDate.toLocaleDateString('en-US', {
@@ -125,7 +125,7 @@ const processedDescription = description ? marked(description, {
 
     {/* Cover Image */}
     {showCover && cover && (
-      <div class="-mx-4 md:-mx-6 mb-6 md:mb-8">
+      <div class="article-cover -mx-4 md:-mx-6 mb-6 md:mb-8">
         <Picture
           src={cover.image}
           alt={cover.alt}
