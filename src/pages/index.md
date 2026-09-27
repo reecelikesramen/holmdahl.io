@@ -1,7 +1,7 @@
 ---
 layout: "@/layouts/ProfileLayout.astro"
 title: "Reece Holmdahl"
-subtitle: "Fullstack Software Engineer | CS & Math @ UMN"
+subtitle: "Lead Software Engineer @ CalcAir | Creator of pywire"
 imageTitle: "Reece at Grand Prismatic Spring in Yellowstone"
 socialIcons:
   - name: github
@@ -20,4 +20,6 @@ buttons:
     url: "/projects"
   - name: "Posts"
     url: "/posts"
+  - name: "pywire"
+    url: "https://pywire.dev"
 ---
