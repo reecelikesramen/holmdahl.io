@@ -42,7 +42,7 @@ type Props = SEOProps;
       
       // Design exploration: pick a look from ?look=, remembered per browser
       function initializeLook() {
-        const looks = ["current", "editorial", "workbench", "prismatic"];
+        const looks = ["current", "wb-prism", "wb-serif", "wb-spectrum", "editorial", "workbench", "prismatic"];
         let look = "current";
         try {
           const fromQuery = new URLSearchParams(window.location.search).get("look");
@@ -51,6 +51,7 @@ type Props = SEOProps;
           if (looks.includes(stored)) look = stored;
         } catch {}
         document.documentElement.dataset.look = look;
+        document.documentElement.dataset.base = look === "workbench" || look.startsWith("wb-") ? "workbench" : look;
       }
 
       // Initialize on page load
