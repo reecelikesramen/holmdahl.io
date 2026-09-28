@@ -2,7 +2,7 @@
 layout: "@/layouts/ProfileLayout.astro"
 title: "Reece Holmdahl"
 subtitle: "Lead Software Engineer @ CalcAir | Creator of pywire"
-imageTitle: "Reece at Grand Prismatic Spring in Yellowstone"
+imageTitle: "Portrait of Reece Holmdahl"
 socialIcons:
   - name: github
     url: https://github.com/reecelikesramen
