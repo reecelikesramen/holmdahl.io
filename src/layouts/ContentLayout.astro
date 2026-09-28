@@ -226,13 +226,38 @@ const processedDescription = description ? marked(description, {
     });
   }
 
+  // Long code blocks start collapsed into a scrollable box with a toggle
+  function setupCodeCollapse() {
+    document.querySelectorAll<HTMLPreElement>('.prose pre.astro-code').forEach(pre => {
+      if (pre.dataset.collapsible || pre.scrollHeight < 480) return;
+      pre.dataset.collapsible = 'true';
+      pre.classList.add('is-collapsed');
+      const lines = pre.querySelectorAll('.line').length;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'code-toggle';
+      const label = () => pre.classList.contains('is-collapsed') ? `Show all ${lines} lines` : 'Collapse';
+      button.textContent = label();
+      button.setAttribute('aria-expanded', 'false');
+      button.addEventListener('click', () => {
+        const collapsed = pre.classList.toggle('is-collapsed');
+        button.textContent = label();
+        button.setAttribute('aria-expanded', String(!collapsed));
+        if (collapsed) pre.scrollIntoView({ block: 'nearest' });
+      });
+      pre.after(button);
+    });
+  }
+
   // Initialize when DOM is loaded
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       setupSmoothScroll();
+      setupCodeCollapse();
     });
   } else {
     setupSmoothScroll();
+    setupCodeCollapse();
   }
 </script>
 

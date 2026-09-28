@@ -41,7 +41,7 @@ export default defineConfig({
 
   markdown: {
     shikiConfig: {
-      themes: { light: 'everforest-light', dark: 'everforest-dark' },
+      themes: { light: 'gruvbox-light-soft', dark: 'gruvbox-dark-soft' },
       defaultColor: false,
       langs: [
         'python',
