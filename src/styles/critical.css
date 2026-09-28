@@ -43,7 +43,7 @@
   --tertiary-color: #f3f3f1;
   --content-color: #232428;
   --border-color: #e5e5e2;
-  --accent-color: #0b7a78;
+  --accent-color: #2f6b4c;
 }
 
 .dark {
@@ -87,7 +87,7 @@
   --tertiary-color: #1b1b1d;
   --content-color: #d6d5d0;
   --border-color: #26262a;
-  --accent-color: #4fc4bd;
+  --accent-color: #8fcaa2;
 }
 
 @theme inline {

@@ -41,7 +41,7 @@ export default defineConfig({
 
   markdown: {
     shikiConfig: {
-      themes: { light: 'vitesse-light', dark: 'vitesse-dark' },
+      themes: { light: 'everforest-light', dark: 'everforest-dark' },
       defaultColor: false,
       langs: [
         'python',

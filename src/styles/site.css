@@ -1,7 +1,7 @@
 /*
  * Site look: typographic, one grotesk (Schibsted Grotesk) with Reddit Mono
- * for metadata, ruled lists instead of cards, and a teal accent taken
- * from the water of the Grand Prismatic Spring.
+ * for metadata, ruled lists instead of cards, and a sage accent taken
+ * from the pines around the Grand Prismatic Spring.
  *
  * Left unlayered so these rules win over Tailwind's utility layer.
  */
@@ -289,7 +289,7 @@
 .prose a:hover { text-decoration-color: var(--accent-color); }
 
 /*
- * Code blocks: Shiki renders both vitesse themes as CSS variables
+ * Code blocks: Shiki renders both Everforest themes as CSS variables
  * (defaultColor: false), and the .dark class picks which one shows.
  */
 .astro-code {
@@ -298,9 +298,13 @@
   border: 1px solid var(--border-color);
   border-radius: 6px;
   background-color: var(--tertiary-color) !important;
+  font-family: "Reddit Mono", ui-monospace, monospace;
   font-size: 0.875rem;
   line-height: 1.65;
 }
+
+.astro-code code,
+.prose code { font-family: "Reddit Mono", ui-monospace, monospace; }
 
 .astro-code,
 .astro-code span {
