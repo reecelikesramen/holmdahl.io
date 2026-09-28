@@ -54,7 +54,7 @@
 
 % Sections formatting
 \titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large
+  \vspace{-4pt}\bfseries\raggedright\large
 }{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
 
 % Ensure that generate pdf is machine readable/ATS parsable
@@ -111,7 +111,7 @@
 
 \begin{center}
   \textbf{\Huge Reece Holmdahl} \\ \vspace{1pt}
-  \small \href{mailto:reece@holmdahl.io}{\underline{reece@holmdahl.io}} $|$
+  \small New York, NY $|$ \href{mailto:reece@holmdahl.io}{\underline{reece@holmdahl.io}} $|$
   \href{https://holmdahl.io}{\underline{holmdahl.io}} $|$
   \href{https://linkedin.com/in/reeceholmdahl}{\underline{linkedin.com/in/reeceholmdahl}} $|$
   \href{https://github.com/reecelikesramen}{\underline{github.com/reecelikesramen}}
@@ -123,24 +123,24 @@
 
 %-----------CalcAir Lead SWE-----------
 \resumeSubheading
-{CalcAir Employee Benefit Systems \textnormal{\small(formerly DATAIR)}}{Remote, USA}
+{CalcAir Employee Benefit Systems \textnormal{\small(a Constellation Software company)}}{Remote, USA}
 {Lead Software Engineer}{Mar 2026 -- Present}
 \resumeItemListStart
-\resumeItem{Technical lead for the DS product migration; built a web demo on my own initiative that moved the plan from a .NET desktop port to a cloud-native web app, and set up the project's code review, CI/CD, and work tracking.}
-\resumeItem{Designed and built DS Web's AI-first development platform (.NET, React, shared libraries, component templates, non-AI code automation, automated quality gates) that the team now builds on using an AI-driven development lifecycle (AI-DLC).}
-\resumeItem{Own DS Web's application shell and shared UI components, and am designing its scalable SaaS foundation: integration with existing MyCalcAir cloud hosting, sign-in parity for existing clients, and a migration path off legacy dependencies.}
-\resumeItem{Led R\&D-wide Claude adoption and run monthly AI meetings; built the DS Smart Import MVP in two days at a hackathon.}
-\resumeItem{Primary technical contact for PwC/Yonder consultants on the PE/PR migration, setting expectations and allocating resources.}
-\resumeItem{Hotfixed a major EFAST2 production outage; while covering Azure cloud engineering for 2--3 months, onboarded 3 new clients and fixed a critical production reporting issue within a day.}
+\resumeItem{Lead 3 engineers modernizing a product used by 25\% of clients (\textasciitilde20\% of revenue); won the switch from a 1:1 desktop rewrite to a cloud-native web app with a working demo, keeping clients who required cloud and making the plan deliverable.}
+\resumeItem{Designed and built the team's AI-first development platform (.NET, React, shared libraries, templates, code automation, quality gates), taking the modernization to nearly done in 5 months.}
+\resumeItem{Architecting autoscaling SaaS hosting to replace always-on per-client VMs, so cost no longer grows linearly per client.}
+\resumeItem{Built and own every CI/CD pipeline at the company; leading its migration from Azure DevOps to GitHub.}
+\resumeItem{Took R\&D AI adoption from 50\% (Cursor) to 100\% (Claude, Claude Code) through workshops and peer-to-peer coaching.}
+\resumeItem{Hotfixed an outage blocking 20\% of clients from regulatory filing deadlines; lead technical contact for outside consultants.}
 \resumeItemListEnd
 
 %-----------CalcAir SWE II-----------
 \resumeSubSubheading
 {Software Engineer II}{Jul 2025 -- Mar 2026}
 \resumeItemListStart
-\resumeItem{Designed and built a framework that migrates legacy VB6 screens to .NET without hand-rebuilding each one; migrated all of PEWin's main screens, including dynamic behavior, in 2.5 months.}
-\resumeItem{Led the cloud cutover from DATAIR to CalcAir hosting with zero client impact; co-led the website rebrand and its .NET port.}
-\resumeItem{Introduced Azure DevOps (Git, CI/CD, Boards) and led 8+ workshops rolling out Cursor, Git, and .NET API development.}
+\resumeItem{Built an LLM-vision framework that ports VB6 screens to .NET; moved all 78 flagship screens in 2.5 months, not \textasciitilde7 by hand.}
+\resumeItem{Led a post-acquisition cloud cutover with zero client impact, saving \$3K/month; led and built most of the website rebrand.}
+\resumeItem{Introduced Azure DevOps (Git, CI/CD, Boards) and ran 8+ workshops; covered cloud engineering, onboarding 3 clients.}
 \resumeItemListEnd
 
 \resumeSubHeadingListEnd
@@ -152,9 +152,9 @@
 {Other World Computing}{Remote, USA}
 {Software Engineer I}{Jul 2022 -- Aug 2023}
 \resumeItemListStart
-\resumeItem{Built a Salesforce-to-ERP sync for 10K records/day, cutting sync failures 90\% (300 to under 20/day), monitored in Kibana.}
+\resumeItem{Built a Salesforce-to-ERP sync handling 100K+ record syncs/day, replacing manual syncing that cost a 40-person sales and service team \textasciitilde2,500 hours/year; cut sync failures 90\% and built Kibana monitoring and alerting.}
 \resumeItem{Restored a failed work-order automation system within three hours, protecting \$50K in daily revenue (5\% of company total).}
-\resumeItem{Automated three sales and customer service reporting workflows, cutting manual reporting from 15 to 1 hour per week.}
+\resumeItem{Automated three reporting workflows, cutting the sales and service team's manual reporting from 30 to under 1 hour/week.}
 \resumeItemListEnd
 
 %-----------OWC SWE INTERN-----------
@@ -171,6 +171,7 @@
 \resumeSubHeadingListStart
 
 %-----------PYWIRE-----------
+% pywire start date from first commit in github.com/pywire/pywire (2026-01-11).
 \resumeProjectHeading
 {\href{https://pywire.dev}{\textbf{\underline{pywire}}} $|$ \emph{Python, Starlette, WebSockets, tree-sitter, TypeScript}}{Jan 2026 -- Present}
 \resumeItemListStart
@@ -202,11 +203,11 @@
     \item{
         \begin{tabbing}
           \hspace{8.5em} \= \kill
-          \textbf{Languages:}\> C\#, TypeScript/JavaScript, Python, SQL, Rust, Java, C/C++, VB6 \\
-          \textbf{Frameworks:} \> .NET / ASP.NET Core, React, Node.js, FastAPI, Starlette, Svelte, Tauri, NUnit \\
-          \textbf{Cloud \& DevOps:} \> Azure, Azure DevOps, GitHub Actions, Docker, Jenkins, Octopus Deploy, Git \\
-          \textbf{Databases:} \> Microsoft SQL Server, PostgreSQL, Redis, MongoDB, SQLite \\
-          \textbf{AI Engineering:} \> Claude Code, Cursor, AI-DLC, agentic coding workflows, LLM agents (LangChain)
+          \textbf{Languages:}\> C\#, TypeScript/JavaScript, Python, SQL, Rust \\
+          \textbf{Frameworks:} \> .NET / ASP.NET Core, React, Node.js, FastAPI, Svelte \\
+          \textbf{Cloud \& DevOps:} \> Azure, GCP, Cloudflare, Azure DevOps, GitHub Actions, Docker, Git, Linear \\
+          \textbf{Databases:} \> Microsoft SQL Server, PostgreSQL, Redis, MongoDB \\
+          \textbf{AI Engineering:} \> Claude Code, Cursor, Anthropic \& OpenAI APIs, Azure AI Foundry, OpenRouter, Pi, AI-DLC optimization
         \end{tabbing}
     }}
 \end{itemize}
