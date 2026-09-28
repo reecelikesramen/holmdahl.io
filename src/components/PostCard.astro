@@ -61,8 +61,8 @@ const processedDescription = data.description ? marked(data.description, {
           draggable="false"
           loading={aboveTheFold ? "eager" : "lazy"}
           fetchpriority={aboveTheFold ? "high" : "auto"}
-          widths={[400, 800, 1200]}
-          sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px"
+          widths={[480, 800, 1200, 1600]}
+          sizes="(min-width: 56rem) 900px, 100vw"
           formats={['avif', 'webp']}
           fallbackFormat="jpg"
         />
