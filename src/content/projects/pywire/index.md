@@ -30,7 +30,9 @@ Try it with `uvx create-pywire-app`, read the docs at [pywire.dev](https://pywir
 
 A Python developer who wants an interactive web page usually ends up building two applications. The back end is Python. The front end is a JavaScript framework with its own state, its own build tooling, and a JSON API in between that someone has to design, version, and keep in sync. For internal tools, dashboards, and CRUD apps, that split is most of the work.
 
-Server-driven UI avoids the split. The server owns the state, the browser sends events, and the server sends back HTML. Phoenix LiveView, Laravel Livewire, and Blazor Server showed how productive that model can be. I wanted the same model in Python, with the authoring experience I like most on the front end: Svelte's single-file components, HTML that looks like HTML, and reactivity that just works.
+Server-driven UI avoids the split. The server owns the state, the browser sends events, and the server sends back HTML. Phoenix LiveView, Laravel Livewire, and Blazor Server showed how productive that model can be. But the options I'd used had their own problems. htmx gets hard to read as features grow. Blazor starts off perfect, then its performance suffers in real apps, and its model breaks down around ordinary auth and middleware.
+
+Python has a great ecosystem for building server APIs quickly, and nothing equivalent for building a whole interactive app. I wanted the server-first model in Python, with the authoring experience I like most on the front end: Svelte's single-file components, HTML that looks like HTML, and reactivity that just works. I also think server-first will get more popular as networks get faster and edge deployment gets more practical, because it keeps the mental model and the security model simple.
 
 ---
 
@@ -119,7 +121,7 @@ The parser went through three versions, each replacing the one before when it hi
 2. **lxml**, which was fine until the syntax grew. A `.wire` file mixes Python, HTML, CSS, and JavaScript, with Python expressions inside attributes and text, and every tool needs to agree on where one language ends and the next begins.
 3. **A tree-sitter grammar**, which became the single source of truth for the language. The compiler, the language server, the syntax highlighter, and the formatter all read the same grammar, so they can't disagree.
 
-The tree-sitter parser was first built in Rust. It was fast, but it had to be compiled for every platform and again for WebAssembly, and on the day it landed CI needed more than a dozen fixes. Two months later I replaced it with a pure-Python package built on the same grammar, "so the grammar loads without platform-specific Rust wheels." That's what lets pywire run in Pyodide and on Cloudflare's Python Workers.
+The tree-sitter parser was first built in Rust. It was fast, but it had to be compiled for every platform and again for WebAssembly, and on the day it landed CI needed more than a dozen fixes. In hindsight it was premature optimization. Two months later I replaced it with a pure-Python package built on the same grammar, "so the grammar loads without platform-specific Rust wheels." That's what lets pywire run in Pyodide and on Cloudflare's Python Workers.
 
 The compiler turns each `.wire` file into a Python class, with a source map back to the original file. When something fails, the traceback points at the right line of your `.wire` file, and in development, `print()` output and errors from event handlers appear in your browser's console.
 
@@ -181,6 +183,6 @@ Packages depend on each other, so a language server release is only safe once th
 
 pywire is at version 0.15. The docs say the API "will tighten before v1." Work in progress includes CSRF protection, observability, a test client, more `pywire check` rules, and more ways to deploy.
 
-<!-- TODO(Reece): add adoption or impact numbers if you have them (PyPI downloads, VS Code installs, stars, anyone using it), and a sentence on what 1.0 means to you. -->
+<!-- TODO(Reece): add adoption or impact numbers if you have them (PyPI downloads, VS Code installs, stars, anyone using it), and a link to the roadmap page that defines 1.0. -->
 
 I'm writing a longer post about building pywire: the parts I rewrote, the parts I deleted, and what I learned building developer tools as one person. If you try it, I'd love to hear what you build.
