@@ -54,7 +54,7 @@
 
 % Sections formatting
 \titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large
+  \vspace{-4pt}\bfseries\raggedright\large
 }{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
 
 % Ensure that generate pdf is machine readable/ATS parsable
@@ -111,7 +111,7 @@
 
 \begin{center}
   \textbf{\Huge Reece Holmdahl} \\ \vspace{1pt}
-  \small \href{mailto:reece@holmdahl.io}{\underline{reece@holmdahl.io}} $|$
+  \small New York, NY $|$ \href{mailto:reece@holmdahl.io}{\underline{reece@holmdahl.io}} $|$
   \href{https://holmdahl.io}{\underline{holmdahl.io}} $|$
   \href{https://linkedin.com/in/reeceholmdahl}{\underline{linkedin.com/in/reeceholmdahl}} $|$
   \href{https://github.com/reecelikesramen}{\underline{github.com/reecelikesramen}}
@@ -123,21 +123,22 @@
 
 %-----------CalcAir Lead SWE-----------
 \resumeSubheading
-{CalcAir Employee Benefit Systems}{Remote, USA}
+{CalcAir Employee Benefit Systems \textnormal{\small(a Constellation Software company)}}{Remote, USA}
 {Lead Software Engineer}{Mar 2026 -- Present}
 \resumeItemListStart
 \resumeItem{Lead 3 engineers modernizing a product used by 25\% of clients (\textasciitilde20\% of revenue); won the switch from a 1:1 desktop rewrite to a cloud-native web app with a working demo, keeping clients who required cloud and making the plan deliverable.}
 \resumeItem{Designed and built the team's AI-first development platform (.NET, React, shared libraries, templates, code automation, quality gates), taking the modernization to nearly done in 5 months.}
-\resumeItem{Architecting autoscaling SaaS hosting that replaces always-on per-client VMs at 2x+ lower cost per client.}
-\resumeItem{Took R\&D AI adoption from 50\% to 100\% via Cursor and Claude Code workshops; led company-wide Claude rollout.}
-\resumeItem{Hotfixed an outage blocking \textasciitilde100 clients from regulatory filing deadlines; primary technical contact for outside consultants.}
+\resumeItem{Architecting autoscaling SaaS hosting to replace always-on per-client VMs, so cost no longer grows linearly per client.}
+\resumeItem{Built and own every CI/CD pipeline at the company; leading its migration from Azure DevOps to GitHub.}
+\resumeItem{Took R\&D AI adoption from 50\% (Cursor) to 100\% (Claude, Claude Code) through workshops and peer-to-peer coaching.}
+\resumeItem{Hotfixed an outage blocking 20\% of clients from regulatory filing deadlines; lead technical contact for outside consultants.}
 \resumeItemListEnd
 
 %-----------CalcAir SWE II-----------
 \resumeSubSubheading
 {Software Engineer II}{Jul 2025 -- Mar 2026}
 \resumeItemListStart
-\resumeItem{Built a framework migrating legacy VB6 screens to .NET; moved all 78 flagship screens in 2.5 months, not \textasciitilde7 by hand.}
+\resumeItem{Built an LLM-vision framework that ports VB6 screens to .NET; moved all 78 flagship screens in 2.5 months, not \textasciitilde7 by hand.}
 \resumeItem{Led a post-acquisition cloud cutover with zero client impact, saving \$3K/month; led and built most of the website rebrand.}
 \resumeItem{Introduced Azure DevOps (Git, CI/CD, Boards) and ran 8+ workshops; covered cloud engineering, onboarding 3 clients.}
 \resumeItemListEnd
@@ -202,11 +203,11 @@
     \item{
         \begin{tabbing}
           \hspace{8.5em} \= \kill
-          \textbf{Languages:}\> C\#, TypeScript/JavaScript, Python, SQL, Rust, Java, C/C++, VB6 \\
-          \textbf{Frameworks:} \> .NET / ASP.NET Core, React, Node.js, FastAPI, Starlette, Svelte, Tauri, NUnit \\
-          \textbf{Cloud \& DevOps:} \> Azure, Azure DevOps, GitHub Actions, Docker, Jenkins, Octopus Deploy, Git \\
-          \textbf{Databases:} \> Microsoft SQL Server, PostgreSQL, Redis, MongoDB, SQLite \\
-          \textbf{AI Engineering:} \> Claude Code, Cursor, AI-DLC, agentic coding workflows, LLM agents (LangChain)
+          \textbf{Languages:}\> C\#, TypeScript/JavaScript, Python, SQL, Rust \\
+          \textbf{Frameworks:} \> .NET / ASP.NET Core, React, Node.js, FastAPI, Svelte \\
+          \textbf{Cloud \& DevOps:} \> Azure, GCP, Cloudflare, Azure DevOps, GitHub Actions, Docker, Git, Linear \\
+          \textbf{Databases:} \> Microsoft SQL Server, PostgreSQL, Redis, MongoDB \\
+          \textbf{AI Engineering:} \> Claude Code, Cursor, Anthropic \& OpenAI APIs, Azure AI Foundry, OpenRouter, Pi, AI-DLC optimization
         \end{tabbing}
     }}
 \end{itemize}
