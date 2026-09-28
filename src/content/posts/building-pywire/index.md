@@ -47,6 +47,41 @@ Blazor and htmx both felt like the right mental model at first, and both balloon
 
 So I started pywire for myself, to fix problems I thought were solvable that no framework was solving well. Python also has a great ecosystem for building server APIs quickly, but nothing equivalent for building a whole interactive app. And I think server-first will get more popular as the internet gets faster and edge deployment gets more practical, because it keeps both the mental model and the security model simple.
 
+# It started in Kotlin
+
+pywire wasn't my first attempt at this idea. In August 2025, five months before the first pywire commit, I built it in Kotlin, because Kotlin's developer experience is the best I've used.
+
+The first prototype took four days. Its design doc opened big, with Rails-style conventions and MVVM and MVI patterns layered on top. Within days I'd cut it down to something much closer to pywire: server-first components written as Kotlin functions, HTML from a type-safe DSL on [Ktor](https://ktor.io/), and state that lives in the user's server session. By the fourth day, a todo app worked.
+
+The second, [Kascade](https://github.com/reecelikesramen/kascade), rebuilt it on Kotlin Multiplatform, so the same component code compiled for the JVM server and for the browser. A counter looked like this:
+
+```kotlin
+val CounterComponent = component<CounterComponentProps> {
+    var count by state(props.start)
+
+    body {
+        div { +"$count" }
+        button {
+            onClick { count += props.step }
+            +"Increment"
+        }
+    }
+}
+```
+
+In six days Kascade got layouts, client-side routing, typed route parameters, and nested components. It also got a DOM patching step that I switched from snabbdom to morphdom because it was "more practical, less issues." pywire still patches the page with morphdom today. Kascade's roadmap reads like an early draft of pywire's: sugar for forms, server actions, a `create-kascade-app` CLI, hot reload in dev mode, and a choice between serverless deploys and persistent WebSocket connections.
+
+Then I switched languages. Python is more relevant for AI-native coding, and it's far more popular for building APIs, so a framework there could reach many more developers.
+
+<!--
+Q: What made you stop Kascade after August 25? Was it only Python's reach, or also something about Kotlin
+   (Kotlin/JS bundle size, Gradle builds, Multiplatform complexity)?
+Q: Kascade ran component logic in the browser via Kotlin/JS; pywire keeps it all on the server. Deliberate reversal?
+Q: Did writing HTML as Kotlin function calls push you toward .wire files with real HTML?
+Q: What did Kotlin do better that you still miss in pywire?
+Q: The first prototype's repo is private. OK to link it, or keep mentioning only Kascade?
+-->
+
 # Tooling on day one
 
 The very first commit had a language server and a VS Code extension in it, before the framework was anywhere near stable. A new file format without syntax highlighting, completions, or error squiggles is miserable to use, and I didn't want to design a language I wouldn't enjoy writing myself.
