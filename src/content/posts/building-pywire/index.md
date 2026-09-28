@@ -6,7 +6,7 @@ draft: true
 pubDate: 2026-09-27
 cover:
   image: ./cover.png
-  alt: The pywire counter starter app, showing a count of 42 with Increment and Reset buttons
+  alt: A .wire file in an editor beside the running pywire counter app showing a count of 42
   caption: The starter app from uvx create-pywire-app
 tags: [pywire, python, web-development, compilers, open-source]
 showReadingTime: true
@@ -28,7 +28,7 @@ It's nearly 600 commits, twelve independently versioned packages, and more than 
 
 A pywire page is a `.wire` file: Python in a fence at the top, HTML below.
 
-```
+```wire
 ---
 count = wire(0)
 ---
