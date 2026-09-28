@@ -1,9 +1,8 @@
 ---
 import { Picture } from 'astro:assets';
-import { ProfileImageWrapper } from './ProfileImageWrapper.tsx';
 import profileImage from '@/assets/profile.png';
 
-const size = 300;
+const size = 88;
 
 export interface Props {
   alt: string;
@@ -16,24 +15,17 @@ const {
 } = Astro.props;
 ---
 
-<ProfileImageWrapper 
-  width={size} 
+<Picture 
+  src={profileImage}
+  alt={alt}
+  title={title}
+  width={size}
   height={size}
-  client:media="(pointer: fine)"
->
-  <Picture 
-    src={profileImage}
-    alt={alt}
-    title={title}
-    width={size}
-    height={size}
-    class="w-full h-full object-cover select-none"
-    draggable="false"
-    formats={['avif', 'webp']}
-    widths={[300, 450, 600, 900, 1200]}
-    sizes="(min-width: 48rem) 720px, 100vw"
-    fallbackFormat="jpg"
-    loading="eager"
-    fetchpriority="high"
-  />
-</ProfileImageWrapper> 
+  class="profile-image"
+  draggable="false"
+  formats={['avif', 'webp']}
+  densities={[1, 2, 3]}
+  fallbackFormat="jpg"
+  loading="eager"
+  fetchpriority="high"
+/>
