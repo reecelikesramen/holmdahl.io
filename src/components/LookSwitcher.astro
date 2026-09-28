@@ -2,19 +2,17 @@
 // Preview-only switcher for comparing design explorations.
 const looks = [
   { id: 'current', label: 'Current' },
-  { id: 'wb-prism', label: 'Prism' },
   { id: 'wb-serif', label: 'Serif' },
-  { id: 'wb-spectrum', label: 'Spectrum' },
-  { id: 'editorial', label: 'Editorial' },
-  { id: 'workbench', label: 'Workbench' },
-  { id: 'prismatic', label: 'Prismatic' },
+  { id: 'rail', label: 'Rail' },
+  { id: 'landscape', label: 'Landscape' },
+  { id: 'index', label: 'Index' },
 ];
 ---
 
 <div class="look-switcher" role="group" aria-label="Design exploration">
   {looks.map((look) => (
     <>
-      {look.id === 'editorial' && <span class="look-divider" aria-hidden="true"></span>}
+      {look.id === 'rail' && <span class="look-divider" aria-hidden="true"></span>}
       <button type="button" data-look-option={look.id}>{look.label}</button>
     </>
   ))}
