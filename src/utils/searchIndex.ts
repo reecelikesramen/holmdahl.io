@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { isPublished } from '@/utils/drafts';
 
 export interface SearchIndexItem {
   title: string;
@@ -14,7 +15,7 @@ export async function generateSearchIndex(): Promise<SearchIndexItem[]> {
   // Add blog posts from content collections
   try {
     const posts = await getCollection("posts");
-    const publishedPosts = posts.filter(post => !post.data.draft);
+    const publishedPosts = posts.filter(isPublished);
     
     for (const post of publishedPosts) {
       const url = `/posts/${post.id}`;
@@ -39,7 +40,7 @@ export async function generateSearchIndex(): Promise<SearchIndexItem[]> {
   // Add projects from content collections
   try {
     const projects = await getCollection("projects");
-    const publishedProjects = projects.filter(project => !project.data.draft);
+    const publishedProjects = projects.filter(isPublished);
     
     for (const project of publishedProjects) {
       const url = `/projects/${project.id}`;
