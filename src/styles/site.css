@@ -1,0 +1,284 @@
+/*
+ * Site look: typographic, one grotesk (Schibsted Grotesk) with Reddit Mono
+ * for metadata, ruled lists instead of cards, and an ochre accent taken
+ * from the mineral bands of the Grand Prismatic Spring.
+ *
+ * Left unlayered so these rules win over Tailwind's utility layer.
+ */
+
+/* Header lines up with the content column */
+.site-header {
+  padding-inline: 0;
+}
+
+.site-header > nav {
+  padding-inline: 0.875rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 48rem) {
+  .site-header > nav { padding-inline: 1.5rem; }
+}
+
+.site-title {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.nav-link,
+.nav-link span {
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--secondary-color);
+}
+
+.nav-link:hover span,
+.nav-link.is-active span { color: var(--primary-color); }
+
+.nav-link.is-active span {
+  text-decoration: underline;
+  text-decoration-color: var(--accent-color);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 7px;
+}
+
+:is(.card-meta, .article-meta) {
+  font-family: "Reddit Mono", ui-monospace, monospace;
+}
+
+/* ------------------------------------------------------------------ */
+/* Home                                                                */
+/* ------------------------------------------------------------------ */
+
+.hero-wrap {
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.hero {
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "photo ."
+    "heading heading"
+    "actions actions"
+    "social social";
+  justify-items: start;
+  row-gap: 1.75rem;
+  padding-bottom: 2rem;
+}
+
+.hero-photo { grid-area: photo; }
+
+.profile-image {
+  display: block;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  user-select: none;
+}
+
+.hero-heading {
+  grid-area: heading;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.hero-name {
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  font-weight: 750;
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+.hero-subtitle {
+  margin: 0;
+  max-width: 28ch;
+  font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+  font-weight: 450;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--secondary-color);
+}
+
+.hero-actions {
+  grid-area: actions;
+  justify-content: flex-start;
+  gap: 0.5rem 2rem;
+  margin: 0;
+  padding-top: 1.5rem;
+  width: 100%;
+  border-top: 1px solid var(--primary-color);
+}
+
+.hero-btn {
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  transform: none !important;
+  text-decoration: underline;
+  text-decoration-color: var(--border-color);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+  transition: text-decoration-color 0.2s, color 0.2s;
+}
+
+.hero-btn[target="_blank"]::after { content: " ↗"; color: var(--secondary-color); }
+.hero-btn:hover { color: var(--accent-color); text-decoration-color: var(--accent-color); }
+
+.hero-social { grid-area: social; margin: 0; }
+.hero-social > div { justify-content: flex-start; gap: 1.1rem; }
+.hero-social svg { width: 20px; height: 20px; }
+.hero-social :is(a, button):hover { color: var(--accent-color) !important; }
+
+/* ------------------------------------------------------------------ */
+/* Lists                                                               */
+/* ------------------------------------------------------------------ */
+
+.page-title {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 750;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.card-list {
+  padding-top: 0;
+  border-top: 1px solid var(--primary-color);
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0;
+  padding: 1.75rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--border-color);
+  border-radius: 0;
+  background: none;
+  overflow: visible;
+  transform: none !important;
+}
+
+.card-body {
+  margin-top: 0;
+  padding: 0;
+}
+
+.card-title {
+  display: block;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  transition: color 0.2s;
+}
+
+.card-title::after {
+  content: " →";
+  color: var(--secondary-color);
+  font-weight: 400;
+  transition: color 0.2s;
+}
+
+.card:hover .card-title,
+.card:hover .card-title::after { color: var(--accent-color); }
+
+.card-desc { max-width: 52ch; font-size: 1.02rem; }
+.card-meta { font-size: 0.75rem; }
+
+/*
+ * Thumbnails sit in a fixed 2:1 frame. Project covers are macOS window
+ * captures with the shadow baked in, so they are positioned to show only
+ * the 2:1 window (plus a 1% trim of its rounded corners), undistorted.
+ */
+.card-media {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+  padding: 0;
+  border-radius: 4px;
+}
+
+.card-media :is(picture, img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.card-media img {
+  aspect-ratio: auto;
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.card-media.is-window-capture img {
+  position: absolute;
+  left: -6.66%;
+  top: -8.75%;
+  width: 113.42%;
+  height: 124.85%;
+  max-width: none;
+}
+
+@media (min-width: 48rem) {
+  .card:has(.card-media) {
+    grid-template-columns: 1fr 15rem;
+    column-gap: 3rem;
+    align-items: center;
+  }
+
+  .card-media { order: 2; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Articles                                                            */
+/* ------------------------------------------------------------------ */
+
+.article-title {
+  font-weight: 750;
+  letter-spacing: -0.045em;
+  color: var(--primary-color);
+}
+
+.article-cover img { border-radius: 6px; }
+
+.prose {
+  --tw-prose-body: var(--content-color);
+  --tw-prose-headings: var(--primary-color);
+  --tw-prose-bold: var(--primary-color);
+  --tw-prose-links: var(--accent-color);
+  --tw-prose-quotes: var(--secondary-color);
+  --tw-prose-quote-borders: var(--accent-color);
+  --tw-prose-hr: var(--border-color);
+  --tw-prose-bullets: var(--secondary-color);
+  --tw-prose-counters: var(--secondary-color);
+  --tw-prose-captions: var(--secondary-color);
+  --tw-prose-invert-body: var(--content-color);
+  --tw-prose-invert-headings: var(--primary-color);
+  --tw-prose-invert-bold: var(--primary-color);
+  --tw-prose-invert-links: var(--accent-color);
+  --tw-prose-invert-quotes: var(--secondary-color);
+  --tw-prose-invert-quote-borders: var(--accent-color);
+  --tw-prose-invert-hr: var(--border-color);
+  --tw-prose-invert-bullets: var(--secondary-color);
+  --tw-prose-invert-counters: var(--secondary-color);
+  --tw-prose-invert-captions: var(--secondary-color);
+}
+
+.prose a {
+  text-decoration-color: color-mix(in srgb, var(--accent-color) 45%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s;
+}
+
+.prose a:hover { text-decoration-color: var(--accent-color); }

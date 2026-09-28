@@ -2,8 +2,7 @@
 import '@/styles/global.css';
 import '@/styles/scrollbars.css';
 import SEO, { type Props as SEOProps } from '@/components/SEO.astro';
-import '@/styles/looks.css';
-import LookSwitcher from '@/components/LookSwitcher.astro';
+import '@/styles/site.css';
 
 type Props = SEOProps;
 ---
@@ -40,28 +39,12 @@ type Props = SEOProps;
         localStorage.setItem("isMac", isMac.toString());
       }
       
-      // Design exploration: pick a look from ?look=, remembered per browser
-      function initializeLook() {
-        const looks = ["current", "wb-serif", "rail", "landscape", "index"];
-        let look = "current";
-        try {
-          const fromQuery = new URLSearchParams(window.location.search).get("look");
-          if (looks.includes(fromQuery)) localStorage.setItem("look", fromQuery);
-          const stored = localStorage.getItem("look");
-          if (looks.includes(stored)) look = stored;
-        } catch {}
-        document.documentElement.dataset.look = look;
-        document.documentElement.dataset.base = look === "workbench" || look.startsWith("wb-") ? "workbench" : look;
-      }
-
       // Initialize on page load
-      initializeLook();
       initializeTheme();
       initializePlatform();
       
       // Re-initialize after Astro view transitions (if used)
       document.addEventListener("astro:after-swap", () => {
-        initializeLook();
         initializeTheme();
         initializePlatform();
       });
@@ -70,12 +53,8 @@ type Props = SEOProps;
     <!-- 5. Critical CSS (Astro handles CSS automatically here) -->
     
     <!-- 6. Font loading (optimized for performance) -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&family=Schibsted+Grotesk:wght@400..900&display=swap" media="print" onload="this.media='all'">
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&family=Schibsted+Grotesk:wght@400..900&display=swap">
-    </noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@400..700&family=Schibsted+Grotesk:wght@400..900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@400..700&family=Schibsted+Grotesk:wght@400..900&display=swap"></noscript>
     
     <!-- 7. Favicons and theme meta (lowest priority) -->
     <link rel="icon" href="/favicon.ico" />
@@ -94,11 +73,10 @@ type Props = SEOProps;
     }
   ]} id="top">
     <slot name="header" />
-    <main class="main flex-1 flex flex-col w-full max-w-3xl mx-auto p-3.5 md:p-6 h-full">
+    <main class="main flex-1 flex flex-col w-full max-w-4xl mx-auto p-3.5 md:p-6 h-full">
       <slot />
     </main>
     <slot name="footer" />
-    <LookSwitcher />
     
     <!-- Google Analytics - Moved to bottom for better LCP performance -->
     <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-HQESWBHP6J"></script>

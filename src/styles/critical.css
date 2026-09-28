@@ -36,13 +36,14 @@
   --ring: hsl(0 0% 3.9%);
   
   /* PaperMod theme color variables - essential only */
-  --theme-color: rgb(255, 255, 255);
-  --entry-color: rgb(248, 249, 250);
-  --primary-color: rgb(30, 30, 30);
-  --secondary-color: rgb(108, 108, 108);
-  --tertiary-color: rgb(214, 214, 214);
-  --content-color: rgb(31, 31, 31);
-  --border-color: rgb(238, 238, 238);
+  --theme-color: #ffffff;
+  --entry-color: #ffffff;
+  --primary-color: #0e0f11;
+  --secondary-color: #62656b;
+  --tertiary-color: #f3f3f1;
+  --content-color: #232428;
+  --border-color: #e5e5e2;
+  --accent-color: #a45a00;
 }
 
 .dark {
@@ -79,13 +80,14 @@
   --sidebar-ring: oklch(0.556 0 0);
   
   /* Dark theme color variables */
-  --theme-color: rgb(29, 30, 32);
-  --entry-color: rgb(46, 46, 51);
-  --primary-color: rgb(218, 218, 219);
-  --secondary-color: rgb(155, 156, 157);
-  --tertiary-color: rgb(65, 66, 68);
-  --content-color: rgb(196, 196, 197);
-  --border-color: rgb(51, 51, 51);
+  --theme-color: #0f0f10;
+  --entry-color: #151517;
+  --primary-color: #f1f0ec;
+  --secondary-color: #9a9a95;
+  --tertiary-color: #1b1b1d;
+  --content-color: #d6d5d0;
+  --border-color: #26262a;
+  --accent-color: #f0b04a;
 }
 
 @theme inline {
@@ -123,6 +125,7 @@
   --color-tertiary-color: var(--tertiary-color);
   --color-content-color: var(--content-color);
   --color-border-color: var(--border-color);
+  --color-accent-color: var(--accent-color);
 }
 
 @layer base {
@@ -132,7 +135,7 @@
   }
   
   html {
-    font-family: "Source Serif 4", serif;
+    font-family: "Schibsted Grotesk", system-ui, sans-serif;
     scroll-behavior: smooth;
   }
   
@@ -145,11 +148,11 @@
     margin: 0;
     padding: 0;
     overflow-wrap: break-word;
-    font-family: "Source Serif 4", serif;
+    font-family: "Schibsted Grotesk", system-ui, sans-serif;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Source Serif 4", serif;
+    font-family: "Schibsted Grotesk", system-ui, sans-serif;
   }
   
   a {
