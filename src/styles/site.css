@@ -233,14 +233,10 @@
   max-width: none;
 }
 
+/* Entries stack at every width: a full-width image, then title and text */
 @media (min-width: 48rem) {
-  .card:has(.card-media) {
-    grid-template-columns: 1fr 15rem;
-    column-gap: 3rem;
-    align-items: center;
-  }
-
-  .card-media { order: 2; }
+  .card { padding: 2.25rem 0; row-gap: 1.25rem; }
+  .card-media { border-radius: 6px; }
 }
 
 /* ------------------------------------------------------------------ */
