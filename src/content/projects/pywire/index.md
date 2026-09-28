@@ -3,8 +3,8 @@ title: "pywire"
 description: "An open-source, HTML-over-the-wire Python web framework. Live at [pywire.dev](https://pywire.dev)"
 cover:
   image: ./cover.png
-  alt: A .wire file in an editor beside the running pywire counter app showing a count of 42
-  caption: The counter app from uvx create-pywire-app
+  alt: A todos.wire component in an editor beside the running pywire todo app
+  caption: A pywire todo app, with Python state and handlers above the HTML template
 showToc: false
 weight: 0
 ---

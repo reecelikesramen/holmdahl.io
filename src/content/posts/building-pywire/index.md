@@ -6,8 +6,8 @@ draft: true
 pubDate: 2026-09-27
 cover:
   image: ./cover.png
-  alt: A .wire file in an editor beside the running pywire counter app showing a count of 42
-  caption: The starter app from uvx create-pywire-app
+  alt: A todos.wire component in an editor beside the running pywire todo app
+  caption: A pywire todo app, with Python state and handlers above the HTML template
 tags: [pywire, python, web-development, compilers, open-source]
 showReadingTime: true
 showToc: true
