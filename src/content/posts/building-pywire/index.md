@@ -49,11 +49,11 @@ So I started pywire for myself, to fix problems I thought were solvable that no 
 
 # It started in Kotlin
 
-pywire wasn't my first attempt at this idea. In August 2025, five months before the first pywire commit, I built it in Kotlin, because Kotlin's developer experience is the best I've used.
+pywire wasn't my first attempt at this idea. In August 2025, five months before the first pywire commit, I built it twice in Kotlin, because Kotlin's developer experience is the best I've used. It performs well and has all of Java's libraries behind it. Its trailing-lambda syntax makes DSLs that are efficient to write and easy to read, and coroutines make async code pleasant. I wanted all of that for the web.
 
-The first prototype took four days. Its design doc opened big, with Rails-style conventions and MVVM and MVI patterns layered on top. Within days I'd cut it down to something much closer to pywire: server-first components written as Kotlin functions, HTML from a type-safe DSL on [Ktor](https://ktor.io/), and state that lives in the user's server session. By the fourth day, a todo app worked.
+The first prototype took four days, and it was purely server-served. Its design doc opened big, with Rails-style conventions and MVVM and MVI patterns layered on top. Within days I'd cut it down to something very close to pywire: components written as Kotlin functions on [Ktor](https://ktor.io/), HTML from a type-safe DSL, and state that lives in the user's server session. A small TypeScript runtime in the browser forwarded clicks, inputs, and form submissions over a WebSocket, with HTTP as a fallback, and the server re-rendered the component and sent back its HTML. By the fourth day, a todo app worked.
 
-The second, [Kascade](https://github.com/reecelikesramen/kascade), rebuilt it on Kotlin Multiplatform, so the same component code compiled for the JVM server and for the browser. A counter looked like this:
+The second, [Kascade](https://github.com/reecelikesramen/kascade), went a different direction. It was more React-inspired and built on Kotlin Multiplatform, so the same component code compiled for the JVM server and for the browser. The goal was a Kotlin-only DSL where you could put an action on the front end or the back end seamlessly, with effortless RPC between them, all in one model. A counter looked like this:
 
 ```kotlin
 val CounterComponent = component<CounterComponentProps> {
@@ -69,18 +69,15 @@ val CounterComponent = component<CounterComponentProps> {
 }
 ```
 
-In six days Kascade got layouts, client-side routing, typed route parameters, and nested components. It also got a DOM patching step that I switched from snabbdom to morphdom because it was "more practical, less issues." pywire still patches the page with morphdom today. Kascade's roadmap reads like an early draft of pywire's: sugar for forms, server actions, a `create-kascade-app` CLI, hot reload in dev mode, and a choice between serverless deploys and persistent WebSocket connections.
+In six days Kascade got layouts, client-side routing, typed route parameters, and nested components. It also got a DOM patching step that I switched from snabbdom to morphdom because it was "more practical, less issues." pywire still patches the page with morphdom today.
 
-Then I switched languages. Python is more relevant for AI-native coding, and it's far more popular for building APIs, so a framework there could reach many more developers.
+Kascade stalled for two reasons. Kotlin Multiplatform was still immature, and a codebase where *all* code targets both the server and the client, with no finer control over what runs where, gets complicated fast. And Kotlin's reach is limited. A Kotlin web framework would be a hard sell to anyone but Kotlin diehards. Python is far more popular for building APIs and more relevant for AI-native coding, and it's nice to write, with a massive library ecosystem. Building apps in Python should be nicer than it is.
 
-<!--
-Q: What made you stop Kascade after August 25? Was it only Python's reach, or also something about Kotlin
-   (Kotlin/JS bundle size, Gradle builds, Multiplatform complexity)?
-Q: Kascade ran component logic in the browser via Kotlin/JS; pywire keeps it all on the server. Deliberate reversal?
-Q: Did writing HTML as Kotlin function calls push you toward .wire files with real HTML?
-Q: What did Kotlin do better that you still miss in pywire?
-Q: The first prototype's repo is private. OK to link it, or keep mentioning only Kascade?
--->
+So pywire went back to the first prototype's model, where everything runs on the server. It's a bet that the network is getting fast enough for that. Round trips to edge deployments keep shrinking, and WebTransport is coming.
+
+Kotlin also taught me what I *didn't* want. HTML written as Kotlin function calls is a DSL, and so much editor tooling is built around real HTML: Tailwind's extension, Emmet, other HTML extensions, minifiers. AI models are trained on a lot of good HTML, too, and not on good HTML DSLs. That's a big reason pywire puts Python and real HTML in one `.wire` file, with language support for both. The Prettier plugin can defer to your usual HTML rules and your Python rules, and Ty and Ruff still apply to the Python. Plus, building a grammar was fun.
+
+I'd still love to come back to Kotlin someday as a hobby project, on the model pywire has settled into. It could be an interesting alternative to Compose HTML.
 
 # Tooling on day one
 
