@@ -7,7 +7,7 @@ weight: 0
 
 pywire is a Python web framework for building interactive web apps without writing client-side JavaScript. You write single-file `.wire` components, with Python on top and HTML below. The server renders the page, and when state changes it streams DOM patches to the browser over a WebSocket.
 
-```
+```wire
 ---
 count = wire(0)
 ---

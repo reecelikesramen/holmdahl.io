@@ -81,6 +81,10 @@
   user-select: none;
 }
 
+@media (min-width: 48rem) {
+  .profile-image { width: 106px; height: 106px; }
+}
+
 .hero-heading {
   grid-area: heading;
   align-items: flex-start;
@@ -282,3 +286,44 @@
 }
 
 .prose a:hover { text-decoration-color: var(--accent-color); }
+
+/*
+ * Code blocks: Shiki renders both vitesse themes as CSS variables
+ * (defaultColor: false), and the .dark class picks which one shows.
+ */
+.astro-code {
+  margin-block: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--tertiary-color) !important;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.astro-code,
+.astro-code span {
+  color: var(--shiki-light);
+  font-style: var(--shiki-light-font-style);
+  font-weight: var(--shiki-light-font-weight);
+}
+
+.dark .astro-code,
+.dark .astro-code span {
+  color: var(--shiki-dark);
+  font-style: var(--shiki-dark-font-style);
+  font-weight: var(--shiki-dark-font-weight);
+}
+
+.astro-code code { background: none; padding: 0; }
+
+.prose :not(pre) > code {
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  background: var(--tertiary-color);
+  font-size: 0.88em;
+  font-weight: 500;
+}
+
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after { content: none; }

@@ -13,6 +13,11 @@ import partytown from '@astrojs/partytown';
 import mdx from '@astrojs/mdx';
 
 import sitemap from '@astrojs/sitemap';
+import fs from 'node:fs';
+
+// TextMate grammar for pywire's .wire files, vendored from
+// github.com/pywire/pywire (packages/vscode-pywire/syntaxes)
+const wireGrammar = JSON.parse(fs.readFileSync(new URL('./src/grammars/pywire.tmLanguage.json', import.meta.url), 'utf-8'));
 
 // https://astro.build/config
 export default defineConfig({
@@ -35,6 +40,21 @@ export default defineConfig({
   },
 
   markdown: {
+    shikiConfig: {
+      themes: { light: 'vitesse-light', dark: 'vitesse-dark' },
+      defaultColor: false,
+      langs: [
+        'python',
+        'javascript',
+        'css',
+        {
+          ...wireGrammar,
+          name: 'wire',
+          aliases: ['pywire'],
+          embeddedLangs: ['python', 'javascript', 'css'],
+        },
+      ],
+    },
     processor: unified({
       remarkPlugins: [remarkDefinitionList, remarkReadingTime],
       rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'append' }]],
