@@ -3,7 +3,7 @@ author: Reece Holmdahl
 title: A Kotlin DSL for FRC Commands
 description: Using Kotlin's type-safe builders to make WPILib robot code read like what the robot does
 draft: true
-pubDate: 2026-09-28
+pubDate: 2026-04-15
 tags: [robotics, frc, kotlin, wpilib, dsl, developer-experience]
 showReadingTime: true
 showToc: true
