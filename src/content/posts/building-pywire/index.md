@@ -6,8 +6,8 @@ draft: true
 pubDate: 2026-09-27
 cover:
   image: ./cover.png
-  alt: A todos.wire component in an editor beside the running pywire todo app
-  caption: A pywire todo app, with Python state and handlers above the HTML template
+  alt: The pywire logo and the title Building pywire beside a counter.wire file on the server and the running counter in the browser
+  caption: A pywire counter, with its state on the server and the page in the browser
 tags: [pywire, python, web-development, compilers, open-source]
 showReadingTime: true
 showToc: true
