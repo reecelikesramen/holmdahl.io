@@ -8,7 +8,7 @@ tags: [robotics, frc, kotlin, wpilib, dsl, developer-experience]
 cover:
   image: ./cover.png
   alt: The same robot scoring routine written as a chain of WPILib command calls in Java and as nested sequence and parallel blocks in the Kotlin DSL
-  caption: Our 2025 scoring sequence in Java and in the Kotlin DSL: four steps, three of them running two commands at once
+  caption: "Our 2025 scoring sequence in Java and in the Kotlin DSL: four steps, three of them running two commands at once"
 showReadingTime: true
 showToc: true
 tocOpen: false
