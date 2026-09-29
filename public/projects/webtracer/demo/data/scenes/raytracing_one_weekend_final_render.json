@@ -1,0 +1,3519 @@
+{
+  "scene": {
+    "scene_parameters": {
+      "bgColor": [0.55, 0.77, 1]
+    },
+    "camera": [
+      {
+        "_type": "perspective",
+        "_name": "main",
+        "position": [13, 2, 3],
+        "lookat_point": [0, 0, 0],
+        "vfov": 30,
+        "focus_dist": 10.0,
+        "defocus_angle": 0.2
+      }
+    ],
+    "shader": [
+      {
+        "_type": "Lambertian",
+        "_name": "diffuse_0",
+        "diffuse": [0.9533906249394032, 0.5765170562757644, 0.38463895914932433]
+      },
+      {
+        "_type": "Lambertian",
+        "_name": "diffuse_1",
+        "diffuse": [0.21373917828333366, 0.685262491209437, 0.8765855248382598]
+      },
+      {
+        "_type": "Lambertian",
+        "_name": "diffuse_2",
+        "diffuse": [0.5069730729118235, 0.664951326710938, 0.19596526485994747]
+      },
+      {
+        "_type": "Lambertian",
+        "_name": "diffuse_3",
+        "diffuse": [0.10457403450826852, 0.532590533220794, 0.37170621530100245]
+      },
+      {
+        "_type": "Lambertian",
+        "_name": "diffuse_4",
+        "diffuse": [0.505645702047209, 0.5095677069936133, 0.2579358911709517]
+      },
+      {
+        "_type": "Lambertian",
+        "_name": "diffuse_5",
+        "diffuse": [0.6938825531900441, 0.8274998261446137, 0.8408339102039957]
+      },
+      {
+        "_type": "Lambertian",
+        "_name": "diffuse_6",
+        "diffuse": [0.9842119328692582, 0.8868485799830035, 0.3951682576836856]
+      },
+      {
+        "_type": "Lambertian",
+        "_name": "diffuse_7",
+        "diffuse": [0.8347040230234478, 0.3644338578673255, 0.8942125177772876]
+      },
+      {
+        "_type": "Lambertian",
+        "_name": "diffuse_8",
+        "diffuse": [0.8385233404761465, 0.9654998380846014, 0.14189972154083486]
+      },
+      {
+        "_type": "Lambertian",
+        "_name": "diffuse_9",
+        "diffuse": [0.5960647827683121, 0.4747792157180959, 0.061549432464985565]
+      },
+      {
+        "_type": "Metal",
+        "_name": "metal_0",
+        "albedo": [0.9145555290393506, 0.7597564936063459, 0.8723754289503522],
+        "fuzz": 0.3043147937168386
+      },
+      {
+        "_type": "Metal",
+        "_name": "metal_1",
+        "albedo": [0.6198749929421579, 0.8285761983026222, 0.9554905813444898],
+        "fuzz": 0.23439671963898245
+      },
+      {
+        "_type": "Metal",
+        "_name": "metal_2",
+        "albedo": [0.507494548045046, 0.9225774403830271, 0.8660242513337272],
+        "fuzz": 0.4468996454121503
+      },
+      {
+        "_type": "Metal",
+        "_name": "metal_3",
+        "albedo": [0.8752528724291629, 0.8956427936906912, 0.5572102537374557],
+        "fuzz": 0.49537363894447056
+      },
+      {
+        "_type": "Metal",
+        "_name": "metal_4",
+        "albedo": [0.914580213364675, 0.7916866743144166, 0.7966503548197483],
+        "fuzz": 0.07372094731388518
+      },
+      {
+        "_type": "Dielectric",
+        "_name": "glass",
+        "attenuation": [1.0, 1.0, 1.0],
+        "ior": 1.5
+      },
+      {
+        "_type": "Lambertian",
+        "_name": "big lambert",
+        "diffuse": [0.4, 0.2, 0.1]
+      },
+      {
+        "_type": "Metal",
+        "_name": "big metal",
+        "albedo": [0.7, 0.6, 0.5],
+        "fuzz": 0
+      },
+      {
+        "_type": "Lambertian",
+        "_name": "ground",
+        "diffuse": [0.5, 0.5, 0.5]
+      }
+    ],
+    "shape": [
+      {
+        "_type": "sphere",
+        "_name": "ground sphere",
+        "_shader": "ground",
+        "center": [0, -1000, 0],
+        "radius": 1000
+      },
+      {
+        "_type": "sphere",
+        "_name": "big glass sphere",
+        "_shader": "glass",
+        "center": [0, 1, 0],
+        "radius": 1
+      },
+      {
+        "_type": "sphere",
+        "_name": "big matte sphere",
+        "_shader": "big lambert",
+        "center": [-4, 1, 0],
+        "radius": 1
+      },
+      {
+        "_type": "sphere",
+        "_name": "big metal sphere",
+        "_shader": "big metal",
+        "center": [4, 1, 0],
+        "radius": 1
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_0",
+        "center": [-10.677999118741434, 0.2, -10.122561566955076],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_1",
+        "center": [-10.829767544034087, 0.2, -9.63074945379188],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_2",
+        "center": [-10.436221655262644, 0.2, -8.668646949804366],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_3",
+        "center": [-10.13626020679444, 0.2, -7.488413142898367],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_4",
+        "center": [-10.570515676979953, 0.2, -6.291343507080288],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_5",
+        "center": [-10.285835517653934, 0.2, -5.304718725173153],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_6",
+        "center": [-10.8454828292587, 0.2, -4.609454812915481],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_7",
+        "center": [-10.714422464806978, 0.2, -3.6356400956724206],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_8",
+        "center": [-10.657513284619895, 0.2, -2.6483647601375404],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_9",
+        "center": [-10.13355984227303, 0.2, -1.3390861524852764],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_10",
+        "center": [-10.36368605210993, 0.2, -0.17522287903246014],
+        "radius": 0.2,
+        "_shader": "metal_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_11",
+        "center": [-10.105123448682413, 0.2, 0.40719047328447316],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_12",
+        "center": [-10.567602600188488, 0.2, 1.4140184839627892],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_13",
+        "center": [-10.606133680446451, 0.2, 2.0022328302484667],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_14",
+        "center": [-10.784831177186211, 0.2, 3.246745136240727],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_15",
+        "center": [-10.387441055694772, 0.2, 4.024290693144194],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_16",
+        "center": [-10.18040782706561, 0.2, 5.862743365009463],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_17",
+        "center": [-10.1727284985258, 0.2, 6.157051913019586],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_18",
+        "center": [-10.484270756677724, 0.2, 7.149528911654104],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_19",
+        "center": [-10.205419905830327, 0.2, 8.111350613282017],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_20",
+        "center": [-10.721244714984241, 0.2, 9.261587672428385],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_21",
+        "center": [-10.903145895032985, 0.2, 10.571150059100189],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_22",
+        "center": [-9.131296744010994, 0.2, -10.453324673461575],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_23",
+        "center": [-9.536197345754019, 0.2, -9.994606761661142],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_24",
+        "center": [-9.728086379338581, 0.2, -8.626621656217667],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_25",
+        "center": [-9.184505994476465, 0.2, -7.38015117727599],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_26",
+        "center": [-9.387210542988674, 0.2, -6.41933941929125],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_27",
+        "center": [-9.957854444871936, 0.2, -5.43855475273714],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_28",
+        "center": [-9.46207686370123, 0.2, -4.533975472647505],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_29",
+        "center": [-9.68957488759591, 0.2, -3.508956281532404],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_30",
+        "center": [-9.104289777623178, 0.2, -2.6377604383659965],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_31",
+        "center": [-9.364514480309145, 0.2, -1.318475569050563],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_32",
+        "center": [-9.560852868653598, 0.2, -0.5470737333147274],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_33",
+        "center": [-9.384912902755971, 0.2, 0.5802381863269015],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_34",
+        "center": [-9.571489422793562, 0.2, 1.552251502580377],
+        "radius": 0.2,
+        "_shader": "metal_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_35",
+        "center": [-9.813614848927896, 0.2, 2.531996367591753],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_36",
+        "center": [-9.614309020130726, 0.2, 3.2016428771961456],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_37",
+        "center": [-9.464685163516135, 0.2, 4.553822431147973],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_38",
+        "center": [-9.110001462965847, 0.2, 5.081798982867294],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_39",
+        "center": [-9.91365711239127, 0.2, 6.18950293005246],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_40",
+        "center": [-9.707785734388244, 0.2, 7.164750645350482],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_41",
+        "center": [-9.452269570730584, 0.2, 8.677922899258913],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_42",
+        "center": [-9.568126691492711, 0.2, 9.899919765009788],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_43",
+        "center": [-9.711744947221272, 0.2, 10.715879937873988],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_44",
+        "center": [-8.643532614258513, 0.2, -10.292152680397079],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_45",
+        "center": [-8.562079663252744, 0.2, -9.794711502597103],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_46",
+        "center": [-8.800663609113752, 0.2, -8.431649308655897],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_47",
+        "center": [-8.812926332112408, 0.2, -7.558845653341905],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_48",
+        "center": [-8.82303127918082, 0.2, -6.77928685936588],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_49",
+        "center": [-8.486082426692604, 0.2, -5.109339482135833],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_50",
+        "center": [-8.440109924697857, 0.2, -4.694982104028748],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_51",
+        "center": [-8.624332075809189, 0.2, -3.5584897309790904],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_52",
+        "center": [-8.267750440643317, 0.2, -2.220418629763371],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_53",
+        "center": [-8.78597983961103, 0.2, -1.2413247447721405],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_54",
+        "center": [-8.85449971541659, 0.2, -0.39079271445744757],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_55",
+        "center": [-8.315572235588714, 0.2, 0.21328881806561098],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_56",
+        "center": [-8.965034205928426, 0.2, 1.5458924514506849],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_57",
+        "center": [-8.853245258572054, 0.2, 2.5324101800134367],
+        "radius": 0.2,
+        "_shader": "metal_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_58",
+        "center": [-8.930730846922762, 0.2, 3.6575972416894684],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_59",
+        "center": [-8.97282440437383, 0.2, 4.715588616618412],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_60",
+        "center": [-8.962463684629421, 0.2, 5.793850395856111],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_61",
+        "center": [-8.492631750500186, 0.2, 6.572622530398399],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_62",
+        "center": [-8.910586185836042, 0.2, 7.573618014886439],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_63",
+        "center": [-8.566368316407761, 0.2, 8.453702301086881],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_64",
+        "center": [-8.700730979735086, 0.2, 9.506169722376583],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_65",
+        "center": [-8.73737537106145, 0.2, 10.604050997628399],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_66",
+        "center": [-7.924162223712958, 0.2, -10.336047461714767],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_67",
+        "center": [-7.5679323244485435, 0.2, -9.112115385790954],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_68",
+        "center": [-7.669465576678112, 0.2, -8.506136987754612],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_69",
+        "center": [-7.200298366080659, 0.2, -7.947725102408226],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_70",
+        "center": [-7.864474350486039, 0.2, -6.8937201453425585],
+        "radius": 0.2,
+        "_shader": "metal_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_71",
+        "center": [-7.793728545912493, 0.2, -5.895237187632365],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_72",
+        "center": [-7.10973778334, 0.2, -4.983362902922349],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_73",
+        "center": [-7.165807574512135, 0.2, -3.7079837764545096],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_74",
+        "center": [-7.527002254247457, 0.2, -2.185720258990961],
+        "radius": 0.2,
+        "_shader": "metal_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_75",
+        "center": [-7.600741213891816, 0.2, -1.2238526777968362],
+        "radius": 0.2,
+        "_shader": "metal_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_76",
+        "center": [-7.68032754902093, 0.2, -0.7309851599679833],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_77",
+        "center": [-7.116584790078249, 0.2, 0.017344910247957823],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_78",
+        "center": [-7.227958245352097, 0.2, 1.517539357348713],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_79",
+        "center": [-7.247536549848396, 0.2, 2.1854979795194427],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_80",
+        "center": [-7.3576769828280435, 0.2, 3.7878349320027094],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_81",
+        "center": [-7.574966729110972, 0.2, 4.488009026292953],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_82",
+        "center": [-7.784987167947919, 0.2, 5.2510034268596835],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_83",
+        "center": [-7.7454390091738965, 0.2, 6.221288625342791],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_84",
+        "center": [-7.899372631981358, 0.2, 7.7069523905412956],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_85",
+        "center": [-7.223065073838851, 0.2, 8.336454145444684],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_86",
+        "center": [-7.7827252790478605, 0.2, 9.114702193654031],
+        "radius": 0.2,
+        "_shader": "metal_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_87",
+        "center": [-7.858197150867195, 0.2, 10.366931488364406],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_88",
+        "center": [-6.350951048747868, 0.2, -10.469955494247422],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_89",
+        "center": [-6.8211705828947995, 0.2, -9.328091320788362],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_90",
+        "center": [-6.485357309114264, 0.2, -8.700564159372407],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_91",
+        "center": [-6.978356588853247, 0.2, -7.492452295699346],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_92",
+        "center": [-6.840856180143114, 0.2, -6.398856500796696],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_93",
+        "center": [-6.313434954447835, 0.2, -5.575632313858868],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_94",
+        "center": [-6.810772618658181, 0.2, -4.506590071405312],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_95",
+        "center": [-6.469398621858341, 0.2, -3.1681375198097856],
+        "radius": 0.2,
+        "_shader": "metal_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_96",
+        "center": [-6.403613093264698, 0.2, -2.4558244693398734],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_97",
+        "center": [-6.944519991183258, 0.2, -1.4590879656884401],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_98",
+        "center": [-6.540029450086058, 0.2, -0.11280676472343765],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_99",
+        "center": [-6.799850094706432, 0.2, 0.8171463948453977],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_100",
+        "center": [-6.142808018350483, 0.2, 1.0999920975933875],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_101",
+        "center": [-6.378400334520922, 0.2, 2.6868467712724016],
+        "radius": 0.2,
+        "_shader": "metal_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_102",
+        "center": [-6.9321554245624215, 0.2, 3.441773199864272],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_103",
+        "center": [-6.38062103202915, 0.2, 4.2071410648006085],
+        "radius": 0.2,
+        "_shader": "metal_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_104",
+        "center": [-6.387688428231644, 0.2, 5.114071762531116],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_105",
+        "center": [-6.651514693933751, 0.2, 6.115637096222557],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_106",
+        "center": [-6.306173234878742, 0.2, 7.001914631460042],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_107",
+        "center": [-6.163197628871119, 0.2, 8.671380572771934],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_108",
+        "center": [-6.345446530182239, 0.2, 9.873588886401063],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_109",
+        "center": [-6.1375572034575425, 0.2, 10.09112674441964],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_110",
+        "center": [-5.1829527574059675, 0.2, -10.309081676745961],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_111",
+        "center": [-5.780528574573391, 0.2, -9.606498977923716],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_112",
+        "center": [-5.965569497392789, 0.2, -8.51622223179264],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_113",
+        "center": [-5.450777649992239, 0.2, -7.808456325946413],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_114",
+        "center": [-5.890776573886042, 0.2, -6.211415784021497],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_115",
+        "center": [-5.2113504080063215, 0.2, -5.9328500651763205],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_116",
+        "center": [-5.868188270782188, 0.2, -4.555275151676729],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_117",
+        "center": [-5.697641347421179, 0.2, -3.916314793400394],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_118",
+        "center": [-5.454232671958863, 0.2, -2.3427402451797636],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_119",
+        "center": [-5.626014781999347, 0.2, -1.821795592188753],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_120",
+        "center": [-5.267371198497027, 0.2, -0.8103840607999007],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_121",
+        "center": [-5.658107636634059, 0.2, 0.4852549169601368],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_122",
+        "center": [-5.945023334235647, 0.2, 1.0185087488142233],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_123",
+        "center": [-5.820617404848642, 0.2, 2.1390816973747304],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_124",
+        "center": [-5.1089906686104944, 0.2, 3.7991181460525367],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_125",
+        "center": [-5.910177508059308, 0.2, 4.314743178728467],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_126",
+        "center": [-5.1255763405539065, 0.2, 5.061836114841719],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_127",
+        "center": [-5.535740038332022, 0.2, 6.103082342553052],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_128",
+        "center": [-5.555806023055481, 0.2, 7.701365373272308],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_129",
+        "center": [-5.251884745450214, 0.2, 8.417918856652241],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_130",
+        "center": [-5.432426138622142, 0.2, 9.442666559812691],
+        "radius": 0.2,
+        "_shader": "metal_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_131",
+        "center": [-5.625395768856838, 0.2, 10.337587511480884],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_132",
+        "center": [-4.330606016655058, 0.2, -10.199657357134507],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_133",
+        "center": [-4.4423719498808625, 0.2, -9.163088856903416],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_134",
+        "center": [-4.551124347443371, 0.2, -8.672219563479008],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_135",
+        "center": [-4.725301101857009, 0.2, -7.365147314287473],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_136",
+        "center": [-4.632345010585588, 0.2, -6.963290848158216],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_137",
+        "center": [-4.883992400876793, 0.2, -5.780068731404148],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_138",
+        "center": [-4.682314662483704, 0.2, -4.909079249380576],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_139",
+        "center": [-4.390898523555934, 0.2, -3.737185399069932],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_140",
+        "center": [-4.22347461976773, 0.2, -2.408531222483374],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_141",
+        "center": [-4.782639979811263, 0.2, -1.105476068313266],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_142",
+        "center": [-4.497088010248642, 0.2, -0.6244488606748557],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_143",
+        "center": [-4.317146136632292, 0.2, 0.522400513056602],
+        "radius": 0.2,
+        "_shader": "metal_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_144",
+        "center": [-4.4374245671968255, 0.2, 1.738526851458655],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_145",
+        "center": [-4.760501763348386, 0.2, 2.359800203841433],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_146",
+        "center": [-4.7338394920506826, 0.2, 3.2798216372968096],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_147",
+        "center": [-4.101039982386363, 0.2, 4.421679589784026],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_148",
+        "center": [-4.496978814872888, 0.2, 5.45580826955291],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_149",
+        "center": [-4.400711583085913, 0.2, 6.073913000344975],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_150",
+        "center": [-4.62548849467818, 0.2, 7.270816263101453],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_151",
+        "center": [-4.813011102171316, 0.2, 8.326095976777498],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_152",
+        "center": [-4.853678717790656, 0.2, 9.514401169743252],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_153",
+        "center": [-4.71028529013958, 0.2, 10.45124269747538],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_154",
+        "center": [-3.4008294669636205, 0.2, -10.686970486343373],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_155",
+        "center": [-3.7875648038510765, 0.2, -9.12003892643695],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_156",
+        "center": [-3.9002121975991364, 0.2, -8.139417813972607],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_157",
+        "center": [-3.543280589082569, 0.2, -7.308722486339159],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_158",
+        "center": [-3.6646480059768667, 0.2, -6.126219533613764],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_159",
+        "center": [-3.1179290843963265, 0.2, -5.293416585041658],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_160",
+        "center": [-3.8369950971819855, 0.2, -4.855211181555051],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_161",
+        "center": [-3.4887328565311844, 0.2, -3.9657818033913763],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_162",
+        "center": [-3.417944489578858, 0.2, -2.686373386825199],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_163",
+        "center": [-3.7356726703354903, 0.2, -1.5665437864804206],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_164",
+        "center": [-3.5063473674511187, 0.2, -0.5514350449634986],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_165",
+        "center": [-3.3200229412582796, 0.2, 0.04530442077474558],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_166",
+        "center": [-3.7663351731517887, 0.2, 1.756140822557289],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_167",
+        "center": [-3.6454240543363445, 0.2, 2.0485185882658823],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_168",
+        "center": [-3.1020895418351953, 0.2, 3.756939479236495],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_169",
+        "center": [-3.2991218575430565, 0.2, 4.710633608283871],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_170",
+        "center": [-3.552882570041062, 0.2, 5.090607163432172],
+        "radius": 0.2,
+        "_shader": "metal_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_171",
+        "center": [-3.8822363369893846, 0.2, 6.515217521391356],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_172",
+        "center": [-3.6811102148954595, 0.2, 7.787909772135304],
+        "radius": 0.2,
+        "_shader": "metal_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_173",
+        "center": [-3.166625265426034, 0.2, 8.86246986615407],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_174",
+        "center": [-3.5979167837535355, 0.2, 9.340355027678953],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_175",
+        "center": [-3.869153740418235, 0.2, 10.837906457617175],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_176",
+        "center": [-2.5968197494601855, 0.2, -10.253395943288833],
+        "radius": 0.2,
+        "_shader": "metal_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_177",
+        "center": [-2.879359735576406, 0.2, -9.9394575328742],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_178",
+        "center": [-2.4594872110261177, 0.2, -8.8794453545046],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_179",
+        "center": [-2.366074405376176, 0.2, -7.105083144253524],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_180",
+        "center": [-2.655357850532233, 0.2, -6.4235226607343545],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_181",
+        "center": [-2.6818395710927625, 0.2, -5.676751606624922],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_182",
+        "center": [-2.221048626041498, 0.2, -4.685401550840884],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_183",
+        "center": [-2.8028542411384865, 0.2, -3.8841871828806998],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_184",
+        "center": [-2.5558456775714395, 0.2, -2.1267980239558746],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_185",
+        "center": [-2.5081972155495693, 0.2, -1.255346592329167],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_186",
+        "center": [-2.2561197893328604, 0.2, -0.330011897393371],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_187",
+        "center": [-2.7709507161158697, 0.2, 0.7798858883392535],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_188",
+        "center": [-2.83220900038187, 0.2, 1.4406253873009685],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_189",
+        "center": [-2.99795447429556, 0.2, 2.8431656011213833],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_190",
+        "center": [-2.7862120506486283, 0.2, 3.095592185053217],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_191",
+        "center": [-2.3083155569747054, 0.2, 4.626567090320086],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_192",
+        "center": [-2.5376540059607064, 0.2, 5.660341581089185],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_193",
+        "center": [-2.4159385662551762, 0.2, 6.61358998249241],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_194",
+        "center": [-2.1934927354521037, 0.2, 7.644525056368189],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_195",
+        "center": [-2.675295044191616, 0.2, 8.11241424807574],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_196",
+        "center": [-2.3676438879006825, 0.2, 9.750939755309965],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_197",
+        "center": [-2.6243100243458697, 0.2, 10.455848534697141],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_198",
+        "center": [-1.2702993759059946, 0.2, -10.61346736143442],
+        "radius": 0.2,
+        "_shader": "metal_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_199",
+        "center": [-1.3000261830166067, 0.2, -9.974174516287178],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_200",
+        "center": [-1.613070311687601, 0.2, -8.649129862987543],
+        "radius": 0.2,
+        "_shader": "metal_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_201",
+        "center": [-1.1248277631311743, 0.2, -7.3679638921881185],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_202",
+        "center": [-1.957049406866238, 0.2, -6.889799167957376],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_203",
+        "center": [-1.6671103371580256, 0.2, -5.559537328479326],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_204",
+        "center": [-1.6815335712132375, 0.2, -4.948389674567226],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_205",
+        "center": [-1.1940541184217612, 0.2, -3.946517642747919],
+        "radius": 0.2,
+        "_shader": "metal_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_206",
+        "center": [-1.8988972452554298, 0.2, -2.4702787565410587],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_207",
+        "center": [-1.4871632152703433, 0.2, -1.9733103887204841],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_208",
+        "center": [-1.2976420440926864, 0.2, -0.13694515446451017],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_209",
+        "center": [-1.5727432073000462, 0.2, 0.7238523858681084],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_210",
+        "center": [-1.7821375677746505, 0.2, 1.1339950821915474],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_211",
+        "center": [-1.975166761972682, 0.2, 2.6793088249863644],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_212",
+        "center": [-1.1316110413952787, 0.2, 3.318896702028041],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_213",
+        "center": [-1.2279509529715757, 0.2, 4.50908811852659],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_214",
+        "center": [-1.46478165884561, 0.2, 5.472867255125806],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_215",
+        "center": [-1.4678068661443464, 0.2, 6.0019740911763755],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_216",
+        "center": [-1.3610655913814365, 0.2, 7.640735604868659],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_217",
+        "center": [-1.396170659488098, 0.2, 8.568932317618039],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_218",
+        "center": [-1.2392400881560581, 0.2, 9.632284245236628],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_219",
+        "center": [-1.2440360195819342, 0.2, 10.221406452482963],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_220",
+        "center": [-0.9748755233902924, 0.2, -10.698425387017318],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_221",
+        "center": [-0.39567398811373944, 0.2, -9.41778453064174],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_222",
+        "center": [-0.3642072901634421, 0.2, -8.455869374998729],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_223",
+        "center": [-0.14454109296403927, 0.2, -7.62400468425644],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_224",
+        "center": [-0.379906202685385, 0.2, -6.981986680500453],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_225",
+        "center": [-0.521606581091328, 0.2, -5.300328576631344],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_226",
+        "center": [-0.7193754629017524, 0.2, -4.240053743825358],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_227",
+        "center": [-0.5053025320854265, 0.2, -3.9162143961683378],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_228",
+        "center": [-0.969105087953202, 0.2, -2.26193439155878],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_229",
+        "center": [-0.18685530050735233, 0.2, -1.192056518610933],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_230",
+        "center": [-0.9779781793404134, 0.2, -0.8340655868140423],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_231",
+        "center": [-0.36230153555996447, 0.2, 0.21557578290321708],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_232",
+        "center": [-0.544560657745179, 0.2, 1.1903956251872772],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_233",
+        "center": [-0.9841566847874945, 0.2, 2.312922958461862],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_234",
+        "center": [-0.9880656315182245, 0.2, 3.7668258288082757],
+        "radius": 0.2,
+        "_shader": "metal_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_235",
+        "center": [-0.5295813854019804, 0.2, 4.101992810152225],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_236",
+        "center": [-0.6090647135176248, 0.2, 5.532923392448169],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_237",
+        "center": [-0.1549771730378443, 0.2, 6.31081667348423],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_238",
+        "center": [-0.1298716973089611, 0.2, 7.459115892608469],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_239",
+        "center": [-0.5430586670159105, 0.2, 8.881865561266997],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_240",
+        "center": [-0.7433596630269527, 0.2, 9.197914228044924],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_241",
+        "center": [-0.4898201764854363, 0.2, 10.199895782034092],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_242",
+        "center": [0.18961711558800917, 0.2, -10.209213764765499],
+        "radius": 0.2,
+        "_shader": "metal_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_243",
+        "center": [0.5057198190000527, 0.2, -9.895009293416708],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_244",
+        "center": [0.19714693183084248, 0.2, -8.420049217538311],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_245",
+        "center": [0.30994601184884685, 0.2, -7.793091999521475],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_246",
+        "center": [0.8496955533245928, 0.2, -6.732567588661542],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_247",
+        "center": [0.24614418258577872, 0.2, -5.260505579177373],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_248",
+        "center": [0.6288640384035058, 0.2, -4.165312435065808],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_249",
+        "center": [0.3340455503498477, 0.2, -3.2771464239207737],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_250",
+        "center": [0.2657283566484168, 0.2, -2.3041884583397874],
+        "radius": 0.2,
+        "_shader": "metal_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_251",
+        "center": [0.8166277521325518, 0.2, -1.585177243787356],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_252",
+        "center": [0.6272843754155278, 0.2, -0.5894393560470557],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_253",
+        "center": [0.7081611084270483, 0.2, 0.0893846036480406],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_254",
+        "center": [0.46249683542580466, 0.2, 1.8510512736326352],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_255",
+        "center": [0.06207417514144803, 0.2, 2.2741661446603136],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_256",
+        "center": [0.6330508705940815, 0.2, 3.650050363153186],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_257",
+        "center": [0.6744622033663353, 0.2, 4.147709845375805],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_258",
+        "center": [0.5164193897568056, 0.2, 5.303935999678138],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_259",
+        "center": [0.024876358999767312, 0.2, 6.494119724593602],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_260",
+        "center": [0.7054419025262723, 0.2, 7.543276738677702],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_261",
+        "center": [0.40056355021114554, 0.2, 8.585148177648303],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_262",
+        "center": [0.8401969436260532, 0.2, 9.712217040829005],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_263",
+        "center": [0.6771036397063596, 0.2, 10.227805557423023],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_264",
+        "center": [1.1171356515021218, 0.2, -10.54679704974889],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_265",
+        "center": [1.691509781133613, 0.2, -9.727533689048384],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_266",
+        "center": [1.725101654096136, 0.2, -8.314768266015026],
+        "radius": 0.2,
+        "_shader": "metal_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_267",
+        "center": [1.1575449022666875, 0.2, -7.215789872154426],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_268",
+        "center": [1.7252707034640389, 0.2, -6.1696445414562575],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_269",
+        "center": [1.6649967479938614, 0.2, -5.147088635031839],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_270",
+        "center": [1.7061960776229803, 0.2, -4.997309942158752],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_271",
+        "center": [1.1601891096996746, 0.2, -3.4726477599017898],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_272",
+        "center": [1.0520092469472702, 0.2, -2.3493015459039532],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_273",
+        "center": [1.8626950565462228, 0.2, -1.5873142251847474],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_274",
+        "center": [1.3417715662794263, 0.2, -0.6178033651742584],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_275",
+        "center": [1.6022005954723526, 0.2, 0.7857849519333304],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_276",
+        "center": [1.6830051907886474, 0.2, 1.5770374849175197],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_277",
+        "center": [1.4018889601977143, 0.2, 2.268024889275851],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_278",
+        "center": [1.5244798233964125, 0.2, 3.1630171003110625],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_279",
+        "center": [1.6824907656766754, 0.2, 4.251357942466294],
+        "radius": 0.2,
+        "_shader": "metal_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_280",
+        "center": [1.4248967568048168, 0.2, 5.53887833520277],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_281",
+        "center": [1.365293697888248, 0.2, 6.7202570745519665],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_282",
+        "center": [1.134892612905395, 0.2, 7.543816806096933],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_283",
+        "center": [1.346921415744521, 0.2, 8.321387253417464],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_284",
+        "center": [1.3631245008288229, 0.2, 9.137897034563009],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_285",
+        "center": [1.6533673143378294, 0.2, 10.251904205582893],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_286",
+        "center": [2.7250983318399546, 0.2, -10.319179290943016],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_287",
+        "center": [2.7589946035895148, 0.2, -9.497841992715134],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_288",
+        "center": [2.2818882747467093, 0.2, -8.24801094212538],
+        "radius": 0.2,
+        "_shader": "metal_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_289",
+        "center": [2.6021495519470443, 0.2, -7.791725938782631],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_290",
+        "center": [2.319758335895149, 0.2, -6.671178940732627],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_291",
+        "center": [2.463857843271306, 0.2, -5.91185051521854],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_292",
+        "center": [2.078736371971606, 0.2, -4.900710137198059],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_293",
+        "center": [2.3507047113824013, 0.2, -3.329596669633929],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_294",
+        "center": [2.620740013219796, 0.2, -2.50795295737419],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_295",
+        "center": [2.4960058362057893, 0.2, -1.451665563222449],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_296",
+        "center": [2.4233717287185033, 0.2, -0.3519937912105777],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_297",
+        "center": [2.583210125935668, 0.2, 0.4503658400928678],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_298",
+        "center": [2.265231509164609, 0.2, 1.5788093501479674],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_299",
+        "center": [2.03878937979298, 0.2, 2.2294089076093813],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_300",
+        "center": [2.1642094020113296, 0.2, 3.070013156191729],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_301",
+        "center": [2.516774403448717, 0.2, 4.3518934753388665],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_302",
+        "center": [2.387136880014784, 0.2, 5.0669672103631065],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_303",
+        "center": [2.6605311532401585, 0.2, 6.59114921146376],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_304",
+        "center": [2.2176842302678867, 0.2, 7.795427482710445],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_305",
+        "center": [2.0252689570092404, 0.2, 8.70841662633553],
+        "radius": 0.2,
+        "_shader": "metal_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_306",
+        "center": [2.8540910676312357, 0.2, 9.65435119518325],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_307",
+        "center": [2.537930979657662, 0.2, 10.458943052188165],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_308",
+        "center": [3.325314235946765, 0.2, -10.65407696206852],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_309",
+        "center": [3.376433157990815, 0.2, -9.305506633467001],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_310",
+        "center": [3.0540080811035097, 0.2, -8.478772228949493],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_311",
+        "center": [3.0602679086144047, 0.2, -7.421243662185875],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_312",
+        "center": [3.186144793556892, 0.2, -6.512404950359868],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_313",
+        "center": [3.7901788546893487, 0.2, -5.515942846668686],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_314",
+        "center": [3.704393485863847, 0.2, -4.346700349558025],
+        "radius": 0.2,
+        "_shader": "metal_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_315",
+        "center": [3.544235886779315, 0.2, -3.255802023190228],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_316",
+        "center": [3.060015657009295, 0.2, -2.652573965676682],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_317",
+        "center": [3.613688339518603, 0.2, -1.1114882100495005],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_318",
+        "center": [3.3960161490992737, 0.2, -0.9718037985918117],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_319",
+        "center": [3.6426828402695675, 0.2, 1.4821711348454452],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_320",
+        "center": [3.2410066130920265, 0.2, 2.2903432669140646],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_321",
+        "center": [3.8037608277369275, 0.2, 3.082488783244119],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_322",
+        "center": [3.044221290496917, 0.2, 4.712508001501964],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_323",
+        "center": [3.3734072281305307, 0.2, 5.820247462921279],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_324",
+        "center": [3.8949228788373276, 0.2, 6.055334518716461],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_325",
+        "center": [3.183592219687336, 0.2, 7.501948421098961],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_326",
+        "center": [3.0067250811917448, 0.2, 8.803879447363775],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_327",
+        "center": [3.855642225142228, 0.2, 9.036121048206683],
+        "radius": 0.2,
+        "_shader": "metal_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_328",
+        "center": [3.5430890358178315, 0.2, 10.60648009591483],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_329",
+        "center": [4.0101018573934395, 0.2, -10.825069049096713],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_330",
+        "center": [4.295997519504803, 0.2, -9.93508050208423],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_331",
+        "center": [4.494393654995052, 0.2, -8.302120550519577],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_332",
+        "center": [4.140381969827128, 0.2, -7.849984248095988],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_333",
+        "center": [4.3819286640717765, 0.2, -6.491216199906064],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_334",
+        "center": [4.739769989055283, 0.2, -5.655816990675713],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_335",
+        "center": [4.825280656159673, 0.2, -4.96306040677204],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_336",
+        "center": [4.579956327742695, 0.2, -3.448358169115995],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_337",
+        "center": [4.730457003480618, 0.2, -2.105043806603488],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_338",
+        "center": [4.753368624163824, 0.2, -1.6674264718673406],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_339",
+        "center": [4.5400130045381415, 0.2, 1.398615461441667],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_340",
+        "center": [4.447894089618881, 0.2, 2.054268329699975],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_341",
+        "center": [4.725119798789456, 0.2, 3.8121847882802156],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_342",
+        "center": [4.6331342377517055, 0.2, 4.761283452643416],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_343",
+        "center": [4.452885622716499, 0.2, 5.8799503893347715],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_344",
+        "center": [4.718607287022407, 0.2, 6.104180941517564],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_345",
+        "center": [4.272874327317495, 0.2, 7.224477281184945],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_346",
+        "center": [4.689337987487634, 0.2, 8.219035489623872],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_347",
+        "center": [4.141408442129696, 0.2, 9.566891053284861],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_348",
+        "center": [4.445045255306985, 0.2, 10.163118260572903],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_349",
+        "center": [5.801606641615139, 0.2, -10.297472751344516],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_350",
+        "center": [5.603195966099678, 0.2, -9.937612225925864],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_351",
+        "center": [5.172799572126169, 0.2, -8.209477488301854],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_352",
+        "center": [5.016420623828752, 0.2, -7.810093366501235],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_353",
+        "center": [5.254004178262459, 0.2, -6.540793905614868],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_354",
+        "center": [5.444971014621221, 0.2, -5.791541401400953],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_355",
+        "center": [5.891125135137982, 0.2, -4.872851332689981],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_356",
+        "center": [5.525973263598913, 0.2, -3.3009929146428103],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_357",
+        "center": [5.178621870179635, 0.2, -2.130689663190241],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_358",
+        "center": [5.082299947077827, 0.2, -1.6444271210627481],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_359",
+        "center": [5.716094250023308, 0.2, -0.9158194041572547],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_360",
+        "center": [5.458735114361783, 0.2, 0.8757367239708376],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_361",
+        "center": [5.870537703535541, 0.2, 1.45919361215268],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_362",
+        "center": [5.107207915149804, 0.2, 2.648130763101755],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_363",
+        "center": [5.460600898005921, 0.2, 3.328563609816157],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_364",
+        "center": [5.689063952715234, 0.2, 4.572624944944916],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_365",
+        "center": [5.0671061199481, 0.2, 5.1199026826792515],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_366",
+        "center": [5.5296864898588005, 0.2, 6.829693725328214],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_367",
+        "center": [5.799179733969752, 0.2, 7.691227629535762],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_368",
+        "center": [5.707626058891849, 0.2, 8.409277783799629],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_369",
+        "center": [5.829007247652623, 0.2, 9.213991444730782],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_370",
+        "center": [5.89143352536025, 0.2, 10.88163114442047],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_371",
+        "center": [6.324987425108588, 0.2, -10.984869937212348],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_372",
+        "center": [6.799664133942775, 0.2, -9.934515125751723],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_373",
+        "center": [6.770469791941146, 0.2, -8.118527238219741],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_374",
+        "center": [6.109010041144061, 0.2, -7.987545883801529],
+        "radius": 0.2,
+        "_shader": "metal_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_375",
+        "center": [6.284801120646465, 0.2, -6.844594644290855],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_376",
+        "center": [6.39937808553169, 0.2, -5.946692956913437],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_377",
+        "center": [6.356886740025025, 0.2, -4.140282968922865],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_378",
+        "center": [6.42883271243444, 0.2, -3.7887324785994343],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_379",
+        "center": [6.838644985857698, 0.2, -2.1991065646657053],
+        "radius": 0.2,
+        "_shader": "metal_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_380",
+        "center": [6.601838800640727, 0.2, -1.5600281449264817],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_381",
+        "center": [6.0715695996446595, 0.2, -0.34874582928051223],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_382",
+        "center": [6.482208478774223, 0.2, 0.5829426260284113],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_383",
+        "center": [6.1623718201273965, 0.2, 1.7467030545633393],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_384",
+        "center": [6.2513902091854, 0.2, 2.5576018780620506],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_385",
+        "center": [6.838829352178209, 0.2, 3.8215996640706664],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_386",
+        "center": [6.199331193840314, 0.2, 4.068582049996759],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_387",
+        "center": [6.799888515441314, 0.2, 5.093367975368954],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_388",
+        "center": [6.41684889335715, 0.2, 6.6374000299427145],
+        "radius": 0.2,
+        "_shader": "metal_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_389",
+        "center": [6.409243833528748, 0.2, 7.655582590627216],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_390",
+        "center": [6.3790576905760785, 0.2, 8.375700213875238],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_391",
+        "center": [6.0635090534463565, 0.2, 9.220073630362965],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_392",
+        "center": [6.4698117640180985, 0.2, 10.627811446039383],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_393",
+        "center": [7.232010531901764, 0.2, -10.551526800045359],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_394",
+        "center": [7.696565110560792, 0.2, -9.727143101416528],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_395",
+        "center": [7.075527774006821, 0.2, -8.754292374667436],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_396",
+        "center": [7.231150403915367, 0.2, -7.949716440876978],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_397",
+        "center": [7.7198551467525816, 0.2, -6.768080162444902],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_398",
+        "center": [7.000432886853191, 0.2, -5.489909858864565],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_399",
+        "center": [7.240383053542892, 0.2, -4.458241305496649],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_400",
+        "center": [7.6540760680096565, 0.2, -3.491979871406452],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_401",
+        "center": [7.806730897898209, 0.2, -2.336354726295628],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_402",
+        "center": [7.229716128874868, 0.2, -1.8045934617831159],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_403",
+        "center": [7.100181515219567, 0.2, -0.8190530083336159],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_404",
+        "center": [7.656717750934529, 0.2, 0.06334640332533616],
+        "radius": 0.2,
+        "_shader": "metal_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_405",
+        "center": [7.523332601044572, 0.2, 1.1393128593688022],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_406",
+        "center": [7.036968497250963, 0.2, 2.0387415062707688],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_407",
+        "center": [7.705590560305665, 0.2, 3.596623078218981],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_408",
+        "center": [7.672671760657391, 0.2, 4.646829813971545],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_409",
+        "center": [7.237998071587884, 0.2, 5.169810822124216],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_410",
+        "center": [7.197002835147616, 0.2, 6.048365451470165],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_411",
+        "center": [7.543926054802579, 0.2, 7.611146315045696],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_412",
+        "center": [7.890049782954495, 0.2, 8.501334681690725],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_413",
+        "center": [7.733398415498092, 0.2, 9.818253651162658],
+        "radius": 0.2,
+        "_shader": "metal_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_414",
+        "center": [7.121849217636849, 0.2, 10.40044689017878],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_415",
+        "center": [8.453444986233388, 0.2, -10.927732006162216],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_416",
+        "center": [8.81920645004573, 0.2, -9.143208865867106],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_417",
+        "center": [8.148629800097126, 0.2, -8.232303624347157],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_418",
+        "center": [8.4840629659453, 0.2, -7.79859868767603],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_419",
+        "center": [8.794943280197886, 0.2, -6.766002346580159],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_420",
+        "center": [8.453891516512696, 0.2, -5.190580565426959],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_421",
+        "center": [8.128003075525621, 0.2, -4.139124208389998],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_422",
+        "center": [8.717727682526082, 0.2, -3.384573612578641],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_423",
+        "center": [8.561207094807195, 0.2, -2.5544099350997165],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_424",
+        "center": [8.440757964751672, 0.2, -1.4394096697393588],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_425",
+        "center": [8.346423063629485, 0.2, -0.6851545284979366],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_426",
+        "center": [8.632591315153004, 0.2, 0.6287516191722886],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_427",
+        "center": [8.094920687923326, 0.2, 1.8776206574365608],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_428",
+        "center": [8.871441428342054, 0.2, 2.775882095668421],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_429",
+        "center": [8.493698736027495, 0.2, 3.3691207237104237],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_430",
+        "center": [8.240215268452712, 0.2, 4.667643254930385],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_431",
+        "center": [8.285695406810758, 0.2, 5.564868912074081],
+        "radius": 0.2,
+        "_shader": "metal_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_432",
+        "center": [8.371015328085733, 0.2, 6.421809291601332],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_433",
+        "center": [8.701160754195806, 0.2, 7.779173538299618],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_434",
+        "center": [8.643957930942037, 0.2, 8.386561420791711],
+        "radius": 0.2,
+        "_shader": "metal_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_435",
+        "center": [8.57709664973597, 0.2, 9.765371583552653],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_436",
+        "center": [8.720870008945845, 0.2, 10.45008851641396],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_437",
+        "center": [9.111771647366433, 0.2, -10.9476171799404],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_438",
+        "center": [9.468988490806254, 0.2, -9.140772668013721],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_439",
+        "center": [9.275114582645644, 0.2, -8.85199802958667],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_440",
+        "center": [9.593714145344755, 0.2, -7.529285892136809],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_441",
+        "center": [9.677674854620161, 0.2, -6.332153389709907],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_442",
+        "center": [9.743958059846259, 0.2, -5.2292840875442055],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_443",
+        "center": [9.671796527426427, 0.2, -4.588318469708689],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_444",
+        "center": [9.292902339956067, 0.2, -3.781667032339313],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_445",
+        "center": [9.020110972224286, 0.2, -2.801298901205578],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_446",
+        "center": [9.44772669840746, 0.2, -1.3237511343083255],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_447",
+        "center": [9.351068484761301, 0.2, -0.8438054255153739],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_448",
+        "center": [9.219859105454658, 0.2, 0.748162320001687],
+        "radius": 0.2,
+        "_shader": "metal_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_449",
+        "center": [9.767086410381795, 0.2, 1.5003464855055844],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_450",
+        "center": [9.100163762211245, 0.2, 2.3207038154523345],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_451",
+        "center": [9.41211216485484, 0.2, 3.516677453038888],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_452",
+        "center": [9.638202232354855, 0.2, 4.638929118393315],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_453",
+        "center": [9.846036023185897, 0.2, 5.456261568018236],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_454",
+        "center": [9.621977766215124, 0.2, 6.176718796904613],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_455",
+        "center": [9.061063761800936, 0.2, 7.7061860118646],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_456",
+        "center": [9.076457676803354, 0.2, 8.879016369141144],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_457",
+        "center": [9.745671204361548, 0.2, 9.039994205626867],
+        "radius": 0.2,
+        "_shader": "diffuse_1"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_458",
+        "center": [9.56282386640038, 0.2, 10.14826613736619],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_459",
+        "center": [10.388971379158173, 0.2, -10.650022239447319],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_460",
+        "center": [10.820755253689361, 0.2, -9.854610462200126],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_461",
+        "center": [10.641417825638072, 0.2, -8.284563834724002],
+        "radius": 0.2,
+        "_shader": "glass"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_462",
+        "center": [10.611312609927257, 0.2, -7.255933224689259],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_463",
+        "center": [10.04814435585679, 0.2, -6.967547149209041],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_464",
+        "center": [10.82470460293377, 0.2, -5.185717993215917],
+        "radius": 0.2,
+        "_shader": "diffuse_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_465",
+        "center": [10.592128816610373, 0.2, -4.576345598835623],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_466",
+        "center": [10.791934765497222, 0.2, -3.82481570463365],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_467",
+        "center": [10.054052295274907, 0.2, -2.13054185872918],
+        "radius": 0.2,
+        "_shader": "diffuse_5"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_468",
+        "center": [10.780913229029784, 0.2, -1.439659967354784],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_469",
+        "center": [10.593803006140787, 0.2, -0.29767608137633383],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_470",
+        "center": [10.483248860703691, 0.2, 0.30836491256187215],
+        "radius": 0.2,
+        "_shader": "diffuse_2"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_471",
+        "center": [10.22246465097039, 0.2, 1.419131607205863],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_472",
+        "center": [10.266215099780025, 0.2, 2.690012608944416],
+        "radius": 0.2,
+        "_shader": "metal_4"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_473",
+        "center": [10.524259634549319, 0.2, 3.3395503972312297],
+        "radius": 0.2,
+        "_shader": "diffuse_8"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_474",
+        "center": [10.41333391398808, 0.2, 4.633690559291108],
+        "radius": 0.2,
+        "_shader": "diffuse_7"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_475",
+        "center": [10.03745503265302, 0.2, 5.662332934009855],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_476",
+        "center": [10.83716534475328, 0.2, 6.120333559851362],
+        "radius": 0.2,
+        "_shader": "diffuse_6"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_477",
+        "center": [10.180453732662311, 0.2, 7.068539029341194],
+        "radius": 0.2,
+        "_shader": "diffuse_9"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_478",
+        "center": [10.16495476533808, 0.2, 8.600595034784796],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_479",
+        "center": [10.108665239130541, 0.2, 9.445495933868852],
+        "radius": 0.2,
+        "_shader": "diffuse_0"
+      },
+      {
+        "_type": "sphere",
+        "_name": "sphere_480",
+        "center": [10.040516937785853, 0.2, 10.033523771245996],
+        "radius": 0.2,
+        "_shader": "diffuse_3"
+      }
+    ]
+  }
+}

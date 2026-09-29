@@ -11,6 +11,8 @@ weight: 2
 
 WebTracer is a physically based ray tracer I wrote from scratch in Rust and compiled to WebAssembly, so it runs entirely in the browser. A React front end wraps the engine with a JSON scene editor, a live render preview, and an asset manager. I built it between October 2024 and January 2025.
 
+**[Try the live demo](/projects/webtracer/demo)** (desktop Chrome, Edge, or Firefox; renders use every CPU core).
+
 **What went into it:**
 
 - **Rendering:** physically based materials and lighting, with ReSTIR importance sampling to converge on a clean image in far fewer samples.

@@ -6,3 +6,12 @@
 /clide/*
     Content-Type: text/plain; charset=utf-8
     Cache-Control: public, max-age=300
+
+# WebTracer demo: WASM threads need SharedArrayBuffer, which needs cross-origin isolation.
+# require-corp means every subresource must be same-origin, so this page loads no external fonts or scripts.
+/projects/webtracer/demo
+/projects/webtracer/demo/*
+    ! Content-Security-Policy
+    Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; font-src 'self'
+    Cross-Origin-Opener-Policy: same-origin
+    Cross-Origin-Embedder-Policy: require-corp
