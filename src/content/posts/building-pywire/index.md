@@ -53,7 +53,23 @@ pywire wasn't my first attempt at this idea. In August 2025, five months before 
 
 The first prototype took four days, and it was purely server-served. Its design doc opened big, with Rails-style conventions and MVVM and MVI patterns layered on top. Within days I'd cut it down to something very close to pywire: components written as Kotlin functions on [Ktor](https://ktor.io/), HTML from a type-safe DSL, and state that lives in the user's server session. A small TypeScript runtime in the browser forwarded clicks, inputs, and form submissions over a WebSocket, with HTTP as a fallback, and the server re-rendered the component and sent back its HTML. By the fourth day, a todo app worked.
 
-The second, [Kascade](https://github.com/reecelikesramen/kascade), went a different direction. It was more React-inspired and built on Kotlin Multiplatform, so the same component code compiled for the JVM server and for the browser. The goal was a Kotlin-only DSL where you could put an action on the front end or the back end seamlessly, with effortless RPC between them, all in one model. A counter looked like this:
+A counter looked like this, with `count` living in the session on the server:
+
+```kotlin
+fun counterComponent(start: Int = 0) = component {
+    var count by state(start)
+
+    div {
+        div { +"$count" }
+        button {
+            onClick { count++ }
+            +"Increment"
+        }
+    }
+}
+```
+
+The second, [Kascade](https://github.com/reecelikesramen/kascade), went a different direction. It was more React-inspired and built on Kotlin Multiplatform, so the same component code compiled for the JVM server and for the browser. The goal was a Kotlin-only DSL where you could put an action on the front end or the back end seamlessly, with effortless RPC between them, all in one model. The same counter looked like this:
 
 ```kotlin
 val CounterComponent = component<CounterComponentProps> {
