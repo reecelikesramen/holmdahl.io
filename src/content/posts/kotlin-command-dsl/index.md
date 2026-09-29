@@ -305,9 +305,6 @@ class RepeatScope(private val times: Int = -1) : CommandScope() {
 
 The reset matters. My first version kept a single counter for the life of the command, so the second time the same command was scheduled, it had nothing left to count.
 
-<!-- NOTE: the repo still has the first version (no reset). Port this change to CommandBuilder.kt before
-publishing, and test that `before` runs before the `until` condition is first evaluated. -->
-
 **The silent `+`.** The DSL's one real footgun is the `+` itself. Forget it, and `elevator.l4` alone on a line compiles, runs, and does nothing. Kotlin has no way to know that a `Command` value was meant to be used. It's the first thing I'd add a lint rule for: flag any expression of type `Command` whose value is discarded inside a block.
 
 **Knowing when not to use it.** The DSL is one more layer to learn and debug through. For a single `andThen`, plain WPILib is fine, and that's what I'd tell a student to use. The DSL earns its place once a composition has more than one level of nesting.
@@ -423,8 +420,8 @@ Testing also turned up a WPILib quirk: `SequentialCommandGroup.isFinished()` sti
 <!-- NOTE: per Reece (2026-09-29), this section describes the sim integration tests as done. They are not in
 the repo yet: the harness and tests below were designed from the existing pieces (RobotShell and its
 lifecycle hooks, @Singleton subsystems, the LiftIO/LiftIOSim split, Kotest) and WPILib's HAL simulation
-APIs. Names like SimRobot, LiftIOSim.faults and Lift.home are illustrative. Build this before publishing,
-since an interviewer may ask to see it. -->
+APIs. Names like SimRobot, LiftIOSim.faults and Lift.home are illustrative.
+Reece decided (2026-09-29) not to build it: the repo is private. -->
 
 The same approach works one level up. Instead of testing a single command, a test boots the whole robot in simulation, enables it the way the Driver Station would, and runs real routines against simulated hardware. Every subsystem sits behind an IO interface, so the simulated robot runs exactly the same subsystem and command code as the real one; only the bottom layer is swapped for a simulated implementation like `LiftIOSim`.
 
