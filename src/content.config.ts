@@ -11,7 +11,7 @@ const posts = defineCollection({
       image: image(),
       alt: z.string(),
       caption: z.string().optional(),
-    }).optional(),
+    }), // every post and project needs a cover
     pubDate: z.date(),
     updatedDate: z.date().optional(),
     minutesRead: z.string().optional(),
@@ -41,7 +41,7 @@ const projects = defineCollection({
       image: image(),
       alt: z.string(),
       caption: z.string().optional(),
-    }).optional(),
+    }), // every post and project needs a cover
     minutesRead: z.string().optional(),
     draft: z.boolean().default(false),
     // Unwritten stubs: hidden everywhere, including preview deploys
