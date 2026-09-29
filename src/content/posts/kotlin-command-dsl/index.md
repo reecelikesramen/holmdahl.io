@@ -1,10 +1,10 @@
 ---
 author: Reece Holmdahl
 title: A Kotlin DSL for FRC Commands
-description: Using Kotlin's type-safe builders to make WPILib robot code read like what the robot does
+description: A Kotlin DSL for WPILib commands, plus units, logging, tunables, and robot setup that make FRC robot code easier to read and write
 draft: true
 pubDate: 2026-04-15
-tags: [robotics, frc, kotlin, wpilib, dsl, developer-experience]
+tags: [robotics, frc, kotlin, wpilib, dsl, advantagekit, developer-experience]
 cover:
   image: ./cover.png
   alt: The same robot scoring routine written as a chain of WPILib command calls in Java and as nested sequence and parallel blocks in the Kotlin DSL
@@ -19,7 +19,7 @@ DRAFT, restructured 2026-09-29 per the critique (site/kotlin-dsl-post-critique.m
 Sources: Reece's original draft (intro, paradigms, "Kotlin?" prose, now edited for flow), the private
 robot-code-next repo (excerpts only, no links), the WPILib commands v3 design doc, and Reece's interview
 answers. "Q:" comments are open questions; "NOTE:" comments are things to fix before publishing.
-Still to add: an AdvantageScope screenshot, and optionally a hot-deploy diagram.
+2026-09-29: added "The rest of the library" (units, logging, tunables, singletons, robot shell) per Reece, compared against EaganRobotics/2025-robot. Still to add: an AdvantageScope screenshot, and optionally a hot-deploy diagram.
 -->
 
 Syntax is a powerful thing for developer experience. JSX didn't let browsers do anything new, but it made UI code clear and declarative, and it changed how a whole community writes the web. I've always thought FRC robot code could use the same treatment. This post is about a Kotlin DSL I built on top of WPILib's commands so they read like what the robot actually does.
@@ -56,6 +56,8 @@ sequence {
 The Kotlin version isn't shorter; it's four times as many lines. What it buys is shape. You can see at a glance that there are four steps, that three of them do two things at once, and which two things. In the Java version you have to parse the chain to find out, and it's easy to misread which `.alongWith()` belongs to which `.andThen()`.
 
 That's the whole idea behind this project: **build the same declarative tree of commands WPILib already uses, but write it so it reads like the imperative code students already know.**
+
+Commands are where I started, but the library has grown to cover other places Java gets in the way: units, logging, tunable constants, subsystem access, and the robot's setup code. Those come after the DSL, in [the rest of the library](#the-rest-of-the-library).
 
 ## Why this matters to me
 
@@ -507,6 +509,173 @@ class LiftSimTest : StringSpec({
 ```
 
 The failure cases are the ones I care about most. A real robot can't tell you that homing would have driven the elevator into its hard stop if a limit switch came unplugged. A test can, every time someone changes the code, before the robot is ever turned on. And because the tests run in CI, a student gets that answer on their pull request instead of from a mentor at the practice field.
+
+## The rest of the library
+
+Commands were the first thing I built, but they're not the only place Java makes robot code more work than it should be. The same testbed has five other pieces. For each one I'll compare it against our 2025 competition code in Java, since that's the baseline we actually ship.
+
+<!--
+Q: Sources for this section: the 2025 Java robot (EaganRobotics/2025-robot, public) and robot-code-next (private,
+excerpts only). Only the lift exists on the Kotlin side so far, so every Kotlin example here is the lift or the
+robot shell, not the drive or vision. Say if a comparison is unfair to the Java side.
+-->
+
+### Units
+
+WPILib's units library is a good idea. A `Distance` can't be passed where an `Angle` is expected, and a robot that mixes up inches and meters is a robot that breaks something. The trouble in Java is that arithmetic across units is awkward, so the code drops out of the type system as soon as it does math. Our elevator converts between winch rotation and lift height like this:
+
+```java
+private Angle inchesToRadians(Distance d) {
+  return Radians.of(d.minus(MIN_HEIGHT).in(Meters) / DRUM_RADIUS.in(Meters));
+}
+
+private Distance radiansToInches(Angle a) {
+  double d = a.in(Radians) * DRUM_RADIUS.in(Meters);
+  return Meters.of(d).plus(MIN_HEIGHT);
+}
+```
+
+Each `.in(Meters)` turns a measure into a bare `double`, and from there it's on you to remember what the number means. The same two conversions in Kotlin:
+
+```kotlin
+private fun liftHeightToWinchAngle(height: Distance): Angle =
+  ((height - LiftConstants.MIN_HEIGHT) / LiftConstants.DRUM_RADIUS) * Radians
+
+private fun winchAngleToLiftHeight(winchPosition: Angle): Distance =
+  (winchPosition valueIn rad) * LiftConstants.DRUM_RADIUS + LiftConstants.MIN_HEIGHT
+```
+
+A number times a unit makes a measure, so the level heights read `19.9 * Inch` instead of `Inches.of(16.4 + 3.5)`. Measures work with `+`, `-` and `/`, and dividing a distance by a distance gives a plain ratio, which `* Radians` labels as an angle. When you do need a bare number, `valueIn` asks for it in a specific unit, and `Inches to Meters` gives you the conversion factor. Short names like `sec`, `rad`, `deg`, `ft` and `mps` cover the units we use most.
+
+This isn't a new units library. It's one file of extension functions over WPILib's own types, so everything that takes a WPILib measure still takes these.
+
+### Logging inputs and outputs
+
+AdvantageKit logging shows up in two places in our code. The first is hardware inputs. Each subsystem has an IO interface with an inputs class, and every motor on it needs the same handful of fields:
+
+```java
+@AutoLog
+public static class ElevatorIOInputs {
+  public boolean lowerLimit = false;
+  public boolean winchConnected = false;
+  public Angle winchPosition = Radians.of(0.0);
+  public AngularVelocity winchVelocity = RadiansPerSecond.of(0.0);
+  public Voltage winchAppliedVolts = Volts.of(0.0);
+  public Current winchCurrent = Amps.of(0.0);
+}
+```
+
+Then the real IO class copies them over one by one, and the simulated one does it again. In Kotlin, the per-motor fields are one class, and it already knows how to fill itself from a TalonFX:
+
+```kotlin
+@AutoLog
+open class LiftIOInputs {
+  var lowerLimit = false
+  var leadWinch = MotorInputs()
+  var followerWinch = MotorInputs()
+}
+
+// in the TalonFX IO class
+inputs.leadWinch = leadTalon.motorInputs
+```
+
+AdvantageKit's `@AutoLog` generates the logging class for Java with a Java annotation processor, which doesn't run on Kotlin code. So I wrote a [KSP](https://kotlinlang.org/docs/ksp-overview.html) processor that generates the same `LiftIOInputsAutoLogged` class, and it also flattens nested classes like `MotorInputs` so their fields still show up as individual log keys.
+
+<!-- Q: Confirm the reason for the KSP AutoLog processor (Java-only annotation processor). -->
+
+The second place is outputs, things like poses, mechanism state, and whether a limit switch is hit. Java has `@AutoLogOutput`. I added `@Log`, which goes on any property or function:
+
+```kotlin
+object State {
+  @Log(key = "Lift/Level") val desiredLevel = Level.MinHeight
+  @Log val lowerLimitHit = Trigger { Lift.it.inputs.lowerLimit }
+}
+```
+
+When the robot starts, the shell walks the robot's object graph with reflection and registers every `@Log` member to be logged each cycle. Types it doesn't know can be added with one function, and `PIDController` and `ProfiledPIDController` are already handled, so a controller logs its setpoint, its error, and whether it's at the setpoint.
+
+<!-- Q: What does @Log do that @AutoLogOutput doesn't, for Kotlin? (Is it the property annotation targets, suppliers and functions, or the PID types?) -->
+
+### Tunables
+
+Tuning a robot means changing a number, deploying, and trying again, and that gets old fast. So we publish the numbers we tune to NetworkTables and change them live. In Java, every tunable is a wrapper object, a hand-typed key, and a listener that pushes the new value to wherever it's used. Three of our elevator gains and the listener for one of them:
+
+```java
+public static final LoggedTunableNumber kP = new LoggedTunableNumber("Tuning/Elevator/kP", 6.0);
+public static final LoggedTunableNumber kI = new LoggedTunableNumber("Tuning/Elevator/kI", 0.2);
+public static final LoggedTunableNumber kD = new LoggedTunableNumber("Tuning/Elevator/kD", 0.1);
+
+// in the TalonFX IO class, one of these per gain, seven in all
+Real.kP.addListener(kP -> {
+  currentPids.kP = kP;
+  lead.getConfigurator().apply(currentPids);
+});
+```
+
+In Kotlin, it's an annotation on the constant:
+
+```kotlin
+object LiftConstants {
+  @Tunable val GEARING = 5.0
+  @Tunable val MIN_HEIGHT = Inches.of(16.4)
+  @Tunable val CARRIAGE_MASS = Pounds.of(24.0)
+}
+```
+
+A processor generates a `tunableGearing` property that always returns the latest value, an `onGearingChange { }` function to run code when it changes, and the NetworkTables key from where the constant lives. It works on doubles, strings, booleans, any WPILib measure, and `PIDController`s, where a single annotation publishes and applies all the gains.
+
+The TalonFX gains are still a hand-written listener. Annotating a motor controller directly is on the roadmap.
+
+### Subsystems as singletons
+
+In our Java robot, the subsystems are built in one place and handed to whoever needs them. The 2025 `RobotContainer` is 360 lines. It builds each subsystem for the current mode, and passes references along, like giving `drive` to `Vision`. That works, until simulation. Simulating a subsystem often needs to reach into another one, and this year that pushed us into patterns that break the isolation between them. The design doc for the Kotlin version starts from the opposite rule: every subsystem is a singleton you can reach from anywhere.
+
+```kotlin
+@Singleton
+class Lift internal constructor(private val io: LiftIO) : SubsystemBase() {
+  companion object {}
+}
+```
+
+The annotation generates two functions on the companion. `Lift.create(io)` builds the subsystem and throws if you call it twice, and `Lift.it` returns it, throwing if it doesn't exist yet. That means an auto, a sim, or another subsystem can use `Lift.it.l4` without anyone wiring it through a constructor.
+
+It's a real trade-off. Global access removes a lot of plumbing, but it's also global state, and a mistake in construction order turns into a crash at startup instead of a compile error. I think it's worth it for a robot, where there's one of each subsystem anyway, but I haven't run it on a full robot yet.
+
+<!-- Q: Anything to say about why you're comfortable with global state here, or about testing with it? -->
+
+### No main, no shell
+
+A new Java robot project starts with a `Main` class that says not to touch it, and a `Robot` class of about 270 lines. Ours sets up logging and build metadata, decides whether it's running on the real robot, in simulation, or replaying a log, finds which robot it's on by its MAC address, and forwards every lifecycle callback (`autonomousInit`, `teleopPeriodic`, and so on) to a `RobotContainer`. That has its own base class with eleven empty hooks. It's all necessary, and none of it is the robot.
+
+In Kotlin, that all lives in the library. `RobotShell` owns the lifecycle, sets up AdvantageKit for real, simulated, and replayed runs, records the git commit and build date, and picks the robot to run from the MAC address. The whole of `Main` is one call, and it never changes:
+
+```kotlin
+RobotBase.startRobot(RobotShell::robot)
+```
+
+A robot is a class that says what's unique about it:
+
+```kotlin
+class Moonwake : RobotShell("Moonwake") {
+  val lift: Lift
+
+  init {
+    when (Constants.robotType) {
+      RobotType.Real -> lift = Lift.create(LiftIOTalonFX())
+      RobotType.Sim -> lift = Lift.create(LiftIOSim())
+      RobotType.Replay -> lift = Lift.create(LiftIONull())
+    }
+  }
+
+  override val autoCommand: Command
+    get() = AutoRegistry.get()
+
+  override val testCommand: Command
+    get() = Commands.none()
+}
+```
+
+Adding a robot means writing another class like this and one line that maps its MAC address to it. A student never has to open `Main` or `Robot`, and doesn't need to know they exist.
 
 ## The alternative: WPILib commands v3
 
