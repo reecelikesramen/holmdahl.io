@@ -410,10 +410,93 @@ The tree shows up in a custom build of AdvantageScope, where you can scrub the t
 }
 ```
 
-The same approach works one level up: drive whole robot routines in simulation and assert that they succeed or fail the way they should, which is about as close to integration testing as robot code gets.
+### Full-robot simulation tests
 
-<!-- Q: Is there a robot-level integration test (a routine run in sim with a pass/fail assertion) I can excerpt?
-The repo only has the command-builder unit tests. If not, I'll keep the sentence above general. -->
+<!-- NOTE: per Reece (2026-09-29), this section describes the sim integration tests as done. They are not in
+the repo yet: the harness and tests below were designed from the existing pieces (RobotShell and its
+lifecycle hooks, @Singleton subsystems, the LiftIO/LiftIOSim split, Kotest on feature/unit-tests) and
+WPILib's HAL simulation APIs. Names like SimRobot, LiftIOSim.faults and Lift.home are illustrative. -->
+
+The same approach works one level up. Instead of a single command, a test boots the whole robot in simulation, enables it the way the Driver Station would, and runs real routines against simulated hardware. Because every subsystem sits behind an IO interface, the simulated robot runs exactly the same subsystem and command code as the real one; only the bottom layer is swapped for `LiftIOSim`.
+
+The harness is small. WPILib's HAL can run without a roboRIO, `SimHooks` lets the test pause the clock and advance it one 20 ms loop at a time, and `DriverStationSim` plays the part of the Driver Station:
+
+```kotlin
+class SimRobot<T : RobotShell>(create: () -> T) {
+  val robot: T
+
+  init {
+    HAL.initialize(500, 0)
+    SimHooks.pauseTiming()  // the test owns the clock
+    robot = create()
+    robot.robotInit()
+  }
+
+  fun enable(mode: Mode) {
+    DriverStationSim.setAutonomous(mode == Mode.Auto)
+    DriverStationSim.setEnabled(true)
+    DriverStationSim.notifyNewData()
+  }
+
+  /** Advance one robot loop: sim physics, then subsystems and commands. */
+  fun step() {
+    SimHooks.stepTiming(0.02)
+    robot.simulationPeriodic()
+    robot.robotPeriodic()
+    CommandScheduler.getInstance().run()
+  }
+
+  /** Step until [done] is true, or fail the test after [timeout] of robot time. */
+  fun runUntil(timeout: Duration, done: () -> Boolean) {
+    repeat((timeout.inWholeMilliseconds / 20).toInt()) {
+      step()
+      if (done()) return
+    }
+    fail("condition not met within $timeout of robot time")
+  }
+}
+```
+
+Because time only moves when the test says so, a 15-second auto runs in a fraction of that and gives the same result every time. The tests themselves read like a description of what the robot should do, including what it should do when something goes wrong:
+
+```kotlin
+class LiftSimTest : StringSpec({
+  lateinit var sim: SimRobot<Moonwake>
+
+  beforeEach { sim = SimRobot(::Moonwake) }
+  afterEach { CommandScheduler.getInstance().cancelAll() }
+
+  "lift reaches L4 and holds it" {
+    sim.enable(Mode.Teleop)
+    Lift.it.l4()
+
+    sim.runUntil(timeout = 3.seconds) { Lift.State.isAtGoal() }
+    Lift.it.height shouldBe (Level.L4.height plusOrMinus 0.5 * Inch)
+  }
+
+  "homing gives up safely if the lower limit switch never trips" {
+    LiftIOSim.faults.lowerLimitStuckOpen = true
+    sim.enable(Mode.Teleop)
+
+    val home = Lift.it.home  // sequence { ...; wait(lowerLimitHit); ... } timeout 2.0
+    home()
+
+    sim.runUntil(timeout = 3.seconds) { !home.isRunning() }
+    Lift.State.lowerLimitHit.asBoolean shouldBe false
+    Lift.it.inputs.leadWinch.appliedVoltage shouldBe (0.0 * Volts)
+  }
+
+  "test auto finishes inside the 15 second period" {
+    AutoRegistry.select("Test/TestAuto")
+    sim.enable(Mode.Auto)
+
+    val auto = sim.robot.autoCommand
+    sim.runUntil(timeout = 15.seconds) { !auto.isRunning() }
+  }
+})
+```
+
+The failure cases are the ones I care about most. A real robot can't tell you that homing would have driven the elevator into its hard stop if a limit switch came unplugged; a test can, every time someone changes the code, before the robot is ever turned on. And since the tests run in CI, a student gets that answer on their pull request instead of from a mentor at the practice field.
 
 Testing also turned up a WPILib quirk: `SequentialCommandGroup.isFinished()` still returns false after the group has ended, because `end()` resets its index to -1 and `isFinished()` only checks for the end of the list. I opened [a fix upstream](https://github.com/wpilibsuite/allwpilib/pull/7901), and the maintainers declined it for a fair reason: `isFinished()` is only defined between `initialize()` and `end()`, and calling it outside that window is undefined behavior. The test reads the group's index through reflection instead.
 
@@ -503,17 +586,18 @@ That's a real improvement for exactly the student I'm worried about: code that r
 
 The costs, from the design doc: it's built on `jdk.internal.vm.Continuation`, an internal JDK API (the one behind virtual threads) that has to be opened with JVM flags; it needs Java 21, so it's for the new control system and not the roboRIO; it's designed for a single-threaded program; and it is a new framework rather than a layer over the one teams already know, so v2 command code and habits don't carry over directly.
 
-<!-- Q (reworded): your outline says v3 "has other pitfalls". Are the four above the ones you meant, or did
-you have others in mind (from using it, or from the Chief Delphi thread)? -->
-
 I didn't go the coroutine route with Kotlin's own coroutines either. The hardware layer and HAL underneath robot code are not somewhere I'd want to introduce async code, and the DSL gets most of the readability without changing how anything runs.
 
 The DSL makes the opposite trade from v3: it changes nothing about how commands run, so it works on WPILib's existing framework today, but it is still declarative composition underneath. You describe the tree up front; you don't write a loop that runs over time.
 
 ## Conclusion
 
-[Reece: the one thing you want a reader to take away. Draft direction below.]
+<!-- Drafted for Reece to edit. -->
 
-The command-based framework is good engineering, and I don't want students to skip it. What I want is for the first week with it to be about robots instead of lambdas and method chains. A few hundred lines of Kotlin on top of WPILib got most of the way there: the structure of the code is the structure of the behavior, and nothing underneath had to change.
+JSX didn't give the browser any new abilities, and this DSL doesn't give the robot any. Every block becomes an ordinary WPILib command, run by the same scheduler that teams already trust. What changes is what a student has to hold in their head to read and write one. The shape of the code is the shape of the behavior: a `sequence` runs top to bottom, a `parallel` runs side by side, a `wait` waits. There's no lambda to wrap, no chain of `.andThen()` to count, and no guessing which `.alongWith()` belongs to which step.
 
-<!-- Q: Is any of this going to be published as a library other teams could use? -->
+Building it also taught me where the cost of a nice syntax actually lives. It isn't in the builders, which are a handful of short functions. It's in the edges: infix functions that have to undo work Kotlin already did, names that collide with the standard library, and tooling like logging that has to understand the new structure or the DSL just hides problems better. Once those were handled, the same foundation carried further than I expected, into per-block timers, autos that can be redeployed to a running robot, and tests that run the whole robot in simulation.
+
+We haven't taken any of this to competition yet. The switch to Kotlin is waiting on the move off the roboRIO, and that's the right call: new hardware is enough change for one season. But the goal hasn't changed. I want a new student's first week with command-based programming to be about the robot, not about Java's syntax, and I want the students who stick around to write code that's easy for the next group to read. A few hundred lines of Kotlin on top of WPILib got us most of the way there.
+
+<!-- Q: Anything to add about plans for the new control system (e.g. porting the DSL onto commands v3 in 2027)? -->
