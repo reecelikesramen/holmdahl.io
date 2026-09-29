@@ -1,6 +1,6 @@
 ---
 author: Reece Holmdahl
-title: A Kotlin DSL for FRC Commands
+title: Making FRC Robot Code Easier in Kotlin
 description: A Kotlin DSL for WPILib commands, plus units, logging, tunables, and robot setup that make FRC robot code easier to read and write
 draft: true
 pubDate: 2026-04-15
@@ -579,9 +579,7 @@ open class LiftIOInputs {
 inputs.leadWinch = leadTalon.motorInputs
 ```
 
-AdvantageKit's `@AutoLog` generates the logging class for Java with a Java annotation processor, which doesn't run on Kotlin code. So I wrote a [KSP](https://kotlinlang.org/docs/ksp-overview.html) processor that generates the same `LiftIOInputsAutoLogged` class, and it also flattens nested classes like `MotorInputs` so their fields still show up as individual log keys.
-
-<!-- Q: Confirm the reason for the KSP AutoLog processor (Java-only annotation processor). -->
+AdvantageKit's `@AutoLog` is Java-only: it generates the logging class with a Java annotation processor, which doesn't run on Kotlin code. So I wrote a [KSP](https://kotlinlang.org/docs/ksp-overview.html) processor that generates the same `LiftIOInputsAutoLogged` class, and it also flattens nested classes like `MotorInputs` so their fields still show up as individual log keys.
 
 The second place is outputs, things like poses, mechanism state, and whether a limit switch is hit. Java has `@AutoLogOutput`. I added `@Log`, which goes on any property or function:
 
@@ -623,6 +621,8 @@ object LiftConstants {
 ```
 
 A processor generates a `tunableGearing` property that always returns the latest value, an `onGearingChange { }` function to run code when it changes, and the NetworkTables key from where the constant lives. It works on doubles, strings, booleans, any WPILib measure, and `PIDController`s, where a single annotation publishes and applies all the gains.
+
+Tunables are for the pit and practice field, not for matches. In an official match, code that reads a tunable starts from the default written in the source, not whatever value was last left in NetworkTables, so a number someone tweaked at practice can't leak into a match.
 
 The TalonFX gains are still a hand-written listener. Annotating a motor controller directly is on the roadmap.
 
