@@ -11,12 +11,14 @@ const posts = defineCollection({
       image: image(),
       alt: z.string(),
       caption: z.string().optional(),
-    }).optional(),
+    }), // every post and project needs a cover
     pubDate: z.date(),
     updatedDate: z.date().optional(),
     minutesRead: z.string().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    // Unwritten stubs: hidden everywhere, including preview deploys
+    hidden: z.boolean().default(false),
     showTitle: z.boolean().default(true),
     showDescription: z.boolean().default(true),
     showCover: z.boolean().default(true),
@@ -39,9 +41,11 @@ const projects = defineCollection({
       image: image(),
       alt: z.string(),
       caption: z.string().optional(),
-    }).optional(),
+    }), // every post and project needs a cover
     minutesRead: z.string().optional(),
     draft: z.boolean().default(false),
+    // Unwritten stubs: hidden everywhere, including preview deploys
+    hidden: z.boolean().default(false),
     weight: z.number().default(0),
     showToc: z.boolean().default(false),
     coverEffects: z.boolean().default(false),

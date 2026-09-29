@@ -1,4 +1,5 @@
 ---
+import { isPublished } from '@/utils/drafts';
 import { getCollection, render } from 'astro:content';
 import MainLayout from '@/layouts/MainLayout.astro';
 import PostCard from '@/components/PostCard.astro';
@@ -6,7 +7,7 @@ import PostCard from '@/components/PostCard.astro';
 // Get all posts, filter out drafts, and get reading time for each post
 const projects = await getCollection("projects");
 const processedProjects = await Promise.all(projects
-  .filter((project) => !project.data.draft)
+  .filter(isPublished)
   .map(async (project) => {
     const { remarkPluginFrontmatter } = await render(project);
     return {
