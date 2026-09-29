@@ -1,4 +1,5 @@
 ---
+import { isPublished } from '@/utils/drafts';
 import { getCollection } from 'astro:content';
 import MainLayout from '@/layouts/MainLayout.astro';
 import PostCard from '@/components/PostCard.astro';
@@ -9,7 +10,7 @@ export async function getStaticPaths() {
   const posts = await getCollection("posts");
   
   // Filter out drafts
-  const publishedPosts = posts.filter(post => !post.data.draft);
+  const publishedPosts = posts.filter(isPublished);
   
   // Create a map to count tags and store content by tag
   const tagMap: Map<string, number> = new Map();
