@@ -121,9 +121,9 @@ It also keeps what matters about Java in FRC, whose ecosystem is enormous. Kotli
 
 My goal is that switching to Kotlin gets students up and running faster, spending less time learning syntax and less brain power digesting Java's verbosity.
 
-The plan was to switch 2220's robot code to Kotlin for the 2026 season. We deferred it because FRC's control hardware is changing: the roboRIO is being replaced by a new controller that Limelight is helping build, and adapting to that has been this offseason's focus. Everything in this post has been built and run heavily in simulation, but none of it has driven a robot at an event yet.
+The plan was to switch 2220's robot code to Kotlin for the 2026 season. It was deferred because FRC's control hardware is changing: the roboRIO is being replaced by a new controller that Limelight is helping build, and adapting to that has been this offseason's focus. Everything in this post has been built and run heavily in simulation, but none of it has driven a robot at an event yet.
 
-The command framework and scheduler is a robust and well-tested system, and we don't want to replace it. So instead of a new framework, I built a DSL on top of it with Kotlin's [type-safe builders](https://kotlinlang.org/docs/type-safe-builders.html).
+The command framework and scheduler is a robust and well-tested system, and I didn't want to replace it. So instead of a new framework, I built a DSL on top of it with Kotlin's [type-safe builders](https://kotlinlang.org/docs/type-safe-builders.html).
 
 ## A tour of the DSL
 
@@ -131,7 +131,7 @@ The command framework and scheduler is a robust and well-tested system, and we d
 
 There are four block types, `sequence`, `parallel`, `race` and `repeat(times)`, plus two helpers that take blocks: `ifElse(condition, { ... }, { ... })` and `wait(timeOrCondition) { thenDoThis }`. Inside a block, calling one of the DSL's own functions (`run`, `wait`, `print`, or a nested block) adds that command for you.
 
-A command you built somewhere else, like `elevator.l4`, is just a value, and a value sitting alone on a line in a Kotlin lambda doesn't go anywhere. The `+` is how you say "this one belongs in the block too." It's the same convention [kotlinx.html](https://github.com/Kotlin/kotlinx.html) uses, where `+"text"` adds a text node to the element you're inside. When we surveyed students, they didn't mind the `+`. What they noticed was how much less there was to write.
+A command you built somewhere else, like `elevator.l4`, is just a value, and a value sitting alone on a line in a Kotlin lambda doesn't go anywhere. The `+` is how you say "this one belongs in the block too." It's the same convention [kotlinx.html](https://github.com/Kotlin/kotlinx.html) uses, where `+"text"` adds a text node to the element you're inside. When I surveyed students, they didn't mind the `+`. What they noticed was how much less there was to write.
 
 <!-- Q: Any numbers from the survey (how many students, how many preferred the DSL)? Even informal numbers help. -->
 
@@ -383,7 +383,7 @@ It took two attempts. The first died on an unhelpful `source must not be null` e
 
 ### Testing against the real scheduler
 
-Writing robot code in Kotlin let us test it with [Kotest](https://kotest.io), and that turned out to be one of the coolest parts of the project. The tests don't mock WPILib. They build a command with the DSL, schedule it, run the real `CommandScheduler` in a loop, and check what has happened at each point in time:
+Writing robot code in Kotlin let me test it with [Kotest](https://kotest.io), and that turned out to be one of the coolest parts of the project. The tests don't mock WPILib. They build a command with the DSL, schedule it, run the real `CommandScheduler` in a loop, and check what has happened at each point in time:
 
 ```kotlin
 "sequence test" {
@@ -419,7 +419,7 @@ Writing robot code in Kotlin let us test it with [Kotest](https://kotest.io), an
 }
 ```
 
-Testing also turned up a WPILib quirk: `SequentialCommandGroup.isFinished()` still returns false after the group has ended, because `end()` resets its index to -1 and `isFinished()` only checks for the end of the list. I opened [a fix upstream](https://github.com/wpilibsuite/allwpilib/pull/7901), and the maintainers declined it for a fair reason: `isFinished()` is only defined between `initialize()` and `end()`, and calling it outside that window is undefined behavior. Our tests read the group's index through reflection instead.
+Testing also turned up a WPILib quirk: `SequentialCommandGroup.isFinished()` still returns false after the group has ended, because `end()` resets its index to -1 and `isFinished()` only checks for the end of the list. I opened [a fix upstream](https://github.com/wpilibsuite/allwpilib/pull/7901), and the maintainers declined it for a fair reason: `isFinished()` is only defined between `initialize()` and `end()`, and calling it outside that window is undefined behavior. My tests read the group's index through reflection instead.
 
 ### Full-robot simulation tests
 
@@ -590,9 +590,7 @@ object State {
 }
 ```
 
-When the robot starts, the shell walks the robot's object graph with reflection and registers every `@Log` member to be logged each cycle. Types it doesn't know can be added with one function, and `PIDController` and `ProfiledPIDController` are already handled, so a controller logs its setpoint, its error, and whether it's at the setpoint.
-
-<!-- Q: What does @Log do that @AutoLogOutput doesn't, for Kotlin? (Is it the property annotation targets, suppliers and functions, or the PID types?) -->
+When the robot starts, the shell walks the robot's object graph with reflection and registers every `@Log` member to be logged each cycle. `@Log` is how AdvantageKit output logging works for Kotlin, and because I own the processing, it supports more types than the built-in annotation does. Types it doesn't know can be added with one function, and `PIDController` and `ProfiledPIDController` are already handled, so a controller logs its setpoint, its error, and whether it's at the setpoint.
 
 ### Tunables
 
@@ -710,4 +708,4 @@ Like JSX, this DSL doesn't add any new capabilities. Every block becomes an ordi
 
 Building it also taught me where the cost of a nice syntax actually lives. It isn't in the builders, which are a handful of short functions. It's at the edges: infix functions that have to undo work Kotlin already did, names that collide with the standard library, a `+` that fails silently, and tooling like logging that has to understand the new structure, or else the DSL just hides problems better. Once those were handled, the same foundation carried further than I expected, into per-block timers, autos that can be redeployed to a running robot, and tests that run the whole robot in simulation.
 
-We haven't taken any of this to competition yet. The switch to Kotlin is waiting on the move off the roboRIO, and that's the right call: new hardware is enough change for one season. But the goal hasn't changed. I want a new student's first week with command-based programming to be about the robot, not Java's syntax, and I want the students who stick around to write code the next group can read.
+None of this has been to a competition yet. The switch to Kotlin is waiting on the move off the roboRIO, and that's the right call: new hardware is enough change for one season. But the goal hasn't changed. I want a new student's first week with command-based programming to be about the robot, not Java's syntax, and I want the students who stick around to write code the next group can read.
