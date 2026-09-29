@@ -22,6 +22,7 @@ cargo build -p raytracer-cli --release
 - [Rust](https://www.rust-lang.org/) and [nalgebra](https://nalgebra.rs/)
 - [Rayon](https://docs.rs/rayon/) and [wasm-bindgen-rayon](https://github.com/RReverser/wasm-bindgen-rayon)
 - [WebAssembly](https://webassembly.org/) with [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen)
+- [wgpu](https://wgpu.rs/) (WebGPU)
 - [Preact](https://preactjs.com/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vite.dev/)
 - [CodeMirror](https://codemirror.net/) and [Dexie](https://dexie.org/) (IndexedDB)
 
@@ -54,6 +55,8 @@ The first big win was a bounding volume hierarchy. Before it, every ray tested e
 
 The second was running on every core with Rayon. I tried splitting the image by pixel, by row, and by column; columns were slightly faster than the others, and one scene went from 179 seconds to 37.
 
+The CPU path is written to be cache-friendly and SIMD-friendly, and GPU acceleration runs through wgpu, which targets WebGPU in the browser.
+
 ## Threads in the browser
 
 WebAssembly doesn't get threads for free. [wasm-bindgen-rayon](https://github.com/RReverser/wasm-bindgen-rayon) runs Rayon's thread pool on Web Workers that share one block of WebAssembly memory. That meant building with shared memory turned on and serving the page with the cross-origin isolation headers browsers require before they allow it.
@@ -70,6 +73,6 @@ The app around the engine is a Preact app with four panes: a list of scenes, a J
 
 # Where It Stands
 
-I haven't worked on it since January 2025, and the browser app never shipped. It lives on a branch of the old version of this site and wasn't carried over when I rebuilt the site in Astro. The engine is in good shape, but by my own last commit the WebAssembly layer was messy and due for a refactor. The next things on my list were SIMD math and more materials and light types.
+I haven't worked on it since January 2025, and the browser app never shipped. It lives on a branch of the old version of this site and wasn't carried over when I rebuilt the site in Astro. The engine is in good shape, but by my own last commit the WebAssembly layer was messy and due for a refactor. The next things on my list were more materials and light types.
 
 The scenes in these renders were created by Dr. Pete Willemsen at the University of Minnesota Duluth.
