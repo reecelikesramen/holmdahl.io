@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WebTracer Demo | Reece Holmdahl</title>
+    <meta name="description" content="A Rust ray tracer compiled to WebAssembly, running across every core in your browser tab." />
+    <link rel="canonical" href="https://holmdahl.io/projects/webtracer/demo" />
+    <link rel="icon" href="/favicon.svg" />
+    <style>
+      :root { --border: #d4d4d4; --bg: #fff; --fg: #1a1a1a; color-scheme: light dark; }
+      @media (prefers-color-scheme: dark) { :root { --border: #333; --bg: #1c1c1c; --fg: #e6e6e6; } }
+      html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); font-family: system-ui, sans-serif; }
+      body { display: flex; flex-direction: column; }
+      .demo-bar { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; border-bottom: 1px solid var(--border); font-size: 14px; }
+      .demo-bar a { color: inherit; }
+      #app.raytracer-app { flex: 1; width: 100%; left: 0; transform: none; height: auto; border: 0; min-height: 0; }
+    </style>
+  </head>
+  <body>
+    <div class="demo-bar">
+      <a href="/projects/webtracer">&larr; WebTracer project page</a>
+      <span>Needs a recent Chrome, Edge, or Firefox. Renders use every CPU core.</span>
+    </div>
+    <div class="raytracer-app" id="app"></div>
+    <script type="module" src="/src/app.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,138 @@
+{
+  "scenes": [
+    {
+      "name": "cornell_room_quad.json",
+      "path": "/projects/webtracer/demo/data/scenes/cornell_room_quad.json",
+      "hash": "0eb69bc40641c0dbb6f0f5439bc3de6a6c76bfc7c6b685a6442fe9b9e746eb62"
+    },
+    {
+      "name": "raytracing_one_weekend_final_render.json",
+      "path": "/projects/webtracer/demo/data/scenes/raytracing_one_weekend_final_render.json",
+      "hash": "184646df5665738cd6cd5b8d863197e308dabf6fd579cb54ba9286360f42016c"
+    }
+  ],
+  "models": [
+    {
+      "name": "UtahTeapot.obj",
+      "path": "/projects/webtracer/demo/data/models/UtahTeapot.obj"
+    },
+    {
+      "name": "al.mtl",
+      "path": "/projects/webtracer/demo/data/models/al.mtl"
+    },
+    {
+      "name": "al.obj",
+      "path": "/projects/webtracer/demo/data/models/al.obj"
+    },
+    {
+      "name": "buddha.obj",
+      "path": "/projects/webtracer/demo/data/models/buddha.obj"
+    },
+    {
+      "name": "bunny.obj",
+      "path": "/projects/webtracer/demo/data/models/bunny.obj"
+    },
+    {
+      "name": "dragon.obj",
+      "path": "/projects/webtracer/demo/data/models/dragon.obj"
+    },
+    {
+      "name": "feline.obj",
+      "path": "/projects/webtracer/demo/data/models/feline.obj"
+    },
+    {
+      "name": "icosahedron.obj",
+      "path": "/projects/webtracer/demo/data/models/icosahedron.obj"
+    }
+  ],
+  "textures": [
+    {
+      "name": "earth_daymap_2k.png",
+      "path": "/projects/webtracer/demo/data/textures/earth_daymap_2k.png"
+    },
+    {
+      "name": "earth_normal_map_2k.png",
+      "path": "/projects/webtracer/demo/data/textures/earth_normal_map_2k.png"
+    },
+    {
+      "name": "earth_specular_map_2k.png",
+      "path": "/projects/webtracer/demo/data/textures/earth_specular_map_2k.png"
+    },
+    {
+      "name": "earthmap1k.png",
+      "path": "/projects/webtracer/demo/data/textures/earthmap1k.png"
+    },
+    {
+      "name": "earthspec1k.png",
+      "path": "/projects/webtracer/demo/data/textures/earthspec1k.png"
+    },
+    {
+      "name": "jupiter_2k.png",
+      "path": "/projects/webtracer/demo/data/textures/jupiter_2k.png"
+    },
+    {
+      "name": "jupiter_css.png",
+      "path": "/projects/webtracer/demo/data/textures/jupiter_css.png"
+    },
+    {
+      "name": "mars_2k.png",
+      "path": "/projects/webtracer/demo/data/textures/mars_2k.png"
+    },
+    {
+      "name": "moon_2k.png",
+      "path": "/projects/webtracer/demo/data/textures/moon_2k.png"
+    },
+    {
+      "name": "neptune_2k.png",
+      "path": "/projects/webtracer/demo/data/textures/neptune_2k.png"
+    },
+    {
+      "name": "reef_negX.png",
+      "path": "/projects/webtracer/demo/data/textures/reef_negX.png"
+    },
+    {
+      "name": "reef_negY.png",
+      "path": "/projects/webtracer/demo/data/textures/reef_negY.png"
+    },
+    {
+      "name": "reef_negZ.png",
+      "path": "/projects/webtracer/demo/data/textures/reef_negZ.png"
+    },
+    {
+      "name": "reef_posX.png",
+      "path": "/projects/webtracer/demo/data/textures/reef_posX.png"
+    },
+    {
+      "name": "reef_posY.png",
+      "path": "/projects/webtracer/demo/data/textures/reef_posY.png"
+    },
+    {
+      "name": "reef_posZ.png",
+      "path": "/projects/webtracer/demo/data/textures/reef_posZ.png"
+    },
+    {
+      "name": "textureCalibrationNumberGrid.png",
+      "path": "/projects/webtracer/demo/data/textures/textureCalibrationNumberGrid.png"
+    },
+    {
+      "name": "textureCalibrationNumberGrid_4k.png",
+      "path": "/projects/webtracer/demo/data/textures/textureCalibrationNumberGrid_4k.png"
+    },
+    {
+      "name": "textureMapCalibration.png",
+      "path": "/projects/webtracer/demo/data/textures/textureMapCalibration.png"
+    },
+    {
+      "name": "uffizi_cross.png",
+      "path": "/projects/webtracer/demo/data/textures/uffizi_cross.png"
+    },
+    {
+      "name": "uranus_2k.png",
+      "path": "/projects/webtracer/demo/data/textures/uranus_2k.png"
+    },
+    {
+      "name": "venus_atmosphere_2k.png",
+      "path": "/projects/webtracer/demo/data/textures/venus_atmosphere_2k.png"
+    }
+  ]
+}

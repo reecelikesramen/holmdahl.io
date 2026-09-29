@@ -1,0 +1,33 @@
+import { useState, useEffect } from "preact/hooks"
+import CodeMirror from "@uiw/react-codemirror"
+import { vscodeDark, vscodeLight } from '@uiw/codemirror-theme-vscode'
+import { json5, json5ParseLinter } from "codemirror-json5"
+import { linter } from "@codemirror/lint"
+
+interface JsonEditorProps {
+  value: string
+  onChange: (value: string) => void
+  onSave?: () => Promise<void>
+  isModified?: boolean
+}
+
+export function JsonEditor({ value, onChange, onSave, isModified }: JsonEditorProps) {
+  const media = window.matchMedia("(prefers-color-scheme: dark)")
+  const [theme, setTheme] = useState(media.matches ? "dark" : "light")
+
+  useEffect(() => {
+    const onChange = () => setTheme(media.matches ? "dark" : "light")
+    media.addEventListener("change", onChange)
+    return () => media.removeEventListener("change", onChange)
+  }, [])
+
+  return (
+    <CodeMirror
+      value={value}
+      height="100%"
+      extensions={[json5(), linter(json5ParseLinter())]}
+      onChange={onChange}
+      theme={theme === 'dark' ? vscodeDark : vscodeLight}
+    />
+  )
+}

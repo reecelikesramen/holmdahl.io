@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Checkout your repository
         uses: actions/checkout@v4
+        with:
+          lfs: true
       - name: Cache resume PDF
         id: cache-resume
         uses: actions/cache@v4

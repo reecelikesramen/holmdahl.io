@@ -11,7 +11,9 @@ weight: 2
 
 WebTracer is a ray tracer I wrote in Rust and compiled to WebAssembly. The same engine renders from the command line or in a browser tab, where a small app wraps it with a JSON scene editor, a live preview, and an asset manager for models and textures.
 
-I built it in November and December 2024 to learn Rust. The engine is on [GitHub](https://github.com/reecelikesramen/rust-raytracer), and the browser app is on this site's [`raytracer-project` branch](https://github.com/reecelikesramen/holmdahl.io/tree/raytracer-project).
+I built it in November and December 2024 to learn Rust. The engine is on [GitHub](https://github.com/reecelikesramen/rust-raytracer), and the browser app runs on this site.
+
+**[Try the live demo](/projects/webtracer/demo)** (desktop Chrome, Edge, or Firefox; renders use every CPU core).
 
 ```sh
 cargo build -p raytracer-cli --release
@@ -73,6 +75,6 @@ The app around the engine is a Preact app with four panes: a list of scenes, a J
 
 # Where It Stands
 
-I haven't worked on it since January 2025, and the browser app never shipped. It lives on a branch of the old version of this site and wasn't carried over when I rebuilt the site in Astro. The engine is in good shape, but by my own last commit the WebAssembly layer was messy and due for a refactor. The next things on my list were more materials and light types.
+I haven't worked on the engine since January 2025. In September 2026 I brought the browser app back as the live demo above, running the engine's threaded WebAssembly build. The WebAssembly layer is still messy and due for a refactor, and the next things on my list were more materials and light types.
 
 The scenes in these renders were created by Dr. Pete Willemsen at the University of Minnesota Duluth.
