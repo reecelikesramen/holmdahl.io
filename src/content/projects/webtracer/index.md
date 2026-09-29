@@ -11,7 +11,7 @@ weight: 2
 
 WebTracer is a ray tracer I wrote in Rust and compiled to WebAssembly. The same engine renders from the command line or in a browser tab, where a small app wraps it with a JSON scene editor, a live preview, and an asset manager for models and textures.
 
-I built it in November and December 2024 to learn Rust. The source is on [GitHub](https://github.com/reecelikesramen/rust-raytracer), with the browser build on the [`web-test` branch](https://github.com/reecelikesramen/rust-raytracer/tree/web-test).
+I built it in November and December 2024 to learn Rust. The engine is on [GitHub](https://github.com/reecelikesramen/rust-raytracer), and the browser app is on this site's [`raytracer-project` branch](https://github.com/reecelikesramen/holmdahl.io/tree/raytracer-project).
 
 ```sh
 cargo build -p raytracer-cli --release
@@ -22,13 +22,9 @@ cargo build -p raytracer-cli --release
 - [Rust](https://www.rust-lang.org/) and [nalgebra](https://nalgebra.rs/)
 - [Rayon](https://docs.rs/rayon/) and [wasm-bindgen-rayon](https://github.com/RReverser/wasm-bindgen-rayon)
 - [WebAssembly](https://webassembly.org/) with [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen)
-- [React](https://react.dev/) and [TypeScript](https://www.typescriptlang.org/)
+- [Preact](https://preactjs.com/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vite.dev/)
+- [CodeMirror](https://codemirror.net/) and [Dexie](https://dexie.org/) (IndexedDB)
 
-<!-- TODO(Reece): the old page and the resume also claimed ReSTIR importance sampling, GPU
-acceleration through wgpu, SIMD, and Vite. None of those are in the public repo (no wgpu or
-SIMD code, no ReSTIR, and the web-test branch is plain JS + webpack). The React app in the
-cover isn't in the public repo either. If that work lives somewhere else, tell me where and
-I'll add it back with a link. Otherwise it stays off. -->
 
 ---
 
@@ -64,12 +60,16 @@ WebAssembly doesn't get threads for free. [wasm-bindgen-rayon](https://github.co
 
 It still didn't work until I found that the framebuffer's lock, from the `parking_lot` crate, isn't supported in WebAssembly. Switching to the standard library's `RwLock` fixed it, and the full render in the browser got much faster.
 
-The browser has two render modes. The preview renders a batch of pixels per animation frame and adjusts the batch size after every frame to hold about 8 frames per second, so the page stays responsive while the image fills in. The full render runs on the thread pool in the background.
+The browser has two render modes. The preview renders a batch of pixels per animation frame and adjusts the batch size after every frame to hold about 8 frames per second, so the page stays responsive while the image fills in. The full render runs in a Web Worker on the thread pool, draws to an offscreen canvas, and hands the finished image back to the page to show and save.
+
+## The browser app
+
+The app around the engine is a Preact app with four panes: a list of scenes, a JSON editor with linting, the live preview, and an asset manager for models and textures. Scenes and assets are stored in the browser with IndexedDB, so they survive a reload, and deleting a scene can be undone for a few seconds. When a scene references a model or texture, the app loads its bytes and passes them into the engine.
 
 ---
 
 # Where It Stands
 
-I haven't worked on it since December 2024. The engine is in good shape, but by my own last commit the WebAssembly layer was messy and due for a refactor. The next things on my list were SIMD math and more materials and light types.
+I haven't worked on it since January 2025, and the browser app never shipped. It lives on a branch of the old version of this site and wasn't carried over when I rebuilt the site in Astro. The engine is in good shape, but by my own last commit the WebAssembly layer was messy and due for a refactor. The next things on my list were SIMD math and more materials and light types.
 
 The scenes in these renders were created by Dr. Pete Willemsen at the University of Minnesota Duluth.
