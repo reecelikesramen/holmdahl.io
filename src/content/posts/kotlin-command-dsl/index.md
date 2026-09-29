@@ -5,6 +5,10 @@ description: Using Kotlin's type-safe builders to make WPILib robot code read li
 draft: true
 pubDate: 2026-04-15
 tags: [robotics, frc, kotlin, wpilib, dsl, developer-experience]
+cover:
+  image: ./cover.png
+  alt: The same robot scoring routine written as a chain of WPILib command calls in Java and as nested sequence and parallel blocks in the Kotlin DSL
+  caption: Our 2025 scoring sequence in Java and in the Kotlin DSL: four steps, three of them running two commands at once
 showReadingTime: true
 showToc: true
 tocOpen: false
@@ -15,7 +19,7 @@ DRAFT, restructured 2026-09-29 per the critique (site/kotlin-dsl-post-critique.m
 Sources: Reece's original draft (intro, paradigms, "Kotlin?" prose, now edited for flow), the private
 robot-code-next repo (excerpts only, no links), the WPILib commands v3 design doc, and Reece's interview
 answers. "Q:" comments are open questions; "NOTE:" comments are things to fix before publishing.
-Still to add: a cover image, an AdvantageScope screenshot, and optionally a hot-deploy diagram.
+Still to add: an AdvantageScope screenshot, and optionally a hot-deploy diagram.
 -->
 
 Syntax is a powerful thing for developer experience. JSX didn't let browsers do anything new, but it made UI code clear and declarative, and it changed how a whole community writes the web. I've always thought FRC robot code could use the same treatment. This post is about a Kotlin DSL I built on top of WPILib's commands so they read like what the robot actually does.

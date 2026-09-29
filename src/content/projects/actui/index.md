@@ -11,7 +11,9 @@ weight: 4
 
 actui is a terminal UI for [act](https://github.com/nektos/act), the tool that runs GitHub Actions workflows locally in Docker. You pick a workflow, job, or event from a menu, check its inputs and secrets, and watch the run split into a tab per job with collapsible steps, like the Actions page on GitHub.
 
-It's a single Go program built on [Bubble Tea](https://github.com/charmbracelet/bubbletea). I built it in February 2026 and released v0.1.0 with a Homebrew tap and Linux packages.
+It's a single Go program built on [Bubble Tea](https://github.com/charmbracelet/bubbletea). I built it in about a day in February 2026 and released v0.1.0 with Linux packages and a Homebrew tap. I still use it whenever I build a GitHub Actions pipeline, at work or on my own.
+
+Install it from my [Homebrew tap](https://github.com/reecelikesramen/homebrew-tap) or with Go:
 
 ```sh
 brew install reecelikesramen/tap/actui
@@ -33,7 +35,7 @@ go install github.com/reecelikesramen/actui@latest
 
 I build a lot of CI/CD pipelines, and act is how I test them without pushing a commit and waiting on a runner. act is great at running workflows. It's not great to use. Every run means remembering the right mix of `-j`, `-W`, `--input`, `--secret`, and `--env` flags, and when jobs run in parallel their logs all land in one interleaved stream. Finding the step that failed means scrolling back through all of it.
 
-I didn't want to replace act. I wanted a front end for it that makes a local run feel like reading a run on GitHub.
+I didn't want to replace act. I wanted a front end for it where you see your options and pick them instead of learning another CLI, and where a local run reads like a run on GitHub.
 
 ---
 
