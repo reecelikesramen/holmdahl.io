@@ -1,24 +1,18 @@
 ---
 title: "VoyagerSight"
-description: "A research project replicating NVIDIA's Voyager and extending it with vision, asking whether Minecraft LLM agents play better when they can see"
+description: "A research project replicating NVIDIA's Voyager and giving its Minecraft agent sight, to test whether LLM agents play better when they can see"
 cover:
   image: ./cover.png
-  alt: Spectating the Minecraft agent completing a task
-  caption: Spectating the Minecraft agent completing a task
-showToc: false
+  alt: The VoyagerSight agent in Minecraft beside a terminal showing the JavaScript it wrote to kill a cow
+  caption: The agent carrying out a task in Minecraft, next to the code it wrote to do it
+showToc: true
 weight: 3
 ---
 
-VoyagerSight started from [NVIDIA's Voyager](https://voyager.minedojo.org/), one of the first papers to show an LLM agent learning open-endedly in Minecraft: it writes its own code as skills, stores them in a library, and builds on them to explore further. Voyager's agent only ever read text about the world. Newer models can see, so the question I wanted to explore was simple: does an agent that can look at the world play differently?
+VoyagerSight is a research project that replicates [NVIDIA's Voyager](https://voyager.minedojo.org/) and gives its agent sight. Voyager was one of the first papers to show an LLM agent learning open-endedly in Minecraft. Its agent only ever reads text about the world, and newer models can see, so I wanted to know whether an agent that can look at the world plays better.
 
-**What the project involved:**
-
-- **Replication.** Rebuilding Voyager's agent loop (automatic curriculum, iterative prompting with environment feedback, and a skill library) on newer, faster models.
-- **Adding sight.** Feeding the agent screenshots from its own point of view alongside the text observations, so it could plan from what it sees.
-- **Retrieval.** Using embeddings to pull relevant skills from the library for each new task.
-- **Experiment design.** Setting up ablations in the spirit of the original paper, comparing text-only and multimodal agents on the same tasks.
-
-What I took away from it was less about Minecraft and more about agents in general: how much of an agent's behavior comes from its prompt and memory design, why feedback loops matter more than raw model quality, and how hard it is to evaluate an agent fairly. Those lessons carry straight into the agentic engineering work I do today.
+<!-- TODO(Reece): when was this, and was it a course project, a team, or solo? Which models did
+you use? Is the code or write-up public anywhere? -->
 
 **Technologies Used:**
 
@@ -26,5 +20,25 @@ What I took away from it was less about Minecraft and more about agents in gener
 - [LangChain](https://langchain.com/)
 - [ChromaDB](https://docs.trychroma.com/docs/overview/introduction)
 - [OpenAI](https://openai.com/)
-- [Pandas](https://pandas.pydata.org/)
-- [Google Colab](https://colab.research.google.com/)
+- [Mineflayer](https://github.com/PrismarineJS/mineflayer)
+- [Pandas](https://pandas.pydata.org/) and [Google Colab](https://colab.research.google.com/)
+
+---
+
+# How It Works
+
+Voyager's agent runs a loop. A curriculum proposes the next task based on what the agent has and has done. The agent writes JavaScript against the Mineflayer bot API to do it, runs the code in the game, and reads back chat messages, errors, and the state of the world. It revises the code until the task succeeds, then saves the working function to a skill library it can call from later code.
+
+I rebuilt that loop on newer, faster models, including Voyager's skill retrieval, which stores skills as embeddings in ChromaDB and pulls the most relevant ones into the prompt for each task. Then I added two things:
+
+- **Sight.** Each prompt includes a screenshot from the agent's point of view alongside the text observations, so it can plan from what it sees.
+- **Ablations.** Following the original paper, I set up experiments that run text-only and multimodal agents on the same tasks.
+
+---
+
+# What I Learned
+
+<!-- TODO(Reece): what did the ablations show? Did the multimodal agent do better, worse, or
+just differently? One or two concrete numbers or examples here would make this page. -->
+
+Most of what I took away was about agents in general, not Minecraft. An agent's behavior comes as much from its prompt and memory design as from the model. The feedback loop of running code, reading errors, and retrying did more for reliability than a stronger model did. And evaluating an agent fairly is hard. I use those lessons in the agentic engineering work I do today.
