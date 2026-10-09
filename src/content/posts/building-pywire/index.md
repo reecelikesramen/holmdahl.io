@@ -2,7 +2,6 @@
 author: Reece Holmdahl
 title: Building pywire
 description: Nine months of building a Python web framework, its compiler, and its editor tooling, and what I'd tell myself on day one
-draft: true
 pubDate: 2026-09-27
 cover:
   image: ./cover.png

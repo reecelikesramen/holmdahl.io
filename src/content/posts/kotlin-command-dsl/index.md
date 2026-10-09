@@ -2,7 +2,6 @@
 author: Reece Holmdahl
 title: Making FRC Robot Code Easier in Kotlin
 description: A Kotlin DSL for WPILib commands, plus units, logging, tunables, and robot setup that make FRC robot code easier to read and write
-draft: true
 pubDate: 2026-04-15
 tags: [robotics, frc, kotlin, wpilib, dsl, advantagekit, developer-experience]
 cover:
