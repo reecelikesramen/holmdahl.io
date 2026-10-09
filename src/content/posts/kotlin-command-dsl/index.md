@@ -18,7 +18,7 @@ DRAFT, restructured 2026-09-29 per the critique (site/kotlin-dsl-post-critique.m
 Sources: Reece's original draft (intro, paradigms, "Kotlin?" prose, now edited for flow), the private
 robot-code-next repo (excerpts only, no links), the WPILib commands v3 design doc, and Reece's interview
 answers. "Q:" comments are open questions; "NOTE:" comments are things to fix before publishing.
-2026-09-29: added "The rest of the library" (units, logging, tunables, singletons, robot shell) per Reece, compared against EaganRobotics/2025-robot. Still to add: an AdvantageScope screenshot, and optionally a hot-deploy diagram.
+2026-09-29: added "The rest of the library" (units, logging, tunables, singletons, robot shell) per Reece, compared against EaganRobotics/2025-robot. Still to add: optionally a hot-deploy diagram.
 -->
 
 Syntax is a powerful thing for developer experience. JSX didn't let browsers do anything new, but it made UI code clear and declarative, and it changed how a whole community writes the web. I've always thought FRC robot code could use the same treatment. This post is about a Kotlin DSL I built on top of WPILib's commands so they read like what the robot actually does.
@@ -130,9 +130,7 @@ The command framework and scheduler is a robust and well-tested system, and I di
 
 There are four block types, `sequence`, `parallel`, `race` and `repeat(times)`, plus two helpers that take blocks: `ifElse(condition, { ... }, { ... })` and `wait(timeOrCondition) { thenDoThis }`. Inside a block, calling one of the DSL's own functions (`run`, `wait`, `print`, or a nested block) adds that command for you.
 
-A command you built somewhere else, like `elevator.l4`, is just a value, and a value sitting alone on a line in a Kotlin lambda doesn't go anywhere. The `+` is how you say "this one belongs in the block too." It's the same convention [kotlinx.html](https://github.com/Kotlin/kotlinx.html) uses, where `+"text"` adds a text node to the element you're inside. When I surveyed students, they didn't mind the `+`. What they noticed was how much less there was to write.
-
-<!-- Q: Any numbers from the survey (how many students, how many preferred the DSL)? Even informal numbers help. -->
+A command you built somewhere else, like `elevator.l4`, is just a value, and a value sitting alone on a line in a Kotlin lambda doesn't go anywhere. The `+` is how you say "this one belongs in the block too." It's the same convention [kotlinx.html](https://github.com/Kotlin/kotlinx.html) uses, where `+"text"` adds a text node to the element you're inside. When I surveyed students, they didn't mind the `+`. What they noticed was how much less there was to write. Of the 12 I asked, 8 preferred the DSL, 3 were neutral, and 1 preferred Java.
 
 ### Inline style
 
@@ -324,7 +322,9 @@ A DSL that hides structure in the source is worse if it also hides it on the rob
 
 The tree shows up in a custom build of AdvantageScope, AdvantageKit's log viewer. You can scrub the timeline and see every active command per subsystem, which ones are starting and ending, and commands scheduled without requirements, both live and when replaying a log.
 
-<!-- Q: Confirm you built the AdvantageScope fork. A screenshot of the command view goes here. -->
+![The Commands tab of the custom AdvantageScope build, showing a scheduled parallel group with a nested sequence and repeat, and the Lift subsystem's own repeating command, over a timeline](./advantagescope-commands.png)
+
+The fork is mine; I haven't opened a pull request for it upstream.
 
 ### Autos as scripts
 
@@ -375,10 +375,6 @@ The part I was most excited about is redeploying autos to a running robot. A sma
 <!-- NOTE: output shape reconstructed from deploy_autos.py and AutoLoader.kt, not captured from a run. -->
 
 This matters because of how autos get built today. An auto drawn in a path-planning tool is just a file, so it can be redeployed reliably. An auto built mostly in code can't, because changing it means rebuilding and restarting the whole robot program. A `.kts` auto is just a file too, so it can be hot-deployed and run safely without disturbing the rest of the system, and it still has the full power of the robot code behind it. It's the feature I most want to see at an event.
-
-It took two attempts. The first died on an unhelpful `source must not be null` error, and I shelved it. A few days later I traced the problem to the single "fat" jar that gets deployed to the robot with every dependency merged into it. What worked was switching to the JSR-223 scripting artifact and excluding the `module-info.class` and signature files that collide when everything is merged.
-
-<!-- Q: I inferred the cause from the "got it to work! classpath error with fat jar" commit. Is that the right story? -->
 
 ### Testing against the real scheduler
 
@@ -636,9 +632,24 @@ class Lift internal constructor(private val io: LiftIO) : SubsystemBase() {
 
 The annotation generates two functions on the companion. `Lift.create(io)` builds the subsystem and throws if you call it twice, and `Lift.it` returns it, throwing if it doesn't exist yet. That means an auto, a sim, or another subsystem can use `Lift.it.l4` without anyone wiring it through a constructor.
 
+Here is the difference in practice. In Java, anything that needs the lift has to be handed one:
+
+```java
+// RobotContainer.java
+Elevator elevator = new Elevator(elevatorIO);
+Vision vision = new Vision(drive, visionIO);   // drive passed along by hand
+```
+
+Every new dependency means editing the container and every constructor between it and the code that needs it. In Kotlin, the same code just asks:
+
+```kotlin
++Lift.it.l4          // from an auto script, a sim, or another subsystem
+```
+
+The wiring moves out of the call sites. It happens once, when the robot starts and each subsystem's `create` runs.
+
 It's a real trade-off. Global access removes a lot of plumbing, but it's also global state, and a mistake in construction order turns into a crash at startup instead of a compile error. I think it's worth it for a robot, where there's one of each subsystem anyway, but I haven't run it on a full robot yet.
 
-<!-- Q: Anything to say about why you're comfortable with global state here, or about testing with it? -->
 
 ### No main, no shell
 
@@ -697,7 +708,7 @@ I didn't reach for Kotlin's own coroutines either. The hardware layer underneath
 
 So the two make opposite trades. The DSL changes nothing about how commands run, so it works on WPILib's existing framework today, but underneath it's still declarative composition: you describe the whole tree up front. v3 lets you write behavior as it unfolds over time, at the cost of a new runtime model.
 
-<!-- Q: Anything to add about plans for 2027, e.g. whether you'd port the DSL onto commands v3? -->
+Porting the DSL onto v3 could remove some of its hackiness, such as the reflection used for the command tree, and improve performance. It isn't planned right now.
 
 ## Conclusion
 
