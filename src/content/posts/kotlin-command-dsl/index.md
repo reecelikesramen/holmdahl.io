@@ -176,12 +176,12 @@ On a robot, that becomes rules like "give up on intaking if this step has run fo
 
 ```kotlin
 sequence {
-  +DriveCommands.SourceSnapper(drive)
+  +DriveCommands.SourceSnapper(Drive.it)
   sequence {
     val intaking by elapsed
-    +outtake.autoQueueCoral3() until { outtake.seesAtOutputTrigger.asBoolean || intaking > 2.0 }
+    +Outtake.it.autoQueueCoral3() until { Outtake.it.seesAtOutputTrigger.asBoolean || intaking > 2.0 }
   }
-  +elevator.L0()
+  +Elevator.it.L0()
 }
 ```
 
