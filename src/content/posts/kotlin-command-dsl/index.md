@@ -178,16 +178,16 @@ On a robot, that becomes rules like "give up on intaking if this step has run fo
 
 ```kotlin
 sequence {
-  +drive.toFeeder
+  +DriveCommands.SourceSnapper(drive)
   sequence {
     val intaking by elapsed
-    +intake.run until { intake.hasCoral || intaking > 2.0 }
+    +outtake.autoQueueCoral3() until { outtake.seesAtOutputTrigger.asBoolean || intaking > 2.0 }
   }
-  +elevator.l0
+  +elevator.L0()
 }
 ```
 
-<!-- NOTE: `drive.toFeeder`, `intake.run` and `intake.hasCoral` are illustrative names. Swap in real ones. -->
+<!-- NOTE: names taken from the public EaganRobotics/2025-robot (DriveCommands.SourceSnapper, Outtake.autoQueueCoral3, seesAtOutputTrigger, Elevator.L0), written in DSL style. -->
 
 Doing this with plain WPILib means a field or a captured array holding a timestamp, a `runOnce` to set it at the right moment, and remembering which timestamp belongs to which group. Here the nesting of the code is the nesting of the timers.
 
